@@ -921,24 +921,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtInfoBattleValue = new javax.swing.JTextField();
         txtInfoCost = new javax.swing.JTextField();
         tlbIconBar = new javax.swing.JToolBar();
-        JButton btnNewVee = new JButton();
-        JButton btnOpen = new JButton();
-        JButton btnSave = new JButton();
-        JToolBar.Separator jSeparator1 = new JToolBar.Separator();
-        JButton btnPrint = new JButton();
-        JToolBar.Separator jSeparator2 = new JToolBar.Separator();
-        JButton btnExportClipboardIcon = new JButton();
-        JButton btnExportHTMLIcon = new JButton();
-        JButton btnExportTextIcon = new JButton();
-        JButton btnExportMTFIcon = new JButton();
-        JButton btnChatInfo = new JButton();
-        JToolBar.Separator jSeparator3 = new JToolBar.Separator();
-        JToolBar.Separator jSeparator25 = new JToolBar.Separator();
-        JButton btnAddToForceList = new JButton();
-        JButton btnForceList = new JButton();
-        JToolBar.Separator jSeparator4 = new JToolBar.Separator();
-        JButton btnOptions = new JButton();
-        JToolBar.Separator jSeparator21 = new JToolBar.Separator();
         JLabel lblSelectVariant = new JLabel("Selected Variant: ");
         cmbOmniVariant = new javax.swing.JComboBox();
         tbpMainTabPane = new javax.swing.JTabbedPane();
@@ -1002,46 +984,31 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         JPanel jPanel11 = new JPanel();
         chkFractional = new javax.swing.JCheckBox("Use Fractional Accounting");
         JPanel pnlSummary = new JPanel();
-        JLabel lblSummaryItem = new JLabel("Item");
-        JLabel lblSummaryTonnage = new JLabel("Tonnage");
-        JLabel jLabel15 = new JLabel("Space");
-        JLabel jLabel16 = new JLabel("Availability");
-        JLabel jLabel17 = new JLabel("Internal Structure:");
-        txtSumIntTons = new javax.swing.JTextField("000.00");
-        txtSumIntAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel18 = new JLabel("Engine:");
-        txtSumEngTons = new javax.swing.JTextField("000.00");
-        txtSumEngAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel19 = new JLabel("Lift/Dive/Rotor:");
-        txtSumLifTons = new javax.swing.JTextField("000.00");
-        txtSumLifAV = new javax.swing.JTextField("X/X-X-X");
-        txtSumEngSpace = new javax.swing.JTextField("00");
-        JLabel jLabel20 = new JLabel("Controls:");
-        txtSumConTons = new javax.swing.JTextField("000.00");
-        txtSumConAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel21 = new JLabel("Jump Jets:");
-        txtSumJJTons = new javax.swing.JTextField("000.00");
-        JTextField txtSumJJSpace = new JTextField("00");
-        txtSumJJAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel22 = new JLabel("Heat Sinks:");
-        txtSumHSTons = new javax.swing.JTextField("000.00");
-        txtSumHSAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel23 = new JLabel("Armor:");
-        txtSumArmTons = new javax.swing.JTextField("000.00");
-        txtSumArmSpace = new javax.swing.JTextField("00");
-        txtSumArmAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel24 = new JLabel("Turret:");
-        txtSumTurTons = new javax.swing.JTextField("000.00");
-        txtSumTurAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel25 = new JLabel("Rear Turret:");
-        txtSumRTuTons = new javax.swing.JTextField("000.00");
-        txtSumRTuAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel26 = new JLabel("Sponsons:");
-        txtSumSpnTons = new javax.swing.JTextField("000.00");
-        txtSumSpnAV = new javax.swing.JTextField("X/X-X-X");
-        JLabel jLabel27 = new JLabel("Power Amplifiers:");
-        txtSumPATons = new javax.swing.JTextField("000.00");
-        txtSumPAAV = new javax.swing.JTextField("X/X-X-X");
+        txtSumIntTons = Utils.summaryField("000.00");;
+        txtSumIntAV = Utils.summaryField("X/X-X-X");
+        txtSumEngTons = Utils.summaryField("000.00");
+        txtSumEngAV = Utils.summaryField("X/X-X-X");
+        txtSumLifTons = Utils.summaryField("000.00");
+        txtSumLifAV = Utils.summaryField("X/X-X-X");
+        txtSumEngSpace = Utils.summaryField("00");
+        txtSumConTons = Utils.summaryField("000.00");
+        txtSumConAV = Utils.summaryField("X/X-X-X");
+        txtSumJJTons = Utils.summaryField("000.00");
+        JTextField txtSumJJSpace = Utils.summaryField("00");
+        txtSumJJAV = Utils.summaryField("X/X-X-X");
+        txtSumHSTons = Utils.summaryField("000.00");
+        txtSumHSAV = Utils.summaryField("X/X-X-X");
+        txtSumArmTons = Utils.summaryField("000.00");
+        txtSumArmSpace = Utils.summaryField("00");
+        txtSumArmAV = Utils.summaryField("X/X-X-X");
+        txtSumTurTons = Utils.summaryField("000.00");
+        txtSumTurAV = Utils.summaryField("X/X-X-X");
+        txtSumRTuTons = Utils.summaryField("000.00");
+        txtSumRTuAV = Utils.summaryField("X/X-X-X");
+        txtSumSpnTons = Utils.summaryField("000.00");
+        txtSumSpnAV = Utils.summaryField("X/X-X-X");
+        txtSumPATons = Utils.summaryField("000.00");
+        txtSumPAAV = Utils.summaryField("X/X-X-X");
         JPanel pnlInformation = new JPanel();
         JLabel titleSuspension = new JLabel("Suspension Factor:");
         lblSupensionFacter = new javax.swing.JLabel("000");
@@ -1063,38 +1030,24 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         JPanel pnlArmorLocations = new JPanel();
         JPanel pnlRightArmor = new JPanel();
         lblRightIntPts = new javax.swing.JLabel("00");
-        JLabel jLabel40 = new JLabel("Internal");
-        JLabel jLabel46 = new JLabel("Armor");
         spnRightArmor = new javax.swing.JSpinner();
         JPanel pnlFrontArmor = new JPanel();
         lblFrontIntPts = new javax.swing.JLabel("00");
-        JLabel jLabel45 = new JLabel("Internal");
-        JLabel jLabel47 = new JLabel("Armor");
         spnFrontArmor = new javax.swing.JSpinner();
         JPanel pnlLeftArmor = new JPanel();
         lblLeftIntPts = new javax.swing.JLabel("00");
-        JLabel jLabel41 = new JLabel("Internal");
-        JLabel jLabel48 = new JLabel("Armor");
         spnLeftArmor = new javax.swing.JSpinner();
         JPanel pnlRearArmor = new JPanel();
         lblRearIntPts = new javax.swing.JLabel("00");
-        JLabel jLabel44 = new JLabel("Internal");
-        JLabel jLabel49 = new JLabel("Armor");
         spnRearArmor = new javax.swing.JSpinner();
         pnlTurretArmor = new javax.swing.JPanel();
         lblTurretIntPts = new javax.swing.JLabel("00");
-        JLabel jLabel42 = new JLabel("Internal");
-        JLabel jLabel50 = new JLabel("Armor");
         spnTurretArmor = new javax.swing.JSpinner();
         pnlRearTurretArmor = new javax.swing.JPanel();
         lblRearTurretIntPts = new javax.swing.JLabel("00");
-        JLabel jLabel43 = new JLabel("Internal");
-        JLabel jLabel51 = new JLabel("Armor");
         spnRearTurretArmor = new javax.swing.JSpinner();
         pnlRotorArmor = new javax.swing.JPanel();
         lblRotorIntPts = new javax.swing.JLabel("00");
-        JLabel jLabel92 = new JLabel("Internal");
-        JLabel jLabel93 = new JLabel("Armor");
         spnRotorArmor = new javax.swing.JSpinner();
         JPanel jPanel7 = new JPanel();
         JLabel jLabel52 = new JLabel("Armor Type:");
@@ -1145,7 +1098,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         JPanel pnlControls = new JPanel();
         JButton btnRemoveEquip = new JButton("<<");
         JButton btnClearEquip = new JButton("Clear");
-        // Variables declaration - do not modify//GEN-BEGIN:variables
         JButton btnAddEquip = new JButton(">>");
         cmbNumEquips = new javax.swing.JComboBox(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" });
         JScrollPane scrLocations = new JScrollPane();
@@ -1225,43 +1177,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         JButton btnClearImage = new JButton("Clear Image");
         JMenuBar jMenuBar1 = new JMenuBar();
         JMenu mnuFile = new JMenu("File");
-        JMenuItem mnuNewMech = new JMenuItem("New");
-        JMenuItem mnuLoad = new JMenuItem("Load");
-        JMenuItem mnuOpen = new JMenuItem("Open");
         JMenu mnuImport = new JMenu("Import...");
-        JMenuItem mnuImportHMP = new JMenuItem("from Heavy Metal Pro (HMP)");
-        JMenuItem mnuBatchHMP = new JMenuItem("Batch Import HMP Files");
-        JSeparator jSeparator22 = new JSeparator();
-        JMenuItem mnuSave = new JMenuItem("Save");
         JMenuItem mnuSaveAs = new JMenuItem("Save As...");
         JMenu mnuExport = new JMenu("Export As...");
-        JMenuItem mnuExportHTML = new JMenuItem("to HTML (Web)");
-        JMenuItem mnuExportMTF = new JMenuItem("to MTF (MegaMek)");
-        JMenuItem mnuExportTXT = new JMenuItem("to TXT (Text)");
-        JMenuItem mnuExportClipboard = new JMenuItem("to Clipboard (Text)");
-        JMenuItem mnuCreateTCGMech = new JMenuItem("to TCG Format (Card)");
-        JSeparator jSeparator23 = new JSeparator();
-        JMenu mnuPrint = new JMenu("Print");
-        JMenuItem mnuPrintPreview = new JMenuItem("Print Preview");
-        JSeparator jSeparator24 = new JSeparator();
-        JMenuItem mnuExit = new JMenuItem("Exit");
         JMenu mnuClearFluff = new JMenu("Tools");
-        JMenuItem mnuSummary = new JMenuItem("Show Summary");
-        JMenuItem mnuCostBVBreakdown = new JMenuItem("Cost/BV Breakdown");
-        JMenuItem mnuTextTRO = new JMenuItem("Show Text TRO Format");
-        JSeparator jSeparator26 = new JSeparator();
-        JMenuItem mnuBFB = new JMenuItem("Load Force Balancer");
-        JSeparator jSeparator27 = new JSeparator();
-        JMenuItem mnuOptions = new JMenuItem("Preferences");
         mnuViewToolbar = new javax.swing.JCheckBoxMenuItem("View Toolbar");
-        JMenuItem mnuClearUserData = new JMenuItem("Clear User Data");
-        JSeparator jSeparator30 = new JSeparator();
         mnuUnlock = new javax.swing.JMenuItem("Unlock Chassis");
-        JMenuItem jMenuItem1 = new JMenuItem("Clear All Fluff");
-        JMenuItem mnuReloadEquipment = new JMenuItem("Reload Equipment");
         JMenu mnuHelp = new JMenu("Help");
-        JMenuItem mnuCredits = new JMenuItem("Credits");
-        JMenuItem mnuAboutSSW = new JMenuItem("About SAW");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new Dimension(1600, 900));
@@ -1273,6 +1195,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
 
+        //region Status Bar
         txtInfoTonnage.setEditable(false);
         txtInfoTonnage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoTonnage.setText("Tonnage: 000.00");
@@ -1320,107 +1243,28 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtInfoCost.setMinimumSize(new Dimension(165, 20));
         txtInfoCost.setPreferredSize(new Dimension(165, 20));
         pnlInfoPane.add(txtInfoCost);
+        //endregion
 
+        //region Icon Bar
         tlbIconBar.setFloatable(false);
         tlbIconBar.setRollover(true);
-
-        btnNewVee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document--plus.png"))); // NOI18N
-        btnNewVee.setFocusable(false);
-        btnNewVee.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnNewVee.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnNewVee.addActionListener(this::btnNewVeeActionPerformed);
-        tlbIconBar.add(btnNewVee);
-
-        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/folder-open-document.png"))); // NOI18N
-        btnOpen.setFocusable(false);
-        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnOpen.addActionListener(this::btnOpenActionPerformed);
-        tlbIconBar.add(btnOpen);
-
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/disk-black.png"))); // NOI18N
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(this::btnSaveActionPerformed);
-        tlbIconBar.add(btnSave);
-        tlbIconBar.add(jSeparator1);
-
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/printer.png"))); // NOI18N
-        btnPrint.setFocusable(false);
-        btnPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPrint.addActionListener(this::btnPrintActionPerformed);
-        tlbIconBar.add(btnPrint);
-        tlbIconBar.add(jSeparator2);
-
-        btnExportClipboardIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-clipboard.png"))); // NOI18N
-        btnExportClipboardIcon.setToolTipText("Export Text to Clipboard");
-        btnExportClipboardIcon.setFocusable(false);
-        btnExportClipboardIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExportClipboardIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportClipboardIcon.addActionListener(this::btnExportClipboardIconActionPerformed);
-        tlbIconBar.add(btnExportClipboardIcon);
-
-        btnExportHTMLIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-image.png"))); // NOI18N
-        btnExportHTMLIcon.setToolTipText("Export HTML");
-        btnExportHTMLIcon.setFocusable(false);
-        btnExportHTMLIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExportHTMLIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportHTMLIcon.addActionListener(this::btnExportHTMLIconActionPerformed);
-        tlbIconBar.add(btnExportHTMLIcon);
-
-        btnExportTextIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-text.png"))); // NOI18N
-        btnExportTextIcon.setToolTipText("Export Text");
-        btnExportTextIcon.setFocusable(false);
-        btnExportTextIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExportTextIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportTextIcon.addActionListener(this::btnExportTextIconActionPerformed);
-        tlbIconBar.add(btnExportTextIcon);
-
-        btnExportMTFIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document--arrow.png"))); // NOI18N
-        btnExportMTFIcon.setToolTipText("Export MTF");
-        btnExportMTFIcon.setFocusable(false);
-        btnExportMTFIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExportMTFIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportMTFIcon.addActionListener(this::btnExportMTFIconActionPerformed);
-        tlbIconBar.add(btnExportMTFIcon);
-
-        btnChatInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/balloon.png"))); // NOI18N
-        btnChatInfo.setToolTipText("Copy Chat Line");
-        btnChatInfo.setFocusable(false);
-        btnChatInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnChatInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnChatInfo.addActionListener(this::btnChatInfoActionPerformed);
-        tlbIconBar.add(btnChatInfo);
-        tlbIconBar.add(jSeparator3);
-        tlbIconBar.add(jSeparator25);
-
-        btnAddToForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/clipboard--plus.png"))); // NOI18N
-        btnAddToForceList.setToolTipText("Add  to Force List");
-        btnAddToForceList.setFocusable(false);
-        btnAddToForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAddToForceList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAddToForceList.addActionListener(this::btnAddToForceListActionPerformed);
-        tlbIconBar.add(btnAddToForceList);
-
-        btnForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/clipboard.png"))); // NOI18N
-        btnForceList.setToolTipText("Force List");
-        btnForceList.setFocusable(false);
-        btnForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnForceList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnForceList.addActionListener(this::btnForceListActionPerformed);
-        tlbIconBar.add(btnForceList);
-        tlbIconBar.add(jSeparator4);
-
-        btnOptions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/gear.png"))); // NOI18N
-        btnOptions.setFocusable(false);
-        btnOptions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnOptions.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnOptions.addActionListener(this::btnOptionsActionPerformed);
-        tlbIconBar.add(btnOptions);
-        tlbIconBar.add(jSeparator21);
-
+        tlbIconBar.add(Utils.imageButton("New Unit", this::btnNewVeeActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/document--plus.png"))));
+        tlbIconBar.add(Utils.imageButton("Open Unit", this::btnOpenActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/folder-open-document.png"))));
+        tlbIconBar.add(Utils.imageButton("Save Unit", this::btnSaveActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/disk-black.png"))));
+        tlbIconBar.add(Utils.vertSeparator());
+        tlbIconBar.add(Utils.imageButton("Print", this::btnPrintActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/printer.png"))));
+        tlbIconBar.add(Utils.vertSeparator());
+        tlbIconBar.add(Utils.imageButton("Export Text to Clipboard", this::btnExportClipboardIconActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-clipboard.png"))));
+        tlbIconBar.add(Utils.imageButton("Export HTML", this::btnExportHTMLIconActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-image.png"))));
+        tlbIconBar.add(Utils.imageButton("Export Text", this::btnExportTextIconActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-text.png"))));
+        tlbIconBar.add(Utils.imageButton("Export MTF", this::btnExportMTFIconActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/document--arrow.png"))));
+        tlbIconBar.add(Utils.imageButton("Copy Chat Line", this::btnChatInfoActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/balloon.png"))));
+        tlbIconBar.add(Utils.vertSeparator());
+        tlbIconBar.add(Utils.imageButton("Add  to Force List", this::btnAddToForceListActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/clipboard--plus.png"))));
+        tlbIconBar.add(Utils.imageButton("Force List", this::btnForceListActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/clipboard.png"))));
+        tlbIconBar.add(Utils.vertSeparator());
+        tlbIconBar.add(Utils.imageButton("Preferences", this::btnOptionsActionPerformed, new javax.swing.ImageIcon(getClass().getResource("/saw/images/gear.png"))));
+        tlbIconBar.add(Utils.vertSeparator());
         lblSelectVariant.setEnabled(false);
         tlbIconBar.add(lblSelectVariant);
 
@@ -1430,7 +1274,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbOmniVariant.setPreferredSize(new Dimension(150, 20));
         cmbOmniVariant.addActionListener(this::cmbOmniVariantActionPerformed);
         tlbIconBar.add(cmbOmniVariant);
+        //endregion
 
+        //region Basic Setup Tab / Basic Information Panel
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Basic Information"));
 
         txtVehicleName.setMinimumSize(new Dimension(150, 20));
@@ -1591,7 +1437,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         };
         txtProdYear.addMouseListener( mlProdYear );
+        //endregion
 
+        //region Basic Setup Tab / Chassis Panel
         pnlChassis.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Chassis"));
 
         cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hovercraft", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "VTOL", "Wheeled", "WiGE", "Hovercraft (Super Heavy)", "Displacement (Super Heavy)" }));
@@ -1752,7 +1600,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(spnHeatSinks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        //endregion
 
+        //region Basic Setup Tab / Movement Panel
         pnlMovement.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Movement"));
 
         spnCruiseMP.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
@@ -1815,7 +1665,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(spnJumpMP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        //endregion
 
+        //region Basic Setup Tab / Chassis Modifications Panel
         pnlChassisMods.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Chassis Modifications"));
         pnlChassisMods.setLayout(new java.awt.GridBagLayout());
 
@@ -1835,7 +1687,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlChassisMods.add(chkFullAmph, Utils.gridBag(0, 2));
         pnlChassisMods.add(chkDuneBuggy, Utils.gridBag(0, 3));
         pnlChassisMods.add(chkEnviroSealing, Utils.gridBag(0, 4));
+        //endregion
 
+        //region Basic Setup Tab / Experimental Equipment Panel
         pnlExperimental.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Experimental Equipment"));
 
         chkArmoredMotive.setEnabled(false);
@@ -1882,155 +1736,64 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addComponent(chkSponsonTurret)
                 .addContainerGap())
         );
+        //endregion
 
+        //region Basic Setup Tab / Construction Options Panel
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Construction Options"));
         jPanel11.setLayout(new java.awt.GridBagLayout());
 
         chkFractional.setEnabled(false);
         chkFractional.addActionListener(this::chkFractionalActionPerformed);
         jPanel11.add(chkFractional, Utils.gridBag(0, 0));
+        //endregion
 
+        //region Basic Setup Tab / Summary Panel
         pnlSummary.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Summary"));
         pnlSummary.setLayout(new java.awt.GridBagLayout());
 
-        pnlSummary.add(lblSummaryItem, new GridBagConstraints());
-        pnlSummary.add(lblSummaryTonnage, new GridBagConstraints());
-        pnlSummary.add(jLabel15, new GridBagConstraints());
-        pnlSummary.add(jLabel16, new GridBagConstraints());
-
-        jLabel17.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel17, Utils.gridBag(0, 1));
-
-        txtSumIntTons.setEditable(false);
-        txtSumIntTons.setHorizontalAlignment(SwingConstants.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Item", SwingConstants.CENTER), Utils.gridBag(0, 0));
+        pnlSummary.add(Utils.alignedLabel("Tonnage", SwingConstants.CENTER), Utils.gridBag(1, 0));
+        pnlSummary.add(Utils.alignedLabel("Space", SwingConstants.CENTER), Utils.gridBag(2, 0));
+        pnlSummary.add(Utils.alignedLabel("Availability", SwingConstants.CENTER), Utils.gridBag(3, 0));
+        pnlSummary.add(Utils.alignedLabel("Internal Structure:", SwingConstants.RIGHT), Utils.gridBag(0, 1));
         pnlSummary.add(txtSumIntTons, Utils.gridBag(1, 1));
-
-        txtSumIntAV.setEditable(false);
-        txtSumIntAV.setHorizontalAlignment(SwingConstants.CENTER);
         pnlSummary.add(txtSumIntAV, Utils.gridBag(3, 1));
-
-        jLabel18.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel18, Utils.gridBag(0, 2));
-
-        txtSumEngTons.setEditable(false);
-        txtSumEngTons.setHorizontalAlignment(SwingConstants.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Engine:", SwingConstants.RIGHT), Utils.gridBag(0, 2));
         pnlSummary.add(txtSumEngTons, Utils.gridBag(1, 2));
-
-        txtSumEngAV.setEditable(false);
-        txtSumEngAV.setHorizontalAlignment(SwingConstants.CENTER);
         pnlSummary.add(txtSumEngAV, Utils.gridBag(3, 2));
-
-        jLabel19.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel19, Utils.gridBag(0, 3));
-
-        txtSumLifTons.setEditable(false);
-        txtSumLifTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Lift/Dive/Rotor:", SwingConstants.RIGHT), Utils.gridBag(0, 3));
         pnlSummary.add(txtSumLifTons, Utils.gridBag(1, 3));
-
-        txtSumLifAV.setEditable(false);
-        txtSumLifAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumLifAV, Utils.gridBag(3, 3));
-
-        txtSumEngSpace.setEditable(false);
-        txtSumEngSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumEngSpace, Utils.gridBag(2, 2, new Insets(0, 2, 0, 2)));
-
-        jLabel20.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel20, Utils.gridBag(0, 4));
-
-        txtSumConTons.setEditable(false);
-        txtSumConTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Controls:", SwingConstants.RIGHT), Utils.gridBag(0, 4));
         pnlSummary.add(txtSumConTons, Utils.gridBag(1, 4));
-
-        txtSumConAV.setEditable(false);
-        txtSumConAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumConAV, Utils.gridBag(3, 4));
-
-        jLabel21.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel21, Utils.gridBag(0, 5));
-
-        txtSumJJTons.setEditable(false);
-        txtSumJJTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Jump Jets:", SwingConstants.RIGHT), Utils.gridBag(0, 5));
         pnlSummary.add(txtSumJJTons, Utils.gridBag(1, 5));
-
-        txtSumJJSpace.setEditable(false);
-        txtSumJJSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumJJSpace, Utils.gridBag(2, 5, new Insets(0, 2, 0, 2)));
-
-        txtSumJJAV.setEditable(false);
-        txtSumJJAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumJJAV, Utils.gridBag(3, 5));
-
-        jLabel22.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel22, Utils.gridBag(0, 6));
-
-        txtSumHSTons.setEditable(false);
-        txtSumHSTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Heat Sinks:", SwingConstants.RIGHT), Utils.gridBag(0, 6));
         pnlSummary.add(txtSumHSTons, Utils.gridBag(1, 6));
-
-        txtSumHSAV.setEditable(false);
-        txtSumHSAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumHSAV, Utils.gridBag(3, 6));
-
-        jLabel23.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel23, Utils.gridBag(0, 7));
-
-        txtSumArmTons.setEditable(false);
-        txtSumArmTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Armor:", SwingConstants.RIGHT), Utils.gridBag(0, 7));
         pnlSummary.add(txtSumArmTons, Utils.gridBag(1, 7));
-
-        txtSumArmSpace.setEditable(false);
-        txtSumArmSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumArmSpace, Utils.gridBag(2, 7, new Insets(0, 2, 0, 2)));
-
-        txtSumArmAV.setEditable(false);
-        txtSumArmAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumArmAV, Utils.gridBag(3, 7));
-
-        jLabel24.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel24, Utils.gridBag(0, 8));
-
-        txtSumTurTons.setEditable(false);
-        txtSumTurTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Turret:", SwingConstants.RIGHT), Utils.gridBag(0, 8));
         pnlSummary.add(txtSumTurTons, Utils.gridBag(1, 8));
-
-        txtSumTurAV.setEditable(false);
-        txtSumTurAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumTurAV, Utils.gridBag(3, 8));
-
-        jLabel25.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel25, Utils.gridBag(0, 9));
-
-        txtSumRTuTons.setEditable(false);
-        txtSumRTuTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Rear Turret:", SwingConstants.RIGHT), Utils.gridBag(0, 9));
         pnlSummary.add(txtSumRTuTons, Utils.gridBag(1, 9));
-
-        txtSumRTuAV.setEditable(false);
-        txtSumRTuAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumRTuAV, Utils.gridBag(3, 9));
-
-        jLabel26.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel26, Utils.gridBag(0, 10));
-
-        txtSumSpnTons.setEditable(false);
-        txtSumSpnTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Sponsons:", SwingConstants.RIGHT), Utils.gridBag(0, 10));
         pnlSummary.add(txtSumSpnTons, Utils.gridBag(1, 10));
-
-        txtSumSpnAV.setEditable(false);
-        txtSumSpnAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumSpnAV, Utils.gridBag(3, 10));
-
-        jLabel27.setHorizontalAlignment(SwingConstants.RIGHT);
-        pnlSummary.add(jLabel27, Utils.gridBag(0, 11));
-
-        txtSumPATons.setEditable(false);
-        txtSumPATons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnlSummary.add(Utils.alignedLabel("Power Amplifiers:", SwingConstants.RIGHT), Utils.gridBag(0, 11));
         pnlSummary.add(txtSumPATons, Utils.gridBag(1, 11));
-
-        txtSumPAAV.setEditable(false);
-        txtSumPAAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pnlSummary.add(txtSumPAAV, Utils.gridBag(3, 11));
+        //endregion
 
+        //region Basic Setup Tab / Information Panel
         pnlInformation.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
 
         GroupLayout pnlInformationLayout = new GroupLayout(pnlInformation);
@@ -2098,14 +1861,18 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(titleFreeHeatSinks)
                     .addComponent(lblFreeHeatSinks)))
         );
+        //endregion
 
+        //region Basic Setup Tab / Omni Configuration Panel
         pnlOmniInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Omni Configuration"));
         pnlOmniInfo.setLayout(new java.awt.GridBagLayout());
         pnlOmniInfo.add(OmniButton(btnLockChassis, this::btnLockChassisActionPerformed), Utils.gridBag(0, 0));
         pnlOmniInfo.add(OmniButton(btnAddVariant, this::btnAddVariantActionPerformed), Utils.gridBag(0, 1));
         pnlOmniInfo.add(OmniButton(btnDeleteVariant, this::btnDeleteVariantActionPerformed), Utils.gridBag(1, 0));
         pnlOmniInfo.add(OmniButton(btnRenameVariant, this::btnRenameVariantActionPerformed), Utils.gridBag(1, 1));
+        //endregion
 
+        //region Basic Setup Tab / Armor Locations Panel
         pnlArmorLocations.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Locations"));
         pnlRightArmor = ArmorLocation("Right", lblRightIntPts, spnRightArmor, this::spnRightArmorStateChanged);
         pnlFrontArmor = ArmorLocation("Front", lblFrontIntPts, spnFrontArmor, this::spnFrontArmorStateChanged);
@@ -2158,7 +1925,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addComponent(pnlRearArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+        //endregion
 
+        //region Basic Setup Tab / Armor Type Panel
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Type"));
 
         cmbArmorType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard", "Industrial", "Commercial", "Ferro-Fibrous", "Light Ferro-Fibrous", "Heavy Ferro-Fibrous", "Vehicular Stealth" }));
@@ -2216,7 +1985,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addGap(0, 0, 0)
                 .addComponent(btnMaximize))
         );
+        //endregion
 
+        //region Basic Setup Tab / Armor Information Panel
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Information"));
         jPanel8.setLayout(new java.awt.GridBagLayout());
         jLabel34.setHorizontalAlignment(SwingConstants.CENTER);
@@ -2242,7 +2013,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         jPanel8.add(lblArmorTonsWasted, Utils.gridBag(0, 2, 3, GridBagConstraints.EAST, new Insets(4, 0, 0, 0)));
         lblArmorLeftInLot.setHorizontalAlignment(SwingConstants.RIGHT);
         jPanel8.add(lblArmorLeftInLot, Utils.gridBag(0, 3, 3, GridBagConstraints.EAST, new Insets(4, 0, 0, 0)));
+        //endregion
 
+        //region Basic Setup Tab / Layout
         GroupLayout pnlBasicSetupLayout = new GroupLayout(pnlBasicSetup);
         pnlBasicSetup.setLayout(pnlBasicSetupLayout);
         pnlBasicSetupLayout.setHorizontalGroup(
@@ -2302,6 +2075,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         );
 
         tbpMainTabPane.addTab("Basic Setup and Armor", pnlBasicSetup);
+        //endregion
 
         //region Equipment Tab / Highlighted Equipment Information
         pnlEquipInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
@@ -2331,12 +2105,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlEquipInfo.add(lblInfoHeat, Utils.gridBag(2, 1, new Insets(0, 3, 0, 3)));
         pnlEquipInfo.add(lblInfoDamage, Utils.gridBag(3, 1, new Insets(0, 3, 0, 3)));
         pnlEquipInfo.add(lblInfoRange, Utils.gridBag(4, 1, new Insets(0, 3, 0, 3)));
-        pnlEquipInfo.add(Utils.etchedSeperator(), Utils.gridBag(0, 2, GridBagConstraints.REMAINDER, GridBagConstraints.WEST, new Insets(4, 0, 4, 0)));
+        pnlEquipInfo.add(Utils.etchedSeparator(), Utils.gridBag(0, 2, GridBagConstraints.REMAINDER, GridBagConstraints.WEST, new Insets(4, 0, 4, 0)));
         pnlEquipInfo.add(lblInfoAmmo, Utils.gridBag(5, 1, new Insets(0, 3, 0, 3)));
         pnlEquipInfo.add(lblInfoTonnage, Utils.gridBag(6, 1, new Insets(0, 3, 0, 3)));
         pnlEquipInfo.add(lblInfoCrits, Utils.gridBag(7, 1, new Insets(0, 3, 0, 3)));
         pnlEquipInfo.add(lblInfoSpecials, Utils.gridBag(8, 1, new Insets(0, 3, 0, 0)));
-        pnlEquipInfo.add(Utils.etchedSeperator(), Utils.gridBag(0, 7, GridBagConstraints.REMAINDER, GridBagConstraints.WEST, new Insets(4, 0, 4, 0)));
+        pnlEquipInfo.add(Utils.etchedSeparator(), Utils.gridBag(0, 7, GridBagConstraints.REMAINDER, GridBagConstraints.WEST, new Insets(4, 0, 4, 0)));
         pnlEquipInfo.add(new JLabel("Cost"), Utils.gridBag(5, 4, 2, GridBagConstraints.EAST, new Insets(0, 3, 0, 3)));
         pnlEquipInfo.add(lblInfoCost, Utils.gridBag(7, 4, 2, GridBagConstraints.WEST, new Insets(0, 3, 0, 0)));
         pnlEquipInfo.add(new JLabel("BV"), Utils.gridBag(5, 5, 2, GridBagConstraints.WEST, new Insets(0, 3, 0, 3)));
@@ -2773,114 +2547,71 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         //endregion
 
         //region Menus
+
+        //region File
         mnuFile.addActionListener(this::mnuFileActionPerformed);
+        mnuFile.add(Utils.menuItem("New", this::mnuNewMechActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.ALT_MASK)));
+        mnuFile.add(Utils.menuItem("Load", this::mnuLoadActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.ALT_MASK)));
+        mnuFile.add(Utils.menuItem("Open", this::mnuOpenActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_MASK)));
 
-        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
-        mnuNewMech.addActionListener(this::mnuNewMechActionPerformed);
-        mnuFile.add(mnuNewMech);
-
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        mnuLoad.addActionListener(this::mnuLoadActionPerformed);
-        mnuFile.add(mnuLoad);
-
-        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        mnuOpen.addActionListener(this::mnuOpenActionPerformed);
-        mnuFile.add(mnuOpen);
-
-        mnuImportHMP.addActionListener(this::mnuImportHMPActionPerformed);
-        mnuImport.add(mnuImportHMP);
-
-        mnuBatchHMP.addActionListener(this::mnuBatchHMPActionPerformed);
-        mnuImport.add(mnuBatchHMP);
-
+        mnuImport.add(Utils.menuItem("from Heavy Metal Pro (HMP)", this::mnuImportHMPActionPerformed));
+        mnuImport.add(Utils.menuItem("Batch Import HMP Files", this::mnuBatchHMPActionPerformed));
         mnuFile.add(mnuImport);
-        mnuFile.add(jSeparator22);
+        mnuFile.add(Utils.etchedSeparator());
+        mnuFile.add(Utils.menuItem("Save", this::mnuSaveActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_MASK)));
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        mnuSave.addActionListener(this::mnuSaveActionPerformed);
-        mnuFile.add(mnuSave);
-
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_MASK | InputEvent.CTRL_MASK));
         mnuSaveAs.addActionListener(this::mnuSaveAsActionPerformed);
         mnuFile.add(mnuSaveAs);
 
-        mnuExportHTML.addActionListener(this::mnuExportHTMLActionPerformed);
-        mnuExport.add(mnuExportHTML);
-
-        mnuExportMTF.addActionListener(this::mnuExportMTFActionPerformed);
-        mnuExport.add(mnuExportMTF);
-
-        mnuExportTXT.addActionListener(this::mnuExportTXTActionPerformed);
-        mnuExport.add(mnuExportTXT);
-
-        mnuExportClipboard.addActionListener(this::mnuExportClipboardActionPerformed);
-        mnuExport.add(mnuExportClipboard);
-
-        mnuCreateTCGMech.addActionListener(this::mnuCreateTCGMechActionPerformed);
-        mnuExport.add(mnuCreateTCGMech);
-
+        mnuExport.add(Utils.menuItem("to HTML (Web)", this::mnuExportHTMLActionPerformed));
+        mnuExport.add(Utils.menuItem("to MTF (MegaMek)", this::mnuExportMTFActionPerformed));
+        mnuExport.add(Utils.menuItem("to TXT (Text)", this::mnuExportTXTActionPerformed));
+        mnuExport.add(Utils.menuItem("to Clipboard (Text)", this::mnuExportClipboardActionPerformed));
+        mnuExport.add(Utils.menuItem("to TCG Format (Card)", this::mnuCreateTCGMechActionPerformed));
         mnuFile.add(mnuExport);
-        mnuFile.add(jSeparator23);
-        mnuFile.add(mnuPrint);
-
-        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        mnuPrintPreview.addActionListener(this::mnuPrintPreviewActionPerformed);
-        mnuFile.add(mnuPrintPreview);
-        mnuFile.add(jSeparator24);
-
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
-        mnuExit.addActionListener(this::mnuExitActionPerformed);
-        mnuFile.add(mnuExit);
-
+        mnuFile.add(Utils.etchedSeparator());
+        mnuFile.add(Utils.menuItem("Print Preview", this::mnuPrintPreviewActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK)));
+        mnuFile.add(Utils.etchedSeparator());
+        mnuFile.add(Utils.menuItem("Exit", this::mnuExitActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK)));
         jMenuBar1.add(mnuFile);
+        //endregion
 
-        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
-        mnuSummary.addActionListener(this::mnuSummaryActionPerformed);
-        mnuClearFluff.add(mnuSummary);
-
-        mnuCostBVBreakdown.addActionListener(this::mnuCostBVBreakdownActionPerformed);
-        mnuClearFluff.add(mnuCostBVBreakdown);
-
-        mnuTextTRO.addActionListener(this::mnuTextTROActionPerformed);
-        mnuClearFluff.add(mnuTextTRO);
-        mnuClearFluff.add(jSeparator26);
-
-        mnuBFB.addActionListener(this::mnuBFBActionPerformed);
-        mnuClearFluff.add(mnuBFB);
-        mnuClearFluff.add(jSeparator27);
-
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        mnuOptions.addActionListener(this::mnuOptionsActionPerformed);
-        mnuClearFluff.add(mnuOptions);
+        //region Tools
+        mnuClearFluff.add(Utils.menuItem("Show Summary", this::mnuSummaryActionPerformed));
+        mnuClearFluff.add(Utils.menuItem("Cost/BV Breakdown", this::mnuCostBVBreakdownActionPerformed));
+        mnuClearFluff.add(Utils.menuItem("Show Text TRO Format", this::mnuTextTROActionPerformed));
+        mnuClearFluff.add(Utils.etchedSeparator());
+        mnuClearFluff.add(Utils.menuItem("Load Force Balancer", this::mnuBFBActionPerformed));
+        mnuClearFluff.add(Utils.etchedSeparator());
+        mnuClearFluff.add(Utils.menuItem("Preferences", this::mnuOptionsActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK)));
 
         mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.addActionListener(this::mnuViewToolbarActionPerformed);
         mnuClearFluff.add(mnuViewToolbar);
 
-        mnuClearUserData.addActionListener(this::mnuClearUserDataActionPerformed);
-        mnuClearFluff.add(mnuClearUserData);
-        mnuClearFluff.add(jSeparator30);
+        mnuClearFluff.add(Utils.menuItem("Clear User Data", this::mnuClearUserDataActionPerformed));
+        mnuClearFluff.add(Utils.etchedSeparator());
 
         mnuUnlock.setEnabled(false);
         mnuUnlock.addActionListener(this::mnuUnlockActionPerformed);
         mnuClearFluff.add(mnuUnlock);
-
-        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
-        mnuClearFluff.add(jMenuItem1);
-
-        mnuReloadEquipment.addActionListener(this::mnuReloadEquipmentActionPerformed);
-        mnuClearFluff.add(mnuReloadEquipment);
+        mnuClearFluff.add(Utils.menuItem("Clear All Fluff", this::jMenuItem1ActionPerformed));
+        mnuClearFluff.add(Utils.menuItem("Reload Equipment", this::mnuReloadEquipmentActionPerformed));
         jMenuBar1.add(mnuClearFluff);
+        //endregion
 
-        mnuCredits.addActionListener(this::mnuCreditsActionPerformed);
-        mnuHelp.add(mnuCredits);
-        mnuAboutSSW.addActionListener(this::mnuAboutSSWActionPerformed);
-        mnuHelp.add(mnuAboutSSW);
-
+        //region About
+        mnuHelp.add(Utils.menuItem("Credits", this::mnuCreditsActionPerformed));
+        mnuHelp.add(Utils.menuItem("About SAW", this::mnuAboutSSWActionPerformed));
         jMenuBar1.add(mnuHelp);
-        setJMenuBar(jMenuBar1);
+        //endregion
 
+        setJMenuBar(jMenuBar1);
+        //endregion
+
+        //region Form Layout
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
