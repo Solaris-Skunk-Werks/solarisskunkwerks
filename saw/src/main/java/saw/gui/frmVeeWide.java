@@ -4041,8 +4041,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
-        chkOmniVee.setSelected( false );
-        chkOmniVee.setEnabled( true );
         btnLockChassis.setEnabled( true );
         spnCruiseMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
@@ -4527,6 +4525,17 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbMotiveType.setSelectedItem( CurVee.GetMotiveLookupName() );
         spnTonnage.setModel( new javax.swing.SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1) );
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1) );
+        FixArmorSpinners();
+
+        // now that we're done with the special stuff...
+        Load = false;
+
+        if( CurVee.IsOmni() ) {
+            LockGUIForOmni();
+            RefreshOmniVariants();
+            RefreshOmniChoices();
+        }
+
         if ( CurVee.isHasTurret1() ) {
             cmbTurret.setSelectedItem("Single Turret");
             if (chkOmniVee.isSelected()) {
@@ -4540,16 +4549,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 spnRearTurretTonnage.setEnabled(!isLocked);
                 spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
             }
-        }
-        FixArmorSpinners();
-
-        // now that we're done with the special stuff...
-        Load = false;
-
-        if( CurVee.IsOmni() ) {
-            LockGUIForOmni();
-            RefreshOmniVariants();
-            RefreshOmniChoices();
         }
 
         FixTonnageSpinner( CurVee.GetMinTonnage(), CurVee.GetMaxTonnage() );
