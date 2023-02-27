@@ -4529,13 +4529,17 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1) );
         if ( CurVee.isHasTurret1() ) {
             cmbTurret.setSelectedItem("Single Turret");
-            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
-            spnTurretTonnage.setValue(CurVee.GetLoadout().GetTurret().GetTonnage());
+            if (chkOmniVee.isSelected() && !isLocked) {
+                spnTurretTonnage.setEnabled(true);
+                spnTurretTonnage.setValue(CurVee.GetLoadout().GetTurret().GetTonnage());
+            }
         }
         if ( CurVee.isHasTurret2() ) {
             cmbTurret.setSelectedItem("Dual Turret");
-            spnRearTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
-            spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
+            if (chkOmniVee.isSelected() && !isLocked) {
+                spnRearTurretTonnage.setEnabled(true);
+                spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
+            }
         }
         FixArmorSpinners();
 
