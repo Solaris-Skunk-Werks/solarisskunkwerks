@@ -1152,7 +1152,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean HasArmoredMotiveSystem() {
-        return UsingArmoredMotiveSystem;
+        return IsAllocated( AMotiveS );
     }
 
     public void SetArmoredMotiveSystem(boolean b) {

@@ -1,5 +1,7 @@
 package components;
 
+import common.CommonTools;
+
 public class ArmoredMotiveSystem extends abPlaceable {
     private ifCVLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -7,7 +9,7 @@ public class ArmoredMotiveSystem extends abPlaceable {
     public ArmoredMotiveSystem(ifCVLoadout l) {
         AC.SetISCodes('E', 'X', 'X', 'F', 'E');
         AC.SetISDates( 3069, 3071, true, 0, 0, 0, false, false );
-        AC.SetISFactions( "FWL", "FWL", "FWL", "" );
+        AC.SetISFactions( "FWL", "FWL", "", "" );
         AC.SetCLCodes( 'F', 'X', 'X', 'F', 'E' );
         AC.SetCLDates( 3054, 3057, true, 0, 0, 0, false, false );
         AC.SetCLFactions( "CHH", "CHH", "", "" );
@@ -59,7 +61,7 @@ public class ArmoredMotiveSystem extends abPlaceable {
 
     @Override
     public double GetTonnage() {
-        return Owner.GetOwner().GetTonnage() * (IsClan ? .10 : .15);
+        return CommonTools.RoundHalfUp(Owner.GetOwner().GetTonnage() * (IsClan ? .01 : .015));
     }
 
     @Override
@@ -84,7 +86,7 @@ public class ArmoredMotiveSystem extends abPlaceable {
 
     @Override
     public double GetDefensiveBV() {
-        return 0;
+        return 0.1;
     }
 
     @Override
