@@ -4529,12 +4529,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1) );
         if ( CurVee.isHasTurret1() ) {
             cmbTurret.setSelectedItem("Single Turret");
-            spnTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
+            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
             spnTurretTonnage.setValue(CurVee.GetLoadout().GetTurret().GetTonnage());
         }
         if ( CurVee.isHasTurret2() ) {
             cmbTurret.setSelectedItem("Dual Turret");
-            spnRearTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
+            spnRearTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
             spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
         }
         FixArmorSpinners();
@@ -6557,14 +6557,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         String Turret = cmbTurret.getSelectedItem().toString();
         if (Turret.equals("Single Turret") || Turret.equals("Chin Turret")) {
             CurVee.setHasTurret1(true);
-            spnTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
+            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
             spnRearTurretTonnage.setEnabled(false);
             spnRearTurretTonnage.setValue(0);
         } else if (Turret.equals("Dual Turret")) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
-            spnTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
-            spnRearTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
+            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
+            spnRearTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
@@ -6736,11 +6736,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void chkOmniVeeActionPerformed(java.awt.event.ActionEvent evt) {
-        if (chkOmniVee.isSelected()) {
-            btnLockChassis.setEnabled(true);
-        } else {
-            btnLockChassis.setEnabled(false);
-        }
+        btnLockChassis.setEnabled(chkOmniVee.isSelected());
         cmbTurretActionPerformed(evt);
     }
 
