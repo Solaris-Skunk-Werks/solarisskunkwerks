@@ -2798,22 +2798,17 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             spnRearTurretArmor.setValue(0);
             pnlTurretArmor.setVisible(false);
             pnlRearTurretArmor.setVisible(false);
-            spnTurretTonnage.setValue(0);
-            spnTurretTonnage.setEnabled(false);
         } else if ( cmbTurret.getSelectedItem().toString().equals("Single Turret")) {
             pnlTurretArmor.setVisible(true);
             spnRearTurretArmor.setValue(0);
             pnlRearTurretArmor.setVisible(false);
-            spnTurretTonnage.setEnabled(true);
         } else if (cmbTurret.getSelectedItem().toString().equals("Chin Turret")) {
             pnlTurretArmor.setVisible(true);
             spnRearTurretArmor.setValue(0);
             pnlRearTurretArmor.setVisible(false);
-            spnTurretTonnage.setEnabled(true);
         } else if ( cmbTurret.getSelectedItem().toString().equals("Dual Turret") ) {
             pnlTurretArmor.setVisible(true);
             pnlRearTurretArmor.setVisible(true);
-            spnTurretTonnage.setEnabled(true);
         }
         if ( CurVee.IsVTOL() ) {
             pnlRotorArmor.setVisible(true);
@@ -3803,6 +3798,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         BuildChassisSelector();
         BuildEngineSelector();
         BuildArmorSelector();
+        BuildTurretSelector();
         BuildExpEquipmentSelector();
         CheckOmni();
         FixMPSpinner();
@@ -4533,12 +4529,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1) );
         if ( CurVee.isHasTurret1() ) {
             cmbTurret.setSelectedItem("Single Turret");
-            spnTurretTonnage.setEnabled(!isLocked);
+            spnTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
             spnTurretTonnage.setValue(CurVee.GetLoadout().GetTurret().GetTonnage());
         }
         if ( CurVee.isHasTurret2() ) {
             cmbTurret.setSelectedItem("Dual Turret");
-            spnRearTurretTonnage.setEnabled(!isLocked);
+            spnRearTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
             spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
         }
         FixArmorSpinners();
@@ -6561,18 +6557,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         String Turret = cmbTurret.getSelectedItem().toString();
         if (Turret.equals("Single Turret") || Turret.equals("Chin Turret")) {
             CurVee.setHasTurret1(true);
-            if (!isLocked) {
-                spnTurretTonnage.setEnabled(true);
-            }
+            spnTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
             spnRearTurretTonnage.setEnabled(false);
             spnRearTurretTonnage.setValue(0);
         } else if (Turret.equals("Dual Turret")) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
-            if (!isLocked) {
-                spnTurretTonnage.setEnabled(true);
-                spnRearTurretTonnage.setEnabled(true);
-            }
+            spnTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
+            spnRearTurretTonnage.setEnabled(CurVee.isOmni() && !isLocked);
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
