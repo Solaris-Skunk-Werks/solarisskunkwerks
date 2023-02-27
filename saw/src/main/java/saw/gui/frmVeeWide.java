@@ -4536,6 +4536,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             RefreshOmniChoices();
         }
 
+        spnTurretTonnage.setValue(0);
+        spnRearTurretTonnage.setValue(0);
         if ( CurVee.isHasTurret1() ) {
             cmbTurret.setSelectedItem("Single Turret");
             if (chkOmniVee.isSelected()) {
