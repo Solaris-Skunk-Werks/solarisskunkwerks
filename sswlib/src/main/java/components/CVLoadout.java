@@ -46,6 +46,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     private TargetingComputer CurTC = new TargetingComputer( this, false );
     private Supercharger SCharger = new Supercharger( this );
     private VTOLBooster VBooster = new VTOLBooster(this);
+    private ArmoredMotiveSystem AMotiveS = new ArmoredMotiveSystem(this);
     private String Name = Constants.BASELOADOUT_NAME,
                    Source = "";
     private ArrayList<abPlaceable> Queue = new ArrayList<abPlaceable>(),
@@ -73,7 +74,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     UsingSupercharger = false,
                     YearSpecified = false,
                     YearRestricted = false,
-                    UsingVTOLBooster = false;
+                    UsingVTOLBooster = false,
+                    UsingArmoredMotiveSystem = false;
     private Turret Turret1 = new Turret(this, false),
                    Turret2 = new Turret(this, false);
     private SponsonTurret SponsonTurretLeft = new SponsonTurret(this, false),
@@ -1147,6 +1149,28 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public VTOLBooster GetVTOLBooster() {
         return VBooster;
+    }
+
+    public boolean HasArmoredMotiveSystem() {
+        return UsingArmoredMotiveSystem;
+    }
+
+    public void SetArmoredMotiveSystem(boolean b) {
+        if (!b) {
+            Remove(AMotiveS);
+            return;
+        }
+
+        try {
+            AddToBody(AMotiveS);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        Owner.setChanged(true);
+    }
+
+    public ArmoredMotiveSystem GetArmoredMotiveSystem() {
+        return AMotiveS;
     }
 
     public CVPowerAmplifier GetPowerAmplifier() {

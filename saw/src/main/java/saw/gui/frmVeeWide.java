@@ -1938,6 +1938,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkArmoredMotive.setText("Armored Motive System");
         chkArmoredMotive.setEnabled(false);
+        chkArmoredMotive.addActionListener(this::chkArmoredMotiveActionPerformed);
 
         chkCommandConsole.setText("Command Console");
         chkCommandConsole.setEnabled(false);
@@ -5378,7 +5379,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         setCheckbox(chkSupercharger, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasSupercharger());
         setCheckbox(chkJetBooster, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && CurVee.IsVTOL() && !CurVee.IsOmni() ), CurVee.GetLoadout().HasVTOLBooster());
-
+        setCheckbox(chkArmoredMotive, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetArmoredMotiveSystem().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasArmoredMotiveSystem());
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
@@ -7816,7 +7817,20 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshSummary();
         RefreshInfoPane();
     }
-
+    private void chkArmoredMotiveActionPerformed(ActionEvent evt) {
+        if (CurVee.GetLoadout().HasArmoredMotiveSystem() == chkArmoredMotive.isSelected()) {
+            return;
+        }
+        try {
+            CurVee.GetLoadout().SetArmoredMotiveSystem(chkArmoredMotive.isSelected());
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkArmoredMotive.setSelected( false );
+        }
+        RefreshSelectedEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+    }
     private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
             return;
