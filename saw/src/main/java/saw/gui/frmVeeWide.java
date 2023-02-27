@@ -2294,8 +2294,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         //region Fluff Tab / Fluff Editors
         tbpFluffEditors.setTabPlacement(JTabbedPane.RIGHT);
-        tbpFluffEditors.setMaximumSize(new Dimension(1000, 1000));
-        tbpFluffEditors.setMinimumSize(new Dimension(420, 455));
+        tbpFluffEditors.setPreferredSize(new Dimension(400, 455));
 
         pnlOverview.setLayout(new BoxLayout(pnlOverview, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Overview", pnlOverview);
@@ -2421,8 +2420,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         //region Fluff Tab / Fluff Image
         pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", Font.PLAIN, 11))); // NOI18N
-        pnlImage.setPreferredSize(new Dimension(400, 450));
+        pnlImage.setPreferredSize(new Dimension(350, 450));
         pnlImageButtons.setLayout(new java.awt.GridBagLayout());
+
+        lblFluffImage.setPreferredSize(new Dimension(300, 350));
 
         btnLoadImage.addActionListener(this::btnLoadImageActionPerformed);
         pnlImageButtons.add(btnLoadImage, new GridBagConstraints());
@@ -2451,17 +2452,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         GroupLayout pnlFluffLayout = new GroupLayout(pnlFluff);
         pnlFluff.setLayout(pnlFluffLayout);
         pnlFluffLayout.setHorizontalGroup(
-                pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
                         .addGroup(pnlFluffLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(pnlManufacturers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-
                                 .addComponent(tbpFluffEditors, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pnlImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pnlImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-
                                 .addContainerGap())
         );
         pnlFluffLayout.setVerticalGroup(
@@ -2470,7 +2469,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                                 .addContainerGap()
                                 .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
                                         .addComponent(pnlManufacturers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tbpFluffEditors, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                                        .addComponent(tbpFluffEditors, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(pnlImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
         );
@@ -3056,8 +3055,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void BuildTurretSelector() {
         ArrayList list = new ArrayList();
 
-        if ( !CurVee.IsOmni())
+        if ( !CurVee.IsOmni()) {
             cmbTurret.setEnabled(true);
+        }
 
         list.add("No Turret");
         if ( CurVee.CanUseTurret() ) {
@@ -3735,6 +3735,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbTechBase.setEnabled( true );
         cmbTurret.setSelectedIndex(0);
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
+        spnRearTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
         txtProdYear.setEnabled( true );
 
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewVee_RulesLevel", "Tournament Legal" ) );
@@ -4026,6 +4027,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbEngineType.setEnabled( true );
         cmbTurret.setEnabled( true );
         spnTurretTonnage.setEnabled( true );
+        spnRearTurretTonnage.setEnabled(true);
         spnFrontArmor.setEnabled( true );
         spnLeftArmor.setEnabled( true );
         spnRightArmor.setEnabled( true );
@@ -4304,6 +4306,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbEngineType.setEnabled( false );
         cmbTurret.setEnabled( false );
         spnTurretTonnage.setEnabled( false );
+        spnRearTurretTonnage.setEnabled(false);
         spnFrontArmor.setEnabled( false );
         spnLeftArmor.setEnabled( false );
         spnRightArmor.setEnabled( false );
@@ -4530,12 +4533,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1) );
         if ( CurVee.isHasTurret1() ) {
             cmbTurret.setSelectedItem("Single Turret");
-            spnTurretTonnage.setEnabled(true);
+            spnTurretTonnage.setEnabled(!isLocked);
             spnTurretTonnage.setValue(CurVee.GetLoadout().GetTurret().GetTonnage());
         }
         if ( CurVee.isHasTurret2() ) {
             cmbTurret.setSelectedItem("Dual Turret");
-            spnRearTurretTonnage.setEnabled(true);
+            spnRearTurretTonnage.setEnabled(!isLocked);
             spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
         }
         FixArmorSpinners();
@@ -4544,8 +4547,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         Load = false;
 
         if( CurVee.IsOmni() ) {
-//            if ( CurVee.isHasTurret1() )
-//                spnTurretTonnage.setModel( new SpinnerNumberModel(CurVee.GetBaseLoadout().GetTurret().GetMaxTonnage(), 0, 99.0, 0.5) );
             LockGUIForOmni();
             RefreshOmniVariants();
             RefreshOmniChoices();
