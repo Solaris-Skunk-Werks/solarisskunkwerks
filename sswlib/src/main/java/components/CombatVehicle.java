@@ -2000,6 +2000,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         if ( UsingFullAmphibious ) retval += 0.2;
         if ( UsingDuneBuggy ) retval += 0.1;
         if ( UsingEnvironmentalSealing ) retval += 0.1;
+        if ( GetLoadout().HasArmoredMotiveSystem() ) retval += 0.1;
         return retval;
     }
 
@@ -2028,6 +2029,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         if ( UsingFullAmphibious ) b.append(", Full Amphibious");
         if ( UsingDuneBuggy ) b.append(", Dune Buggy");
         if ( UsingEnvironmentalSealing && !(CurConfig instanceof stCVSubmarine) ) b.append(", Environmental Sealing");
+        if ( GetLoadout().HasArmoredMotiveSystem() ) b.append(", Armored Motive System");
         if ( b.length() > 0 ) return  "(" + b.toString().substring(2) + ")";
         return "";
     }

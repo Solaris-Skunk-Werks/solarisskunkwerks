@@ -61,7 +61,7 @@ public class ArmoredMotiveSystem extends abPlaceable {
 
     @Override
     public double GetTonnage() {
-        return CommonTools.RoundHalfUp(Owner.GetOwner().GetTonnage() * (IsClan ? .01 : .015));
+        return CommonTools.RoundHalfUp(Owner.GetOwner().GetTonnage() * (IsClan ? .1 : .15));
     }
 
     @Override
