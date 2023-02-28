@@ -5134,7 +5134,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             cmbTurret.setEnabled(true);
 
         list.add("No Turret");
-        if ( CurVee.CanUseTurret() ) list.add("Single Turret");
+        if ( CurVee.CanUseTurret() ) {
+            if (CurVee.IsVTOL()) {
+                list.add("Chin Turret");
+            } else{
+                list.add("Single Turret");
+            }
+        }
         if ( CurVee.CanUseDualTurret() ) list.add("Dual Turret");
 
         if ( list.isEmpty() ) {
@@ -7271,9 +7277,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
     private void cmbTurretActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
-        //TODO add logic to CombatVehicle to handle the turret
+
         String Turret = cmbTurret.getSelectedItem().toString();
-        if ( Turret.equals("Single Turret")) {
+        if ( Turret.equals("Single Turret") || Turret.equals("Chin Turret")) {
             CurVee.setHasTurret1(true);
             if (chkOmniVee.isSelected() && !isLocked )
                 spnTurretTonnage.setEnabled(true);
