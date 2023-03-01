@@ -414,12 +414,12 @@ public class Equipment extends abPlaceable implements ifEquipment {
 
     @Override
     public boolean CanAllocCVRear() {
-        return alloc_sides;
+        return alloc_rear;
     }
 
     @Override
     public boolean CanAllocCVSide() {
-        return alloc_rear;
+        return alloc_sides;
     }
 
     @Override
