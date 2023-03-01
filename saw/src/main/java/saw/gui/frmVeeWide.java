@@ -4585,11 +4585,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void BuildExpEquipmentSelector() {
-        JCheckBox[] ExpEquipmentCheckboxes = { chkArmoredMotive,
-                                               chkSupercharger,
-                                               chkCommandConsole,
+        JCheckBox[] ExpEquipmentCheckboxes = { chkCommandConsole,
                                                chkMinesweeper,
-                                               chkJetBooster,
                                                chkEscapePod,
                                                chkSponsonTurret };
         if (cmbRulesLevel.getSelectedIndex() > 1) {
@@ -7822,7 +7819,20 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             return;
         }
         try {
-            CurVee.GetLoadout().SetArmoredMotiveSystem(chkArmoredMotive.isSelected());
+            switch (CurVee.GetTechBase()) {
+                case AvailableCode.TECH_INNER_SPHERE:
+                    CurVee.GetLoadout().SetArmoredMotiveSystem(chkArmoredMotive.isSelected(), false);
+                    break;
+                case AvailableCode.TECH_CLAN:
+                    CurVee.GetLoadout().SetArmoredMotiveSystem(chkArmoredMotive.isSelected(), true);
+                    break;
+                case AvailableCode.TECH_BOTH:
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser(this, true);
+                    tech.setLocationRelativeTo(this);
+                    tech.setVisible(true);
+                    CurVee.GetLoadout().SetArmoredMotiveSystem(chkArmoredMotive.isSelected(), tech.IsClan());
+                    break;
+            }
         } catch( Exception e ) {
             Media.Messager( this, e.getMessage() );
             chkArmoredMotive.setSelected( false );

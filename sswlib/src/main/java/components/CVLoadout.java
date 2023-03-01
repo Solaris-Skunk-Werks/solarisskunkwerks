@@ -1155,7 +1155,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         return IsAllocated( AMotiveS );
     }
 
-    public void SetArmoredMotiveSystem(boolean b) {
+    public void SetArmoredMotiveSystem(boolean b, boolean isClan) {
         if (!b) {
             Remove(AMotiveS);
             return;
@@ -1163,6 +1163,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
         try {
             AddToBody(AMotiveS);
+            AMotiveS.SetClan(isClan);
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }

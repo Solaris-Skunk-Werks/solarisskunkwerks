@@ -163,7 +163,7 @@ public interface ifCVLoadout {
     public void ResetHeatSinks();
     public int NumCVAmmoSpaces();
     public boolean HasArmoredMotiveSystem();
-    public void SetArmoredMotiveSystem(boolean b);
+    public void SetArmoredMotiveSystem(boolean b, boolean isClan);
     public ArmoredMotiveSystem GetArmoredMotiveSystem();
 /*
     public void AddMechModifier( MechModifier m );
