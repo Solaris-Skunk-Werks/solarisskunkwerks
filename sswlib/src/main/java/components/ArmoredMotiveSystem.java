@@ -4,7 +4,7 @@ import common.CommonTools;
 
 public class ArmoredMotiveSystem extends abPlaceable {
     private ifCVLoadout Owner;
-    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private boolean IsClan = false;
     public ArmoredMotiveSystem(ifCVLoadout l) {
         AC.SetISCodes('E', 'X', 'X', 'F', 'E');
