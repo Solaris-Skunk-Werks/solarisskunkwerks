@@ -86,7 +86,7 @@ public class ArmoredMotiveSystem extends abPlaceable {
 
     @Override
     public double GetDefensiveBV() {
-        return 0.1;
+        return 0;
     }
 
     @Override
