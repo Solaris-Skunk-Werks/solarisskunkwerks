@@ -427,6 +427,9 @@ public class Equipment extends abPlaceable implements ifEquipment {
         return alloc_turret;
     }
 
+    @Override
+    public boolean CanAllocCVBody() { return alloc_body; }
+
     public int GetTechBase() {
         return AC.GetTechBase();
     }
