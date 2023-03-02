@@ -568,7 +568,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             case LocationIndex.CV_LOC_REAR:
                 return RearItems.toArray(new abPlaceable[RearItems.size()]);
             case LocationIndex.CV_LOC_RIGHT:
-                return RearItems.toArray(new abPlaceable[RightItems.size()]);
+                return RightItems.toArray(new abPlaceable[RightItems.size()]);
             case LocationIndex.CV_LOC_TURRET1:
                 return Turret1Items.toArray(new abPlaceable[Turret1Items.size()]);
             case LocationIndex.CV_LOC_TURRET2:
