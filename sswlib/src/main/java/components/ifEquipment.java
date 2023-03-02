@@ -39,7 +39,7 @@ public interface ifEquipment {
     public int MaxAllowed();
 
     public void Validate( Mech m ) throws Exception;
-    public boolean Validate( CombatVehicle v );
+    public void Validate( CombatVehicle v ) throws Exception;
 
     public boolean CanAllocCVBody();
     public String GetEquipmentType();

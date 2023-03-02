@@ -227,20 +227,19 @@ public class Equipment extends abPlaceable implements ifEquipment {
         BookReference = b;
     }
 
+    //NOTE: Do NOT use a Rear reference here as this field is used on the Validate method
     public String ActualName() {
         return ActualName;
     }
+
+    private  String RearName() { return Rear ? "(R) " : ""; }
 
     public String CritName() {
         String retval = CritName;
         if( VariableSize ) {
             retval += " (" + Tonnage + " tons)";
         }
-        if( Rear ) {
-            return "(R) " + retval;
-        } else {
-            return retval;
-        }
+        return RearName() + retval;
     }
 
     @Override
@@ -253,11 +252,7 @@ public class Equipment extends abPlaceable implements ifEquipment {
     }
     
     public String LookupName() {
-        if( Rear ) {
-            return "(R) " + LookupName;
-        } else {
-            return LookupName;
-        }
+        return RearName() + LookupName;
     }
 
     public String ChatName() {
@@ -265,11 +260,7 @@ public class Equipment extends abPlaceable implements ifEquipment {
     }
 
     public String MegaMekName( boolean UseRear ) {
-        if( Rear ) {
-            return MegaMekName + " (R)";
-        } else {
-            return MegaMekName;
-        }
+        return (MegaMekName + " " + RearName()).trim();
     }
 
     public String BookReference() {
@@ -484,6 +475,7 @@ public class Equipment extends abPlaceable implements ifEquipment {
         return RequiresPowerAmps;
     }
 
+    @Override
     public int MaxAllowed() {
         return MaxAllowed;
     }
@@ -533,10 +525,10 @@ public class Equipment extends abPlaceable implements ifEquipment {
             ArrayList currentEquipment = m.GetLoadout().GetEquipment();
             for (int i = 0, c = 0; i < currentEquipment.size(); ++i) {
                 abPlaceable currentItem = (abPlaceable) currentEquipment.get(i);
-                if (currentItem.LookupName().equals(LookupName)) {
+                if (currentItem.ActualName().equals(ActualName)) {
                     ++c;
                     if (c == MaxAllowed) {
-                        throw new Exception("Only " + MaxAllowed + " " + CritName + "(s) may be mounted on one 'Mech.");
+                        throw new Exception("Only " + MaxAllowed + " " + CritName + "(s) may be mounted.");
                     }
                 }
             }
@@ -546,24 +538,19 @@ public class Equipment extends abPlaceable implements ifEquipment {
         }
     }
 
-    public boolean Validate( CombatVehicle v )
-    {
+    @Override
+    public void Validate( CombatVehicle v ) throws Exception {
         if( MaxAllowed > 0 ) {
             ArrayList currentEquipment = v.GetLoadout().GetEquipment();
             for( int i = 0, c = 0; i < currentEquipment.size(); ++i ) {
                 abPlaceable currentItem = (abPlaceable) currentEquipment.get( i );
-                if( currentItem.LookupName().equals( LookupName ) ) {
+                if( currentItem.ActualName().equals( ActualName ) ) {
                     ++c;
                     if( c == MaxAllowed ) {
-                        return false;
+                        throw new Exception("Only " + MaxAllowed + " " + CritName + "(s) may be mounted.");
                     }
                 }
             }
-            return true;
-        } else if( RequiresQuad ) {
-            return false;
-        } else {
-            return true;
         }
     }
 

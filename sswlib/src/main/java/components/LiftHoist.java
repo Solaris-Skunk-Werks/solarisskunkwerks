@@ -55,9 +55,7 @@ public class LiftHoist extends Equipment implements ifEquipment {
         SetMountableRear(true);
     }
 
-    public String RearName() {
-        return Rear ? "(R) " : "";
-    }
+    public String RearName() { return Rear ? "(R) " : ""; }
 
     public String ActualName() {
         return "Lift Hoist";
@@ -177,22 +175,21 @@ public class LiftHoist extends Equipment implements ifEquipment {
     }
 
     @Override
-    public boolean Validate(CombatVehicle v) {
+    public void Validate(CombatVehicle v) throws Exception {
         if (MaxAllowed() == 0) {
-            return true;
+            return;
         }
 
         int count = 0;
         for(Object item : v.GetLoadout().GetEquipment()) {
             abPlaceable currentItem = (abPlaceable) item;
-            if( currentItem.LookupName().equals( LookupName() ) ) {
+            if( currentItem.ActualName().equals( ActualName() ) ) {
                 ++count;
                 if( count == MaxAllowed() ) {
-                    return false;
+                    throw new Exception("Only " + MaxAllowed() + " " + CritName() + "(s) may be mounted.");
                 }
             }
         }
-        return true;
     }
 
     @Override
