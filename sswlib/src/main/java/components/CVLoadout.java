@@ -1155,6 +1155,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         return IsAllocated( AMotiveS );
     }
 
+    public boolean IsArmoredMotiveSystemClan() { return AMotiveS.IsClan(); }
+
     public void SetArmoredMotiveSystem(boolean b, boolean isClan) {
         if (!b) {
             Remove(AMotiveS);

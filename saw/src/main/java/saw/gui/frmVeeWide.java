@@ -6001,6 +6001,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkUseTC.setSelected( CurVee.UsingTC() );
         chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
         chkEnviroSealing.setSelected( CurVee.HasEnvironmentalSealing() );
+        chkArmoredMotive.setSelected(CurVee.GetLoadout().HasArmoredMotiveSystem());
         //chkCommandConsole.setSelected( CurVee.HasCommandConsole() );
         RefreshSummary();
         RefreshInfoPane();

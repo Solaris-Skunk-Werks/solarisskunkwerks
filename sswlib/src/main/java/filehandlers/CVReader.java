@@ -555,6 +555,8 @@ public class CVReader {
                         m.GetLoadout().SetSupercharger( true );
                     } else if( eType.equals( "VTOL Jet Booster" ) ) {
                         m.GetLoadout().SetVTOLBooster( true );
+                    } else if ( eType.equals("Armored Motive System")) {
+                        m.GetLoadout().SetArmoredMotiveSystem(true, m.GetLoadout().IsArmoredMotiveSystemClan());
                     }
                 } else {
                     abPlaceable p = GetEquipmentByName( eName, eType, m );

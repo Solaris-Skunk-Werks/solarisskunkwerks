@@ -1,8 +1,9 @@
 package components;
 
 import common.CommonTools;
+import common.EquipmentFactory;
 
-public class ArmoredMotiveSystem extends abPlaceable {
+public class ArmoredMotiveSystem extends Equipment {
     private ifCVLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private boolean IsClan = false;
@@ -103,5 +104,10 @@ public class ArmoredMotiveSystem extends abPlaceable {
     @Override
     public boolean CoreComponent() {
         return true;
+    }
+
+    @Override
+    public String GetEquipmentType() {
+        return "Armmored Motive System";
     }
 }
