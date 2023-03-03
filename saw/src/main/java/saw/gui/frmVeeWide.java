@@ -1940,6 +1940,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkArmoredMotive.setEnabled(false);
         chkArmoredMotive.addActionListener(this::chkArmoredMotiveActionPerformed);
 
+        
         chkCommandConsole.setText("Command Console");
         chkCommandConsole.setEnabled(false);
 
