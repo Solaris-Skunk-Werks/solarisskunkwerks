@@ -333,7 +333,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     }
 
     public boolean CanUseDualTurret() {
-        if( CommonTools.IsAllowed( DualTurretAC,this) ) { return true; }
+        if( !IsVTOL() && CommonTools.IsAllowed( DualTurretAC,this) ) { return true; }
         return false;
     }
 
