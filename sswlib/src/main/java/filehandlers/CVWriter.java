@@ -431,14 +431,14 @@ public class CVWriter {
                 retval += prefix + tab + "<name manufacturer=\"" + FileCommon.EncodeFluff( p.GetManufacturer() ) + "\">" + FileCommon.EncodeFluff( p.LookupName() ) + "</name>" + NL;
                 retval += prefix + tab + "<type>" + GetEquipmentType( p ) + "</type>" + NL;
                 retval += prefix + tab + "<location>" + FileCommon.EncodeLocation(CurUnit.GetLoadout().Find(p), false, CurUnit) + "</location>" + NL;
-                if (CurUnit.GetTechbase() != ((Equipment)p).GetCurrentTech()) {
-                    retval += prefix + tab + "<techbase>" + CommonTools.GetTechbaseString(((Equipment)p).GetCurrentTech()) + "</techbase>" + NL;
-                }
                 if( p instanceof VehicularGrenadeLauncher ) {
                     retval += prefix + tab + "<vglarc>" + ((VehicularGrenadeLauncher) p).GetCurrentArc() + "</vglarc>" + NL;
                     retval += prefix + tab + "<vglammo>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglammo>" + NL;
                 }
                 if( p instanceof Equipment ) {
+                    if (CurUnit.GetTechbase() != ((Equipment)p).GetCurrentTech()) {
+                        retval += prefix + tab + "<techbase>" + CommonTools.GetTechbaseString(((Equipment)p).GetCurrentTech()) + "</techbase>" + NL;
+                    }
                     if( ((Equipment) p).IsVariableSize() ) {
                         retval += prefix + tab + "<tons>" + ((Equipment)p).GetTonnage(false) + "</tons>" + NL;
                     }
