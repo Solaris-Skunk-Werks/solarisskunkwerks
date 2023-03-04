@@ -59,11 +59,7 @@ public class VTOLBooster extends Equipment {
     public String ChatName() { return "JtBstr"; }
 
     public String MegaMekName( boolean UseRear ) {
-        if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {
-            return "CLVTOLJetBooster";
-        } else {
-            return "ISVTOLJetBooster";
-        }
+        return (Owner.GetTechBase() >= AvailableCode.TECH_CLAN ? "CL" : "IS") + "VTOLJetBooster";
     }
 
     public String BookReference() {

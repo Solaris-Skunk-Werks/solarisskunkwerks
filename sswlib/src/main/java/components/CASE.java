@@ -71,9 +71,7 @@ public class CASE extends Equipment {
         return "CASE";
     }
 
-    public String MegaMekName( boolean UseRear ) {
-        return "ISCASE";
-    }
+    public String MegaMekName( boolean UseRear ) { return (IsClan() ? "CL" : "IS") + "CASE"; }
 
     public String BookReference() {
         return "Tech Manual";
