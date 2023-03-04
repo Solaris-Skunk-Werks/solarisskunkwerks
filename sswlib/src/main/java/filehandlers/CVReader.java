@@ -502,6 +502,7 @@ public class CVReader {
                 String eMan = "";
                 String eType = "";
                 String eName = "";
+                String techbase = CommonTools.GetTechbaseString(m.GetTechbase());
                 int VGLArc = 0;
                 int VGLAmmo = 0;
                 double vtons = 0.0;
@@ -514,6 +515,8 @@ public class CVReader {
                         eName = nl.item( j ).getTextContent();
                     } else if( nl.item( j ).getNodeName().equals( "type" ) ) {
                         eType = nl.item( j ).getTextContent();
+                    } else if( nl.item( j ).getNodeName().equals( "techbase" ) ) {
+                        techbase = nl.item( j ).getTextContent();
                     } else if( nl.item( j ).getNodeName().equals( "location" ) ) {
                         l = DecodeLocation( nl.item( j ) );
                         if (l.Location == LocationIndex.CV_LOC_SPONSON_LEFT|| l.Location == LocationIndex.CV_LOC_SPONSON_RIGHT) {
@@ -536,17 +539,9 @@ public class CVReader {
                         || eType.equals( "VTOL Jet Booster")) {
                     if( eType.equals( "TargetingComputer") ) {
                         if( SaveFileVersion == 0 ) {
-                            if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
-                                m.UseTC( true, true );
-                            } else {
-                                m.UseTC( true, false );
-                            }
+                            m.UseTC( true, ( m.GetTechbase() == AvailableCode.TECH_CLAN ) );
                         } else {
-                            if( eName.contains( "(CL)" ) ) {
-                                m.UseTC( true, true );
-                            } else {
-                                m.UseTC( true, false );
-                            }
+                            m.UseTC( true, eName.contains( "(CL)" ) );
                         }
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
@@ -556,7 +551,8 @@ public class CVReader {
                     } else if( eType.equals( "VTOL Jet Booster" ) ) {
                         m.GetLoadout().SetVTOLBooster( true );
                     } else if ( eType.equals("Armored Motive System")) {
-                        m.GetLoadout().SetArmoredMotiveSystem(true, m.GetLoadout().IsArmoredMotiveSystemClan());
+                        m.GetLoadout().SetArmoredMotiveSystem(true, techbase == CommonTools.GetTechbaseString(AvailableCode.TECH_CLAN)
+                                                                                        || (m.GetTechBase() == AvailableCode.TECH_CLAN));
                     }
                 } else {
                     abPlaceable p = GetEquipmentByName( eName, eType, m );
@@ -569,6 +565,7 @@ public class CVReader {
                             ((Equipment) p).SetMaxTons(m.GetTonnage());
                             ((Equipment) p).SetTonnage( vtons );
                         }
+                        ((Equipment) p).SetCurrentTech(CommonTools.GetTechbaseValue(techbase));
                     }
                     if( ( p instanceof Ammunition ) && lotsize > 0 ) {
                         ((Ammunition) p).SetLotSize( lotsize );

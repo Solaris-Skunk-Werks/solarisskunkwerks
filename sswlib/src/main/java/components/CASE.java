@@ -28,10 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-public class CASE extends abPlaceable {
+public class CASE extends Equipment {
     // A simple class for Inner Sphere CASE.
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private boolean IsClan = false;
 
     public CASE() {
         AC.SetISCodes( 'E', 'C', 'F', 'D', 'C' );
@@ -86,12 +85,12 @@ public class CASE extends abPlaceable {
 
     @Override
     public int NumCVSpaces() {
-        if ( IsClan ) return 0;
+        if ( IsClan() ) return 0;
         return 1;
     }
 
     public double GetTonnage() {
-        if ( IsClan ) return 0;
+        if ( IsClan() ) return 0;
         return 0.5;
     }
 
@@ -136,9 +135,13 @@ public class CASE extends abPlaceable {
         return "CASE";
     }
     
-    public void SetClan(boolean b ) {
-        IsClan = b;
+    public void SetClan(boolean b ) { super.SetCurrentTech(AvailableCode.TECH_CLAN); }
+
+    public boolean IsClan() { return (super.GetCurrentTech() == AvailableCode.TECH_CLAN); }
+
+    @Override
+    public String GetEquipmentType() {
+        return "CASE";
     }
 
-    public boolean IsClan() { return IsClan; }
 }

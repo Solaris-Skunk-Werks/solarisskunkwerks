@@ -741,48 +741,16 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     public boolean IsAllocated(abPlaceable p) {
         // checks to see if the specified item is allocated in the loadout
 
-        if( FrontItems.contains(p)) {
-            // found it.
-            return true;
-        }
-        if( LeftItems.contains(p) ) {
-            // found it.
-            return true;
-        }
-        if( RightItems.contains(p) ) {
-            // found it.
-            return true;
-        }
-        if( BodyItems.contains(p) ) {
-            // found it.
-            return true;
-        }
-        if( RearItems.contains(p) ) {
-            // found it.
-            return true;
-        }
-        if( Turret1Items.contains(p) ) {
-            // found it.
-            return true;
-        }
-        if( Turret2Items.contains(p) ) {
-            // found it.
-            return true;
-        }
-        if( SponsonTurretLeftItems.contains(p) ) {
-            // found it.
-            return true;
-        }
-        if( SponsonTurretRightItems.contains(p) ) {
-            // found it.
-            return true;
-        }
-        if( RotorItems.contains(p) ) {
-            // found it.
-            return true;
-        }
-
-        // couldn't find it
+        if( FrontItems.contains(p)) { return true; }
+        if( LeftItems.contains(p) ) { return true; }
+        if( RightItems.contains(p) ) { return true; }
+        if( BodyItems.contains(p) ) { return true; }
+        if( RearItems.contains(p) ) { return true; }
+        if( Turret1Items.contains(p) ) { return true; }
+        if( Turret2Items.contains(p) ) { return true; }
+        if( SponsonTurretLeftItems.contains(p) ) { return true; }
+        if( SponsonTurretRightItems.contains(p) ) { return true; }
+        if( RotorItems.contains(p) ) { return true; }
         return false;
     }
 
@@ -1151,9 +1119,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         return VBooster;
     }
 
-    public boolean HasArmoredMotiveSystem() {
-        return IsAllocated( AMotiveS );
-    }
+    public boolean HasArmoredMotiveSystem() { return IsAllocated( AMotiveS ); }
 
     public boolean IsArmoredMotiveSystemClan() { return AMotiveS.IsClan(); }
 
@@ -1164,8 +1130,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         }
 
         try {
-            AddToBody(AMotiveS);
             AMotiveS.SetClan(isClan);
+            AddToBody(AMotiveS);
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }

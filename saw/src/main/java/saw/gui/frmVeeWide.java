@@ -1128,6 +1128,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlAdditionalFluff = new javax.swing.JPanel();
         JPanel pnlManufacturers = new JPanel();
         JLabel lblManuInfo = new JLabel();
+        txtLog = new javax.swing.JTextArea();
         txtManufacturer = new javax.swing.JTextField();
         txtEngineManufacturer = new javax.swing.JTextField();
         txtArmorModel = new javax.swing.JTextField();
@@ -2250,6 +2251,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         tbpWeaponChooser.addTab("Artillery", EquipmentLocation(lstChooseArtillery, this::lstChooseArtilleryValueChanged, mlAddEquip, placeholder));
         tbpWeaponChooser.addTab("Ammunition", EquipmentLocation(lstChooseAmmunition, this::lstChooseAmmunitionValueChanged, mlAddEquip, placeholder));
 
+        //region Log Output
+        JPanel pnlLog = new JPanel();
+        pnlLog.setLayout(new BoxLayout(pnlLog, BoxLayout.Y_AXIS));
+            //pnlLog.add(txtLog);   //Uncomment this when you want to see entries in the Log
+        //endregion
+
         GroupLayout pnlEquipmentLayout = new GroupLayout(pnlEquipment);
         pnlEquipment.setLayout(pnlEquipmentLayout);
         pnlEquipmentLayout.setHorizontalGroup(
@@ -2260,7 +2267,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(pnlControls, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlSpecials, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addComponent(pnlSelected, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlEquipmentLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
+                    .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlLog, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)))
         );
         pnlEquipmentLayout.setVerticalGroup(
             pnlEquipmentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -2273,7 +2282,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         .addComponent(pnlSpecials, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(pnlEquipmentLayout.createSequentialGroup()
-                .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlLog, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE))
         );
 
         tbpMainTabPane.addTab("Equipment", pnlEquipment);
@@ -3969,6 +3979,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
     }
 
+    private void Log(String message) {
+        txtLog.append(message + "\n");
+    }
+
     private void setCheckbox(JCheckBox element, Boolean isEnabled, Boolean isSelected) {
         element.setEnabled(isEnabled);
         element.setSelected(false);
@@ -4576,7 +4590,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkUseTC.setSelected( CurVee.UsingTC() );
         chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
         chkEnviroSealing.setSelected( CurVee.HasEnvironmentalSealing() );
-        chkArmoredMotive.setSelected(CurVee.GetLoadout().HasArmoredMotiveSystem());
         //chkCommandConsole.setSelected( CurVee.HasCommandConsole() );
         RefreshSummary();
         RefreshInfoPane();
@@ -7483,6 +7496,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JTextField txtInfoFreeTons;
     private javax.swing.JTextField txtInfoTonnage;
     private javax.swing.JTextField txtJJModel;
+    private javax.swing.JTextArea txtLog;
     private javax.swing.JTextField txtManufacturer;
     private javax.swing.JTextField txtManufacturerLocation;
     private javax.swing.JTextField txtModel;

@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-public class VTOLBooster extends abPlaceable {
+public class VTOLBooster extends Equipment {
     private ifLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
@@ -162,4 +162,9 @@ public class VTOLBooster extends abPlaceable {
     public boolean CanAllocCVSide() { return false; }
     @Override
     public boolean CanAllocCVTurret() { return false; }
+
+    @Override
+    public String GetEquipmentType() {
+        return "VTOL Jet Booster";
+    }
 }

@@ -43,4 +43,7 @@ public interface ifEquipment {
 
     public boolean CanAllocCVBody();
     public String GetEquipmentType();
+
+    public void SetCurrentTech(int techbase);
+    public int GetCurrentTech();
 }

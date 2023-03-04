@@ -6,7 +6,6 @@ import common.EquipmentFactory;
 public class ArmoredMotiveSystem extends Equipment {
     private ifCVLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private boolean IsClan = false;
     public ArmoredMotiveSystem(ifCVLoadout l) {
         AC.SetISCodes('E', 'X', 'X', 'F', 'E');
         AC.SetISDates( 3069, 3071, true, 0, 0, 0, false, false );
@@ -42,7 +41,7 @@ public class ArmoredMotiveSystem extends Equipment {
 
     @Override
     public String MegaMekName(boolean UseRear) {
-        return (IsClan ? "CL" : "IS") + "ArmoredMotiveSystem";
+        return (IsClan() ? "CL" : "IS") + "ArmoredMotiveSystem";
     }
 
     @Override
@@ -62,7 +61,7 @@ public class ArmoredMotiveSystem extends Equipment {
 
     @Override
     public double GetTonnage() {
-        return CommonTools.RoundHalfUp(Owner.GetOwner().GetTonnage() * (IsClan ? .1 : .15));
+        return CommonTools.RoundHalfUp(Owner.GetOwner().GetTonnage() * (IsClan() ? .1 : .15));
     }
 
     @Override
@@ -95,11 +94,9 @@ public class ArmoredMotiveSystem extends Equipment {
         return AC;
     }
 
-    public void SetClan(boolean b ) {
-        IsClan = b;
-    }
+    public void SetClan(boolean b ) { super.SetCurrentTech(AvailableCode.TECH_CLAN); }
 
-    public boolean IsClan() { return IsClan; }
+    public boolean IsClan() { return (super.GetCurrentTech() == AvailableCode.TECH_CLAN); }
 
     @Override
     public boolean CoreComponent() {
@@ -108,6 +105,6 @@ public class ArmoredMotiveSystem extends Equipment {
 
     @Override
     public String GetEquipmentType() {
-        return "Armmored Motive System";
+        return "Armored Motive System";
     }
 }

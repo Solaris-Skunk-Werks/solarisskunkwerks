@@ -431,6 +431,9 @@ public class CVWriter {
                 retval += prefix + tab + "<name manufacturer=\"" + FileCommon.EncodeFluff( p.GetManufacturer() ) + "\">" + FileCommon.EncodeFluff( p.LookupName() ) + "</name>" + NL;
                 retval += prefix + tab + "<type>" + GetEquipmentType( p ) + "</type>" + NL;
                 retval += prefix + tab + "<location>" + FileCommon.EncodeLocation(CurUnit.GetLoadout().Find(p), false, CurUnit) + "</location>" + NL;
+                if (CurUnit.GetTechbase() != ((Equipment)p).GetCurrentTech()) {
+                    retval += prefix + tab + "<techbase>" + CommonTools.GetTechbaseString(((Equipment)p).GetCurrentTech()) + "</techbase>" + NL;
+                }
                 if( p instanceof VehicularGrenadeLauncher ) {
                     retval += prefix + tab + "<vglarc>" + ((VehicularGrenadeLauncher) p).GetCurrentArc() + "</vglarc>" + NL;
                     retval += prefix + tab + "<vglammo>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglammo>" + NL;
@@ -491,17 +494,11 @@ public class CVWriter {
         } else if( p instanceof PhysicalWeapon ) {
             return "physical";
         } else if( p instanceof Equipment ) {
-            return "equipment";
+            return ((Equipment)p).GetEquipmentType();
         } else if( p instanceof Ammunition ) {
             return "ammunition";
         } else if( p instanceof TargetingComputer ) {
             return "TargetingComputer";
-        } else if ( p instanceof CASE ) {
-            return "CASE";
-        } else if ( p instanceof Supercharger ) {
-            return "Supercharger";
-        } else if ( p instanceof VTOLBooster ) {
-            return "VTOL Jet Booster";
         } else {
             return "miscellaneous";
         }

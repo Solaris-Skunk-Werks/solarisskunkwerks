@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 
 public class Equipment extends abPlaceable implements ifEquipment {
@@ -51,7 +50,8 @@ public class Equipment extends abPlaceable implements ifEquipment {
                 LngRange = 0,
                 Heat = 0,
                 MaxAllowed = 0,
-                MaxAllowedPerLocation = 0;
+                MaxAllowedPerLocation = 0,
+                CurrentTechBase = AvailableCode.TECH_INNER_SPHERE;
     private double Tonnage = 0.0,
                   Cost = 0.0,
                   OffBV = 0.0,
@@ -104,6 +104,8 @@ public class Equipment extends abPlaceable implements ifEquipment {
         LookupName = e.LookupName;
         Type = e.Type;
         AC = e.AC.Clone();
+        CurrentTechBase = AC.GetTechBase();
+        if (CurrentTechBase == AvailableCode.TECH_BOTH) { CurrentTechBase = AvailableCode.TECH_INNER_SPHERE; }
         MegaMekName = e.MegaMekName;
         Crits = e.Crits;
         CVSpace = e.CVSpace;
@@ -584,8 +586,27 @@ public class Equipment extends abPlaceable implements ifEquipment {
     public String GetEquipmentType() {
         return "equipment";
     }
+
+    @Override
+    public void SetCurrentTech(int techbase) { CurrentTechBase = techbase; }
+
+    @Override
+    public int GetCurrentTech() { return CurrentTechBase; }
+
     @Override
     public String toString() {
         return CritName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Equipment))
+            return false;
+
+        if (((Equipment) obj).ActualName() == ActualName()) {
+            return true;
+        }
+
+        return false;
     }
 }

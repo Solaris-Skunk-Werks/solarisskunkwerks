@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-public class Supercharger extends abPlaceable {
+public class Supercharger extends Equipment {
     private ifLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
@@ -143,6 +143,14 @@ public class Supercharger extends abPlaceable {
     @Override
     public boolean CoreComponent() {
         return true;
+    }
+
+    public void SetClan(boolean b ) { super.SetCurrentTech(AvailableCode.TECH_CLAN); }
+
+    public boolean IsClan() { return (super.GetCurrentTech() == AvailableCode.TECH_CLAN); }
+    @Override
+    public String GetEquipmentType() {
+        return "Supercharger";
     }
 
     @Override
