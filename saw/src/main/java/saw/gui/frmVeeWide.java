@@ -763,6 +763,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             txtInfoFreeCrits.setForeground(Color.black);
         }
 
+        // fill in the movement summary
+        String temp = "Max C/F: ";
+        temp += CurVee.GetAdjustedCruiseMP( false, true ) + "/";
+        temp += CurVee.GetAdjustedFlankMP( false, true );
+        lblMoveSummary.setText( temp );
+
         // fill in the info
         if( CurVee.UsingFractionalAccounting() ) {
             txtInfoTonnage.setText( "Tons: " + CommonTools.RoundFractionalTons( CurVee.GetCurrentTons() ) );
@@ -967,6 +973,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblFlankMP = new javax.swing.JLabel("2");
         JLabel jLabel13 = new JLabel("Jump MP:");
         spnJumpMP = new javax.swing.JSpinner();
+        lblMoveSummary = new javax.swing.JLabel("Max C/F: 12/20");
         JPanel pnlChassisMods = new JPanel();
         chkFlotationHull = new javax.swing.JCheckBox("Flotation Hull");
         chkLimitedAmph = new javax.swing.JCheckBox("Limited Amphibious");
@@ -1604,9 +1611,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         //region Basic Setup Tab / Movement Panel
         pnlMovement.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Movement"));
-
         spnCruiseMP.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        spnCruiseMP.setMinimumSize(new Dimension(45, 20));
         spnCruiseMP.setPreferredSize(new Dimension(45, 20));
         spnCruiseMP.addChangeListener(this::spnCruiseMPStateChanged);
         spnCruiseMP.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -1618,52 +1623,48 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         });
 
         spnJumpMP.setEnabled(false);
-        spnJumpMP.setMinimumSize(new Dimension(45, 20));
         spnJumpMP.setPreferredSize(new Dimension(45, 20));
+
+        lblMoveSummary.setHorizontalAlignment(SwingConstants.RIGHT);
 
         GroupLayout pnlMovementLayout = new GroupLayout(pnlMovement);
         pnlMovement.setLayout(pnlMovementLayout);
         pnlMovementLayout.setHorizontalGroup(
             pnlMovementLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlMovementLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(29)
                 .addGroup(pnlMovementLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(2, 2, 2)
+                        .addGap(5)
                         .addComponent(spnCruiseMP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlMovementLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(pnlMovementLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMovementLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblFlankMP))
-                            .addGroup(pnlMovementLayout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(2, 2, 2)
-                                .addComponent(spnJumpMP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                        .addComponent(jLabel11)
+                        .addGap(18)
+                        .addComponent(lblFlankMP)
+                        .addGap(20)
+                        .addComponent(lblMoveSummary))
+                    .addGroup(pnlMovementLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(10)
+                        .addComponent(spnJumpMP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
         );
         pnlMovementLayout.setVerticalGroup(
             pnlMovementLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlMovementLayout.createSequentialGroup()
                 .addGroup(pnlMovementLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMovementLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel10))
+                    .addComponent(jLabel10)
                     .addComponent(spnCruiseMP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
+                .addGap(5)
                 .addGroup(pnlMovementLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(lblFlankMP))
-                .addGap(2, 2, 2)
+                    .addComponent(lblFlankMP)
+                    .addComponent(lblMoveSummary))
+                .addGap(8)
                 .addGroup(pnlMovementLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMovementLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel13))
+                    .addComponent(jLabel13)
                     .addComponent(spnJumpMP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5))
         );
         //endregion
 
@@ -2687,14 +2688,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         return entry;
     }
-    private GridBagConstraints placeItem(int x, int y, int top, int left, int bottom, int right) {
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = x;
-        gridBagConstraints.gridy = y;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(top, left, bottom, right);
-        return gridBagConstraints;
-    }
+
     private void RefreshSummary() {
         // refreshes the display completely using info from the mech.
         txtSumEngTons.setText( "" + CurVee.GetEngineTonnage() );
@@ -7368,6 +7362,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JLabel lblEraYears;
     private javax.swing.JLabel lblFinalEngineRating;
     private javax.swing.JLabel lblFlankMP;
+    private javax.swing.JLabel lblMoveSummary;
     private javax.swing.JLabel lblFluffImage;
     private javax.swing.JLabel lblFreeHeatSinks;
     private javax.swing.JLabel lblFrontIntPts;
