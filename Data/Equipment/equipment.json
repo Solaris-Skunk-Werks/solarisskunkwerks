@@ -4257,7 +4257,7 @@
     "alloc_sides": true,
     "alloc_rear": true,
     "alloc_turret": true,
-    "alloc_body": false,
+    "alloc_body": true,
     "CanSplit": false,
     "CanMountRear": true,
     "Explosive": false,
