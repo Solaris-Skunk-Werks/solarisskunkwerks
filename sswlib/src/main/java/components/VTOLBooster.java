@@ -56,10 +56,7 @@ public class VTOLBooster extends Equipment {
         return "VTOL Jet Booster";
     }
 
-    public String ChatName() {
-        // ammo isn't included in the chat
-        return "VTOL Jet Booster";
-    }
+    public String ChatName() { return "JtBstr"; }
 
     public String MegaMekName( boolean UseRear ) {
         if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {

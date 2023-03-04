@@ -145,7 +145,7 @@ public class Supercharger extends Equipment {
         return true;
     }
 
-    public void SetClan(boolean b ) { super.SetCurrentTech(AvailableCode.TECH_CLAN); }
+    public void SetClan(boolean b ) { super.SetCurrentTech(b ? AvailableCode.TECH_CLAN : AvailableCode.TECH_INNER_SPHERE); }
 
     public boolean IsClan() { return (super.GetCurrentTech() == AvailableCode.TECH_CLAN); }
     @Override

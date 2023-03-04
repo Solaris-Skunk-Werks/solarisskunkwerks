@@ -3929,26 +3929,27 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // refreshes the equipment selectors
         //fix the CASE control
         CASE Case = new CASE();
-        setCheckbox(chkCASE, ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ), CurVee.GetLoadout().HasCase());
+        setCheckbox(chkCASE, ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ), CurVee.GetLoadout().HasCase(), CurVee.isOmni());
 
         // fix Artemis IV controls
         ifMissileGuidance ArtCheck = new ArtemisIVFCS( null );
-        setCheckbox(chkFCSAIV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisIV());
+        setCheckbox(chkFCSAIV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisIV(), CurVee.isOmni());
 
         // fix Artemis V controls
         ArtCheck = new ArtemisVFCS( null );
-        setCheckbox(chkFCSAV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisV());
+        setCheckbox(chkFCSAV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisV(), CurVee.isOmni());
 
         // fix ApolloFCS controls
         ArtCheck = new ApolloFCS( null );
-        setCheckbox(chkFCSApollo, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingApollo());
+        setCheckbox(chkFCSApollo, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingApollo(), CurVee.isOmni());
 
         // fix the targeting computer display
-        setCheckbox(chkUseTC, ( CommonTools.IsAllowed( CurVee.GetTC().GetAvailability(), CurVee ) ), CurVee.UsingTC());
+        setCheckbox(chkUseTC, ( CommonTools.IsAllowed( CurVee.GetTC().GetAvailability(), CurVee ) ), CurVee.UsingTC(), CurVee.isOmni());
 
-        setCheckbox(chkSupercharger, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasSupercharger());
-        setCheckbox(chkJetBooster, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && CurVee.IsVTOL() && !CurVee.IsOmni() ), CurVee.GetLoadout().HasVTOLBooster());
-        setCheckbox(chkArmoredMotive, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetArmoredMotiveSystem().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasArmoredMotiveSystem());
+        setCheckbox(chkSupercharger, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ),  CurVee.GetLoadout().HasSupercharger(), CurVee.isOmni());
+        setCheckbox(chkJetBooster, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && CurVee.IsVTOL() && !CurVee.IsOmni() ), CurVee.GetLoadout().HasVTOLBooster(), CurVee.isOmni());
+        setCheckbox(chkArmoredMotive, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetArmoredMotiveSystem().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasArmoredMotiveSystem(), CurVee.isOmni());
+
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
@@ -3983,10 +3984,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtLog.append(message + "\n");
     }
 
-    private void setCheckbox(JCheckBox element, Boolean isEnabled, Boolean isSelected) {
+    private void setCheckbox(JCheckBox element, Boolean isEnabled, Boolean isSelected, Boolean allowSelection) {
         element.setEnabled(isEnabled);
         element.setSelected(false);
-        if (isEnabled) {
+        if (isEnabled || allowSelection) {
             element.setSelected(isSelected);
         }
     }

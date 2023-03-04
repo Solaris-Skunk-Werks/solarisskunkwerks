@@ -406,8 +406,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         RefreshHeatSinks();
     }
     
-    private boolean HasHitch(ArrayList<abPlaceable> items)
-    {
+    private boolean HasHitch(ArrayList<abPlaceable> items) {
         for( int i = 0; i < items.size(); ++i ) {
             abPlaceable currentItem = (abPlaceable) items.get( i );
             if (currentItem instanceof Hitch)
@@ -415,6 +414,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         }
         return false;
     }
+
     public void RefreshHeatSinks() {
         if (GetHeatSinks().GetNumHS() != GetTotalHeat())
             GetHeatSinks().SetNumHS(GetTotalHeat());
@@ -561,60 +561,42 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public abPlaceable[] GetItems(int Loc) {
         switch(Loc) {
-            case LocationIndex.CV_LOC_BODY:
-                return BodyItems.toArray(new abPlaceable[BodyItems.size()]);
-            case LocationIndex.CV_LOC_FRONT:
-                return FrontItems.toArray(new abPlaceable[FrontItems.size()]);
-            case LocationIndex.CV_LOC_LEFT:
-                return LeftItems.toArray(new abPlaceable[LeftItems.size()]);
-            case LocationIndex.CV_LOC_REAR:
-                return RearItems.toArray(new abPlaceable[RearItems.size()]);
-            case LocationIndex.CV_LOC_RIGHT:
-                return RightItems.toArray(new abPlaceable[RightItems.size()]);
-            case LocationIndex.CV_LOC_TURRET1:
-                return Turret1Items.toArray(new abPlaceable[Turret1Items.size()]);
-            case LocationIndex.CV_LOC_TURRET2:
-                return Turret2Items.toArray(new abPlaceable[Turret2Items.size()]);
-            case LocationIndex.CV_LOC_SPONSON_LEFT:
-                return SponsonTurretLeftItems.toArray(new abPlaceable[SponsonTurretLeftItems.size()]);
-            case LocationIndex.CV_LOC_SPONSON_RIGHT:
-                return SponsonTurretRightItems.toArray(new abPlaceable[SponsonTurretRightItems.size()]);
+            case LocationIndex.CV_LOC_BODY:             return BodyItems.toArray(new abPlaceable[BodyItems.size()]);
+            case LocationIndex.CV_LOC_FRONT:            return FrontItems.toArray(new abPlaceable[FrontItems.size()]);
+            case LocationIndex.CV_LOC_LEFT:             return LeftItems.toArray(new abPlaceable[LeftItems.size()]);
+            case LocationIndex.CV_LOC_REAR:             return RearItems.toArray(new abPlaceable[RearItems.size()]);
+            case LocationIndex.CV_LOC_RIGHT:            return RightItems.toArray(new abPlaceable[RightItems.size()]);
+            case LocationIndex.CV_LOC_TURRET1:          return Turret1Items.toArray(new abPlaceable[Turret1Items.size()]);
+            case LocationIndex.CV_LOC_TURRET2:          return Turret2Items.toArray(new abPlaceable[Turret2Items.size()]);
+            case LocationIndex.CV_LOC_SPONSON_LEFT:     return SponsonTurretLeftItems.toArray(new abPlaceable[SponsonTurretLeftItems.size()]);
+            case LocationIndex.CV_LOC_SPONSON_RIGHT:    return SponsonTurretRightItems.toArray(new abPlaceable[SponsonTurretRightItems.size()]);
         }
         return null;
     }
 
     public int Find(abPlaceable p) {
-        if ( FrontItems.contains(p) )
-            return LocationIndex.CV_LOC_FRONT;
-        if ( LeftItems.contains(p) )
-            return LocationIndex.CV_LOC_LEFT;
-        if ( RightItems.contains(p) )
-            return LocationIndex.CV_LOC_RIGHT;
-        if ( RearItems.contains(p) )
-            return LocationIndex.CV_LOC_REAR;
-        if ( Turret1Items.contains(p) )
-            return LocationIndex.CV_LOC_TURRET1;
-        if ( Turret2Items.contains(p) )
-            return LocationIndex.CV_LOC_TURRET2;
-        if ( SponsonTurretLeftItems.contains(p) )
-            return LocationIndex.CV_LOC_SPONSON_LEFT;
-        if ( SponsonTurretRightItems.contains(p) )
-            return LocationIndex.CV_LOC_SPONSON_RIGHT;
-        if ( BodyItems.contains(p) )
-            return LocationIndex.CV_LOC_BODY;
+        if ( FrontItems.contains(p) )               return LocationIndex.CV_LOC_FRONT;
+        if ( LeftItems.contains(p) )                return LocationIndex.CV_LOC_LEFT;
+        if ( RightItems.contains(p) )               return LocationIndex.CV_LOC_RIGHT;
+        if ( BodyItems.contains(p) )                return LocationIndex.CV_LOC_BODY;
+        if ( RearItems.contains(p) )                return LocationIndex.CV_LOC_REAR;
+        if ( Turret1Items.contains(p) )             return LocationIndex.CV_LOC_TURRET1;
+        if ( Turret2Items.contains(p) )             return LocationIndex.CV_LOC_TURRET2;
+        if ( SponsonTurretLeftItems.contains(p) )   return LocationIndex.CV_LOC_SPONSON_LEFT;
+        if ( SponsonTurretRightItems.contains(p) )  return LocationIndex.CV_LOC_SPONSON_RIGHT;
         return 11;
     }
 
     public LocationIndex FindIndex(abPlaceable p) {
-        if ( FrontItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_FRONT, p.NumCVSpaces());
-        if ( LeftItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_LEFT, p.NumCVSpaces());
-        if ( RightItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_RIGHT, p.NumCVSpaces());
-        if ( BodyItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_BODY, p.NumCVSpaces());
-        if ( Turret1Items.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_TURRET1, p.NumCVSpaces());
-        if ( RearItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_REAR, p.NumCVSpaces());
-        if ( Turret2Items.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_TURRET2, p.NumCVSpaces());
-        if ( SponsonTurretLeftItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_LEFT, p.NumCVSpaces());
-        if ( SponsonTurretRightItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_RIGHT, p.NumCVSpaces());
+        if ( FrontItems.contains(p))                return new LocationIndex(0, LocationIndex.CV_LOC_FRONT, p.NumCVSpaces());
+        if ( LeftItems.contains(p))                 return new LocationIndex(0, LocationIndex.CV_LOC_LEFT, p.NumCVSpaces());
+        if ( RightItems.contains(p))                return new LocationIndex(0, LocationIndex.CV_LOC_RIGHT, p.NumCVSpaces());
+        if ( BodyItems.contains(p))                 return new LocationIndex(0, LocationIndex.CV_LOC_BODY, p.NumCVSpaces());
+        if ( Turret1Items.contains(p))              return new LocationIndex(0, LocationIndex.CV_LOC_TURRET1, p.NumCVSpaces());
+        if ( RearItems.contains(p))                 return new LocationIndex(0, LocationIndex.CV_LOC_REAR, p.NumCVSpaces());
+        if ( Turret2Items.contains(p))              return new LocationIndex(0, LocationIndex.CV_LOC_TURRET2, p.NumCVSpaces());
+        if ( SponsonTurretLeftItems.contains(p))    return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_LEFT, p.NumCVSpaces());
+        if ( SponsonTurretRightItems.contains(p))   return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_RIGHT, p.NumCVSpaces());
         return null;
     }
 
@@ -686,41 +668,21 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void Remove(abPlaceable p) {
-        // removes the item completely from the loadout.
-        // first, unallocate it.
         UnallocateAll( p, true );
 
-        // Now remove it from the queue
-        //RemoveFromQueue( p );
-
-        // check to see if this is a core component
-        //if( ! p.CoreComponent() ) {
-            // remove it to the non core list
-            if( NonCore.contains( p ) )
-                NonCore.remove( p );
-            if( Equipment.contains( p ) )
-                Equipment.remove( p );
-            if( TCList.contains( p ) )
-                TCList.remove( p );
-            if ( FrontItems.contains( p ) )
-                FrontItems.remove( p );
-            if ( LeftItems.contains(p))
-                LeftItems.remove(p);            
-            if ( RightItems.contains(p))
-                RightItems.remove(p);
-            if ( BodyItems.contains(p))
-                BodyItems.remove(p);
-            if ( RearItems.contains(p))
-                RearItems.remove(p);
-            if ( Turret1Items.contains(p))
-                Turret1Items.remove(p);
-            if ( Turret2Items.contains(p))
-                Turret2Items.remove(p);
-            if ( SponsonTurretLeftItems.contains(p))
-                SponsonTurretLeftItems.remove(p);
-            if ( SponsonTurretRightItems.contains(p))
-                SponsonTurretRightItems.remove(p);
-        //}
+        // remove it to the non core list
+        if( NonCore.contains( p ) )                 NonCore.remove( p );
+        if( Equipment.contains( p ) )               Equipment.remove( p );
+        if( TCList.contains( p ) )                  TCList.remove( p );
+        if ( FrontItems.contains( p ) )             FrontItems.remove( p );
+        if ( LeftItems.contains(p))                 LeftItems.remove(p);
+        if ( RightItems.contains(p))                RightItems.remove(p);
+        if ( BodyItems.contains(p))                 BodyItems.remove(p);
+        if ( RearItems.contains(p))                 RearItems.remove(p);
+        if ( Turret1Items.contains(p))              Turret1Items.remove(p);
+        if ( Turret2Items.contains(p))              Turret2Items.remove(p);
+        if ( SponsonTurretLeftItems.contains(p))    SponsonTurretLeftItems.remove(p);
+        if ( SponsonTurretRightItems.contains(p))   SponsonTurretRightItems.remove(p);
 
         GetHeatSinks().SetNumHS(GetTotalHeat());
         Owner.SetChanged( true );
@@ -840,6 +802,9 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         }
         if (HasVTOLBooster()) {
             clone.SetVTOLBooster( VBooster );
+        }
+        if (HasArmoredMotiveSystem()) {
+            clone.SetArmoredMotiveSystem(true, IsArmoredMotiveSystemClan());
         }
         if( Owner.IsOmni() ) {
             clone.SetBaseLoadout( this );

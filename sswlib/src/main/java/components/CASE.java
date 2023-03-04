@@ -134,8 +134,8 @@ public class CASE extends Equipment {
     public String toString() {
         return "CASE";
     }
-    
-    public void SetClan(boolean b ) { super.SetCurrentTech(AvailableCode.TECH_CLAN); }
+
+    public void SetClan(boolean b ) { super.SetCurrentTech(b ? AvailableCode.TECH_CLAN : AvailableCode.TECH_INNER_SPHERE); }
 
     public boolean IsClan() { return (super.GetCurrentTech() == AvailableCode.TECH_CLAN); }
 
