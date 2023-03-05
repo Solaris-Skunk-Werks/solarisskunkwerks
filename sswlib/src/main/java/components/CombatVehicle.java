@@ -1749,7 +1749,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public String GetChatInfo() {
         String info = GetFullName() + " ";
-        info += GetTonnage() + "t, ";
+        info += GetTonnage() + "t ";
         info += GetMotiveLookupName() + ", ";
         // MP
         info += getCruiseMP();
