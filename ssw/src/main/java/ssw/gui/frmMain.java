@@ -1556,6 +1556,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         
         try {
             CurMech.Visit( v );
+
+            if (!CurMech.GetCockpit().CanArmor())
+                CurMech.GetCockpit().ArmorComponent(false);
+
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
