@@ -1550,6 +1550,10 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
+
+            if (!CurMech.GetCockpit().CanArmor())
+                CurMech.GetCockpit().ArmorComponent(false);
+
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
