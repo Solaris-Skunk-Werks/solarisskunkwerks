@@ -411,6 +411,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 }
             }
         }
+        RefreshSummary();
         RefreshInfoPane();
         RefreshSelectedEquipment();
     }
@@ -443,6 +444,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 }
             }
         }
+        RefreshSummary();
         RefreshInfoPane();
         RefreshSelectedEquipment();
     }
@@ -475,6 +477,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 }
             }
         }
+        RefreshSummary();
         RefreshInfoPane();
         RefreshSelectedEquipment();
     }
