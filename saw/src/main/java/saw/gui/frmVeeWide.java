@@ -1135,6 +1135,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlAdditionalFluff = new javax.swing.JPanel();
         JPanel pnlManufacturers = new JPanel();
         JLabel lblManuInfo = new JLabel();
+        txtLog = new javax.swing.JTextArea();
         txtManufacturer = new javax.swing.JTextField();
         txtEngineManufacturer = new javax.swing.JTextField();
         txtArmorModel = new javax.swing.JTextField();
@@ -1694,8 +1695,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlExperimental.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Experimental Equipment"));
 
         chkArmoredMotive.setEnabled(false);
-        chkCommandConsole.setEnabled(false);
+        chkArmoredMotive.addActionListener(this::chkArmoredMotiveActionPerformed);
+
+        chkEscapePod.setText("Combat Vehicle Escape Pod");
         chkEscapePod.setEnabled(false);
+
+        chkCommandConsole.setText("Command Console");
+        chkCommandConsole.setEnabled(false);
+
+        chkMinesweeper.setText("Minesweeper");
         chkMinesweeper.setEnabled(false);
         chkJetBooster.setEnabled(false);
         chkJetBooster.addActionListener(this::chkJetBoosterActionPerformed);
@@ -2244,6 +2252,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         tbpWeaponChooser.addTab("Artillery", EquipmentLocation(lstChooseArtillery, this::lstChooseArtilleryValueChanged, mlAddEquip, placeholder));
         tbpWeaponChooser.addTab("Ammunition", EquipmentLocation(lstChooseAmmunition, this::lstChooseAmmunitionValueChanged, mlAddEquip, placeholder));
 
+        //region Log Output
+        JPanel pnlLog = new JPanel();
+        pnlLog.setLayout(new BoxLayout(pnlLog, BoxLayout.Y_AXIS));
+            //pnlLog.add(txtLog);   //Uncomment this when you want to see entries in the Log
+        //endregion
+
         GroupLayout pnlEquipmentLayout = new GroupLayout(pnlEquipment);
         pnlEquipment.setLayout(pnlEquipmentLayout);
         pnlEquipmentLayout.setHorizontalGroup(
@@ -2254,7 +2268,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(pnlControls, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlSpecials, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addComponent(pnlSelected, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlEquipmentLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
+                    .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlLog, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)))
         );
         pnlEquipmentLayout.setVerticalGroup(
             pnlEquipmentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -2267,7 +2283,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         .addComponent(pnlSpecials, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(pnlEquipmentLayout.createSequentialGroup()
-                .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlLog, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE))
         );
 
         tbpMainTabPane.addTab("Equipment", pnlEquipment);
@@ -3132,11 +3149,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void BuildExpEquipmentSelector() {
-        JCheckBox[] ExpEquipmentCheckboxes = { chkArmoredMotive,
-                                               chkSupercharger,
-                                               chkCommandConsole,
+        JCheckBox[] ExpEquipmentCheckboxes = { chkCommandConsole,
                                                chkMinesweeper,
-                                               chkJetBooster,
                                                chkEscapePod,
                                                chkSponsonTurret };
         if (cmbRulesLevel.getSelectedIndex() > 1) {
@@ -3909,25 +3923,26 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // refreshes the equipment selectors
         //fix the CASE control
         CASE Case = new CASE();
-        setCheckbox(chkCASE, ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ), CurVee.GetLoadout().HasCase());
+        setCheckbox(chkCASE, ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ), CurVee.GetLoadout().HasCase(), CurVee.isOmni());
 
         // fix Artemis IV controls
         ifMissileGuidance ArtCheck = new ArtemisIVFCS( null );
-        setCheckbox(chkFCSAIV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisIV());
+        setCheckbox(chkFCSAIV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisIV(), CurVee.isOmni());
 
         // fix Artemis V controls
         ArtCheck = new ArtemisVFCS( null );
-        setCheckbox(chkFCSAV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisV());
+        setCheckbox(chkFCSAV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisV(), CurVee.isOmni());
 
         // fix ApolloFCS controls
         ArtCheck = new ApolloFCS( null );
-        setCheckbox(chkFCSApollo, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingApollo());
+        setCheckbox(chkFCSApollo, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingApollo(), CurVee.isOmni());
 
         // fix the targeting computer display
-        setCheckbox(chkUseTC, ( CommonTools.IsAllowed( CurVee.GetTC().GetAvailability(), CurVee ) ), CurVee.UsingTC());
+        setCheckbox(chkUseTC, ( CommonTools.IsAllowed( CurVee.GetTC().GetAvailability(), CurVee ) ), CurVee.UsingTC(), CurVee.isOmni());
 
-        setCheckbox(chkSupercharger, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasSupercharger());
-        setCheckbox(chkJetBooster, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && CurVee.IsVTOL() && !CurVee.IsOmni() ), CurVee.GetLoadout().HasVTOLBooster());
+        setCheckbox(chkSupercharger, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ),  CurVee.GetLoadout().HasSupercharger(), CurVee.isOmni());
+        setCheckbox(chkJetBooster, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && CurVee.IsVTOL() && !CurVee.IsOmni() ), CurVee.GetLoadout().HasVTOLBooster(), CurVee.isOmni());
+        setCheckbox(chkArmoredMotive, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetArmoredMotiveSystem().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasArmoredMotiveSystem(), CurVee.isOmni());
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
 
@@ -3959,10 +3974,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
     }
 
-    private void setCheckbox(JCheckBox element, Boolean isEnabled, Boolean isSelected) {
+    private void Log(String message) {
+        txtLog.append(message + "\n");
+    }
+
+    private void setCheckbox(JCheckBox element, Boolean isEnabled, Boolean isSelected, Boolean allowSelection) {
         element.setEnabled(isEnabled);
         element.setSelected(false);
-        if (isEnabled) {
+        if (isEnabled || allowSelection) {
             element.setSelected(isSelected);
         }
     }
@@ -6375,7 +6394,33 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshSummary();
         RefreshInfoPane();
     }
-
+    private void chkArmoredMotiveActionPerformed(ActionEvent evt) {
+        if (CurVee.GetLoadout().HasArmoredMotiveSystem() == chkArmoredMotive.isSelected()) {
+            return;
+        }
+        try {
+            switch (CurVee.GetTechBase()) {
+                case AvailableCode.TECH_INNER_SPHERE:
+                    CurVee.GetLoadout().SetArmoredMotiveSystem(chkArmoredMotive.isSelected(), false);
+                    break;
+                case AvailableCode.TECH_CLAN:
+                    CurVee.GetLoadout().SetArmoredMotiveSystem(chkArmoredMotive.isSelected(), true);
+                    break;
+                case AvailableCode.TECH_BOTH:
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser(this, true);
+                    tech.setLocationRelativeTo(this);
+                    tech.setVisible(true);
+                    CurVee.GetLoadout().SetArmoredMotiveSystem(chkArmoredMotive.isSelected(), tech.IsClan());
+                    break;
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkArmoredMotive.setSelected( false );
+        }
+        RefreshSelectedEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+    }
     private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
             return;
@@ -7447,6 +7492,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JTextField txtInfoFreeTons;
     private javax.swing.JTextField txtInfoTonnage;
     private javax.swing.JTextField txtJJModel;
+    private javax.swing.JTextArea txtLog;
     private javax.swing.JTextField txtManufacturer;
     private javax.swing.JTextField txtManufacturerLocation;
     private javax.swing.JTextField txtModel;

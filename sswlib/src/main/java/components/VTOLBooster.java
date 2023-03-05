@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-public class VTOLBooster extends abPlaceable {
+public class VTOLBooster extends Equipment {
     private ifLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
@@ -56,17 +56,10 @@ public class VTOLBooster extends abPlaceable {
         return "VTOL Jet Booster";
     }
 
-    public String ChatName() {
-        // ammo isn't included in the chat
-        return "VTOL Jet Booster";
-    }
+    public String ChatName() { return "JtBstr"; }
 
     public String MegaMekName( boolean UseRear ) {
-        if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {
-            return "CLVTOLJetBooster";
-        } else {
-            return "ISVTOLJetBooster";
-        }
+        return (Owner.GetTechBase() >= AvailableCode.TECH_CLAN ? "CL" : "IS") + "VTOLJetBooster";
     }
 
     public String BookReference() {
@@ -162,4 +155,9 @@ public class VTOLBooster extends abPlaceable {
     public boolean CanAllocCVSide() { return false; }
     @Override
     public boolean CanAllocCVTurret() { return false; }
+
+    @Override
+    public String GetEquipmentType() {
+        return "VTOL Jet Booster";
+    }
 }

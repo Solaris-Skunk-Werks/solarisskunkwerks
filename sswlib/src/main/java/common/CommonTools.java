@@ -135,6 +135,17 @@ public class CommonTools {
         }
     }
 
+    public static int GetTechbaseValue( String tech ) {
+        switch( tech ) {
+            case "Clan":
+                return AvailableCode.TECH_CLAN;
+            case "Mixed":
+                return AvailableCode.TECH_BOTH;
+            default:
+                return AvailableCode.TECH_INNER_SPHERE;
+        }
+    }
+
     public static String GetAggregateReportBV( abPlaceable p ) {
         // since an item may have both offensive and defensive BV, this gives us
         // an aggregate battle value string for reporting

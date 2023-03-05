@@ -436,6 +436,9 @@ public class CVWriter {
                     retval += prefix + tab + "<vglammo>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglammo>" + NL;
                 }
                 if( p instanceof Equipment ) {
+                    if (CurUnit.GetTechbase() != ((Equipment)p).GetCurrentTech()) {
+                        retval += prefix + tab + "<techbase>" + CommonTools.GetTechbaseString(((Equipment)p).GetCurrentTech()) + "</techbase>" + NL;
+                    }
                     if( ((Equipment) p).IsVariableSize() ) {
                         retval += prefix + tab + "<tons>" + ((Equipment)p).GetTonnage(false) + "</tons>" + NL;
                     }
@@ -491,17 +494,11 @@ public class CVWriter {
         } else if( p instanceof PhysicalWeapon ) {
             return "physical";
         } else if( p instanceof Equipment ) {
-            return "equipment";
+            return ((Equipment)p).GetEquipmentType();
         } else if( p instanceof Ammunition ) {
             return "ammunition";
         } else if( p instanceof TargetingComputer ) {
             return "TargetingComputer";
-        } else if ( p instanceof CASE ) {
-            return "CASE";
-        } else if ( p instanceof Supercharger ) {
-            return "Supercharger";
-        } else if ( p instanceof VTOLBooster ) {
-            return "VTOL Jet Booster";
         } else {
             return "miscellaneous";
         }

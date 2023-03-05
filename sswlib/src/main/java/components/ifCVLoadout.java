@@ -162,6 +162,10 @@ public interface ifCVLoadout {
     public double GetSponsonTurretCost();
     public void ResetHeatSinks();
     public int NumCVAmmoSpaces();
+    public boolean HasArmoredMotiveSystem();
+    public boolean IsArmoredMotiveSystemClan();
+    public void SetArmoredMotiveSystem(boolean b, boolean isClan);
+    public ArmoredMotiveSystem GetArmoredMotiveSystem();
 /*
     public void AddMechModifier( MechModifier m );
     public void RemoveMechMod( MechModifier m );

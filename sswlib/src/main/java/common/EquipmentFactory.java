@@ -131,6 +131,7 @@ public class EquipmentFactory {
         }
         if ( m instanceof CombatVehicle ) {
             Equipment.add( new Hitch() );
+            Equipment.add( new ArmoredMotiveSystem(((CombatVehicle) m).GetLoadout()));
         }
         BuildMGArrays();
     }
@@ -144,6 +145,8 @@ public class EquipmentFactory {
             retval = new DroneOperatingSystem( (Mech) m );
         } else if (p instanceof LiftHoist) {
             retval = new LiftHoist(m);
+        } else if (p instanceof ArmoredMotiveSystem) {
+            retval = new ArmoredMotiveSystem(((CombatVehicle)m).GetLoadout());
         } else if( p instanceof Equipment ) {
             retval = ((Equipment) p).Clone();
         } else if( p instanceof ModularArmor ) {
