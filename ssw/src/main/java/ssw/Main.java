@@ -119,7 +119,7 @@ public class Main {
                 switch( screensize ) {
                     case SSWConstants.SCREEN_SIZE_WIDE_1280:
                         MainFrame = new frmMainWide();
-                        MainFrame.setSize( 1240, 610 );
+                        MainFrame.setSize( 1350, 650 );
                         break;
                     default:
                         MainFrame = new frmMain();
