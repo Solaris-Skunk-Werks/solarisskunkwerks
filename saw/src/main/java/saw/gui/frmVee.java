@@ -8092,6 +8092,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 return;
             }
         }
+        GetNewVee();
         // Get the mech we're loading
         CombatVehicle m = LoadVehicle();
         if (m == null) {
@@ -9392,6 +9393,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     public void setVee( CombatVehicle v ) {
+        GetNewVee();
         CurVee = v;
         LoadVehicleIntoGUI();
     }
