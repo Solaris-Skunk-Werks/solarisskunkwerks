@@ -42,12 +42,12 @@ public class stCockpitInterface implements ifCockpit, ifState {
 
     public stCockpitInterface() {
         AC.SetISCodes( 'E', 'X', 'X', 'F', 'X' );
-        AC.SetISDates( 0, 0, false, 3074, 0, 0, false, false );
-        AC.SetISFactions( "", "", "WB", "" );
+        AC.SetISDates( 3068, 3074, false, 3078, 0, 0, false, false );
+        AC.SetISFactions( "WB", "WB", "WB", "" );
         AC.SetSuperHeavyCompatible(false);
         AC.SetCLCodes( 'F', 'X', 'X', 'F', 'F' );
-        AC.SetCLDates( 0, 0, false, 3083, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetCLDates( 3082, 3083, false, 3083, 0, 0, false, false );
+        AC.SetCLFactions( "CHH", "CHH", "CHH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
