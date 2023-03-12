@@ -267,7 +267,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
                 }
             } else {
                 if( p == Queue.get( i ) ) { return; }
-                if( p.LookupName().equals( ((abPlaceable) Queue.get( i )).LookupName() ) ) {
+                if( p.equals(Queue.get( i )) ) {
                     // create a new equipment collection for these items.
                     EquipmentCollection e = new EquipmentCollection( this );
                     e.Add( p );
