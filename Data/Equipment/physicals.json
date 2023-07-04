@@ -1279,6 +1279,7 @@
       "MinDefBonus": 0,
       "ArmorMult": 0,
       "IntMult": 0,
+      "CanJump": true,
       "BVMovement": true,
       "BVHeatMod": false
     }
