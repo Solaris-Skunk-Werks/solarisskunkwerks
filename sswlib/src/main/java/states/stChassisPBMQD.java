@@ -79,7 +79,7 @@ public class stChassisPBMQD implements ifChassis, ifState {
     }
 
     public String CritName() {
-        return "Primitive Structure";
+        return "Primitive";
     }
 
     public String LookupName() {
