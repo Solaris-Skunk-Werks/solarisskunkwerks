@@ -4559,8 +4559,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void BuildLocationSelector() {
-        int curSelection = Math.max(cmbLocation.getSelectedIndex(), 0);
-
         ArrayList locs = new ArrayList();
         locs.add("Front");
         locs.add("Left");
@@ -4577,6 +4575,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             locs.add("Rear Turret");
 
         cmbLocation.setModel(new DefaultComboBoxModel(locs.toArray()));
+        int curSelection = cmbLocation.getSelectedIndex();
+        if ( curSelection < 0 || curSelection >= locs.size()) {
+            curSelection = 0; // reset to Front
+        }
         cmbLocation.setSelectedIndex(curSelection);
     }
 
