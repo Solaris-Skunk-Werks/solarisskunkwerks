@@ -81,6 +81,7 @@ public class Equipment extends abPlaceable implements ifEquipment {
                     RequiresNuclear = false,
                     RequiresPowerAmps = false;
     private transient boolean Rear = false;
+    private transient ifTurret Turret = null;
     @SerializedName("Availability") private AvailableCode AC;
 
     public Equipment() {
@@ -234,14 +235,12 @@ public class Equipment extends abPlaceable implements ifEquipment {
         return ActualName;
     }
 
-    private  String RearName() { return Rear ? "(R) " : ""; }
-
     public String CritName() {
         String retval = CritName;
         if( VariableSize ) {
             retval += " (" + Tonnage + " tons)";
         }
-        return RearName() + retval;
+        return NameModifier() + retval;
     }
 
     @Override
@@ -254,7 +253,7 @@ public class Equipment extends abPlaceable implements ifEquipment {
     }
     
     public String LookupName() {
-        return RearName() + LookupName;
+        return NameModifier() + LookupName;
     }
 
     public String ChatName() {
@@ -262,7 +261,7 @@ public class Equipment extends abPlaceable implements ifEquipment {
     }
 
     public String MegaMekName( boolean UseRear ) {
-        return (MegaMekName + " " + RearName()).trim();
+        return (MegaMekName + " " + NameModifier()).trim();
     }
 
     public String BookReference() {
@@ -434,7 +433,7 @@ public class Equipment extends abPlaceable implements ifEquipment {
 
     @Override
     public boolean CanMountRear() {
-        return CanMountRear;
+        return CanMountRear && ! IsTurreted();
     }
 
     @Override
@@ -445,6 +444,28 @@ public class Equipment extends abPlaceable implements ifEquipment {
     @Override
     public boolean IsMountedRear() {
         return Rear;
+    }
+
+    @Override
+    public boolean CanMountTurret() {
+        return CanAllocCVTurret() && ! IsMountedRear();
+    }
+
+    @Override
+    public void MountTurret( ifTurret t ) {
+        if( Turret == t ) return;
+        if( Turret != null ) {
+            Turret.RemoveItem( this );
+        }
+        if( t != null ) {
+            t.AddItem( this );
+        }
+        Turret = t;
+    }
+
+    @Override
+    public ifTurret GetTurret() {
+        return Turret;
     }
 
     @Override

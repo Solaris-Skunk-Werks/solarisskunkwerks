@@ -3517,8 +3517,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 mnuArmorComponent.setText( "Armor Component" );
             }
         }
-        if( turreted && ( CurItem instanceof RangedWeapon ) ) {
-            if( ((RangedWeapon) CurItem).IsTurreted() ) {
+        if( turreted ) {
+            if( CurItem.IsTurreted() ) {
                 mnuTurret.setText( "Remove from Turret" );
             } else {
                 mnuTurret.setText( "Add to Turret");
@@ -3814,57 +3814,19 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     }
 
     private void TurretMount() {
-        if( CurItem instanceof RangedWeapon ) {
-            RangedWeapon w = (RangedWeapon) CurItem;
+        if( CurItem.IsTurreted() ) {
+            CurItem.MountTurret( null );
+        } else {
             int location = CurMech.GetLoadout().Find( CurItem );
-            if( w.IsTurreted() ) {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot remove from turret!" );
-                    return;
-                }
+            if( location == LocationIndex.MECH_LOC_HD ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetHDTurret() );
+            } else if( location == LocationIndex.MECH_LOC_LT ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetLTTurret() );
+            } else if( location == LocationIndex.MECH_LOC_RT ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetRTTurret() );
             } else {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot add to turret!" );
-                    return;
-                }
-            }
-        } else if( CurItem instanceof MGArray ) {
-            MGArray w = (MGArray) CurItem;
-            int location = CurMech.GetLoadout().Find( CurItem );
-            if( w.IsTurreted() ) {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot remove from turret!" );
-                    return;
-                }
-            } else {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot add to turret!" );
-                    return;
-                }
+                Media.Messager( this, "Invalid turret location!" );
+                return;
             }
         }
         RefreshInfoPane();
@@ -4049,7 +4011,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     }
 
     public boolean LegalTurretMount( abPlaceable p ) {
-        if( ! (( p instanceof RangedWeapon ) || ( p instanceof MGArray )) ) { return false; }
+        if( ! p.CanMountTurret() ) { return false; }
         int location = CurMech.GetLoadout().Find( p );
         if( location == LocationIndex.MECH_LOC_HD ) {
             if( CurMech.IsOmnimech() ) {

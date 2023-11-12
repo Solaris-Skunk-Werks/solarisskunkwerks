@@ -89,35 +89,17 @@ public class MGArray extends abPlaceable implements ifWeapon {
     // the lookup name is used when we are trying to find the piece of equipment.
     public String LookupName() {
         String retval = GetName();
-        if( Rear ) {
-            if( Clan ) {
-                retval = "(R) (CL) " + retval;
-            } else {
-                retval = "(R) (IS) " + retval;
-            }
+        if( Clan ) {
+            retval = "(CL) " + retval;
         } else {
-            if( Clan ) {
-                retval = "(CL) " + retval;
-            } else {
-                retval = "(IS) " + retval;
-            }
+            retval = "(IS) " + retval;
         }
-        if( IsTurreted() ) {
-            retval = "(T) " + retval;
-        }
-        return retval;
+        return NameModifier() + retval;
     }
 
     // the crit name is how the item appears in the loadout when allocated.
     public String CritName() {
-        String retval = GetShortName();
-        if( Rear ) {
-            retval = "(R) " + retval;
-        }
-        if( IsTurreted() ) {
-            retval = "(T) " + retval;
-        }
-        return retval;
+        return NameModifier() + GetShortName();
     }
 
     // the name to be used when expoerting this equipment to a chat line.
@@ -140,10 +122,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
         } else {
             retval = "IS" + retval;
         }
-        if( Rear ) {
-            retval += " (R)";
-        }
-        return retval;
+        return NameModifier() + retval;
     }
 
     // reference for the book that the equipment comes from
@@ -449,16 +428,12 @@ public class MGArray extends abPlaceable implements ifWeapon {
 
     @Override
     public boolean CanMountRear() {
-        return true;
+        return ! IsTurreted();
     }
 
     @Override
     public void MountRear( boolean rear ) {
         Rear = rear;
-        if( MGs[0] != null ) { MGs[0].MountRear( rear ); }
-        if( MGs[1] != null ) { MGs[1].MountRear( rear ); }
-        if( MGs[2] != null ) { MGs[2].MountRear( rear ); }
-        if( MGs[3] != null ) { MGs[3].MountRear( rear ); }
     }
 
     @Override
@@ -476,26 +451,24 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return Manufacturer;
     }
 
-    public boolean AddToTurret( ifTurret t ) {
-        if( t.AddWeapon( this ) ) {
-            Turret = t;
-            return true;
-        } else {
-            Turret = null;
-            return false;
+    @Override
+    public boolean CanMountTurret() {
+        return CanAllocCVTurret() && ! IsMountedRear();
+    }
+
+    @Override
+    public void MountTurret( ifTurret t ) {
+        if( Turret == t ) return;
+        if( Turret != null ) {
+            Turret.RemoveItem( this );
         }
+        if( t != null ) {
+            t.AddItem( this );
+        }
+        Turret = t;
     }
 
-    public void RemoveFromTurret( ifTurret t ) {
-        t.RemoveWeapon( this );
-        Turret = null;
-    }
-
-    public boolean IsTurreted() {
-        if( Turret != null ) { return true; }
-        return false;
-    }
-
+    @Override
     public ifTurret GetTurret() {
         return Turret;
     }

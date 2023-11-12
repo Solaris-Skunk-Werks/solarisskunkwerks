@@ -36,7 +36,7 @@ public class MechTurret extends abPlaceable implements ifTurret {
 
     private ifMechLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private Vector<ifWeapon> weapons = new Vector<ifWeapon>();
+    private Vector<abPlaceable> items = new Vector<abPlaceable>();
 
     public MechTurret( ifMechLoadout l ) {
         Owner = l;
@@ -49,43 +49,41 @@ public class MechTurret extends abPlaceable implements ifTurret {
         AC.SetCLFactions( "", "", "PS", "" );
     }
 
-    public boolean AddWeapon( ifWeapon w ) {
-        if( ! (( w instanceof RangedWeapon ) || ( w instanceof MGArray )) ) {
-            return false;
-        }
-        if( w instanceof RangedWeapon ) {
-            //If it can't go in a Vehicle Turret then it can't go in a Mech one.
-            if( !((RangedWeapon) w).CanAllocCVTurret() ) return false;
-            //Make sure if they can split, that they haven't been.
-            if( ((RangedWeapon) w).CanSplit() ) {
-                //Gets all crit slots
-                ArrayList locations = Owner.FindIndexes( (abPlaceable) w );
-                //first one
-                LocationIndex firstSlot = (LocationIndex) locations.get(0);
-                //check all of them
-                for (int i = 0; i < locations.size(); i++) {
-                    //compare to the first. If they are different, it's been split.
-                    LocationIndex currentSlot = ((LocationIndex) locations.get(i));
-                    if (currentSlot.Location != firstSlot.Location)
-                        return false;
-                }
+    @Override
+    public boolean AddItem( abPlaceable p ) {
+        if( ! items.contains( p )) return false;
+        //Make sure if they can split, that they haven't been.
+        if( p.CanSplit() ) {
+            //Gets all crit slots
+            ArrayList locations = Owner.FindIndexes( (abPlaceable) p );
+            //first one
+            LocationIndex firstSlot = (LocationIndex) locations.get(0);
+            //check all of them
+            for (int i = 0; i < locations.size(); i++) {
+                //compare to the first. If they are different, it's been split.
+                LocationIndex currentSlot = ((LocationIndex) locations.get(i));
+                if (currentSlot.Location != firstSlot.Location)
+                    return false;
             }
         }
-        weapons.add( w );
+        items.add( p );
         return true;
     }
 
-    public void RemoveWeapon( ifWeapon w ) {
+    @Override
+    public void RemoveItem( abPlaceable p ) {
         // extra code here!
-        weapons.remove( w );
+        items.remove( p );
     }
 
-    public Vector<ifWeapon> GetWeapons() {
-        return weapons;
+    @Override
+    public Vector<abPlaceable> GetItems() {
+        return items;
     }
 
-    public boolean IsInstalled( ifWeapon w ) {
-        return weapons.contains( w );
+    @Override
+    public boolean IsInstalled( abPlaceable p ) {
+        return items.contains( p );
     }
 
     @Override
@@ -170,8 +168,8 @@ public class MechTurret extends abPlaceable implements ifTurret {
 
     private double GetSize() {
         double retval = 0.0;
-        for( int i = 0; i < weapons.size(); i++ ) {
-            retval += ((abPlaceable) weapons.get( i )).GetTonnage();
+        for( int i = 0; i < items.size(); i++ ) {
+            retval += ((abPlaceable) items.get( i )).GetTonnage();
         }
         if( Owner.GetMech().UsingFractionalAccounting() ) {
             return CommonTools.RoundFractionalTons( retval * 0.1 );

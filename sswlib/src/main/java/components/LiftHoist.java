@@ -34,7 +34,6 @@ package components;
  */
 public class LiftHoist extends Equipment implements ifEquipment {
     private final ifUnit Owner;
-    private transient boolean Rear = false;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     public LiftHoist(ifUnit l)
     {
@@ -55,14 +54,12 @@ public class LiftHoist extends Equipment implements ifEquipment {
         SetMountableRear(true);
     }
 
-    public String RearName() { return Rear ? "(R) " : ""; }
-
     public String ActualName() {
         return "Lift Hoist";
     }
 
     public String CritName() {
-        return RearName() + "Lift Hoist";
+        return NameModifier() + "Lift Hoist";
     }
 
     @Override
@@ -198,19 +195,5 @@ public class LiftHoist extends Equipment implements ifEquipment {
             return ((CombatVehicle) Owner).IsVTOL();
         }
         return false;
-    }
-
-    @Override
-    public String GetEquipmentType() {
-        return "equipment";
-    }
-
-    @Override
-    public void MountRear( boolean rear ) {
-        Rear = rear;
-    }
-    @Override
-    public boolean IsMountedRear() {
-        return Rear;
     }
 }

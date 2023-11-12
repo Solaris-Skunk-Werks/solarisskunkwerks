@@ -31,10 +31,10 @@ package components;
 import java.util.Vector;
 
 public interface ifTurret {
-    public boolean AddWeapon( ifWeapon w );
-    public void RemoveWeapon( ifWeapon w );
-    public Vector<ifWeapon> GetWeapons();
-    public boolean IsInstalled( ifWeapon w );
+    public boolean AddItem( abPlaceable p );
+    public void RemoveItem( abPlaceable p );
+    public Vector<abPlaceable> GetItems();
+    public boolean IsInstalled( abPlaceable p );
     public double GetTonnage();
     public double GetCost();
 }

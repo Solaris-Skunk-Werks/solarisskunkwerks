@@ -312,6 +312,17 @@ public abstract class abPlaceable implements Comparable<abPlaceable> {
     // we use other names elsewhere because this can get extremely long.
     public abstract String ActualName();
 
+    // intended for usage within LookupName and CritName
+    protected String NameModifier() {
+        if( IsMountedRear() ) {
+            return "(R) ";
+        } else if( IsTurreted() ) {
+            return "(T) ";
+        } else {
+            return "";
+        }
+    }
+
     // the lookup name is used when we are trying to find the piece of equipment.
     public abstract String LookupName();
 
@@ -327,11 +338,12 @@ public abstract class abPlaceable implements Comparable<abPlaceable> {
     public String PrintName() {
         return CritName();
     }
-    
+
     // the name to be used when expoerting this equipment to a chat line.
     public abstract String ChatName();
 
     // the name to be used when exporting to MegaMek
+    // TODO: UseRear is legacy and unused
     public abstract String MegaMekName( boolean UseRear );
 
     // reference for the book that the equipment comes from 
@@ -382,19 +394,42 @@ public abstract class abPlaceable implements Comparable<abPlaceable> {
     public void ResetPlaced() {
     }
 
-    // tells us whether the item can be mounted to the rear.  Most items cannot,
-    // so this automatically returns false
+    // Tells us whether the item can be mounted to the rear on a mech location.
+    // Most items cannot, so this automatically returns false
+    // (Not used for vehicles, which have their own dedicated rear location.)
     public boolean CanMountRear() {
         return false;
     }
 
-    // This next two methods should be overridden by any component that can be
-    // mounted to the rear.
+    // The next two methods should be overridden by any component that can be
+    // mounted to the rear on a mech location.
+    // (Not used for vehicles, which have their own dedicated rear location.)
     public void MountRear(boolean rear) {
     }
 
     public boolean IsMountedRear() {
         return false;
+    }
+
+    // Tells us whether the item can be mounted to a mech turret.
+    // Defaults to delegating to CanAllocCVTurret.
+    // (Not used for vehicles, which have their own dedicated turret locations.)
+    public boolean CanMountTurret() {
+        return CanAllocCVTurret();
+    }
+
+    // The next two methods should be overridden by any component that can be
+    // mounted to a mech turret.
+    // (Not used for vehicles, which have their own dedicated turret locations.)
+    public void MountTurret(ifTurret turret) {
+    }
+
+    public ifTurret GetTurret() {
+        return null;
+    }
+
+    public boolean IsTurreted() {
+        return GetTurret() != null;
     }
 
     // tells us if this is a core component.  A special list is kept in the

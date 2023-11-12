@@ -1207,7 +1207,8 @@ public class CVReader {
                 name = FileCommon.LookupStripArc( name );
                 rear = true;
             } else if( name.substring( 0, 4 ).equals( "(T) " ) ) {
-                // turreted items are handled elsewhere, unfortunately.
+                // this is for mech turrets so shouldn't even exist,
+                // but handle it just in case
                 name = FileCommon.LookupStripArc( name );
             }
         }
@@ -1338,6 +1339,7 @@ public class CVReader {
                 retval.MountRear( true );
             }
         } catch( Exception e ) {
+            Messages += e.toString();
             return null;
         }
         return retval;

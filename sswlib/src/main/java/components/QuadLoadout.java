@@ -1973,17 +1973,6 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             if( ((RangedWeapon) p).IsUsingPulseModule() ) {
                 UnallocateAll( ((RangedWeapon) p).GetPulseModule(), true );
             }
-            if( ((RangedWeapon) p).IsTurreted() ) {
-                if( ((RangedWeapon) p).GetTurret() == HDTurret ) {
-                    ((RangedWeapon) p).RemoveFromTurret( HDTurret );
-                }
-                if( ((RangedWeapon) p).GetTurret() == LTTurret ) {
-                    ((RangedWeapon) p).RemoveFromTurret( LTTurret );
-                }
-                if( ((RangedWeapon) p).GetTurret() == RTTurret ) {
-                    ((RangedWeapon) p).RemoveFromTurret( RTTurret );
-                }
-            }
         }
 
         // if the item is an MG Array, check for it's MGs and unallocate
@@ -1991,6 +1980,10 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             for( int i = 0; i < ((MGArray) p).GetMGs().length; i++ ) {
                 UnallocateAll( ((MGArray) p).GetMGs()[i], true );
             }
+        }
+
+        if( p.IsTurreted() ) {
+            p.MountTurret( null );
         }
 
         Owner.SetChanged( true );
@@ -2091,17 +2084,6 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             if( ((RangedWeapon) p).IsUsingPulseModule() ) {
                 UnallocateAll( ((RangedWeapon) p).GetPulseModule(), true );
             }
-            if( ((RangedWeapon) p).IsTurreted() ) {
-                if( ((RangedWeapon) p).GetTurret() == HDTurret ) {
-                    ((RangedWeapon) p).RemoveFromTurret( HDTurret );
-                }
-                if( ((RangedWeapon) p).GetTurret() == LTTurret ) {
-                    ((RangedWeapon) p).RemoveFromTurret( LTTurret );
-                }
-                if( ((RangedWeapon) p).GetTurret() == RTTurret ) {
-                    ((RangedWeapon) p).RemoveFromTurret( RTTurret );
-                }
-            }
         }
 
         // if the item is an MG Array, check for it's MGs and unallocate
@@ -2109,6 +2091,10 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             for( int i = 0; i < ((MGArray) p).GetMGs().length; i++ ) {
                 UnallocateAll( ((MGArray) p).GetMGs()[i], true );
             }
+        }
+
+        if( p.IsTurreted() ) {
+            p.MountTurret( null );
         }
 
         Owner.SetChanged( true );
@@ -4635,13 +4621,9 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
 
     private void ClearTurretWeapons( MechTurret t ) {
         for( int i = 0; i < NonCore.size(); i++ ) {
-            if( NonCore.get( i ) instanceof RangedWeapon ) {
-                RangedWeapon w = (RangedWeapon) NonCore.get( i );
-                if( w.IsTurreted() ) {
-                    if( w.GetTurret() == t ) {
-                        w.RemoveFromTurret( t );
-                    }
-                }
+            abPlaceable p = (abPlaceable) NonCore.get( i );
+            if( p.GetTurret() == t ) {
+                p.MountTurret( null );
             }
         }
     }
