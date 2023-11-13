@@ -597,16 +597,4 @@ public class Equipment extends abPlaceable implements ifEquipment {
     public String toString() {
         return CritName();
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Equipment))
-            return false;
-
-        if (((Equipment) obj).ActualName() == ActualName()) {
-            return true;
-        }
-
-        return false;
-    }
 }
