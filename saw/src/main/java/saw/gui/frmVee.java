@@ -50,6 +50,7 @@ import visitors.VSetArmorTonnage;
 import visitors.ifVisitor;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -1158,41 +1159,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblArmorLeftInLot = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         tbpWeaponChooser = new JTabbedPane();
-        JPanel pnlBallistic = new JPanel();
-        JSeparator jSeparator5 = new JSeparator();
-        JScrollPane jScrollPane8 = new JScrollPane();
         lstChooseBallistic = new javax.swing.JList();
-        JSeparator jSeparator6 = new JSeparator();
-        JPanel pnlEnergy = new JPanel();
-        JSeparator jSeparator7 = new JSeparator();
-        JScrollPane jScrollPane9 = new JScrollPane();
         lstChooseEnergy = new javax.swing.JList();
-        JSeparator jSeparator8 = new JSeparator();
-        JPanel pnlMissile = new JPanel();
-        JSeparator jSeparator9 = new JSeparator();
-        JScrollPane jScrollPane19 = new JScrollPane();
         lstChooseMissile = new javax.swing.JList();
-        JSeparator jSeparator10 = new JSeparator();
-        JPanel pnlPhysical = new JPanel();
-        JSeparator jSeparator11 = new JSeparator();
-        JScrollPane jScrollPane20 = new JScrollPane();
         lstChoosePhysical = new javax.swing.JList();
-        JSeparator jSeparator12 = new JSeparator();
-        JPanel pnlEquipmentChooser = new JPanel();
-        JSeparator jSeparator13 = new JSeparator();
-        JScrollPane jScrollPane21 = new JScrollPane();
         lstChooseEquipment = new javax.swing.JList();
-        JSeparator jSeparator14 = new JSeparator();
-        JPanel pnlArtillery = new JPanel();
-        JSeparator jSeparator18 = new JSeparator();
-        JScrollPane jScrollPane24 = new JScrollPane();
         lstChooseArtillery = new javax.swing.JList();
-        JSeparator jSeparator19 = new JSeparator();
-        JPanel pnlAmmunition = new JPanel();
-        JSeparator jSeparator15 = new JSeparator();
-        JScrollPane jScrollPane22 = new JScrollPane();
         lstChooseAmmunition = new javax.swing.JList();
-        JSeparator jSeparator16 = new JSeparator();
         JPanel pnlSpecials = new JPanel();
         JLabel jLabel37 = new JLabel();
         chkUseTC = new javax.swing.JCheckBox();
@@ -3077,328 +3050,31 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         tbpMainTabPane.addTab("Armor", jPanel2);
 
+        //region Equipment Tab / Weapons and Equipment Lists
+        AbstractListModel placeholder = new AbstractListModel() {
+            String[] strings = { "Placeholder" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        };
+
+        MouseListener mlAddEquip = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    btnAddEquipActionPerformed( null );
+                }
+            }
+        };
+
         tbpWeaponChooser.setTabPlacement(JTabbedPane.RIGHT);
         tbpWeaponChooser.setMaximumSize(new Dimension(300, 300));
         tbpWeaponChooser.setMinimumSize(new Dimension(300, 300));
-
-        jSeparator5.setOrientation(SwingConstants.VERTICAL);
-        jSeparator5.setAlignmentX(0.0F);
-        jSeparator5.setAlignmentY(0.0F);
-
-        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane8.setMaximumSize(new Dimension(300, 300));
-        jScrollPane8.setMinimumSize(new Dimension(300, 300));
-        jScrollPane8.setPreferredSize(new Dimension(300, 300));
-
-        lstChooseBallistic.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseBallistic.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseBallistic.setMaximumSize(new Dimension(300, 300));
-        lstChooseBallistic.setMinimumSize(new Dimension(300, 300));
-        lstChooseBallistic.setPreferredSize(new Dimension(300, 300));
-        lstChooseBallistic.setVisibleRowCount(16);
-        lstChooseBallistic.addListSelectionListener(this::lstChooseBallisticValueChanged);
-        MouseListener mlBallistic = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseBallistic.addMouseListener( mlBallistic );
-        lstChooseBallistic.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane8.setViewportView(lstChooseBallistic);
-
-        jSeparator6.setOrientation(SwingConstants.VERTICAL);
-        jSeparator6.setAlignmentX(0.0F);
-        jSeparator6.setAlignmentY(0.0F);
-
-        javax.swing.GroupLayout pnlBallisticLayout = new javax.swing.GroupLayout(pnlBallistic);
-        pnlBallistic.setLayout(pnlBallisticLayout);
-        pnlBallisticLayout.setHorizontalGroup(
-            pnlBallisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-        );
-        pnlBallisticLayout.setVerticalGroup(
-            pnlBallisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-        );
-
-        tbpWeaponChooser.addTab("Ballistic", pnlBallistic);
-
-        pnlEnergy.setLayout(new javax.swing.BoxLayout(pnlEnergy, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator7.setOrientation(SwingConstants.VERTICAL);
-        jSeparator7.setAlignmentX(0.0F);
-        jSeparator7.setAlignmentY(0.0F);
-        pnlEnergy.add(jSeparator7);
-
-        jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane9.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane9.setMaximumSize(new Dimension(300, 300));
-        jScrollPane9.setMinimumSize(new Dimension(300, 300));
-        jScrollPane9.setPreferredSize(new Dimension(300, 300));
-
-        lstChooseEnergy.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseEnergy.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEnergy.setMaximumSize(new Dimension(300, 300));
-        lstChooseEnergy.setMinimumSize(new Dimension(300, 300));
-        lstChooseEnergy.setPreferredSize(new Dimension(300, 300));
-        lstChooseEnergy.setVisibleRowCount(16);
-        lstChooseEnergy.addListSelectionListener(this::lstChooseEnergyValueChanged);
-        MouseListener mlEnergy = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseEnergy.addMouseListener( mlEnergy );
-        lstChooseEnergy.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane9.setViewportView(lstChooseEnergy);
-
-        pnlEnergy.add(jScrollPane9);
-
-        jSeparator8.setOrientation(SwingConstants.VERTICAL);
-        jSeparator8.setAlignmentX(0.0F);
-        jSeparator8.setAlignmentY(0.0F);
-        pnlEnergy.add(jSeparator8);
-
-        tbpWeaponChooser.addTab("Energy", pnlEnergy);
-
-        pnlMissile.setLayout(new javax.swing.BoxLayout(pnlMissile, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator9.setOrientation(SwingConstants.VERTICAL);
-        jSeparator9.setAlignmentX(0.0F);
-        jSeparator9.setAlignmentY(0.0F);
-        pnlMissile.add(jSeparator9);
-
-        jScrollPane19.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane19.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane19.setMaximumSize(new Dimension(300, 300));
-        jScrollPane19.setMinimumSize(new Dimension(300, 300));
-        jScrollPane19.setPreferredSize(new Dimension(300, 300));
-
-        lstChooseMissile.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseMissile.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseMissile.setMaximumSize(new Dimension(300, 300));
-        lstChooseMissile.setMinimumSize(new Dimension(300, 300));
-        lstChooseMissile.setPreferredSize(new Dimension(300, 300));
-        lstChooseMissile.setVisibleRowCount(16);
-        lstChooseMissile.addListSelectionListener(this::lstChooseMissileValueChanged);
-        MouseListener mlMissile = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseMissile.addMouseListener( mlMissile );
-        lstChooseMissile.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane19.setViewportView(lstChooseMissile);
-
-        pnlMissile.add(jScrollPane19);
-
-        jSeparator10.setOrientation(SwingConstants.VERTICAL);
-        jSeparator10.setAlignmentX(0.0F);
-        jSeparator10.setAlignmentY(0.0F);
-        pnlMissile.add(jSeparator10);
-
-        tbpWeaponChooser.addTab("Missile", pnlMissile);
-
-        pnlPhysical.setLayout(new javax.swing.BoxLayout(pnlPhysical, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator11.setOrientation(SwingConstants.VERTICAL);
-        jSeparator11.setAlignmentX(0.0F);
-        jSeparator11.setAlignmentY(0.0F);
-        pnlPhysical.add(jSeparator11);
-
-        jScrollPane20.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane20.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane20.setMaximumSize(new Dimension(300, 300));
-        jScrollPane20.setMinimumSize(new Dimension(300, 300));
-        jScrollPane20.setPreferredSize(new Dimension(300, 300));
-
-        lstChoosePhysical.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChoosePhysical.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChoosePhysical.setMaximumSize(new Dimension(300, 300));
-        lstChoosePhysical.setMinimumSize(new Dimension(300, 300));
-        lstChoosePhysical.setPreferredSize(new Dimension(300, 300));
-        lstChoosePhysical.setVisibleRowCount(16);
-        lstChoosePhysical.addListSelectionListener(this::lstChoosePhysicalValueChanged);
-        MouseListener mlPhysical = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChoosePhysical.addMouseListener( mlPhysical );
-        lstChoosePhysical.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane20.setViewportView(lstChoosePhysical);
-
-        pnlPhysical.add(jScrollPane20);
-
-        jSeparator12.setOrientation(SwingConstants.VERTICAL);
-        jSeparator12.setAlignmentX(0.0F);
-        jSeparator12.setAlignmentY(0.0F);
-        pnlPhysical.add(jSeparator12);
-
-        tbpWeaponChooser.addTab("Physical", pnlPhysical);
-
-        pnlEquipmentChooser.setLayout(new javax.swing.BoxLayout(pnlEquipmentChooser, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator13.setOrientation(SwingConstants.VERTICAL);
-        jSeparator13.setAlignmentX(0.0F);
-        jSeparator13.setAlignmentY(0.0F);
-        pnlEquipmentChooser.add(jSeparator13);
-
-        jScrollPane21.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane21.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane21.setMaximumSize(new Dimension(300, 300));
-        jScrollPane21.setMinimumSize(new Dimension(300, 300));
-        jScrollPane21.setPreferredSize(new Dimension(300, 300));
-
-        lstChooseEquipment.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEquipment.setMaximumSize(new Dimension(300, 300));
-        lstChooseEquipment.setMinimumSize(new Dimension(300, 300));
-        lstChooseEquipment.setPreferredSize(new Dimension(300, 300));
-        lstChooseEquipment.setVisibleRowCount(16);
-        lstChooseEquipment.addListSelectionListener(this::lstChooseEquipmentValueChanged);
-        MouseListener mlEquipment = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseEquipment.addMouseListener( mlEquipment );
-        lstChooseEquipment.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane21.setViewportView(lstChooseEquipment);
-
-        pnlEquipmentChooser.add(jScrollPane21);
-
-        jSeparator14.setOrientation(SwingConstants.VERTICAL);
-        jSeparator14.setAlignmentX(0.0F);
-        jSeparator14.setAlignmentY(0.0F);
-        pnlEquipmentChooser.add(jSeparator14);
-
-        tbpWeaponChooser.addTab("Equipment", pnlEquipmentChooser);
-
-        pnlArtillery.setLayout(new javax.swing.BoxLayout(pnlArtillery, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator18.setOrientation(SwingConstants.VERTICAL);
-        jSeparator18.setAlignmentX(0.0F);
-        jSeparator18.setAlignmentY(0.0F);
-        pnlArtillery.add(jSeparator18);
-
-        jScrollPane24.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane24.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane24.setMaximumSize(new Dimension(300, 300));
-        jScrollPane24.setMinimumSize(new Dimension(300, 300));
-        jScrollPane24.setPreferredSize(new Dimension(300, 300));
-
-        lstChooseArtillery.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseArtillery.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseArtillery.setMaximumSize(new Dimension(300, 300));
-        lstChooseArtillery.setMinimumSize(new Dimension(300, 300));
-        lstChooseArtillery.setPreferredSize(new Dimension(300, 300));
-        lstChooseArtillery.setVisibleRowCount(16);
-        lstChooseArtillery.addListSelectionListener(this::lstChooseArtilleryValueChanged);
-        MouseListener mlArtillery = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseArtillery.addMouseListener( mlArtillery );
-        lstChooseArtillery.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane24.setViewportView(lstChooseArtillery);
-
-        pnlArtillery.add(jScrollPane24);
-
-        jSeparator19.setOrientation(SwingConstants.VERTICAL);
-        jSeparator19.setAlignmentX(0.0F);
-        jSeparator19.setAlignmentY(0.0F);
-        pnlArtillery.add(jSeparator19);
-
-        tbpWeaponChooser.addTab("Artillery", pnlArtillery);
-
-        pnlAmmunition.setLayout(new javax.swing.BoxLayout(pnlAmmunition, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator15.setOrientation(SwingConstants.VERTICAL);
-        jSeparator15.setAlignmentX(0.0F);
-        jSeparator15.setAlignmentY(0.0F);
-        pnlAmmunition.add(jSeparator15);
-
-        jScrollPane22.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane22.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane22.setMaximumSize(new Dimension(300, 300));
-        jScrollPane22.setMinimumSize(new Dimension(300, 300));
-        jScrollPane22.setPreferredSize(new Dimension(300, 300));
-
-        lstChooseAmmunition.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseAmmunition.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseAmmunition.setMaximumSize(new Dimension(300, 300));
-        lstChooseAmmunition.setMinimumSize(new Dimension(300, 300));
-        lstChooseAmmunition.setPreferredSize(new Dimension(300, 300));
-        lstChooseAmmunition.setVisibleRowCount(16);
-        lstChooseAmmunition.addListSelectionListener(this::lstChooseAmmunitionValueChanged);
-        MouseListener mlAmmo = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseAmmunition.addMouseListener( mlAmmo );
-        lstChooseAmmunition.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane22.setViewportView(lstChooseAmmunition);
-
-        pnlAmmunition.add(jScrollPane22);
-
-        jSeparator16.setOrientation(SwingConstants.VERTICAL);
-        jSeparator16.setAlignmentX(0.0F);
-        jSeparator16.setAlignmentY(0.0F);
-        pnlAmmunition.add(jSeparator16);
-
-        tbpWeaponChooser.addTab("Ammunition", pnlAmmunition);
+        tbpWeaponChooser.addTab("Ballistic", EquipmentLocation(lstChooseBallistic, this::lstChooseBallisticValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Energy", EquipmentLocation(lstChooseEnergy, this::lstChooseEnergyValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Missile", EquipmentLocation(lstChooseMissile, this::lstChooseMissileValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Physical", EquipmentLocation(lstChoosePhysical, this::lstChoosePhysicalValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Equipment", EquipmentLocation(lstChooseEquipment, this::lstChooseEquipmentValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Artillery", EquipmentLocation(lstChooseArtillery, this::lstChooseArtilleryValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Ammunition", EquipmentLocation(lstChooseAmmunition, this::lstChooseAmmunitionValueChanged, mlAddEquip, placeholder));
 
         pnlSpecials.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Specials"));
         pnlSpecials.setLayout(new java.awt.GridBagLayout());
@@ -4694,6 +4370,22 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private JPanel EquipmentLocation(JList list, ListSelectionListener selection, MouseListener listener, AbstractListModel display) {
+        JPanel panel = new JPanel();
+        list.setModel(display);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.addListSelectionListener(selection);
+        list.addMouseListener( listener );
+        list.setCellRenderer( new EquipmentListRenderer( this ) );
+        JScrollPane pane = new JScrollPane();
+        pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        pane.setViewportView(list);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(pane);
+        return panel;
+    }
 
     private void RefreshSummary() {
         // refreshes the display completely using info from the mech.

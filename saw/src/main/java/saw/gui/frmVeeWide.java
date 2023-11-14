@@ -2230,7 +2230,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         //endregion
 
         //region Equipment Tab / Weapons and Equipment Lists
-        AbstractListModel placeholder = new javax.swing.AbstractListModel() {
+        AbstractListModel placeholder = new AbstractListModel() {
             String[] strings = { "Placeholder" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -2678,10 +2678,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private JPanel EquipmentLocation(JList list, ListSelectionListener selection, MouseListener listener, AbstractListModel display) {
         JPanel panel = new JPanel();
         list.setModel(display);
-        list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.addListSelectionListener(selection);
         list.addMouseListener( listener );
-        list.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
+        list.setCellRenderer( new EquipmentListRenderer( this ) );
         JScrollPane pane = new JScrollPane();
         pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
