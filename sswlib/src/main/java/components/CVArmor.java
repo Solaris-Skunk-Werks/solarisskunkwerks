@@ -1001,7 +1001,7 @@ public class CVArmor extends abPlaceable {
 
     @Override
     public double GetCost() {
-        if( Owner.GetYear() < 2450 ) {
+        if( Owner.YearWasSpecified() && Owner.GetYear() < 2450 ) {
             return GetTonnage() * Config.GetCostMult() * 2.0;
         } else {
             return GetTonnage() * Config.GetCostMult();
