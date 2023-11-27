@@ -3405,6 +3405,9 @@ public class Mech implements ifUnit, ifBattleforce {
                     retval += ( (abPlaceable) v.get( i ) ).GetCost();
                 }
             }
+            if( Prefs.getBoolean( "CostAmmoMult", false ) ) {
+                retval *= GetCostMult();
+            }
             return retval;
         } else {
             return retval;
