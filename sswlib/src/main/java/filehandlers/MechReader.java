@@ -820,7 +820,8 @@ public class MechReader {
                     if (eName.equals("Drone Operating System")) {m.AddDroneOS();}
                     
                     if( p == null ) {
-                        throw new Exception( "Could not find " + eName + " as a piece of equipment.\nThe Mech cannot be loaded." );
+                        Messages += "Could not find " + eName + " as a piece of equipment.\n";
+                        continue;
                     }
                     p.SetManufacturer( eMan );
                     if( p instanceof Equipment ) {
@@ -1585,7 +1586,8 @@ public class MechReader {
                             }
                             abPlaceable p = GetEquipmentByName( eName, eType, m );
                             if( p == null ) {
-                                throw new Exception( "Could not find " + eName + " as a piece of equipment.\nThe Mech cannot be loaded." );
+                                Messages += "Could not find " + eName + " as a piece of equipment.\n";
+                                continue;
                             }
                             p.SetManufacturer( eMan );
                             if( p instanceof Equipment ) {
@@ -1856,7 +1858,7 @@ public class MechReader {
                 name = FileCommon.LookupStripArc( name );
             }
         }
-        if( ! name.contains( "(CL)" ) |! name.contains( "(IS)" ) ) {
+        if( ! name.contains( "(CL)" ) && ! name.contains( "(IS)" ) ) {
             // old style save file or an item that can be used by both techbases
             // we'll need to check.
             if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
