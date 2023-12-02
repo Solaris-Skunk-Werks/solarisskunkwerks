@@ -146,7 +146,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         CurVee = new CombatVehicle( );
         initComponents();
 
-        Prefs = Preferences.userRoot().node( Constants.SSWPrefs );
+        Prefs = Preferences.userRoot().node( Constants.SAWPrefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         cmbMotiveTypeActionPerformed(null);
         spnTonnageStateChanged(null);
