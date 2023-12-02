@@ -81,6 +81,7 @@ public class dlgPrefs extends javax.swing.JDialog {
             chkHeatAllMP.setEnabled( true );
         }
         chkHeatUAC.setSelected( Prefs.getBoolean( "HeatACFullRate", false ) );
+        chkHeatStreaks.setSelected( Prefs.getBoolean( "HeatStreaksHalfRate", false ) );
         chkCostAmmoMult.setSelected( Prefs.getBoolean( "CostAmmoMult", false ) );
         chkAutoAddECM.setSelected( Prefs.getBoolean( "AutoAddECM", true ) );
 
@@ -153,6 +154,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "HeatExcludeJumpMP", chkHeatJumpMP.isSelected() );
         Prefs.putBoolean( "HeatExcludeAllMP", chkHeatAllMP.isSelected() );
         Prefs.putBoolean( "HeatACFullRate", chkHeatUAC.isSelected() );
+        Prefs.putBoolean( "HeatStreaksHalfRate", chkHeatStreaks.isSelected() );
         Prefs.putBoolean( "CostAmmoMult", chkCostAmmoMult.isSelected() );
         Prefs.putBoolean( "UseMaxArmorInstead", chkMaxNotInt.isSelected() );
         Prefs.putBoolean( "ArmorUseCustomPercent", chkCustomPercents.isSelected() );
@@ -216,6 +218,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "HeatExcludeJumpMP", false );
         Prefs.putBoolean( "HeatExcludeAllMP", false );
         Prefs.putBoolean( "HeatACFullRate", false );
+        Prefs.putBoolean( "HeatStreaksHalfRate", false );
         Prefs.putBoolean( "CostAmmoMult", false );
         Prefs.putBoolean( "UseMaxArmorInstead", false );
         Prefs.putBoolean( "ArmorUseCustomPercent", false );
@@ -295,6 +298,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         chkHeatJumpMP = new javax.swing.JCheckBox();
         chkHeatAllMP = new javax.swing.JCheckBox();
         chkHeatUAC = new javax.swing.JCheckBox();
+        chkHeatStreaks = new javax.swing.JCheckBox();
         jLabel19 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         chkCostAmmoMult = new javax.swing.JCheckBox();
@@ -664,6 +668,14 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         jPanel8.add(chkHeatUAC, gridBagConstraints);
+
+        chkHeatStreaks.setText("Streaks have 50% fire rate (ala MML)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
+        jPanel8.add(chkHeatStreaks, gridBagConstraints);
 
         jLabel19.setText("Non-BV Heat Calculations:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1681,6 +1693,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkHeatJumpMP;
     private javax.swing.JCheckBox chkHeatOSWeapons;
     private javax.swing.JCheckBox chkHeatRearWeapons;
+    private javax.swing.JCheckBox chkHeatStreaks;
     private javax.swing.JCheckBox chkHeatSystems;
     private javax.swing.JCheckBox chkHeatUAC;
     private javax.swing.JCheckBox chkLoadLastMech;
