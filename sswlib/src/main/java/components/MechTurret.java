@@ -51,7 +51,7 @@ public class MechTurret extends abPlaceable implements ifTurret {
 
     @Override
     public boolean AddItem( abPlaceable p ) {
-        if( ! items.contains( p )) return false;
+        if( items.contains( p )) return false;
         //Make sure if they can split, that they haven't been.
         if( p.CanSplit() ) {
             //Gets all crit slots
