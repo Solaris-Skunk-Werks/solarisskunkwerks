@@ -394,7 +394,7 @@ public class MechWriter {
             FR.newLine();
         }
         FR.write( GetEquipmentLines( tab + tab ) );
-        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+        if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             // check for armored components
             FR.write( GetArmoredLocations( tab + tab ) );
         }
@@ -478,7 +478,7 @@ public class MechWriter {
                     FR.newLine();
                 }
                 FR.write( GetEquipmentLines( tab + tab ) );
-                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+                if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
                     // check for armored components
                     FR.write( GetArmoredLocations( tab + tab ) );
                 }

@@ -275,7 +275,7 @@ public class CVWriter {
                     FR.newLine();
                 }
                 FR.write( GetEquipmentLines( tab + tab ) );
-                if( CurUnit.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+                if( CurUnit.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
                     // check for armored components
                     FR.write( GetArmoredLocations( tab + tab ) );
                 }
