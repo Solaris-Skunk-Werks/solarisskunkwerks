@@ -3491,6 +3491,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void ConfigureUtilsMenu( java.awt.Component c ) {
         // configures the utilities popup menu
+        boolean rear = LegalRearMount( CurItem );
         boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
@@ -3498,11 +3499,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
-        mnuArmorComponent.setEnabled( armor );
-        mnuAddCapacitor.setEnabled( cap );
-        mnuAddInsulator.setEnabled( insul );
-        mnuAddPulseModule.setEnabled(pulseModule);
-        mnuCaseless.setEnabled( caseless );
+        mnuMountRear.setVisible( rear );
         mnuArmorComponent.setVisible( armor );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
@@ -3510,6 +3507,13 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
+        if( rear ) {
+            if( CurItem.IsMountedRear() ) {
+                mnuMountRear.setText( "Unmount Rear " );
+            } else {
+                mnuMountRear.setText( "Mount Rear " );
+            }
+        }
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
@@ -3626,22 +3630,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             } else {
                 mnuUnallocateAll.setText( "Unallocate All" );
                 mnuUnallocateAll.setEnabled( false );
-            }
-            if( c == lstHDCrits || c == lstCTCrits || c == lstLTCrits || c == lstRTCrits || c == lstLLCrits || c == lstRLCrits  || ( CurMech.IsQuad() && (c == lstRACrits || c == lstLACrits))) {
-                if( CurItem.CanMountRear() ) {
-                    mnuMountRear.setEnabled( true );
-                    if( CurItem.IsMountedRear() ) {
-                        mnuMountRear.setText( "Unmount Rear " );
-                    } else {
-                        mnuMountRear.setText( "Mount Rear " );
-                    }
-                } else {
-                    mnuMountRear.setEnabled( false );
-                    mnuMountRear.setText( "Mount Rear " );
-                }
-            } else {
-                mnuMountRear.setEnabled( false );
-                mnuMountRear.setText( "Mount Rear " );
             }
             if( CurItem.Contiguous() ) {
                 EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
@@ -3953,6 +3941,23 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 }
                 RefreshInfoPane();
             }
+        }
+    }
+
+    public boolean LegalRearMount( abPlaceable p ) {
+        switch( CurMech.GetLoadout().Find( p ) ) {
+            case LocationIndex.MECH_LOC_HD:
+            case LocationIndex.MECH_LOC_CT:
+            case LocationIndex.MECH_LOC_LT:
+            case LocationIndex.MECH_LOC_RT:
+            case LocationIndex.MECH_LOC_LL:
+            case LocationIndex.MECH_LOC_RL:
+                return CurItem.CanMountRear();
+            case LocationIndex.MECH_LOC_LA:
+            case LocationIndex.MECH_LOC_RA:
+                return CurMech.IsQuad() && CurItem.CanMountRear();
+            default:
+                return false;
         }
     }
 

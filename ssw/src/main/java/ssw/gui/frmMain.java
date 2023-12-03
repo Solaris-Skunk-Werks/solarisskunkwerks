@@ -3542,6 +3542,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void ConfigureUtilsMenu( java.awt.Component c ) {
         // configures the utilities popup menu
+        boolean rear = LegalRearMount( CurItem );
         boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
@@ -3550,11 +3551,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
         boolean dumper = LegalDumper( CurItem );
-        mnuArmorComponent.setEnabled( armor );
-        mnuAddCapacitor.setEnabled( cap );
-        mnuAddInsulator.setEnabled( insul );
-        mnuAddPulseModule.setEnabled(pulseModule);
-        mnuCaseless.setEnabled( caseless );
+        mnuMountRear.setVisible( rear );
         mnuArmorComponent.setVisible( armor );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
@@ -4012,6 +4009,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
                 RefreshInfoPane();
             }
+        }
+    }
+
+    public boolean LegalRearMount( abPlaceable p ) {
+        switch( CurMech.GetLoadout().Find( p ) ) {
+            case LocationIndex.MECH_LOC_HD:
+            case LocationIndex.MECH_LOC_CT:
+            case LocationIndex.MECH_LOC_LT:
+            case LocationIndex.MECH_LOC_RT:
+            case LocationIndex.MECH_LOC_LL:
+            case LocationIndex.MECH_LOC_RL:
+                return CurItem.CanMountRear();
+            case LocationIndex.MECH_LOC_LA:
+            case LocationIndex.MECH_LOC_RA:
+                return CurMech.IsQuad() && CurItem.CanMountRear();
+            default:
+                return false;
         }
     }
 

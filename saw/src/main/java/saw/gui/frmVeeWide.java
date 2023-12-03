@@ -633,10 +633,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurVee );
         boolean lotchange = LegalLotChange( CurItem );
         boolean dumper = LegalDumper( CurItem );
-        mnuAddCapacitor.setEnabled( cap );
-        mnuAddInsulator.setEnabled( insul );
-        mnuAddPulseModule.setEnabled(pulseModule);
-        mnuCaseless.setEnabled( caseless );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
         mnuAddPulseModule.setVisible(pulseModule);
