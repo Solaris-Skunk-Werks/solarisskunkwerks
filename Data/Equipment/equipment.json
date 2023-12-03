@@ -6766,7 +6766,7 @@
   },
   "Combat Vehicle Escape Pod": {
     "ActualName": "Combat Vehicle Escape Pod",
-    "CritName": "Combat Vehicle Escape Pod	",
+    "CritName": "Combat Vehicle Escape Pod",
     "Type": "PE",
     "LookupName": "Combat Vehicle Escape Pod",
     "MegaMekName": "ISCombatVehicleEscapePod",
