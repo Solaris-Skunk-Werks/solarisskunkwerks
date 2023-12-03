@@ -34,14 +34,12 @@ import common.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.ArrayList;
 import battleforce.BattleForceStats;
 import battleforce.BattleForceTools;
 import components.*;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import list.*;
 import utilities.CostBVBreakdown;
@@ -60,6 +58,7 @@ public class TXTWriter {
     }
 
     public TXTWriter( ArrayList<Force> forces ) {
+        this();
         this.forces = forces;
     }
 
@@ -170,8 +169,8 @@ public class TXTWriter {
             retval += "Construction Options: Fractional Accounting" + NL + NL;
         }
 
-        retval += "Chassis: " + CurMech.GetChassisModel() + " " + CurMech.GetIntStruc().CritName() + NL;
-        retval += "Power Plant: " + CurMech.GetEngineManufacturer() + " " + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine() + NL;
+        retval += "Chassis: " + ( IsUnknown( CurMech.GetChassisModel() ) ? "" : CurMech.GetChassisModel() + " " ) + CurMech.GetIntStruc().CritName() + NL;
+        retval += "Power Plant: " + ( IsUnknown( CurMech.GetEngineManufacturer() ) ? "" : CurMech.GetEngineManufacturer() + " " ) + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine() + NL;
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
             retval += "Walking Speed: " + CommonTools.FormatSpeed( CurMech.GetWalkingMP() * 10.8 ) + " km/h (" + CommonTools.FormatSpeed( CurMech.GetAdjustedWalkingMP( false, true ) * 10.8 ) + " km/h)" + NL;
         } else {
@@ -182,18 +181,28 @@ public class TXTWriter {
         } else {
             retval += "Maximum Speed: " + CommonTools.FormatSpeed( CurMech.GetRunningMP() * 10.8 ) + " km/h" + NL;
         }
-        retval += "Jump Jets: " + CurMech.GetJJModel() + NL;
+        String jjModel = CurMech.GetJJModel();
+        if ( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
+            jjModel = ( IsUnknown( jjModel ) ? "" : jjModel + " " ) + GetJumpJetTypeLine();
+        }
+        retval += "Jump Jets: " + jjModel + NL;
         retval += "    Jump Capacity: " + GetJumpJetDistanceLine() + NL;
+        String armorModel = CurMech.GetArmorModel();
         if( CurMech.HasCTCase()|| CurMech.HasLTCase() || CurMech.HasRTCase() ) {
-            retval += "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().CritName() + " w/ CASE" + NL;
+            retval += "Armor: " + ( IsUnknown( armorModel ) ? "" : armorModel + " " ) + CurMech.GetArmor().CritName() + " w/ CASE" + NL;
         } else {
-            retval += "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().CritName() + NL;
+            retval += "Armor: " + ( IsUnknown( armorModel ) ? "" : armorModel + " " ) + CurMech.GetArmor().CritName() + NL;
         }
         retval += "Armament:" + NL;
         retval += GetArmament();
-        retval += "Manufacturer: " + CurMech.GetCompany() + NL;
-        retval += "    Primary Factory: " + CurMech.GetLocation() + NL;
-        retval += BuildComputerBlock() + NL + NL;
+        if( ! IsUnknown( CurMech.GetCompany() ) ) {
+            retval += "Manufacturer: " + CurMech.GetCompany() + NL;
+            if( ! IsUnknown( CurMech.GetLocation() ) ) {
+                retval += "    Primary Factory: " + CurMech.GetLocation() + NL;
+            }
+        }
+        retval += BuildComputerBlock();
+        retval += NL;
 //        retval += "================================================================================" + NL;
         if( ! CurMech.GetOverview().equals( "" ) ) {
             retval += "Overview:" + NL;
@@ -1058,7 +1067,7 @@ public class TXTWriter {
         retval += NL;
 */
         // start targeting and tracking system line
-        retval += "Targeting and Tracking System: " + CurMech.GetTandTSystem();
+        retval += "Targeting and Tracking System: " + CurMech.GetTandTSystem() + NL;
 /*        if( ! ( BAP instanceof EmptyItem ) ) {
             if( CurMech.UsingTC() ) {
                 retval += NL + "    w/ " + BAP.GetManufacturer() + " " + BAP.GetCritName() + NL + "    and " + CurMech.GetTC().GetCritName();
@@ -1251,6 +1260,9 @@ public class TXTWriter {
                 }
             }
         }
+        if( CurMech.GetJumpJets().IsProto() ) {
+            retval += " (Prototype)";
+        }
         return retval;
     }
 
@@ -1430,5 +1442,9 @@ public class TXTWriter {
             return "\"" + data + "\",";
         else
             return data + ",";
+    }
+
+    private boolean IsUnknown( String str ) {
+        return str.isEmpty() || str.equalsIgnoreCase( "Unknown" ) || str.equalsIgnoreCase( "None" );
     }
 }
