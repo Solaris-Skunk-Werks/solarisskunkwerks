@@ -481,7 +481,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public Object getValueAt( int row, int col ) {
                 Object o = CurMech.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
@@ -2781,7 +2781,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public Object getValueAt( int row, int col ) {
                 Object o = CurMech.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
@@ -13384,20 +13384,20 @@ public void LoadMechIntoGUI() {
     Additional.SetText( CurMech.GetAdditional() );
     quirks = CurMech.GetQuirks();
     tblQuirks.setModel( new tbQuirks(quirks) );
-    txtManufacturer.setText( CurMech.GetCompany() );
-    txtManufacturerLocation.setText( CurMech.GetLocation() );
-    txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
-    txtArmorModel.setText( CurMech.GetArmorModel() );
-    txtChassisModel.setText( CurMech.GetChassisModel() );
+    txtManufacturer.setText( CommonTools.UnknownToEmpty( CurMech.GetCompany() ) );
+    txtManufacturerLocation.setText( CommonTools.UnknownToEmpty( CurMech.GetLocation() ) );
+    txtEngineManufacturer.setText( CommonTools.UnknownToEmpty( CurMech.GetEngineManufacturer() ) );
+    txtArmorModel.setText( CommonTools.UnknownToEmpty( CurMech.GetArmorModel() ) );
+    txtChassisModel.setText( CommonTools.UnknownToEmpty( CurMech.GetChassisModel() ) );
     if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
         txtJJModel.setEnabled( true );
     }
     txtSource.setText( CurMech.GetSource() );
 
     // omnimechs may have jump jets in one loadout and not another.
-    txtJJModel.setText( CurMech.GetJJModel() );
-    txtCommSystem.setText( CurMech.GetCommSystem() );
-    txtTNTSystem.setText( CurMech.GetTandTSystem() );
+    txtJJModel.setText( CommonTools.UnknownToEmpty( CurMech.GetJJModel() ) );
+    txtCommSystem.setText( CommonTools.UnknownToEmpty( CurMech.GetCommSystem() ) );
+    txtTNTSystem.setText( CommonTools.UnknownToEmpty( CurMech.GetTandTSystem() ) );
 
     // see if we should enable the Power Amplifier display
     if( CurMech.GetEngine().IsNuclear() ) {

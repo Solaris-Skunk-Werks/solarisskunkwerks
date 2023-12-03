@@ -319,8 +319,8 @@ public class CVReader {
         } else if( n.item( 0 ).getTextContent().equals( AvailableCode.TechBaseSTR[AvailableCode.TECH_BOTH] ) ) {
             m.SetMixed();
         }
-        m.SetCompany( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
-        m.SetLocation( FileCommon.DecodeFluff( map.getNamedItem( "location" ).getTextContent() ) );
+        m.SetCompany( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() ) ) );
+        m.SetLocation( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "location" ).getTextContent() ) ) );
         n = d.getElementsByTagName( "year" );
         map = n.item( 0 ).getAttributes();
         m.SetYear( Integer.parseInt( n.item( 0 ).getTextContent() ), true );
@@ -370,7 +370,7 @@ public class CVReader {
                 m.Visit( v );
             }
         }
-        m.SetChassisModel( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
+        m.SetChassisModel( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() ) ) );
         
         n = d.getElementsByTagName( "engine" );
         map = n.item( 0 ).getAttributes();
@@ -393,7 +393,7 @@ public class CVReader {
             m.Visit( v );
         }
         //m.SetEngineRating( Integer.parseInt( map.getNamedItem( "rating" ).getTextContent() ) );
-        m.SetEngineManufacturer( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
+        m.SetEngineManufacturer( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() ) ) );
 
         // base loadout
         // get the actuators first since that will complete the structural components
@@ -511,7 +511,7 @@ public class CVReader {
                 for( int j = 0; j < nl.getLength(); j++ ) {
                     if( nl.item( j ).getNodeName().equals( "name" ) ) {
                         map = nl.item( j ).getAttributes();
-                        eMan = map.getNamedItem( "manufacturer" ).getTextContent();
+                        eMan = CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() );
                         eName = nl.item( j ).getTextContent();
                     } else if( nl.item( j ).getNodeName().equals( "type" ) ) {
                         eType = nl.item( j ).getTextContent();
@@ -631,7 +631,7 @@ public class CVReader {
         String pwtype = "";
         int pwtech = 0;
         boolean oldfile = false, clanarmor = false;
-        m.SetArmorModel( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
+        m.SetArmorModel( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() ) ) );
         if( map.getNamedItem( "techbase" ) == null ) {
             // old style save file, set the armor based on the 'CombatVehicle's techbase
             if( m.GetBaseTechbase() == AvailableCode.TECH_CLAN ) {
@@ -984,7 +984,7 @@ public class CVReader {
                         for( int j = 0; j < nl.getLength(); j++ ) {
                             if( nl.item( j ).getNodeName().equals( "name" ) ) {
                                 map = nl.item( j ).getAttributes();
-                                eMan = map.getNamedItem( "manufacturer" ).getTextContent();
+                                eMan = CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() );
                                 eName = nl.item( j ).getTextContent();
                             } else if( nl.item( j ).getNodeName().equals( "type" ) ) {
                                 eType = nl.item( j ).getTextContent();
@@ -1166,23 +1166,11 @@ public class CVReader {
             m.SetQuirks(quirks);
         }
         n = d.getElementsByTagName( "jumpjet_model" );
-        if( n.item( 0 ).getTextContent() == null ) {
-            m.SetJJModel( "" );
-        } else {
-            m.SetJJModel( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
-        }
+        m.SetJJModel( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( n.item( 0 ).getTextContent() ) ) );
         n = d.getElementsByTagName( "commsystem" );
-        if( n.item( 0 ).getTextContent() == null ) {
-            m.SetCommSystem( "" );
-        } else {
-            m.SetCommSystem( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
-        }
+        m.SetCommSystem( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( n.item( 0 ).getTextContent() ) ) );
         n = d.getElementsByTagName( "tandtsystem" );
-        if( n.item( 0 ).getTextContent() == null ) {
-            m.SetTandTSystem( "" );
-        } else {
-            m.SetTandTSystem( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
-        }
+        m.SetTandTSystem( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( n.item( 0 ).getTextContent() ) ) );
 
         // all done, return the CombatVehicle
         m.SetChanged( false );

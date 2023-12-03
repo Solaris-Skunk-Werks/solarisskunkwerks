@@ -325,7 +325,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getValueAt( int row, int col ) {
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
@@ -3860,7 +3860,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 if (CurVee.GetLoadout().GetEquipment().size() <= row) { return null; }
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
@@ -4609,20 +4609,20 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         Variants.SetText( CurVee.getVariants() );
         Notables.SetText( CurVee.getNotables() );
         Additional.SetText( CurVee.GetAdditional() );
-        txtManufacturer.setText( CurVee.GetCompany() );
-        txtManufacturerLocation.setText( CurVee.GetLocation() );
-        txtEngineManufacturer.setText( CurVee.GetEngineManufacturer() );
-        txtArmorModel.setText( CurVee.GetArmorModel() );
-        txtChassisModel.setText( CurVee.GetChassisModel() );
+        txtManufacturer.setText( CommonTools.UnknownToEmpty( CurVee.GetCompany() ) );
+        txtManufacturerLocation.setText( CommonTools.UnknownToEmpty( CurVee.GetLocation() ) );
+        txtEngineManufacturer.setText( CommonTools.UnknownToEmpty( CurVee.GetEngineManufacturer() ) );
+        txtArmorModel.setText( CommonTools.UnknownToEmpty( CurVee.GetArmorModel() ) );
+        txtChassisModel.setText( CommonTools.UnknownToEmpty( CurVee.GetChassisModel() ) );
         if( CurVee.GetJumpJets().GetNumJJ() > 0 ) {
             txtJJModel.setEnabled( true );
         }
         txtSource.setText( CurVee.getSource() );
 
         // omnimechs may have jump jets in one loadout and not another.
-        txtJJModel.setText( CurVee.GetJJModel() );
-        txtCommSystem.setText( CurVee.GetCommSystem() );
-        txtTNTSystem.setText( CurVee.GetTandTSystem() );
+        txtJJModel.setText( CommonTools.UnknownToEmpty( CurVee.GetJJModel() ) );
+        txtCommSystem.setText( CommonTools.UnknownToEmpty( CurVee.GetCommSystem() ) );
+        txtTNTSystem.setText( CommonTools.UnknownToEmpty( CurVee.GetTandTSystem() ) );
 
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         CurVee.SetChanged(false);

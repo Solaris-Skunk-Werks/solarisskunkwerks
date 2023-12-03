@@ -864,4 +864,13 @@ public class CommonTools {
         }
         return newPath;
     }
+
+    public static String UnknownToEmpty( String str ) {
+        if( str == null || str.isEmpty()
+                || str.equalsIgnoreCase( "Unknown" )
+                || str.equalsIgnoreCase( "None" ) ) {
+            return "";
+        }
+        return str;
+    }
 }
