@@ -575,7 +575,12 @@ public class CVReader {
                         ((VehicularGrenadeLauncher) p).SetArc( VGLArc );
                         ((VehicularGrenadeLauncher) p).SetAmmoType( VGLAmmo );
                     }
-                    m.GetLoadout().AddTo(p, l.Location);
+                    try {
+                        m.GetLoadout().AddTo(p, l.Location);
+                    } catch (Exception e) {
+                        Messages += e.toString();
+                        continue;
+                    }
                 }
             } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                 NodeList nl = n.item( i ).getChildNodes();
@@ -1028,20 +1033,25 @@ public class CVReader {
                                 Messages += "Could not find " + eName + " as a piece of equipment.\n";
                                 continue;
                             }
-                            p.SetManufacturer( eMan );
-                            if( p instanceof Equipment ) {
-                                if( ((Equipment) p).IsVariableSize() ) {
-                                    ((Equipment) p).SetTonnage( vtons );
+                            try {
+                                p.SetManufacturer( eMan );
+                                if( p instanceof Equipment ) {
+                                    if( ((Equipment) p).IsVariableSize() ) {
+                                        ((Equipment) p).SetTonnage( vtons );
+                                    }
                                 }
+                                if( ( p instanceof Ammunition ) && lotsize > 0 ) {
+                                    ((Ammunition) p).SetLotSize( lotsize );
+                                }
+                                if( p instanceof VehicularGrenadeLauncher ) {
+                                    ((VehicularGrenadeLauncher) p).SetArc( VGLArc );
+                                    ((VehicularGrenadeLauncher) p).SetAmmoType( VGLAmmo );
+                                }
+                                m.GetLoadout().AddTo(p, l.Location);
+                            } catch( Exception e ) {
+                                Messages += e.toString();
+                                continue;
                             }
-                            if( ( p instanceof Ammunition ) && lotsize > 0 ) {
-                                ((Ammunition) p).SetLotSize( lotsize );
-                            }
-                            if( p instanceof VehicularGrenadeLauncher ) {
-                                ((VehicularGrenadeLauncher) p).SetArc( VGLArc );
-                                ((VehicularGrenadeLauncher) p).SetAmmoType( VGLAmmo );
-                            }
-                            m.GetLoadout().AddTo(p, l.Location);
                         }
                     } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                         NodeList nl = n.item( i ).getChildNodes();
