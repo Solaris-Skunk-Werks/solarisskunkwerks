@@ -1758,6 +1758,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnTurretTonnage.setEnabled(false);
         spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
 
+        // TODO: copy spnRearTurretTonnage code from frmVeeWide
+
         javax.swing.GroupLayout pnlChassisLayout = new javax.swing.GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
         pnlChassisLayout.setHorizontalGroup(
@@ -6967,17 +6969,18 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         String Turret = cmbTurret.getSelectedItem().toString();
         if ( Turret.equals("Single Turret") || Turret.equals("Chin Turret")) {
             CurVee.setHasTurret1(true);
-            if (chkOmniVee.isSelected() && !isLocked )
-                spnTurretTonnage.setEnabled(true);
+            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
         } else if(Turret.equals("Dual Turret")) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
-            if (chkOmniVee.isSelected() && !isLocked )
-                spnTurretTonnage.setEnabled(true);
+            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
             spnTurretTonnage.setEnabled(false);
+        }
+        if( ! spnTurretTonnage.isEnabled() ) {
+            spnTurretTonnage.setValue(0);
         }
 
         BuildLocationSelector();
@@ -8666,11 +8669,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void spnTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
-        double Tons = 0;
-        try
-        {
-           Tons = Double.parseDouble(spnTurretTonnage.getValue().toString());
-           CurVee.GetLoadout().GetTurret().SetTonnage(Tons);
+        try {
+            if( spnTurretTonnage.isEnabled() ) {
+                double Tons = Double.parseDouble(spnTurretTonnage.getValue().toString());
+                CurVee.GetLoadout().GetTurret().SetTonnage(Tons);
+            } else {
+                CurVee.GetLoadout().GetTurret().UnsetTonnage();
+            }
         } catch ( Exception e ) {
             Media.Messager(e.getMessage());
             return;

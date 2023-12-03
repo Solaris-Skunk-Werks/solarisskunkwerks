@@ -28,16 +28,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import common.CommonTools;
 import java.util.ArrayList;
 
 public class SponsonTurret extends abPlaceable {
     private ifCVLoadout Owner;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private boolean Clan,
-            isTonnageSet;
+    private boolean Clan;
     private ArrayList Items = new ArrayList();
-    private double MaxTonnage = 0;
 
     public SponsonTurret( ifCVLoadout l, boolean clan) {
         AC.SetISCodes( 'B', 'F', 'F', 'F', 'D' );
@@ -96,10 +93,7 @@ public class SponsonTurret extends abPlaceable {
 
     @Override
     public double GetTonnage() {
-        if ( isTonnageSet )
-            return MaxTonnage;
-        else
-            return GetSize();
+        return GetSize();
     }
 
     @Override
@@ -145,9 +139,6 @@ public class SponsonTurret extends abPlaceable {
     private double GetSize() {
         double Build = 0.0;
 
-        if ( isTonnageSet )
-            return MaxTonnage;
-
         if( Items.isEmpty() ) {
             return 0;
         }
@@ -191,22 +182,5 @@ public class SponsonTurret extends abPlaceable {
 
     public ArrayList GetItems() {
         return Items;
-    }
-
-    public void TonnageSet( boolean i ) {
-        isTonnageSet = i;
-        if (!i)
-            MaxTonnage = 0;
-    }
-    public void SetTonnage( double t ) {
-        MaxTonnage = t;
-        isTonnageSet = true;
-    }
-    public boolean isTonnageSet() {
-        return isTonnageSet;
-    }
-
-    public double GetMaxTonnage() {
-        return MaxTonnage;
     }
 }

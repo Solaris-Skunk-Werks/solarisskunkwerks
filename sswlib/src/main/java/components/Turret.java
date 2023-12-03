@@ -184,28 +184,29 @@ public class Turret extends abPlaceable {
     public String toString() {
         return CritName();
     }
-    
+
     public void SetItems( ArrayList a ) {
         Items = a;
     }
-    
+
     public ArrayList GetItems() {
         return Items;
     }
-    
-    public void TonnageSet( boolean i ) {
-        isTonnageSet = i;
-        if (!i)
-            MaxTonnage = 0;
+
+    public void UnsetTonnage() {
+        MaxTonnage = 0;
+        isTonnageSet = false;
     }
+
     public void SetTonnage( double t ) {
         MaxTonnage = t;
         isTonnageSet = true;
     }
+
     public boolean isTonnageSet() {
         return isTonnageSet;
     }
-    
+
     public double GetMaxTonnage() {
         return MaxTonnage;
     }
