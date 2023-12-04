@@ -458,6 +458,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbEngineType.setSelectedItem( SSWConstants.DEFAULT_ENGINE );
         cmbGyroType.setSelectedItem( SSWConstants.DEFAULT_GYRO );
         cmbCockpitType.setSelectedItem( SSWConstants.DEFAULT_COCKPIT );
+        chkCommandConsole.setSelected( false );
         cmbPhysEnhance.setSelectedItem( SSWConstants.DEFAULT_ENHANCEMENT );
         cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
         cmbJumpJetType.setSelectedItem( SSWConstants.DEFAULT_JUMPJET );
@@ -2714,6 +2715,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbEngineType.setSelectedItem( SSWConstants.DEFAULT_ENGINE );
         cmbGyroType.setSelectedItem( SSWConstants.DEFAULT_GYRO );
         cmbCockpitType.setSelectedItem( SSWConstants.DEFAULT_COCKPIT );
+        chkCommandConsole.setSelected( false );
         cmbPhysEnhance.setSelectedItem( SSWConstants.DEFAULT_ENHANCEMENT );
         cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
         cmbJumpJetType.setSelectedItem( SSWConstants.DEFAULT_JUMPJET );
@@ -3411,8 +3413,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkHDTurret.setEnabled( true );
         chkLTTurret.setEnabled( true );
         chkRTTurret.setEnabled( true );
-        chkOmnimech.setSelected( false );
-        chkOmnimech.setEnabled( true );
         btnLockChassis.setEnabled( false );
         spnWalkMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
@@ -12521,6 +12521,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             FixWalkMPSpinner();
             FixJJSpinnerModel();
             RefreshEquipment();
+            CheckOmnimech();
 
             // now reset the combo boxes to the closest choices we previously selected
             LoadSelections();
