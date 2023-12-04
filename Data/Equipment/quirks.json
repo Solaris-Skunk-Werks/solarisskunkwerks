@@ -1,7 +1,7 @@
 {
   "Accurate Weapon": {
     "name": "Accurate Weapon",
-    "cost": 0,
+    "cost": 1,
     "description": "Being of exceptional design, a weapon or bay is more accurate than normal, and receives a –1 Target Number modifier. The cost is 1 point per 5 points (or fraction thereof) of maximum damage the weapon or bay can inflict in a single Damage Value grouping. More than one weapon or bay on a unit can receive this positive quirk, but the cost for each must be paid. If the “weapon” deals 0 damage (such as TAG), the cost is 2 points.",
     "positive": true,
     "battlemech": true,
@@ -19,7 +19,7 @@
   },
   "Anti-Aircraft Targeting": {
     "name": "Anti-Aircraft Targeting",
-    "cost": 0,
+    "cost": 1,
     "description": "Some 'Mechs, like the Rifleman, have an advanced targeting system that can accurately target airborne units. This includes 'Mechs performing a combat drop (see p. 20, SO), but not jumping 'Mechs. All attacks against such units while airborne (not grounded) receive a –2 Target Number modifier. The cost is 1 point per 7 points (or fraction thereof ) of maximum damage that all the weapons mounted on the 'Mech can inflict (excluding physical attack weapons). This bonus is only available when the 'Mech itself is on the ground.",
     "positive": true,
     "battlemech": true,
@@ -182,7 +182,7 @@
   "Directional Torso Mount": {
     "name": "Directional Torso Mount",
     "cost": 2,
-    "description": "A well-known feature of the original Goliath, a Directional Torso Mount acts as a somewhat more restrictive BattleMech shoulder turret, allowing any weapons in the mount to shoot in either the front arc or the rear arc, depending on the mount's current facing. The mount's facing is set at the start of the game, and can be changed at the same time torso twists are made. However, unlike a torso twist, it does not reset at each End Phase: the arc chosen remains until deliberately changed. The mount rotates with any torso twist as normal.  Each time a location with a Directional Torso Mount takes a hit (Front or Rear), the player must roll 2D6. A result of 9+ means the mount is destroyed and its weapon locked in its current arc, in addition to the normal effects of the attack.  The 3-point version of this quirk is available only to quad 'Mechs. In this case, the mount operates as a full turret, capable of rotating a full 360 degrees.  No weapon with location placement restrictions (such as a heavy Gauss rifle) can be placed in a Directional Torso Mount",
+    "description": "A well-known feature of the original Goliath, a Directional Torso Mount acts as a somewhat more restrictive BattleMech shoulder turret, allowing any weapons in the mount to shoot in either the front arc or the rear arc, depending on the mount's current facing. The mount's facing is set at the start of the game, and can be changed at the same time torso twists are made. However, unlike a torso twist, it does not reset at each End Phase: the arc chosen remains until deliberately changed. The mount rotates with any torso twist as normal.  Each time a location with a Directional Torso Mount takes a hit (Front or Rear), the player must roll 2D6. A result of 9+ means the mount is destroyed and its weapon locked in its current arc, in addition to the normal effects of the attack.  No weapon with location placement restrictions (such as a heavy Gauss rifle) can be placed in a Directional Torso Mount",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -195,7 +195,25 @@
     "warship": false,
     "spacestation": false,
     "protomech": false,
-    "isvariable": true
+    "isvariable": false
+  },
+  "Directional Torso Mount, Quad": {
+    "name": "Directional Torso Mount, Quad",
+    "cost": 3,
+    "description": "The 3-point version of the Directional Torso Mount quirk is available only to quad 'Mechs. In this case, the mount operates as a full turret, capable of rotating a full 360 degrees.  Each time a location with a Directional Torso Mount takes a hit (Front or Rear), the player must roll 2D6. A result of 9+ means the mount is destroyed and its weapon locked in its current arc, in addition to the normal effects of the attack.  No weapon with location placement restrictions (such as a heavy Gauss rifle) can be placed in a Directional Torso Mount",
+    "positive": true,
+    "battlemech": true,
+    "industrialmech": true,
+    "combatvehicle": false,
+    "battlearmor": false,
+    "aerospacefighter": false,
+    "conventionalfighter": false,
+    "dropship": false,
+    "jumpship": false,
+    "warship": false,
+    "spacestation": false,
+    "protomech": false,
+    "isvariable": false
   },
   "Distracting": {
     "name": "Distracting",
@@ -558,8 +576,8 @@
   },
   "Narrow/Low Profile": {
     "name": "Narrow/Low Profile",
-    "cost": 2,
-    "description": "If the Margin of Success for a weapon attack made against a Narrow/low profile Unit is 0 or 1, the hit is considered a Glancing Blow.",
+    "cost": 3,
+    "description": "If the Margin of Success for a weapon attack made against a Narrow/low profile Unit is 0 or 1, the hit is considered a Glancing Blow.  A glancing blow inflicts half the normal damage (rounded down); for weapons that roll on the Cluster Hits Table, instead apply a –4 modifier to the Cluster roll result (with a minimum result of 2). Additionally, apply a –2 modifier when rolling on the Determining Critical Hits Table any time a glancing blow yields the possibility of a critical hit; if using the Advanced Determining Critical Hits rule (see p. 83, TO:AR), apply a –4 modifier instead.  This quirk has no effect versus non-weapon attacks, such as falls or physical attacks. It also has no effect versus all-or-nothing weapon attacks, such as Streak missile launchers. If using the Linking Weapons rule (see p. 83, TO:AR), the entire linked group is considered a glancing blow.  If also using the Glancing Blow rule (see p. 78, TO:AR), the effects stack (1/4 damage is dealt). Any subtractive damage reduction effects (such as ferro-lamellor armor) are applied after all other damage reduction effects.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -720,7 +738,7 @@
   },
   "Stabilized Weapon": {
     "name": "Stabilized Weapon",
-    "cost": 0,
+    "cost": 1,
     "description": "Some weapons, such as the center torso and head lasers of the Mongoose, are better cushioned against or otherwise compensated for the increased inaccuracy caused by moving at high speeds. If the 'Mech runs, all Target Numbers for that weapon receive a –1 modifier.  The cost is 1 point per 7 points (or fraction thereof) of maximum damage the weapon can inflict in a single Damage Value grouping. If the “weapon” deals 0 damage (such as TAG), the cost is 1 point. More than one weapon can receive this positive quirk, but the cost for each must be paid.",
     "positive": true,
     "battlemech": true,
@@ -774,7 +792,7 @@
   },
   "Variable Range Targeting": {
     "name": "Variable Range Targeting",
-    "cost": 0,
+    "cost": 1,
     "description": "A BattleMech with this quirk has an advanced targeting system that allows it to launch more accurate attacks at either long or short range, at the expense of reduced accuracy at other ranges. During a turn's End Phase, the controlling player must designate whether this improved targeting feature will be active at long or short range the next turn. All weapon attacks at the designated range receive a -1 target number modifier, but all weapon attacks at the alternative range receive a +1 target number modifier (medium range remains unmodified).",
     "positive": true,
     "battlemech": true,
@@ -1548,7 +1566,7 @@
   },
   "Weak Head Armor": {
     "name": "Weak Head Armor",
-    "cost": 0,
+    "cost": 1,
     "description": "The Value of this quirk is equal to the number of armor points effectively lost.",
     "positive": false,
     "battlemech": true,
