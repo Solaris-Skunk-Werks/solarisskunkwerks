@@ -606,7 +606,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": false,
+    "RequiresFusion": false,
     "RequiresNuclear": false,
     "RequiresPowerAmps": true,
     "Availability": {
@@ -703,7 +703,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": false,
+    "RequiresFusion": false,
     "RequiresNuclear": false,
     "RequiresPowerAmps": true,
     "Availability": {
@@ -800,9 +800,8 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": false,
+    "RequiresFusion": false,
     "RequiresNuclear": false,
-    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "E",
       "IS_SW": "F",
@@ -898,9 +897,8 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": false,
+    "RequiresFusion": false,
     "RequiresNuclear": false,
-    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "F",
       "IS_SW": "X",
@@ -1533,9 +1531,9 @@
     "Exclusions": [
       "C3 Computer (Master)",
       "C3 Computer (Slave)",
-	  "C3 Boosted Computer (Master)",
-	  "C3 Boosted Computer (Slave)",
-	  "C3 Emergency Master",
+      "C3 Boosted Computer (Master)",
+      "C3 Boosted Computer (Slave)",
+      "C3 Emergency Master",
       "Null Signature System",
       "Void Signature System"
     ]
@@ -2448,7 +2446,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": true,
+    "RequiresFusion": true,
     "RequiresNuclear": false,
     "RequiresPowerAmps": true,
     "Availability": {
@@ -3361,7 +3359,7 @@
     },
     "BattleForceAbilities": [
       "WAT",
-	  "ECM"
+      "ECM"
     ]
   },
   "Bridgelayer, Light": {
@@ -6331,7 +6329,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": true,
+    "RequiresFusion": true,
     "RequiresNuclear": false,
     "RequiresPowerAmps": true,
     "Availability": {
@@ -6383,9 +6381,9 @@
     },
     "BattleForceAbilities": [
       "NOVA",
-	  "PRB",
-	  "RCN",
-	  "ECM"
+      "PRB",
+      "RCN",
+      "ECM"
     ]
   },
   "Centurion Weapon System": {
@@ -6431,6 +6429,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
+    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "F",
       "IS_SW": "F",
@@ -7277,7 +7276,6 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "X",
       "IS_SW": "X",
@@ -7328,7 +7326,7 @@
     "BattleForceAbilities": [
       "DJ"
     ],
-	"Exclusions": [
+    "Exclusions": [
       "RISC Viral Jammer (Homing)"
     ]
   },
@@ -7375,7 +7373,6 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "X",
       "IS_SW": "X",
@@ -7426,7 +7423,7 @@
     "BattleForceAbilities": [
       "HJ"
     ],
-	"Exclusions": [
+    "Exclusions": [
       "RISC Viral Jammer (Decoy)"
     ]
   },
