@@ -2995,7 +2995,7 @@ public class Mech implements ifUnit, ifBattleforce {
 
         double wheat = GetBVWeaponHeat();
 
-        if( GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+        if( GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             // check for coolant pods
             int NumHS = GetHeatSinks().GetNumHS(), MaxHSBonus = NumHS * 2, NumPods = 0;
             for( int i = 0; i < v.size(); i++ ) {

@@ -1731,9 +1731,9 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JRadioButton rdoArmorTorsoPriority;
     private javax.swing.JRadioButton rdoExportSortIn;
     private javax.swing.JRadioButton rdoExportSortOut;
+    private javax.swing.JRadioButton rdoLargescreen;
     private javax.swing.JRadioButton rdoNormalSize;
     private javax.swing.JRadioButton rdoWidescreen;
-    private javax.swing.JRadioButton rdoLargescreen;
     private javax.swing.JTextField txtAmmoExportName;
     private javax.swing.JTextField txtAmmoPrintName;
     private javax.swing.JTextField txtCTRArmor;

@@ -142,7 +142,7 @@ public class CostBVBreakdown {
         retval += String.format( "Total Cost                                                         %1$,13.0f", CurMech.GetTotalCost() ) + NL;
         retval += NL + NL;
         retval += "Defensive BV Calculation Breakdown" + NL;
-        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+        if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             retval += "(Note: BV Calculations include defensive BV for armored components.)" + NL;
         }
         retval += "________________________________________________________________________________" + NL;
@@ -570,7 +570,7 @@ public class CostBVBreakdown {
     private boolean HasBonusFromCP() {
         ArrayList v = CurMech.GetLoadout().GetNonCore();
         abPlaceable a;
-        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+        if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             // check for coolant pods
             for( int i = 0; i < v.size(); i++ ) {
                 a = (abPlaceable) v.get( i );
@@ -590,7 +590,7 @@ public class CostBVBreakdown {
         ArrayList v = CurMech.GetLoadout().GetNonCore();
         abPlaceable a;
 
-        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+        if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             // check for coolant pods
             for( int i = 0; i < v.size(); i++ ) {
                 a = (abPlaceable) v.get( i );

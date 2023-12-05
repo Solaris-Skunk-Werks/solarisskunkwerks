@@ -81,7 +81,7 @@ public class CVCostBVBreakdown {
         retval += String.format( "Total Cost                                                         %1$,13.0f", CurUnit.GetTotalCost() ) + NL;
         retval += NL + NL;
         retval += "Defensive BV Calculation Breakdown" + NL;
-        if( CurUnit.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+        if( CurUnit.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             retval += "(Note: BV Calculations include defensive BV for armored components.)" + NL;
         }
         retval += "________________________________________________________________________________" + NL;

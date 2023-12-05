@@ -76,7 +76,7 @@ public class stChassisISCOBP implements ifChassis, ifState {
     }
 
     public String CritName() {
-        return "Composite Structure";
+        return "Composite";
     }
 
     public String LookupName() {

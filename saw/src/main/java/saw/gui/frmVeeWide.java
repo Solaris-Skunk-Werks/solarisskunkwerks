@@ -146,7 +146,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         CurVee = new CombatVehicle( );
         initComponents();
 
-        Prefs = Preferences.userRoot().node( Constants.SSWPrefs );
+        Prefs = Preferences.userRoot().node( Constants.SAWPrefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         cmbMotiveTypeActionPerformed(null);
         spnTonnageStateChanged(null);
@@ -325,7 +325,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getValueAt( int row, int col ) {
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
@@ -2230,7 +2230,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         //endregion
 
         //region Equipment Tab / Weapons and Equipment Lists
-        AbstractListModel placeholder = new javax.swing.AbstractListModel() {
+        AbstractListModel placeholder = new AbstractListModel() {
             String[] strings = { "Placeholder" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -2678,10 +2678,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private JPanel EquipmentLocation(JList list, ListSelectionListener selection, MouseListener listener, AbstractListModel display) {
         JPanel panel = new JPanel();
         list.setModel(display);
-        list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.addListSelectionListener(selection);
         list.addMouseListener( listener );
-        list.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
+        list.setCellRenderer( new EquipmentListRenderer( this ) );
         JScrollPane pane = new JScrollPane();
         pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -3860,7 +3860,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 if (CurVee.GetLoadout().GetEquipment().size() <= row) { return null; }
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
@@ -4609,20 +4609,20 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         Variants.SetText( CurVee.getVariants() );
         Notables.SetText( CurVee.getNotables() );
         Additional.SetText( CurVee.GetAdditional() );
-        txtManufacturer.setText( CurVee.GetCompany() );
-        txtManufacturerLocation.setText( CurVee.GetLocation() );
-        txtEngineManufacturer.setText( CurVee.GetEngineManufacturer() );
-        txtArmorModel.setText( CurVee.GetArmorModel() );
-        txtChassisModel.setText( CurVee.GetChassisModel() );
+        txtManufacturer.setText( CommonTools.UnknownToEmpty( CurVee.GetCompany() ) );
+        txtManufacturerLocation.setText( CommonTools.UnknownToEmpty( CurVee.GetLocation() ) );
+        txtEngineManufacturer.setText( CommonTools.UnknownToEmpty( CurVee.GetEngineManufacturer() ) );
+        txtArmorModel.setText( CommonTools.UnknownToEmpty( CurVee.GetArmorModel() ) );
+        txtChassisModel.setText( CommonTools.UnknownToEmpty( CurVee.GetChassisModel() ) );
         if( CurVee.GetJumpJets().GetNumJJ() > 0 ) {
             txtJJModel.setEnabled( true );
         }
         txtSource.setText( CurVee.getSource() );
 
         // omnimechs may have jump jets in one loadout and not another.
-        txtJJModel.setText( CurVee.GetJJModel() );
-        txtCommSystem.setText( CurVee.GetCommSystem() );
-        txtTNTSystem.setText( CurVee.GetTandTSystem() );
+        txtJJModel.setText( CommonTools.UnknownToEmpty( CurVee.GetJJModel() ) );
+        txtCommSystem.setText( CommonTools.UnknownToEmpty( CurVee.GetCommSystem() ) );
+        txtTNTSystem.setText( CommonTools.UnknownToEmpty( CurVee.GetTandTSystem() ) );
 
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         CurVee.SetChanged(false);

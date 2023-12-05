@@ -32,6 +32,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import common.*;
 import battleforce.BattleForceStats;
@@ -51,16 +52,24 @@ public class MechWriter {
     }
 
     public void WriteXML( String filename ) throws IOException {
-        //BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
-        BufferedWriter FR = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( filename ), "UTF-8" ) );
+        StringWriter stringWriter = new StringWriter();
+        BufferedWriter FR = new BufferedWriter( stringWriter );
 
         // beginning of an XML file:
         FR.write( "<?xml version=\"1.0\" encoding =\"UTF-8\"?>" );
         FR.newLine();
 
-        WriteXML(FR);
+        try {
+            WriteXML(FR);
+        } catch ( RuntimeException e ) {
+            throw new IOException( e );
+        }
 
         FR.close();
+
+        try( OutputStreamWriter writer = new OutputStreamWriter( new FileOutputStream( filename ), "UTF-8" ) ) {
+            writer.write(stringWriter.toString());
+        }
     }
 
     public void WriteXML( BufferedWriter FR ) throws IOException {
@@ -385,7 +394,7 @@ public class MechWriter {
             FR.newLine();
         }
         FR.write( GetEquipmentLines( tab + tab ) );
-        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+        if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             // check for armored components
             FR.write( GetArmoredLocations( tab + tab ) );
         }
@@ -469,7 +478,7 @@ public class MechWriter {
                     FR.newLine();
                 }
                 FR.write( GetEquipmentLines( tab + tab ) );
-                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+                if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
                     // check for armored components
                     FR.write( GetArmoredLocations( tab + tab ) );
                 }

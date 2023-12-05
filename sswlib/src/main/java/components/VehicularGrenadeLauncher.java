@@ -157,6 +157,11 @@ public class VehicularGrenadeLauncher extends abPlaceable implements ifWeapon {
         return false;
     }
 
+    @Override
+    public boolean CanAllocCVBody() {
+        return false;
+    }
+
     public int NumCrits() {
         return 1;
     }

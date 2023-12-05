@@ -69,6 +69,13 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 
+# Eclipse
+/.metadata/
+.classpath
+.project
+.settings/
+/*/bin
+
 
 ### Gradle ###
 .gradle

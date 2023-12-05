@@ -58,6 +58,7 @@ public class CVTXTWriter {
     }
 
     public CVTXTWriter( ArrayList<Force> forces ) {
+        this();
         this.forces = forces;
     }
 
@@ -143,8 +144,8 @@ public class CVTXTWriter {
             retval += "Construction Options: Fractional Accounting" + NL + NL;
         }
 
-        //retval += "Chassis: " + CurVee.GetChassisModel() + " " + CurVee.GetIntStruc().CritName() + NL;
-        retval += "Power Plant: " + CurVee.GetEngineManufacturer() + " " + CurVee.GetEngine().GetRating() + " " + CurVee.GetEngine() + NL;
+        //retval += "Chassis: " + ( IsUnknown( CurVee.GetChassisModel() ) ? "" : CurVee.GetChassisModel() + " " ) + " " + CurVee.GetIntStruc().CritName() + NL;
+        retval += "Power Plant: " + ( IsUnknown( CurVee.GetEngineManufacturer() ) ? "" : CurVee.GetEngineManufacturer() + " " ) + " " + CurVee.GetEngine().GetRating() + " " + CurVee.GetEngine() + NL;
         //retval += "Cruise Speed: " + CommonTools.FormatSpeed( CurVee.GetAdjustedCruiseMP(false, true) * 10.8 ) + " km/h" + NL;
         //retval += "Flanking Speed: " + CommonTools.FormatSpeed( CurVee.GetAdjustedFlankMP(false, true) * 10.8 ) + " km/h" + NL;
         if( CurVee.GetAdjustedCruiseMP( false, true ) != CurVee.getCruiseMP() ) {
@@ -158,15 +159,23 @@ public class CVTXTWriter {
             retval += "Maximum Speed: " + CommonTools.FormatSpeed( CurVee.getFlankMP() * 10.8 ) + " km/h" + NL;
         }
         if ( CurVee.GetJumpJets().GetNumJJ() > 0 ) {
-            retval += "Jump Jets: " + CurVee.GetJJModel() + NL;
+            String jjModel = CurVee.GetJJModel();
+            jjModel = ( IsUnknown( jjModel ) ? "" : jjModel + " " ) + GetJumpJetTypeLine();
+            retval += "Jump Jets: " + jjModel + NL;
             retval += "    Jump Capacity: " + GetJumpJetDistanceLine() + NL;
         }
-        retval += "Armor: " + CurVee.GetArmorModel() + " " + CurVee.GetArmor().CritName() + NL;
+        String armorModel = CurVee.GetArmorModel();
+        retval += "Armor: " + ( IsUnknown( armorModel ) ? "" : armorModel + " " ) + " " + CurVee.GetArmor().CritName() + NL;
         retval += "Armament:" + NL;
         retval += GetArmament();
-        retval += "Manufacturer: " + CurVee.GetCompany() + NL;
-        retval += "    Primary Factory: " + CurVee.GetLocation() + NL;
-        retval += BuildComputerBlock() + NL + NL;
+        if ( ! IsUnknown( CurVee.GetCompany() ) ) {
+            retval += "Manufacturer: " + CurVee.GetCompany() + NL;
+            if ( ! IsUnknown( CurVee.GetLocation() ) ) {
+                retval += "    Primary Factory: " + CurVee.GetLocation() + NL;
+            }
+        }
+        retval += BuildComputerBlock();
+        retval += NL;
 //        retval += "================================================================================" + NL;
         if( ! CurVee.getOverview().equals( "" ) ) {
             retval += "Overview:" + NL;
@@ -782,7 +791,7 @@ public class CVTXTWriter {
         retval += NL;
 */
         // start targeting and tracking system line
-        retval += "Targeting and Tracking System: " + CurVee.GetTandTSystem();
+        retval += "Targeting and Tracking System: " + CurVee.GetTandTSystem() + NL;
 /*        if( ! ( BAP instanceof EmptyItem ) ) {
             if( CurVee.UsingTC() ) {
                 retval += NL + "    w/ " + BAP.GetManufacturer() + " " + BAP.GetCritName() + NL + "    and " + CurVee.GetTC().GetCritName();
@@ -940,6 +949,9 @@ public class CVTXTWriter {
                     retval = "Standard";
                 }
             }
+        }
+        if( CurVee.GetJumpJets().IsProto() ) {
+            retval += " (Prototype)";
         }
         return retval;
     }
@@ -1112,5 +1124,9 @@ public class CVTXTWriter {
             return "\"" + data + "\",";
         else
             return data + ",";
+    }
+
+    private boolean IsUnknown( String str ) {
+        return str.isEmpty() || str.equalsIgnoreCase( "Unknown" ) || str.equalsIgnoreCase( "None" );
     }
 }
