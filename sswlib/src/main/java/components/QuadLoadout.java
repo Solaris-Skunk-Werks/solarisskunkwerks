@@ -2907,6 +2907,25 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
 
     // Private Methods
     private void Allocate( abPlaceable p, int SIndex, abPlaceable[] Loc ) throws Exception {
+        class RemoveEntry {
+            abPlaceable p;
+            boolean rear;
+            ifTurret turret;
+
+            RemoveEntry( int AddInLoc, int i ) {
+                // we've already ensured that it is not location locked
+                // above, so put the item back into the queue.
+                p = Loc[i];
+                rear = p.IsMountedRear();
+                turret = p.GetTurret();
+                if( p.CanSplit() && p.Contiguous() ) {
+                    UnallocateAll( Loc[i], false );
+                } else {
+                    UnallocateByIndex( AddInLoc, Loc  );
+                }
+            }
+        }
+
         // Adds the specified placeable to the given location at the specified
         // stating index.  Throws Exceptions with error messages if things went
         // wrong.
@@ -2915,14 +2934,15 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             ((Equipment) p).ValidateMaxPerLocation(Loc);
         }
 
+        // TODO: this snapshot thing doesn't work (see its usage below), commented out for now
         // Let's get a snapshot of the location so we can reset it if we have to.
-        abPlaceable SnapShot[] = Loc.clone();
+        //abPlaceable SnapShot[] = Loc.clone();
 
         // we have to accomodate for Artemis IV systems
         boolean AddIn = false;
         boolean ArrayGood = false;
         int AddInSize = 1;
-        ArrayList removed = new ArrayList(), rears = new ArrayList();
+        ArrayList<RemoveEntry> removed = new ArrayList<>();
 
         // check for generic placement
         if( SIndex == -1 ) {
@@ -3035,17 +3055,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
                 for( i = SIndex; i < ( p.NumCrits() + SIndex ); i++ ) {
                     // is there a non-location locked item there?
                     if( Loc[i] != NoItem ) {
-                        // we've already ensured that it is not location locked
-                        // above, so put the item back into the queue.
-                        if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
-                            removed.add( Loc[i] );
-                            rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                            UnallocateAll( Loc[i], false );
-                        } else {
-                            removed.add( Loc[i] );
-                            rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                            UnallocateByIndex( i, Loc );
-                        }
+                        removed.add( new RemoveEntry( i, i ) );
                     }
                     // finally, allocate the item slot
                     Loc[i] = p;
@@ -3056,17 +3066,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
                 if( p instanceof RangedWeapon ) {
                     if( ((RangedWeapon) p).IsUsingFCS() ) {
                         if( Loc[AddInLoc] != NoItem ) {
-                            // we've already ensured that it is not location locked
-                            // above, so put the item back into the queue.
-                            if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateAll( Loc[i], false );
-                            } else {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateByIndex( AddInLoc, Loc  );
-                            }
+                            removed.add( new RemoveEntry( AddInLoc, i ) );
                         }
                         for( int j = AddInLoc; j < AddInSize + AddInLoc; j++ ) {
                             Loc[j] = (abPlaceable) ((RangedWeapon) p).GetFCS();
@@ -3074,49 +3074,19 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
                     }
                     if( ((RangedWeapon) p).IsUsingCapacitor() ) {
                         if( Loc[AddInLoc] != NoItem ) {
-                            // we've already ensured that it is not location locked
-                            // above, so put the item back into the queue.
-                            if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateAll( Loc[i], false );
-                            } else {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateByIndex( AddInLoc, Loc  );
-                            }
+                            removed.add( new RemoveEntry( AddInLoc, i ) );
                         }
                         Loc[AddInLoc] = ((RangedWeapon) p).GetCapacitor();
                     }
                     if( ((RangedWeapon) p).IsUsingInsulator() ) {
                         if( Loc[AddInLoc] != NoItem ) {
-                            // we've already ensured that it is not location locked
-                            // above, so put the item back into the queue.
-                            if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateAll( Loc[i], false );
-                            } else {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateByIndex( AddInLoc, Loc  );
-                            }
+                            removed.add( new RemoveEntry( AddInLoc, i ) );
                         }
                         Loc[AddInLoc] = ((RangedWeapon) p).GetInsulator();
                     }
                     if( ((RangedWeapon) p).IsUsingPulseModule() ) {
                         if( Loc[AddInLoc] != NoItem ) {
-                            // we've already ensured that it is not location locked
-                            // above, so put the item back into the queue.
-                            if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateAll( Loc[i], false );
-                            } else {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateByIndex( AddInLoc, Loc  );
-                            }
+                            removed.add( new RemoveEntry( AddInLoc, i ) );
                         }
                         Loc[AddInLoc] = ((RangedWeapon) p).GetPulseModule();
                     }
@@ -3126,16 +3096,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
                 if( p instanceof MGArray ) {
                     for( i = 0; i < ((MGArray) p).GetNumMGs(); i++ ) {
                         if( Loc[MGLocs[i]] != NoItem ) {
-                            // we know it's not location locked, so kick it out
-                            if( Loc[MGLocs[i]].CanSplit() && Loc[MGLocs[i]].Contiguous() ) {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateAll( Loc[MGLocs[i]], false );
-                            } else {
-                                removed.add( Loc[i] );
-                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
-                                UnallocateByIndex( MGLocs[i], Loc );
-                            }
+                            removed.add( new RemoveEntry( MGLocs[i], i ) );
                         }
                         Loc[MGLocs[i]] = ((MGArray) p).GetMGs()[i];
                     }
@@ -3153,16 +3114,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
 
                     // if there is an item there, put it back in the queue
                     if( Loc[SIndex] != NoItem ) {
-                        // put the item back into the queue
-                        if( Loc[SIndex].CanSplit() && Loc[SIndex].Contiguous() ) {
-                            removed.add( Loc[SIndex] );
-                            rears.add( new Boolean( Loc[SIndex].IsMountedRear() ) );
-                            UnallocateAll( Loc[SIndex], false );
-                        } else {
-                            removed.add( Loc[SIndex] );
-                            rears.add( new Boolean( Loc[SIndex].IsMountedRear() ) );
-                            UnallocateByIndex( SIndex, Loc );
-                        }
+                        removed.add( new RemoveEntry( SIndex, SIndex ) );
                     }
 
                     // now allocate the item.
@@ -3177,16 +3129,18 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             }
 
             // now that allocation is finished, add in the removed items if possible
-            for( int i = 0; i < removed.size(); i++ ) {
+            for( RemoveEntry remove : removed ) {
                 // no error handling here since the items are already in the queue
                 try {
-                    Allocate( (abPlaceable) removed.get( i ), -1, Loc );
-                    ((abPlaceable) removed.get( i )).MountRear( ((Boolean) rears.get( i )));
+                    Allocate( remove.p, -1, Loc );
+                    remove.p.MountRear( remove.rear );
+                    remove.p.MountTurret( remove.turret );
                 } catch( Exception e1 ) { }
             }
         } catch ( ArrayIndexOutOfBoundsException e ) {
+            // TODO: Following snapshot thing actually does nothing
             // reset the location
-            Loc = SnapShot;
+            //Loc = SnapShot;
 
             // tell the user what happened.
             if( p instanceof RangedWeapon ) {
