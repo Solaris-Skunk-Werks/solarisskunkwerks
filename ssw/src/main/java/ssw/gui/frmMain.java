@@ -3560,6 +3560,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
         mnuDumper.setVisible( dumper );
+        if( rear ) {
+            if( CurItem.IsMountedRear() ) {
+                mnuMountRear.setText( "Unmount Rear " );
+            } else {
+                mnuMountRear.setText( "Mount Rear " );
+            }
+        }
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
@@ -3676,22 +3683,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             } else {
                 mnuUnallocateAll.setText( "Unallocate All" );
                 mnuUnallocateAll.setEnabled( false );
-            }
-            if( c == lstHDCrits || c == lstCTCrits || c == lstLTCrits || c == lstRTCrits || c == lstLLCrits || c == lstRLCrits || ( CurMech.IsQuad() && (c == lstRACrits || c == lstLACrits))) {
-                if( CurItem.CanMountRear() ) {
-                    mnuMountRear.setEnabled( true );
-                    if( CurItem.IsMountedRear() ) {
-                        mnuMountRear.setText( "Unmount Rear " );
-                    } else {
-                        mnuMountRear.setText( "Mount Rear " );
-                    }
-                } else {
-                    mnuMountRear.setEnabled( false );
-                    mnuMountRear.setText( "Mount Rear " );
-                }
-            } else {
-                mnuMountRear.setEnabled( false );
-                mnuMountRear.setText( "Mount Rear " );
             }
             if( CurItem.Contiguous() ) {
                 EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
