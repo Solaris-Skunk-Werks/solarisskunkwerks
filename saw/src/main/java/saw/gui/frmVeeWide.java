@@ -4552,7 +4552,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
 
         if( CurVee.isHasTurret1() ) {
-            cmbTurret.setSelectedItem("Single Turret");
             if (chkOmniVee.isSelected()) {
                 spnTurretTonnage.setEnabled(!isLocked);
                 spnTurretTonnage.setValue(CurVee.GetLoadout().GetTurret().GetTonnage());
@@ -4562,7 +4561,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             spnTurretTonnage.setValue(0);
         }
         if( CurVee.isHasTurret2() ) {
-            cmbTurret.setSelectedItem("Dual Turret");
             if (chkOmniVee.isSelected()) {
                 spnRearTurretTonnage.setEnabled(!isLocked);
                 spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
