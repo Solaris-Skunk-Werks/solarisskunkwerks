@@ -1513,7 +1513,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
         ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
-            JLabel lblTurretTonnage = new JLabel("Turret Tonnage: ");
+        JLabel lblTurretTonnage = new JLabel("Turret Tonnage: ");
 
         GroupLayout pnlChassisLayout = new GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
@@ -3734,13 +3734,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbMotiveType.setSelectedIndex( 0 );
         chkYearRestrict.setSelected( false );
         txtProdYear.setText( "" );
+        txtProdYear.setEnabled( true );
         cmbEra.setEnabled( true );
         cmbProductionEra.setEnabled( true );
         cmbTechBase.setEnabled( true );
         cmbTurret.setSelectedIndex(0);
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
         spnRearTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
-        txtProdYear.setEnabled( true );
+
+        cmbOmniVariant.setModel( new DefaultComboBoxModel( new String[0] ) );
 
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewVee_RulesLevel", "Tournament Legal" ) );
         cmbEra.setSelectedItem( Prefs.get( "NewVee_Era", "Age of War/Star League" ) );
@@ -4037,7 +4039,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbEngineType.setEnabled( true );
         cmbTurret.setEnabled( true );
         spnTurretTonnage.setEnabled( true );
-        spnRearTurretTonnage.setEnabled(true);
+        spnRearTurretTonnage.setEnabled( true );
         spnFrontArmor.setEnabled( true );
         spnLeftArmor.setEnabled( true );
         spnRightArmor.setEnabled( true );
@@ -4314,7 +4316,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbEngineType.setEnabled( false );
         cmbTurret.setEnabled( false );
         spnTurretTonnage.setEnabled( false );
-        spnRearTurretTonnage.setEnabled(false);
+        spnRearTurretTonnage.setEnabled( false );
         spnFrontArmor.setEnabled( false );
         spnLeftArmor.setEnabled( false );
         spnRightArmor.setEnabled( false );
@@ -4549,26 +4551,26 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             LockGUIForOmni();
             RefreshOmniVariants();
             RefreshOmniChoices();
+        } else {
+            cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
         }
 
+        double turretTons = 0.0;
         if( CurVee.isHasTurret1() ) {
-            if (chkOmniVee.isSelected()) {
-                spnTurretTonnage.setEnabled(!isLocked);
-                spnTurretTonnage.setValue(CurVee.GetLoadout().GetTurret().GetTonnage());
+            if( chkOmniVee.isSelected() ) {
+                spnTurretTonnage.setEnabled( !isLocked );
+                turretTons = CurVee.GetLoadout().GetTurret().GetTonnage();
             }
         }
-        if( ! spnTurretTonnage.isEnabled() ) {
-            spnTurretTonnage.setValue(0);
-        }
+        SetTurretTonnage( turretTons );
+        double rearTurretTons = 0.0;
         if( CurVee.isHasTurret2() ) {
-            if (chkOmniVee.isSelected()) {
-                spnRearTurretTonnage.setEnabled(!isLocked);
-                spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
+            if( chkOmniVee.isSelected() ) {
+                spnRearTurretTonnage.setEnabled( !isLocked );
+                rearTurretTons = CurVee.GetLoadout().GetRearTurret().GetTonnage();
             }
         }
-        if( ! spnRearTurretTonnage.isEnabled() ) {
-            spnRearTurretTonnage.setValue(0);
-        }
+        SetRearTurretTonnage( rearTurretTons );
 
         FixTonnageSpinner( CurVee.GetMinTonnage(), CurVee.GetMaxTonnage() );
         BuildChassisSelector();
@@ -6521,37 +6523,59 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void spnTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
-        try {
-            if( spnTurretTonnage.isEnabled() ) {
-                double Tons = Double.parseDouble(spnTurretTonnage.getValue().toString());
-                CurVee.GetLoadout().GetTurret().SetTonnage(Tons);
-            } else {
-                CurVee.GetLoadout().GetTurret().UnsetTonnage();
-            }
-        } catch (Exception e) {
-            Media.Messager(e.getMessage());
-            return;
-        }
-
+        SetTurretTonnage( null );
         RefreshSummary();
         RefreshInfoPane();
     }
 
-    private void spnRearTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
+    private void SetTurretTonnage( Double Tons ) {
         try {
-            if( spnRearTurretTonnage.isEnabled() ) {
-                double Tons = Double.parseDouble(spnRearTurretTonnage.getValue().toString());
-                CurVee.GetLoadout().GetRearTurret().SetTonnage(Tons);
-            } else {
-                CurVee.GetLoadout().GetRearTurret().UnsetTonnage();
+            if( Tons != null ) {
+                // following may end up calling spnTurretTonnageStateChanged
+                // which in turn will call this again with null Tons,
+                // so it's okay although potentially redundant
+                spnTurretTonnage.setValue( Tons );
             }
-        } catch (Exception e) {
+            if( CurVee.isHasTurret1() && chkOmniVee.isSelected() ) {
+                if( Tons == null) {
+                    Tons = Double.parseDouble( spnTurretTonnage.getValue().toString() );
+                }
+                CurVee.GetLoadout().GetTurret().SetTonnage( Tons );
+            } else {
+                CurVee.GetLoadout().GetTurret().UnsetTonnage();
+            }
+        } catch( Exception e ) {
             Media.Messager(e.getMessage());
             return;
         }
+    }
 
+    private void spnRearTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
+        SetRearTurretTonnage( null );
         RefreshSummary();
         RefreshInfoPane();
+    }
+
+    private void SetRearTurretTonnage( Double Tons ) {
+        try {
+            if( Tons != null ) {
+                // following may end up calling spnRearTurretTonnageStateChanged
+                // which in turn will call this again with null Tons,
+                // so it's okay although potentially redundant
+                spnRearTurretTonnage.setValue( Tons );
+            }
+            if( CurVee.isHasTurret2() && chkOmniVee.isSelected() ) {
+                if( Tons == null) {
+                    Tons = Double.parseDouble( spnRearTurretTonnage.getValue().toString() );
+                }
+                CurVee.GetLoadout().GetRearTurret().SetTonnage( Tons );
+            } else {
+                CurVee.GetLoadout().GetRearTurret().UnsetTonnage();
+            }
+        } catch( Exception e ) {
+            Media.Messager(e.getMessage());
+            return;
+        }
     }
 
     private void spnHeatSinksInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
@@ -6605,26 +6629,29 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
 
         String Turret = cmbTurret.getSelectedItem().toString();
-        if (Turret.equals("Single Turret") || Turret.equals("Chin Turret")) {
+        if(Turret.equals("Single Turret") || Turret.equals("Chin Turret") ) {
             CurVee.setHasTurret1(true);
-            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
-            spnRearTurretTonnage.setEnabled(false);
-        } else if (Turret.equals("Dual Turret")) {
+            CurVee.setHasTurret2(false);
+        } else if( Turret.equals("Dual Turret") ) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
-            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
-            spnRearTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
-            spnTurretTonnage.setEnabled(false);
-            spnRearTurretTonnage.setEnabled(false);
         }
-        if( ! spnTurretTonnage.isEnabled() ) {
-            spnTurretTonnage.setValue(0);
+        if( CurVee.isHasTurret1() ) {
+            spnTurretTonnage.setEnabled( chkOmniVee.isSelected() && !isLocked );
+            SetTurretTonnage( null );
+        } else {
+            spnTurretTonnage.setEnabled( false );
+            SetTurretTonnage( 0.0 );
         }
-        if( ! spnRearTurretTonnage.isEnabled() ) {
-            spnRearTurretTonnage.setValue(0);
+        if( CurVee.isHasTurret2() ) {
+            spnRearTurretTonnage.setEnabled( chkOmniVee.isSelected() && !isLocked );
+            SetRearTurretTonnage( null );
+        } else {
+            spnRearTurretTonnage.setEnabled( false );
+            SetRearTurretTonnage( 0.0 );
         }
 
         BuildLocationSelector();

@@ -1017,6 +1017,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         JLabel jLabel91 = new JLabel();
         spnHeatSinks = new javax.swing.JSpinner();
         spnTurretTonnage = new javax.swing.JSpinner();
+        spnRearTurretTonnage = new javax.swing.JSpinner();
         JPanel pnlMovement = new JPanel();
         JLabel jLabel10 = new JLabel();
         spnCruiseMP = new javax.swing.JSpinner();
@@ -1757,8 +1758,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnTurretTonnage.setEnabled(false);
         spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
+        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
-        // TODO: copy spnRearTurretTonnage code from frmVeeWide
+        spnRearTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
+        spnRearTurretTonnage.setEnabled(false);
+        spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
+        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         javax.swing.GroupLayout pnlChassisLayout = new javax.swing.GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
@@ -1783,7 +1788,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(cmbTurret, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnTurretTonnage))
+                            .addComponent(spnTurretTonnage)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(spnRearTurretTonnage))
                         .addGroup(pnlChassisLayout.createSequentialGroup()
                             .addComponent(jLabel9)
                             .addGap(2, 2, 2)
@@ -1834,7 +1841,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addGroup(pnlChassisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
                     .addComponent(cmbTurret, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnRearTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChassisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlChassisLayout.createSequentialGroup()
@@ -6062,6 +6070,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbTechBase.setEnabled( true );
         cmbTurret.setSelectedIndex(0);
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
+        spnRearTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
 
         cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
 
@@ -6346,6 +6355,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbEngineType.setEnabled( true );
         cmbTurret.setEnabled( true );
         spnTurretTonnage.setEnabled( true );
+        spnRearTurretTonnage.setEnabled( true );
         spnFrontArmor.setEnabled( true );
         spnLeftArmor.setEnabled( true );
         spnRightArmor.setEnabled( true );
@@ -6373,7 +6383,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkJetBooster.setEnabled(true);
         chkEnviroSealing.setEnabled( false );
         // now enable the Omni controls
-        cmbOmniVariant.setSelectedItem("");
         cmbOmniVariant.setEnabled( false );
         btnAddVariant.setEnabled( false );
         btnDeleteVariant.setEnabled( false );
@@ -6967,20 +6976,29 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( Load ) { return; }
 
         String Turret = cmbTurret.getSelectedItem().toString();
-        if ( Turret.equals("Single Turret") || Turret.equals("Chin Turret")) {
+        if(Turret.equals("Single Turret") || Turret.equals("Chin Turret") ) {
             CurVee.setHasTurret1(true);
-            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
-        } else if(Turret.equals("Dual Turret")) {
+            CurVee.setHasTurret2(false);
+        } else if( Turret.equals("Dual Turret") ) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
-            spnTurretTonnage.setEnabled(chkOmniVee.isSelected() && !isLocked);
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
-            spnTurretTonnage.setEnabled(false);
         }
-        if( ! spnTurretTonnage.isEnabled() ) {
-            spnTurretTonnage.setValue(0);
+        if( CurVee.isHasTurret1() ) {
+            spnTurretTonnage.setEnabled( chkOmniVee.isSelected() && !isLocked );
+            SetTurretTonnage( null );
+        } else {
+            spnTurretTonnage.setEnabled( false );
+            SetTurretTonnage( 0.0 );
+        }
+        if( CurVee.isHasTurret2() ) {
+            spnRearTurretTonnage.setEnabled( chkOmniVee.isSelected() && !isLocked );
+            SetRearTurretTonnage( null );
+        } else {
+            spnRearTurretTonnage.setEnabled( false );
+            SetRearTurretTonnage( 0.0 );
         }
 
         BuildLocationSelector();
@@ -7593,6 +7611,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbEngineType.setEnabled( false );
         cmbTurret.setEnabled( false );
         spnTurretTonnage.setEnabled( false );
+        spnRearTurretTonnage.setEnabled( false );
         spnFrontArmor.setEnabled( false );
         spnLeftArmor.setEnabled( false );
         spnRightArmor.setEnabled( false );
@@ -7932,21 +7951,35 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbMotiveType.setSelectedItem( CurVee.GetMotiveLookupName() );
         spnTonnage.setModel( new javax.swing.SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1) );
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), CurVee.getMinCruiseMP(), CurVee.getMaxCruiseMP(), 1) );
-        if ( CurVee.isHasTurret1() ) cmbTurret.setSelectedItem("Single Turret");
-        if ( CurVee.isHasTurret2() ) cmbTurret.setSelectedItem("Dual Turret");
         FixArmorSpinners();
 
         // now that we're done with the special stuff...
         Load = false;
 
-        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
         if( CurVee.IsOmni() ) {
-            if ( CurVee.isHasTurret1() )
-                spnTurretTonnage.setModel( new SpinnerNumberModel(CurVee.GetBaseLoadout().GetTurret().GetMaxTonnage(), 0, 99.0, 0.5) );
             LockGUIForOmni();
             RefreshOmniVariants();
             RefreshOmniChoices();
+        } else {
+            cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
         }
+
+        double turretTons = 0.0;
+        if( CurVee.isHasTurret1() ) {
+            if( chkOmniVee.isSelected() ) {
+                spnTurretTonnage.setEnabled( !isLocked );
+                turretTons = CurVee.GetLoadout().GetTurret().GetTonnage();
+            }
+        }
+        SetTurretTonnage( turretTons );
+        double rearTurretTons = 0.0;
+        if( CurVee.isHasTurret2() ) {
+            if( chkOmniVee.isSelected() ) {
+                spnRearTurretTonnage.setEnabled( !isLocked );
+                rearTurretTons = CurVee.GetLoadout().GetRearTurret().GetTonnage();
+            }
+        }
+        SetRearTurretTonnage( rearTurretTons );
 
         FixTonnageSpinner( CurVee.GetMinTonnage(), CurVee.GetMaxTonnage() );
 
@@ -8669,20 +8702,59 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void spnTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
+        SetTurretTonnage( null );
+        RefreshSummary();
+        RefreshInfoPane();
+    }
+
+    private void SetTurretTonnage( Double Tons ) {
         try {
-            if( spnTurretTonnage.isEnabled() ) {
-                double Tons = Double.parseDouble(spnTurretTonnage.getValue().toString());
-                CurVee.GetLoadout().GetTurret().SetTonnage(Tons);
+            if( Tons != null ) {
+                // following may end up calling spnTurretTonnageStateChanged
+                // which in turn will call this again with null Tons,
+                // so it's okay although potentially redundant
+                spnTurretTonnage.setValue( Tons );
+            }
+            if( CurVee.isHasTurret1() && chkOmniVee.isSelected() ) {
+                if( Tons == null) {
+                    Tons = Double.parseDouble( spnTurretTonnage.getValue().toString() );
+                }
+                CurVee.GetLoadout().GetTurret().SetTonnage( Tons );
             } else {
                 CurVee.GetLoadout().GetTurret().UnsetTonnage();
             }
-        } catch ( Exception e ) {
+        } catch( Exception e ) {
             Media.Messager(e.getMessage());
             return;
         }
+    }
 
+    private void spnRearTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
+        SetRearTurretTonnage( null );
         RefreshSummary();
         RefreshInfoPane();
+    }
+
+    private void SetRearTurretTonnage( Double Tons ) {
+        try {
+            if( Tons != null ) {
+                // following may end up calling spnRearTurretTonnageStateChanged
+                // which in turn will call this again with null Tons,
+                // so it's okay although potentially redundant
+                spnRearTurretTonnage.setValue( Tons );
+            }
+            if( CurVee.isHasTurret2() && chkOmniVee.isSelected() ) {
+                if( Tons == null) {
+                    Tons = Double.parseDouble( spnRearTurretTonnage.getValue().toString() );
+                }
+                CurVee.GetLoadout().GetRearTurret().SetTonnage( Tons );
+            } else {
+                CurVee.GetLoadout().GetRearTurret().UnsetTonnage();
+            }
+        } catch( Exception e ) {
+            Media.Messager(e.getMessage());
+            return;
+        }
     }
 
     private void chkTrailerActionPerformed(java.awt.event.ActionEvent evt) {
@@ -9028,6 +9100,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JSpinner spnTonnage;
     private javax.swing.JSpinner spnTurretArmor;
     private javax.swing.JSpinner spnTurretTonnage;
+    private javax.swing.JSpinner spnRearTurretTonnage;
     private javax.swing.JTable tblWeaponManufacturers;
     private JTabbedPane tbpMainTabPane;
     private JTabbedPane tbpWeaponChooser;

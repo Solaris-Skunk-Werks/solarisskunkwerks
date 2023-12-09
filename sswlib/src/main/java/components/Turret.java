@@ -99,12 +99,12 @@ public class Turret extends abPlaceable {
         if ( isTonnageSet )
             return MaxTonnage;
         else 
-            return GetSize();
+            return GetTonnageFromItems();
     }
 
     @Override
     public double GetCost() {
-        return GetSize() * 5000.0;
+        return GetTonnage() * 5000.0;
     }
 
     public double GetOffensiveBV() {
@@ -142,15 +142,12 @@ public class Turret extends abPlaceable {
         return retval;
     }
 
-    private double GetSize() {
-        double Build = 0.0;
-
-        if ( isTonnageSet ) 
-            return MaxTonnage;
-        
+    public double GetTonnageFromItems() {
         if( Items.isEmpty() ) {
             return 0;
         }
+
+        double Build = 0.0;
 
         for( int i = 0; i < Items.size(); i++ ) {
             abPlaceable a = (abPlaceable)Items.get(i);

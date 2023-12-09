@@ -366,10 +366,12 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             case LocationIndex.CV_LOC_TURRET1:
                 if ( p.CanAllocCVTurret() ) {
                     Turret1Items.add(p);
-                    if ( Owner.IsOmni() ) {
-                        if ( Turret1.GetTonnage() > Turret1.GetMaxTonnage()  ) {
+                    if ( Turret1.isTonnageSet() ) {
+                        double tons = Turret1.GetTonnageFromItems();
+                        if ( tons > Turret1.GetMaxTonnage() ) {
                             Turret1Items.remove(p);
-                            throw new Exception("Turret is out of space");
+                            throw new Exception( String.format( "Turret is out of space: %.1f/%.1f",
+                                    tons, Turret1.GetMaxTonnage()) );
                         }
                     }
                 } else
@@ -377,9 +379,17 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                 
                 break;
             case LocationIndex.CV_LOC_TURRET2:
-                if ( p.CanAllocCVTurret() )
+                if ( p.CanAllocCVTurret() ) {
                     Turret2Items.add(p);
-                else
+                    if ( Turret2.isTonnageSet() ) {
+                        double tons = Turret2.GetTonnageFromItems();
+                        if ( tons > Turret2.GetMaxTonnage() ) {
+                            Turret2Items.remove(p);
+                            throw new Exception( String.format( "Turret is out of space: %.1f/%.1f",
+                                    tons, Turret2.GetMaxTonnage()) );
+                        }
+                    }
+                } else
                     throw new Exception(p.ActualName() + " cannot be allocated to the Rear Turret.");
                 break;
             case LocationIndex.CV_LOC_SPONSON_LEFT:
