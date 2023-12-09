@@ -1770,7 +1770,9 @@ public class MechReader {
                                 name = items.item(w).getTextContent();
                             }
                             else if (items.item(w).getNodeName().equals("Cost")) {
-                                cost = Integer.parseInt(items.item(w).getTextContent());
+                                // Backcompat for bug where quirks were with + or - prefixes
+                                String costText = items.item(w).getTextContent().replaceAll( "[-+]", "" );
+                                cost = Integer.parseInt( costText );
                             }
                             else if (items.item(w).getNodeName().equals("Description")) {
                                 description = items.item(w).getTextContent();
