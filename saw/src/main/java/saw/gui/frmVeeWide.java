@@ -4443,7 +4443,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 return;
             }
         }
-        GetNewVee();
         // Get the mech we're loading
         CombatVehicle m = LoadVehicle();
         if (m == null) {
@@ -7625,7 +7624,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
     
     public void setVee( CombatVehicle v ) {
-        GetNewVee();
         CurVee = v;
         LoadVehicleIntoGUI();
     }
