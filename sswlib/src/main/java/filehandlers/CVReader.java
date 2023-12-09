@@ -416,6 +416,9 @@ public class CVReader {
         if ( omniCombatVehicle && map.getNamedItem("turretlimit") != null ) {
             m.GetLoadout().GetTurret().SetTonnage( Double.parseDouble(map.getNamedItem("turretlimit").getTextContent() ) );
         }
+        if ( omniCombatVehicle && map.getNamedItem("rearturretlimit") != null ) {
+            m.GetLoadout().GetRearTurret().SetTonnage( Double.parseDouble(map.getNamedItem("rearturretlimit").getTextContent() ) );
+        }
         n = n.item( 0 ).getChildNodes();
         LocationIndex ltc = new LocationIndex();
         for( int i = 0; i < n.getLength(); i++ ) {
