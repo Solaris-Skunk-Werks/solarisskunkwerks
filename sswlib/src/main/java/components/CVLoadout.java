@@ -793,8 +793,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetRightItems( (ArrayList<abPlaceable>)RightItems.clone() );
         clone.SetBodyItems( (ArrayList<abPlaceable>)BodyItems.clone() );
         clone.SetRearItems( (ArrayList<abPlaceable>)RearItems.clone() );
-        clone.SetTurret1( (ArrayList<abPlaceable>)Turret1Items.clone() );
-        clone.SetTurret2( (ArrayList<abPlaceable>)Turret2Items.clone() );
+        clone.SetTurret1Items( (ArrayList<abPlaceable>)Turret1Items.clone() );
+        clone.SetTurret2Items( (ArrayList<abPlaceable>)Turret2Items.clone() );
         clone.SetSponsonTurretLeftItems((ArrayList<abPlaceable>) SponsonTurretLeftItems.clone());
         clone.SetSponsonTurretRightItems((ArrayList<abPlaceable>) SponsonTurretRightItems.clone());
 
@@ -822,6 +822,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetTurret(Turret1);
         clone.SetRearTurret(Turret2);
         clone.SetSponsonTurretLeft(SponsonTurretLeft);
+        clone.SetSponsonTurretRight(SponsonTurretRight);
 
         return clone;
     }
@@ -855,11 +856,11 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         BodyItems = c;
     }
 
-    public void SetTurret1(ArrayList<abPlaceable> c) {
+    public void SetTurret1Items(ArrayList<abPlaceable> c) {
         Turret1Items = c;
     }
 
-    public void SetTurret2(ArrayList<abPlaceable> c) {
+    public void SetTurret2Items(ArrayList<abPlaceable> c) {
         Turret2Items =  c;
     }
 

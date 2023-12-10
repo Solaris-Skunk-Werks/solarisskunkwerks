@@ -175,6 +175,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         CurLoadout = new CVLoadout(this);
         CurLoadout.GetHeatSinks().SetSingle();
         MainLoadout = CurLoadout;
+        CurLoadout.SetBaseLoadout( MainLoadout );
 
         Quirks = new ArrayList<Quirk>();
 
@@ -1401,7 +1402,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         this.HasTurret1 = HasTurret1;
         //Move any weapons/equipment that was in the turret to another location
         if (!HasTurret1) {
-            GetLoadout().SetTurret1(new ArrayList<abPlaceable>());
+            GetLoadout().SetTurret1Items(new ArrayList<abPlaceable>());
             GetLoadout().RefreshHeatSinks();
             CurArmor.SetArmor(LocationIndex.CV_LOC_TURRET1, 0);
         }
@@ -1415,7 +1416,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         this.HasTurret2 = HasTurret2;
         //Move any weapons/equipment that was in the turret to another location
         if (!HasTurret2) {
-            GetLoadout().SetTurret2(new ArrayList<abPlaceable>());
+            GetLoadout().SetTurret2Items(new ArrayList<abPlaceable>());
             GetLoadout().RefreshHeatSinks();
             CurArmor.SetArmor(LocationIndex.CV_LOC_TURRET2, 0);
         }
