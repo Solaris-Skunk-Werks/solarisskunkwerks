@@ -358,6 +358,8 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public void SetYear( int y, boolean specified ) {
+        // override specified as false if year is 0
+        if( y == 0) specified = false;
         if( Omnimech ) {
             CurLoadout.SetYear( y, specified );
         } else {

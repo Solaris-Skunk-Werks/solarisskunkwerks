@@ -2872,25 +2872,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         CurVee.setName( txtVehicleName.getText() );
         CurVee.setModel( txtModel.getText() );
         if( txtProdYear.getText().isEmpty() ) {
-            switch( cmbEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurVee.setYear( 2750, false );
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurVee.setYear( 3025, false );
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurVee.setYear( 3070, false );
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurVee.setYear( 3132, false );
-                    break;
+            year = CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() );
+            if( year != 0 ) {
+                CurVee.SetYear( year, false );
+                txtProdYear.setText( "" + year );
             }
-            txtProdYear.setText(""+CurVee.getYear());
         } else {
             try{
                 year = Integer.parseInt( txtProdYear.getText() ) ;
-                CurVee.setYear( year, true );
+                CurVee.SetYear( year, true );
             } catch( NumberFormatException n ) {
                 Media.Messager( this, "The production year is not a number." );
                 tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
@@ -3521,23 +3511,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 CurVee.SetYear( Integer.parseInt( txtProdYear.getText() ), chkYearRestrict.isSelected() );
             } catch( Exception e ) {
                 // nothing really to be done, set it to a default.
-                switch( cmbEra.getSelectedIndex() ) {
-                    case AvailableCode.ERA_STAR_LEAGUE:
-                        CurVee.SetYear( 2750, false );
-                        break;
-                    case AvailableCode.ERA_SUCCESSION:
-                        CurVee.SetYear( 3025, false );
-                        break;
-                    case AvailableCode.ERA_CLAN_INVASION:
-                        CurVee.SetYear( 3070, false );
-                        break;
-                    case AvailableCode.ERA_DARK_AGES:
-                        CurVee.SetYear( 3132, false );
-                        break;
-                    case AvailableCode.ERA_ALL:
-                        CurVee.SetYear( 0, false );
-                        break;
-                }
+                CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
             }
         }
     }
@@ -3547,7 +3521,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbEra.setSelectedIndex( CurVee.GetEra() );
         cmbProductionEra.setSelectedIndex( CurVee.GetProductionEra() );
         txtSource.setText( CurVee.getSource() );
-        txtProdYear.setText( "" + CurVee.GetYear() );
+        txtProdYear.setText( CurVee.YearWasSpecified() ? "" + CurVee.GetYear() : "" );
         BuildTechBaseSelector();
     }
 
@@ -3821,23 +3795,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         CurVee.SetEra( cmbEra.getSelectedIndex() );
         CurVee.SetProductionEra( cmbProductionEra.getSelectedIndex() );
         CurVee.SetRulesLevel( cmbRulesLevel.getSelectedIndex() );
-        switch( CurVee.GetEra() ) {
-        case AvailableCode.ERA_STAR_LEAGUE:
-            CurVee.SetYear( 2750, false );
-            break;
-        case AvailableCode.ERA_SUCCESSION:
-            CurVee.SetYear( 3025, false );
-            break;
-        case AvailableCode.ERA_CLAN_INVASION:
-            CurVee.SetYear( 3070, false );
-            break;
-        case AvailableCode.ERA_DARK_AGES:
-            CurVee.SetYear( 3130, false );
-            break;
-        case AvailableCode.ERA_ALL:
-            CurVee.SetYear( 0, false );
-            break;
-        }
+        CurVee.SetYear( CommonTools.GetEraDefaultYear( CurVee.GetEra() ), false );
 
         cmbTechBase.setSelectedItem( Prefs.get( "NewVee_Techbase", "Inner Sphere" ) );
         switch( cmbTechBase.getSelectedIndex() ) {
@@ -4547,7 +4505,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         UnlockGUIFromOmni();
 
         chkYearRestrict.setSelected( CurVee.IsYearRestricted() );
-        txtProdYear.setText( "" + CurVee.GetYear() );
+        txtProdYear.setText( CurVee.YearWasSpecified() ? "" + CurVee.GetYear() : "" );
         cmbEra.setEnabled( true );
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
@@ -6943,76 +6901,28 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             cmbTechBase.setEnabled(true);
             txtProdYear.setEnabled(true);
             CurVee.SetYearRestricted(false);
-            switch (cmbEra.getSelectedIndex()) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurVee.SetYear(2750, false);
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurVee.SetYear(3025, false);
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurVee.SetYear(3070, false);
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurVee.SetYear(3132, false);
-                    break;
-                case AvailableCode.ERA_ALL:
-                    CurVee.SetYear(0, false);
-                    break;
-            }
+            CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
         } else {
             // ensure we have a good year.
             try {
                 year = Integer.parseInt(txtProdYear.getText());
             } catch (NumberFormatException n) {
                 Media.Messager(this, "The production year is not a number.");
-                txtProdYear.setText("");
+                txtProdYear.setText( "" );
                 chkYearRestrict.setSelected(false);
                 return;
             }
 
             // ensure the year is between the era years.
-            switch (cmbEra.getSelectedIndex()) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    // Star League era
-                    if (year < 2443 || year > 2800) {
-                        Media.Messager(this, "The year does not fall within this era.");
-                        txtProdYear.setText("");
-                        chkYearRestrict.setSelected(false);
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    // Succession Wars era
-                    if (year < 2801 || year > 3050) {
-                        Media.Messager(this, "The year does not fall within this era.");
-                        txtProdYear.setText("");
-                        chkYearRestrict.setSelected(false);
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    // Clan Invasion Era
-                    if (year < 3051 || year > 3131) {
-                        Media.Messager(this, "The year does not fall within this era.");
-                        txtProdYear.setText("");
-                        chkYearRestrict.setSelected(false);
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    // Clan Invasion Era
-                    if (year < 3132) {
-                        Media.Messager(this, "The year does not fall within this era.");
-                        txtProdYear.setText("");
-                        chkYearRestrict.setSelected(false);
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_ALL:
-                    // all era
-                    chkYearRestrict.setSelected(false);
-                    chkYearRestrict.setEnabled(false);
+            if( cmbEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+                if( ! CommonTools.IsYearInEra( year, cmbEra.getSelectedIndex() ) ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
+                    chkYearRestrict.setSelected( false );
+                }
+            } else {
+                chkYearRestrict.setSelected( false );
+                chkYearRestrict.setEnabled( false );
             }
 
             // we know we have a good year, lock it in.
@@ -7147,50 +7057,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         int tbsave = cmbTechBase.getSelectedIndex();
 
         // change the year range and tech base options
-        switch (cmbEra.getSelectedIndex()) {
-            case AvailableCode.ERA_STAR_LEAGUE:
-                lblEraYears.setText("2443 ~ 2800");
-                txtProdYear.setText("");
-                CurVee.SetEra(AvailableCode.ERA_STAR_LEAGUE);
-                CurVee.SetYear(2750, false);
-                if (!CurVee.IsOmni()) {
-                    chkYearRestrict.setEnabled(true);
-                }
-                break;
-            case AvailableCode.ERA_SUCCESSION:
-                lblEraYears.setText("2801 ~ 3050");
-                txtProdYear.setText("");
-                CurVee.SetEra(AvailableCode.ERA_SUCCESSION);
-                CurVee.SetYear(3025, false);
-                if (!CurVee.IsOmni()) {
-                    chkYearRestrict.setEnabled(true);
-                }
-                break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                lblEraYears.setText("3051 ~ 3131");
-                txtProdYear.setText("");
-                CurVee.SetEra(AvailableCode.ERA_CLAN_INVASION);
-                CurVee.SetYear(3075, false);
-                if (!CurVee.IsOmni()) {
-                    chkYearRestrict.setEnabled(true);
-                }
-                break;
-            case AvailableCode.ERA_DARK_AGES:
-                lblEraYears.setText("3132 on");
-                txtProdYear.setText("");
-                CurVee.SetEra(AvailableCode.ERA_DARK_AGES);
-                CurVee.SetYear(3132, false);
-                if (!CurVee.IsOmni()) {
-                    chkYearRestrict.setEnabled(true);
-                }
-                break;
-            case AvailableCode.ERA_ALL:
-                lblEraYears.setText("Any");
-                txtProdYear.setText("");
-                CurVee.SetEra(AvailableCode.ERA_ALL);
-                CurVee.SetYear(0, false);
-                chkYearRestrict.setEnabled(false);
-                break;
+        lblEraYears.setText( CommonTools.GetEraYearRange( cmbEra.getSelectedIndex() ) );
+        txtProdYear.setText( "" );
+        CurVee.SetEra( cmbEra.getSelectedIndex() );
+        CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
+        if( cmbEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+            if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
+        } else {
+            chkYearRestrict.setEnabled( false );
         }
 
         if (CurVee.IsOmni()) {

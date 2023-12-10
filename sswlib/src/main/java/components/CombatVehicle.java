@@ -64,8 +64,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     private int HeatSinks = 0,
                 Tonnage = 20,
                 CruiseMP = 1,
-                Crew = 0,
-                Year;
+                Crew = 0;
     private double JJMult,
                     LiftEquipment = 0,
                     Controls = 0;
@@ -1023,6 +1022,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     }
 
     public void SetYear( int y, boolean specified ) {
+        // override specified as false if year is 0
+        if( y == 0) specified = false;
         if( Omni ) {
             CurLoadout.SetYear( y, specified );
         } else {
@@ -1551,15 +1552,11 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     }
 
     public int getYear() {
-        return Year;
+        return GetYear();
     }
 
-    public void setYear(int y, boolean specified) {      
-        if( Omni ) {
-            CurLoadout.SetYear( y, specified );
-        } else {
-            MainLoadout.SetYear( y, specified );
-        }
+    public void setYear(int y, boolean specified) {
+        SetYear( y, specified );
     }
 
     public void SetYearRestricted( boolean y ) {
