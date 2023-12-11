@@ -794,6 +794,33 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             txtInfoFreeCrits.setForeground(Color.black);
         }
 
+        if( CurVee.isHasTurret1() ) {
+            txtTurretInfo.setVisible( true );
+            Turret turret = CurVee.GetLoadout().GetTurret();
+            if( turret.isTonnageSet() ) {
+                if( turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                    txtTurretInfo.setForeground( Color.red );
+                } else {
+                    txtTurretInfo.setForeground( Color.black );
+                }
+            }
+        } else {
+            txtTurretInfo.setVisible( false );
+        }
+        if( CurVee.isHasTurret2() ) {
+            txtRearTurretInfo.setVisible( true );
+            Turret turret = CurVee.GetLoadout().GetRearTurret();
+            if( turret.isTonnageSet() ) {
+                if( turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                    txtRearTurretInfo.setForeground( Color.red );
+                } else {
+                    txtRearTurretInfo.setForeground( Color.black );
+                }
+            }
+        } else {
+            txtRearTurretInfo.setVisible( false );
+        }
+
         // fill in the movement summary
         String temp = "Max C/F: ";
         temp += CurVee.GetAdjustedCruiseMP( false, true ) + "/";
@@ -957,6 +984,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtInfoFreeTons = new javax.swing.JTextField();
         txtInfoFreeCrits = new javax.swing.JTextField();
         txtTurretInfo = new javax.swing.JTextField();
+        txtRearTurretInfo = new javax.swing.JTextField();
         txtInfoBattleValue = new javax.swing.JTextField();
         txtInfoCost = new javax.swing.JTextField();
         tlbIconBar = new javax.swing.JToolBar();
@@ -1154,7 +1182,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtArmorSpace = new javax.swing.JTextField();
         lblArmorTonsWasted = new javax.swing.JLabel();
         lblArmorLeftInLot = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        pnlEquipment = new javax.swing.JPanel();
         tbpWeaponChooser = new JTabbedPane();
         lstChooseBallistic = new javax.swing.JList();
         lstChooseEnergy = new javax.swing.JList();
@@ -1372,11 +1400,19 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtTurretInfo.setEditable(false);
         txtTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTurretInfo.setText("Turret: 000.00");
-        txtTurretInfo.setMaximumSize(new Dimension(120, 20));
-        txtTurretInfo.setMinimumSize(new Dimension(120, 20));
+        txtTurretInfo.setText("Turret: 00.0/0.00");
+        txtTurretInfo.setMaximumSize(new Dimension(100, 20));
+        txtTurretInfo.setMinimumSize(new Dimension(100, 20));
         txtTurretInfo.setPreferredSize(new Dimension(100, 20));
         pnlInfoPane.add(txtTurretInfo);
+
+        txtRearTurretInfo.setEditable(false);
+        txtRearTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtRearTurretInfo.setText("Rear Turret: 00.0/0.00");
+        txtRearTurretInfo.setMaximumSize(new Dimension(120, 20));
+        txtRearTurretInfo.setMinimumSize(new Dimension(120, 20));
+        txtRearTurretInfo.setPreferredSize(new Dimension(120, 20));
+        pnlInfoPane.add(txtRearTurretInfo);
 
         txtInfoBattleValue.setEditable(false);
         txtInfoBattleValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1388,10 +1424,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtInfoCost.setEditable(false);
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtInfoCost.setText("Cost: 000,000,000,000.00");
-        txtInfoCost.setMaximumSize(new Dimension(165, 20));
-        txtInfoCost.setMinimumSize(new Dimension(165, 20));
-        txtInfoCost.setPreferredSize(new Dimension(165, 20));
+        txtInfoCost.setText("Cost: 000,000,000");
+        txtInfoCost.setMaximumSize(new Dimension(120, 20));
+        txtInfoCost.setMinimumSize(new Dimension(120, 20));
+        txtInfoCost.setPreferredSize(new Dimension(120, 20));
         pnlInfoPane.add(txtInfoCost);
 
         tlbIconBar.setFloatable(false);
@@ -3525,17 +3561,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         pnlControls.add(jScrollPane1, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlEquipmentLayout = new javax.swing.GroupLayout(pnlEquipment);
+        pnlEquipment.setLayout(pnlEquipmentLayout);
+        pnlEquipmentLayout.setHorizontalGroup(
+            pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEquipmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEquipmentLayout.createSequentialGroup()
                         .addComponent(tbpWeaponChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pnlControls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlSpecials, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3543,12 +3579,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addComponent(pnlEquipInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        pnlEquipmentLayout.setVerticalGroup(
+            pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEquipmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEquipmentLayout.createSequentialGroup()
                         .addComponent(pnlControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnlSpecials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3558,7 +3594,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        tbpMainTabPane.addTab("Equipment", jPanel3);
+        tbpMainTabPane.addTab("Equipment", pnlEquipment);
 
         pnlFluff.setLayout(new java.awt.GridBagLayout());
 
@@ -4410,7 +4446,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtSumConTons.setText("" + CurVee.GetControls() );
         txtSumTurTons.setText("" + CurVee.GetLoadout().GetTurret().GetTonnage() );
         txtSumTurAV.setText( CurVee.GetLoadout().GetTurret().GetAvailability().GetBestCombinedCode() );
-        txtTurretInfo.setText("Turret: " + CurVee.GetLoadout().GetTurret().GetTonnage() );
+        txtTurretInfo.setText( "Turret: " + CurVee.GetLoadout().GetTurret().GetTonnageText() );
+        txtRearTurretInfo.setText( "Rear Turret: " + CurVee.GetLoadout().GetRearTurret().GetTonnageText() );
         txtSumRTuTons.setText("" + CurVee.GetLoadout().GetRearTurret().GetTonnage() );
         txtSumRTuAV.setText( CurVee.GetLoadout().GetRearTurret().GetAvailability().GetBestCombinedCode() );
         txtSumSpnTons.setText("" + CurVee.GetLoadout().GetSponsonTurretTonnage() );
@@ -5915,8 +5952,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // if we have any systems that requires ECM and don't have it, let the user know
         if( ! CurVee.ValidateECM() ) {
-            Media.Messager( "This 'Mech requires an ECM system of some sort to be valid.\nPlease install an ECM system." );
-            tbpMainTabPane.setSelectedComponent( jPanel3 );
+            Media.Messager( "This Vehicle requires an ECM system of some sort to be valid.\nPlease install an ECM system." );
+            tbpMainTabPane.setSelectedComponent( pnlEquipment );
             SetSource = true;
             return false;
         }
@@ -8999,7 +9036,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbTechBase;
     private javax.swing.JComboBox cmbTurret;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextArea jTextAreaBFConversion;
     private javax.swing.JLabel lblArmorCoverage;
     private javax.swing.JLabel lblArmorLeftInLot;
@@ -9069,6 +9105,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JPanel pnlBasicSetup;
     private javax.swing.JPanel pnlCapabilities;
     private javax.swing.JPanel pnlDeployment;
+    private javax.swing.JPanel pnlEquipment;
     private javax.swing.JPanel pnlHistory;
     private javax.swing.JPanel pnlNotables;
     private javax.swing.JPanel pnlOverview;
@@ -9109,6 +9146,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JTextField txtManufacturerLocation;
     private javax.swing.JTextField txtModel;
     private javax.swing.JTextField txtProdYear;
+    private javax.swing.JTextField txtRearTurretInfo;
     private javax.swing.JTextField txtSource;
     private javax.swing.JTextField txtSumArmAV;
     private javax.swing.JTextField txtSumArmSpace;

@@ -762,6 +762,33 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             txtInfoFreeCrits.setForeground(Color.black);
         }
 
+        if( CurVee.isHasTurret1() ) {
+            txtTurretInfo.setVisible( true );
+            Turret turret = CurVee.GetLoadout().GetTurret();
+            if( turret.isTonnageSet() ) {
+                if( turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                    txtTurretInfo.setForeground( Color.red );
+                } else {
+                    txtTurretInfo.setForeground( Color.black );
+                }
+            }
+        } else {
+            txtTurretInfo.setVisible( false );
+        }
+        if( CurVee.isHasTurret2() ) {
+            txtRearTurretInfo.setVisible( true );
+            Turret turret = CurVee.GetLoadout().GetRearTurret();
+            if( turret.isTonnageSet() ) {
+                if( turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                    txtRearTurretInfo.setForeground( Color.red );
+                } else {
+                    txtRearTurretInfo.setForeground( Color.black );
+                }
+            }
+        } else {
+            txtRearTurretInfo.setVisible( false );
+        }
+
         // fill in the movement summary
         String temp = "Max C/F: ";
         temp += CurVee.GetAdjustedCruiseMP( false, true ) + "/";
@@ -923,6 +950,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtInfoFreeTons = new javax.swing.JTextField();
         txtInfoFreeCrits = new javax.swing.JTextField();
         txtTurretInfo = new javax.swing.JTextField();
+        txtRearTurretInfo = new javax.swing.JTextField();
         txtInfoBattleValue = new javax.swing.JTextField();
         txtInfoCost = new javax.swing.JTextField();
         tlbIconBar = new javax.swing.JToolBar();
@@ -1072,7 +1100,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtArmorSpace = new javax.swing.JTextField("00");
         lblArmorTonsWasted = new javax.swing.JLabel("0.00 Tons Wasted");
         lblArmorLeftInLot = new javax.swing.JLabel("99 Points Left In This 1/2 Ton Lot");
-        JPanel pnlEquipment = new JPanel();
+        pnlEquipment = new JPanel();
         pnlEquipInfo = new javax.swing.JPanel();
         lblInfoAVSL = new javax.swing.JLabel();
         lblInfoAVSW = new javax.swing.JLabel();
@@ -1229,11 +1257,19 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         txtTurretInfo.setEditable(false);
         txtTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTurretInfo.setText("Turret: 000.00");
-        txtTurretInfo.setMaximumSize(new Dimension(120, 20));
-        txtTurretInfo.setMinimumSize(new Dimension(120, 20));
+        txtTurretInfo.setText("Turret: 00.0/0.00");
+        txtTurretInfo.setMaximumSize(new Dimension(100, 20));
+        txtTurretInfo.setMinimumSize(new Dimension(100, 20));
         txtTurretInfo.setPreferredSize(new Dimension(100, 20));
         pnlInfoPane.add(txtTurretInfo);
+
+        txtRearTurretInfo.setEditable(false);
+        txtRearTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtRearTurretInfo.setText("Rear Turret: 00.0/0.00");
+        txtRearTurretInfo.setMaximumSize(new Dimension(120, 20));
+        txtRearTurretInfo.setMinimumSize(new Dimension(120, 20));
+        txtRearTurretInfo.setPreferredSize(new Dimension(120, 20));
+        pnlInfoPane.add(txtRearTurretInfo);
 
         txtInfoBattleValue.setEditable(false);
         txtInfoBattleValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1245,10 +1281,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         txtInfoCost.setEditable(false);
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtInfoCost.setText("Cost: 000,000,000,000.00");
-        txtInfoCost.setMaximumSize(new Dimension(165, 20));
-        txtInfoCost.setMinimumSize(new Dimension(165, 20));
-        txtInfoCost.setPreferredSize(new Dimension(165, 20));
+        txtInfoCost.setText("Cost: 000,000,000");
+        txtInfoCost.setMaximumSize(new Dimension(120, 20));
+        txtInfoCost.setMinimumSize(new Dimension(120, 20));
+        txtInfoCost.setPreferredSize(new Dimension(120, 20));
         pnlInfoPane.add(txtInfoCost);
         //endregion
 
@@ -2722,7 +2758,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumConTons.setText("" + CurVee.GetControls() );
         txtSumTurTons.setText("" + CurVee.GetLoadout().GetTurret().GetTonnage() );
         txtSumTurAV.setText( CurVee.GetLoadout().GetTurret().GetAvailability().GetBestCombinedCode() );
-        txtTurretInfo.setText("Turret: " + CurVee.GetLoadout().GetTurret().GetTonnage() );
+        txtTurretInfo.setText( "Turret: " + CurVee.GetLoadout().GetTurret().GetTonnageText() );
+        txtRearTurretInfo.setText( "Rear Turret: " + CurVee.GetLoadout().GetRearTurret().GetTonnageText() );
         txtSumRTuTons.setText("" + CurVee.GetLoadout().GetRearTurret().GetTonnage() );
         txtSumRTuAV.setText( CurVee.GetLoadout().GetRearTurret().GetAvailability().GetBestCombinedCode() );
         txtSumSpnTons.setText("" + CurVee.GetLoadout().GetSponsonTurretTonnage() );
@@ -7485,6 +7522,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JPanel pnlBasicSetup;
     private javax.swing.JPanel pnlCapabilities;
     private javax.swing.JPanel pnlDeployment;
+    private javax.swing.JPanel pnlEquipment;
     private javax.swing.JPanel pnlEquipInfo;
     private javax.swing.JPanel pnlHistory;
     private javax.swing.JPanel pnlNotables;
@@ -7527,6 +7565,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JTextField txtManufacturerLocation;
     private javax.swing.JTextField txtModel;
     private javax.swing.JTextField txtProdYear;
+    private javax.swing.JTextField txtRearTurretInfo;
     private javax.swing.JTextField txtSource;
     private javax.swing.JTextField txtSumArmAV;
     private javax.swing.JTextField txtSumArmSpace;

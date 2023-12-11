@@ -172,6 +172,14 @@ public class Turret extends abPlaceable {
         return CommonTools.RoundHalfUp( Build * 0.10 );
     }
 
+    public String GetTonnageText() {
+        if( isTonnageSet ) {
+            return String.format( "%.1f/%.1f", GetTonnageFromItems(), GetMaxTonnage() );
+        } else {
+            return String.format( "%.1f", GetTonnage() );
+        }
+    }
+
     @Override
     public boolean CoreComponent() {
         return true;
