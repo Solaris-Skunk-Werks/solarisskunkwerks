@@ -3911,15 +3911,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         // now let's ensure that all the omni controls are enabled or disabled
         // as appropriate
-        if( chkOmniVee.isEnabled() ) {
-            if( chkOmniVee.isSelected() ) {
-                //btnLockChassis.setEnabled( true );
-            } else {
-                //btnLockChassis.setEnabled( false );
-            }
-        } else {
-            //btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmniVee.isEnabled() && chkOmniVee.isSelected() );
     }
 
     private void RefreshEquipment() {
@@ -4031,7 +4023,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // an Omni.
         isLocked = false;
 
-        chkOmniVee.setSelected( false );
         chkOmniVee.setEnabled( true );
         mnuUnlock.setEnabled( false );
         cmbMotiveType.setEnabled( true );
@@ -4057,7 +4048,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
-        btnLockChassis.setEnabled( true );
+        btnLockChassis.setEnabled( chkOmniVee.isSelected() );
         spnCruiseMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
         chkSupercharger.setEnabled( true );
@@ -4308,7 +4299,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // this locks most of the GUI controls.  Used mainly by OmniVehichles.
         isLocked = true;
 
-        chkOmniVee.setSelected( true );
         chkOmniVee.setEnabled( false );
         mnuUnlock.setEnabled( true );
         spnTonnage.setEnabled( false );
@@ -4548,6 +4538,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         Load = false;
 
         if( CurVee.IsOmni() ) {
+            chkOmniVee.setSelected( true );
             LockGUIForOmni();
             RefreshOmniVariants();
             RefreshOmniChoices();
@@ -6351,7 +6342,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         // make it an omni
         CurVee.SetOmni(VariantName);
-        chkOmniVee.setEnabled(false);
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         LockGUIForOmni();
@@ -6816,7 +6806,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void chkOmniVeeActionPerformed(java.awt.event.ActionEvent evt) {
-        btnLockChassis.setEnabled(chkOmniVee.isSelected());
+        btnLockChassis.setEnabled( chkOmniVee.isSelected() );
         cmbTurretActionPerformed(evt);
     }
 

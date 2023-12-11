@@ -2012,15 +2012,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         // now let's ensure that all the omni controls are enabled or disabled
         // as appropriate
-        if( chkOmnimech.isEnabled() ) {
-            if( chkOmnimech.isSelected() ) {
-                btnLockChassis.setEnabled( true );
-            } else {
-                btnLockChassis.setEnabled( false );
-            }
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmnimech.isEnabled() && chkOmnimech.isSelected() );
     }
 
     private void SaveOmniFluffInfo() {
@@ -3314,7 +3306,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private void UnlockGUIFromOmni() {
         // this should be used anytime a new mech is made or when unlocking
         // an omnimech.
-        chkOmnimech.setSelected( false );
         chkOmnimech.setEnabled( true );
         mnuUnlock.setEnabled( false );
         cmbTonnage.setEnabled( true );
@@ -3344,7 +3335,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         btnEfficientArmor.setEnabled( true );
         btnBalanceArmor.setEnabled( true );
         cmbJumpJetType.setEnabled( true );
-        btnLockChassis.setEnabled( true );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
@@ -3362,7 +3352,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         chkHDTurret.setEnabled( true );
         chkLTTurret.setEnabled( true );
         chkRTTurret.setEnabled( true );
-        btnLockChassis.setEnabled( false );
+        btnLockChassis.setEnabled( chkOmnimech.isSelected() );
         spnWalkMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
         chkNullSig.setEnabled( true );
@@ -10602,6 +10592,7 @@ public void LoadMechIntoGUI() {
     txtMechModel.setText( CurMech.GetModel() );
 
     if( CurMech.IsOmnimech() ) {
+        chkOmnimech.setSelected( true );
         LockGUIForOmni();
         RefreshOmniVariants();
         RefreshOmniChoices();
@@ -13405,7 +13396,6 @@ private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     // make it an omni
     CurMech.SetOmnimech( VariantName );
-    chkOmnimech.setEnabled( false );
     FixTransferHandlers();
     SetLoadoutArrays();
     FixJJSpinnerModel();
@@ -13702,11 +13692,7 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_cmbMechTypeActionPerformed
 
 private void chkOmnimechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmnimechActionPerformed
-    if( chkOmnimech.isSelected() ) {
-        btnLockChassis.setEnabled( true );
-    } else {
-        btnLockChassis.setEnabled( false );
-    }
+    btnLockChassis.setEnabled( chkOmnimech.isSelected() );
 }//GEN-LAST:event_chkOmnimechActionPerformed
 
 private void cmbPhysEnhanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPhysEnhanceActionPerformed

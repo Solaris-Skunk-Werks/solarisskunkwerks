@@ -6234,11 +6234,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now let's ensure that all the omni controls are enabled or disabled
         // as appropriate
-        if( chkOmniVee.isEnabled() ) {
-            btnLockChassis.setEnabled(chkOmniVee.isSelected());
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmniVee.isEnabled() && chkOmniVee.isSelected() );
     }
 
     private void RefreshEquipment() {
@@ -6347,7 +6343,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // an Omni.
         isLocked = false;
 
-        chkOmniVee.setSelected( false );
         chkOmniVee.setEnabled( true );
         mnuUnlock.setEnabled( false );
         cmbMotiveType.setEnabled( true );
@@ -6370,13 +6365,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkTrailer.setEnabled( true );
         //btnEfficientArmor.setEnabled( true );
         //btnBalanceArmor.setEnabled( true );
-        btnLockChassis.setEnabled( false );
+        btnLockChassis.setEnabled( chkOmniVee.isSelected() );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
         chkCASE.setEnabled( true );
-        chkOmniVee.setSelected( false );
-        chkOmniVee.setEnabled( true );
         spnCruiseMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
         chkSupercharger.setEnabled( true );
@@ -7555,7 +7548,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // make it an omni
         CurVee.SetOmni(VariantName);
-        chkOmniVee.setEnabled(false);
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         LockGUIForOmni();
@@ -7603,7 +7595,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // this locks most of the GUI controls.  Used mainly by OmniVehicles.
         isLocked = true;
 
-        chkOmniVee.setSelected( true );
         chkOmniVee.setEnabled( false );
         mnuUnlock.setEnabled( true );
         spnTonnage.setEnabled( false );
@@ -7780,11 +7771,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void chkOmniVeeActionPerformed(java.awt.event.ActionEvent evt) {
-        if( chkOmniVee.isSelected() ) {
-            btnLockChassis.setEnabled( true );
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmniVee.isSelected() );
         cmbTurretActionPerformed(evt);
     }
 
@@ -7957,6 +7944,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         Load = false;
 
         if( CurVee.IsOmni() ) {
+            chkOmniVee.setSelected( true );
             LockGUIForOmni();
             RefreshOmniVariants();
             RefreshOmniChoices();
