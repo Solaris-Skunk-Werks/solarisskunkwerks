@@ -364,32 +364,16 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     throw new Exception(p.ActualName() + " cannot be allocated to the Side.");
                 break;
             case LocationIndex.CV_LOC_TURRET1:
-                if ( p.CanAllocCVTurret() ) {
+                if ( p.CanAllocCVTurret() )
                     Turret1Items.add(p);
-                    if ( Turret1.isTonnageSet() ) {
-                        double tons = Turret1.GetTonnageFromItems();
-                        if ( tons > Turret1.GetMaxTonnage() ) {
-                            Turret1Items.remove(p);
-                            throw new Exception( String.format( "Turret is out of space: %.1f/%.1f",
-                                    tons, Turret1.GetMaxTonnage()) );
-                        }
-                    }
-                } else
+                else
                     throw new Exception(p.ActualName() + " cannot be allocated to the Turret.");
                 
                 break;
             case LocationIndex.CV_LOC_TURRET2:
-                if ( p.CanAllocCVTurret() ) {
+                if ( p.CanAllocCVTurret() )
                     Turret2Items.add(p);
-                    if ( Turret2.isTonnageSet() ) {
-                        double tons = Turret2.GetTonnageFromItems();
-                        if ( tons > Turret2.GetMaxTonnage() ) {
-                            Turret2Items.remove(p);
-                            throw new Exception( String.format( "Turret is out of space: %.1f/%.1f",
-                                    tons, Turret2.GetMaxTonnage()) );
-                        }
-                    }
-                } else
+                else
                     throw new Exception(p.ActualName() + " cannot be allocated to the Rear Turret.");
                 break;
             case LocationIndex.CV_LOC_SPONSON_LEFT:

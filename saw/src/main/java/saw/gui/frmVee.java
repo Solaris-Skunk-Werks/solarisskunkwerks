@@ -5959,24 +5959,43 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         // ensure we're not overweight
+        ArrayList<ifCVLoadout> loadouts = new ArrayList<>();
         if( CurVee.IsOmni() ) {
-            ArrayList v = CurVee.GetLoadouts();
-            for( int i = 0; i < v.size(); i++ ) {
-                CurVee.SetCurLoadout( ((ifCVLoadout) v.get( i )).GetName() );
-                if( CurVee.GetCurrentTons() > CurVee.GetTonnage() ) {
-                    Media.Messager( this, ((ifCVLoadout) v.get( i )).GetName() +
-                        " loadout is overweight.  Reduce the weight\nto equal or below the Vehicle's tonnage." );
-                    //cmbOmniVariant.setSelectedItem( ((ifCVLoadout) v.get( i )).GetName() );
-                    //cmbOmniVariantActionPerformed( evt );
-                    tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
-                    SetSource = true;
-                    return false;
-                }
-            }
+            loadouts.addAll( CurVee.GetLoadouts() );
         } else {
+            loadouts.add( null );
+        }
+        for( ifCVLoadout loadout : loadouts ) {
+            String name;
+            JPanel panel;
+            if( loadout == null ) {
+                name = "This Vehicle";
+                panel = pnlBasicSetup;
+            } else {
+                name = loadout.GetName() + " loadout";
+                CurVee.SetCurLoadout( loadout.GetName() );
+                panel = pnlEquipment;
+            }
             if( CurVee.GetCurrentTons() > CurVee.GetTonnage() ) {
-                Media.Messager( this, "This Vehicle is overweight.  Reduce the weight to\nequal or below the Vehicle's tonnage." );
-                tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
+                Media.Messager( this, name + " is overweight.\n" +
+                        "Reduce the weight to equal or below the Vehicle's tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
+                SetSource = true;
+                return false;
+            }
+            Turret turret = CurVee.GetLoadout().GetTurret();
+            if( turret.isTonnageSet() && turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                Media.Messager( this, name + "'s turret is overweight.\n" +
+                        "Reduce the turret's weight to equal or below its max tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
+                SetSource = true;
+                return false;
+            }
+            turret = CurVee.GetLoadout().GetRearTurret();
+            if( turret.isTonnageSet() && turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                Media.Messager( this, name + "'s rear turret is overweight.\n" +
+                        "Reduce the rear turret's weight to equal or below its max tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
                 SetSource = true;
                 return false;
             }
