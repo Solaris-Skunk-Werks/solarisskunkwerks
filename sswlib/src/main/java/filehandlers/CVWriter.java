@@ -174,7 +174,14 @@ public class CVWriter {
         if( CurUnit.IsOmni() ) {
             CurUnit.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
         }
-        FR.write( tab + "<baseloadout fcsa4=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisIV() ) + "\" fcsa5=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisV() ) + "\" fcsapollo=\"" + FileCommon.GetBoolean( CurUnit.UsingApollo() ) + "\" turretlimit=\"" + CurUnit.GetBaseLoadout().GetTurret().GetMaxTonnage() + "\" >" );
+        FR.write( tab + "<baseloadout fcsa4=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisIV() ) + "\" fcsa5=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisV() ) + "\" fcsapollo=\"" + FileCommon.GetBoolean( CurUnit.UsingApollo() ) + "\"");
+        if( CurUnit.GetLoadout().GetTurret().isTonnageSet() ) {
+            FR.write( " turretlimit=\"" + CurUnit.GetLoadout().GetTurret().GetMaxTonnage() + "\"");
+        }
+        if( CurUnit.GetLoadout().GetRearTurret().isTonnageSet() ) {
+            FR.write( " rearturretlimit=\"" + CurUnit.GetLoadout().GetRearTurret().GetMaxTonnage() + "\"" );
+        }
+        FR.write( ">" );
         FR.newLine();
 
         FR.write( tab + tab + "<source>" + FileCommon.EncodeFluff( CurUnit.getSource() ) + "</source>" );

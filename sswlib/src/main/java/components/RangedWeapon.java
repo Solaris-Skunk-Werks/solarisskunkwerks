@@ -375,20 +375,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingCaseless ) {
             retval += " (Caseless)";
         }
-        if( IsTurreted() ) {
-            retval = "(T) " + retval;
-        } else {
-            if( InArray ) {
-                if( CurArray.IsTurreted() ) {
-                    retval = "(T) " + retval;
-                }
-            }
-        }
-        if( MountedRear ) {
-            return "(R) " + retval;
-        } else {
-            return retval;
-        }
+        return NameModifier() + retval;
     }
 
     public String LookupName() {
@@ -405,14 +392,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingCaseless ) {
             retval += " (Caseless)";
         }
-        if( IsTurreted() ) {
-            retval = "(T) " + retval;
-        }
-        if( MountedRear ) {
-            return "(R) " + retval;
-        } else {
-            return retval;
-        }
+        return NameModifier() + retval;
     }
 
     public String ChatName() {
@@ -420,11 +400,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     public String MegaMekName( boolean UseRear ) {
-        if( UseRear ) {
-            return MegaMekName + " (R)";
-        } else {
-            return MegaMekName;
-        }
+        return (MegaMekName + " " + NameModifier()).trim();
     }
 
     public String BookReference() {
@@ -581,13 +557,13 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
             return retval;
         } else {
             if( UseRear ) {
-                if( MountedRear ) {
+                if( IsMountedRear() ) {
                     return retval;
                 } else {
                     return retval * 0.5;
                 }
             } else {
-                if( MountedRear ) {
+                if( IsMountedRear() ) {
                     return retval * 0.5;
                 } else {
                     return retval;
@@ -721,17 +697,13 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     public boolean CanMountRear() {
         // all weapons can be mounted to the rear.
         // unless they're turreted
-        if( IsTurreted() ) { return false; }
-        return true;
+        return ! IsTurreted();
     }
 
     @Override
     public void MountRear( boolean rear ) {
         if( IsInArray() ) {
-            if( GetMyArray().IsMountedRear() != rear ) {
-                GetMyArray().MountRear( rear );
-            }
-            MountedRear = rear;
+            GetMyArray().MountRear( rear );
         } else {
             MountedRear = rear;
         }
@@ -739,7 +711,11 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     @Override
     public boolean IsMountedRear() {
-        return MountedRear;
+        if( IsInArray() ) {
+            return GetMyArray().IsMountedRear();
+        } else {
+            return MountedRear;
+        }
     }
 
     public boolean IsCluster() {
@@ -1083,44 +1059,38 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         SetLocked( b );
     }
 
-    public boolean AddToTurret( ifTurret t ) {
-        if( InArray ) {
-            if( CurArray.AddToTurret( t ) ) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if( t.AddWeapon( this ) ) {
-            Turret = t;
-            return true;
+    @Override
+    public boolean CanMountTurret() {
+        // If it can't go in a Vehicle Turret then it can't go in a Mech one.
+        // Turret and rear mount are also mutually exclusive.
+        return CanAllocCVTurret() && ! IsMountedRear();
+    }
+
+    @Override
+    public void MountTurret( ifTurret t ) {
+        if( IsInArray() ) {
+            GetMyArray().MountTurret( t );
         } else {
-            Turret = null;
-            return false;
+            if( Turret == t ) return;
+            if( Turret != null ) {
+                Turret.RemoveItem( this );
+            }
+            if( t != null ) {
+                t.AddItem( this );
+            }
+            Turret = t;
         }
     }
 
-    public void RemoveFromTurret( ifTurret t ) {
-        if( InArray ) {
-            CurArray.RemoveFromTurret( t );
-            return;
-        }
-        t.RemoveWeapon( this );
-        Turret = null;
-    }
-
-    public boolean IsTurreted() {
-        if( InArray ) {
-            return CurArray.IsTurreted();
-        }
-        if( Turret != null ) { return true; }
-        return false;
-    }
-
+    @Override
     public ifTurret GetTurret() {
-        return Turret;
+        if( IsInArray() ) {
+            return GetMyArray().GetTurret();
+        } else {
+            return Turret;
+        }
     }
-
+    
     public RangedWeapon Clone() {
         return new RangedWeapon( this );
     }
@@ -1132,12 +1102,8 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     @Override
     public String toString() {
         String retval = CritName;
-        if( MountedRear )
-            retval = "(R) " + retval;
-            
         if ( UsingFCS ) 
             retval += " w/" + GetFCS().toString();
-            
-        return retval;
+        return NameModifier() + retval;
     }
 }

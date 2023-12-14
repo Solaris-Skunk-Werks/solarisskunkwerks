@@ -665,10 +665,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurVee );
         boolean lotchange = LegalLotChange( CurItem );
         boolean dumper = LegalDumper( CurItem );
-        mnuAddCapacitor.setEnabled( cap );
-        mnuAddInsulator.setEnabled( insul );
-        mnuAddPulseModule.setEnabled(pulseModule);
-        mnuCaseless.setEnabled( caseless );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
         mnuAddPulseModule.setVisible(pulseModule);
@@ -796,6 +792,33 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             txtInfoFreeCrits.setForeground(Color.red);
         } else {
             txtInfoFreeCrits.setForeground(Color.black);
+        }
+
+        if( CurVee.isHasTurret1() ) {
+            txtTurretInfo.setVisible( true );
+            Turret turret = CurVee.GetLoadout().GetTurret();
+            if( turret.isTonnageSet() ) {
+                if( turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                    txtTurretInfo.setForeground( Color.red );
+                } else {
+                    txtTurretInfo.setForeground( Color.black );
+                }
+            }
+        } else {
+            txtTurretInfo.setVisible( false );
+        }
+        if( CurVee.isHasTurret2() ) {
+            txtRearTurretInfo.setVisible( true );
+            Turret turret = CurVee.GetLoadout().GetRearTurret();
+            if( turret.isTonnageSet() ) {
+                if( turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                    txtRearTurretInfo.setForeground( Color.red );
+                } else {
+                    txtRearTurretInfo.setForeground( Color.black );
+                }
+            }
+        } else {
+            txtRearTurretInfo.setVisible( false );
         }
 
         // fill in the movement summary
@@ -961,6 +984,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtInfoFreeTons = new javax.swing.JTextField();
         txtInfoFreeCrits = new javax.swing.JTextField();
         txtTurretInfo = new javax.swing.JTextField();
+        txtRearTurretInfo = new javax.swing.JTextField();
         txtInfoBattleValue = new javax.swing.JTextField();
         txtInfoCost = new javax.swing.JTextField();
         tlbIconBar = new javax.swing.JToolBar();
@@ -1021,6 +1045,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         JLabel jLabel91 = new JLabel();
         spnHeatSinks = new javax.swing.JSpinner();
         spnTurretTonnage = new javax.swing.JSpinner();
+        spnRearTurretTonnage = new javax.swing.JSpinner();
         JPanel pnlMovement = new JPanel();
         JLabel jLabel10 = new JLabel();
         spnCruiseMP = new javax.swing.JSpinner();
@@ -1157,7 +1182,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtArmorSpace = new javax.swing.JTextField();
         lblArmorTonsWasted = new javax.swing.JLabel();
         lblArmorLeftInLot = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        pnlEquipment = new javax.swing.JPanel();
         tbpWeaponChooser = new JTabbedPane();
         lstChooseBallistic = new javax.swing.JList();
         lstChooseEnergy = new javax.swing.JList();
@@ -1375,11 +1400,19 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtTurretInfo.setEditable(false);
         txtTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTurretInfo.setText("Turret: 000.00");
-        txtTurretInfo.setMaximumSize(new Dimension(120, 20));
-        txtTurretInfo.setMinimumSize(new Dimension(120, 20));
+        txtTurretInfo.setText("Turret: 00.0/0.00");
+        txtTurretInfo.setMaximumSize(new Dimension(100, 20));
+        txtTurretInfo.setMinimumSize(new Dimension(100, 20));
         txtTurretInfo.setPreferredSize(new Dimension(100, 20));
         pnlInfoPane.add(txtTurretInfo);
+
+        txtRearTurretInfo.setEditable(false);
+        txtRearTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtRearTurretInfo.setText("Rear Turret: 00.0/0.00");
+        txtRearTurretInfo.setMaximumSize(new Dimension(120, 20));
+        txtRearTurretInfo.setMinimumSize(new Dimension(120, 20));
+        txtRearTurretInfo.setPreferredSize(new Dimension(120, 20));
+        pnlInfoPane.add(txtRearTurretInfo);
 
         txtInfoBattleValue.setEditable(false);
         txtInfoBattleValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1391,10 +1424,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtInfoCost.setEditable(false);
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtInfoCost.setText("Cost: 000,000,000,000.00");
-        txtInfoCost.setMaximumSize(new Dimension(165, 20));
-        txtInfoCost.setMinimumSize(new Dimension(165, 20));
-        txtInfoCost.setPreferredSize(new Dimension(165, 20));
+        txtInfoCost.setText("Cost: 000,000,000");
+        txtInfoCost.setMaximumSize(new Dimension(120, 20));
+        txtInfoCost.setMinimumSize(new Dimension(120, 20));
+        txtInfoCost.setPreferredSize(new Dimension(120, 20));
         pnlInfoPane.add(txtInfoCost);
 
         tlbIconBar.setFloatable(false);
@@ -1761,6 +1794,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnTurretTonnage.setEnabled(false);
         spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
+        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+
+        spnRearTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
+        spnRearTurretTonnage.setEnabled(false);
+        spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
+        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         javax.swing.GroupLayout pnlChassisLayout = new javax.swing.GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
@@ -1785,7 +1824,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(cmbTurret, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnTurretTonnage))
+                            .addComponent(spnTurretTonnage)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(spnRearTurretTonnage))
                         .addGroup(pnlChassisLayout.createSequentialGroup()
                             .addComponent(jLabel9)
                             .addGap(2, 2, 2)
@@ -1836,7 +1877,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addGroup(pnlChassisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
                     .addComponent(cmbTurret, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnRearTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChassisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlChassisLayout.createSequentialGroup()
@@ -3519,17 +3561,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         pnlControls.add(jScrollPane1, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlEquipmentLayout = new javax.swing.GroupLayout(pnlEquipment);
+        pnlEquipment.setLayout(pnlEquipmentLayout);
+        pnlEquipmentLayout.setHorizontalGroup(
+            pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEquipmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEquipmentLayout.createSequentialGroup()
                         .addComponent(tbpWeaponChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pnlControls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlSpecials, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3537,12 +3579,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addComponent(pnlEquipInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        pnlEquipmentLayout.setVerticalGroup(
+            pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEquipmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEquipmentLayout.createSequentialGroup()
                         .addComponent(pnlControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnlSpecials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3552,7 +3594,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        tbpMainTabPane.addTab("Equipment", jPanel3);
+        tbpMainTabPane.addTab("Equipment", pnlEquipment);
 
         pnlFluff.setLayout(new java.awt.GridBagLayout());
 
@@ -4404,7 +4446,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtSumConTons.setText("" + CurVee.GetControls() );
         txtSumTurTons.setText("" + CurVee.GetLoadout().GetTurret().GetTonnage() );
         txtSumTurAV.setText( CurVee.GetLoadout().GetTurret().GetAvailability().GetBestCombinedCode() );
-        txtTurretInfo.setText("Turret: " + CurVee.GetLoadout().GetTurret().GetTonnage() );
+        txtTurretInfo.setText( "Turret: " + CurVee.GetLoadout().GetTurret().GetTonnageText() );
+        txtRearTurretInfo.setText( "Rear Turret: " + CurVee.GetLoadout().GetRearTurret().GetTonnageText() );
         txtSumRTuTons.setText("" + CurVee.GetLoadout().GetRearTurret().GetTonnage() );
         txtSumRTuAV.setText( CurVee.GetLoadout().GetRearTurret().GetAvailability().GetBestCombinedCode() );
         txtSumSpnTons.setText("" + CurVee.GetLoadout().GetSponsonTurretTonnage() );
@@ -4559,8 +4602,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void BuildLocationSelector() {
-        int curSelection = Math.max(cmbLocation.getSelectedIndex(), 0);
-
         ArrayList locs = new ArrayList();
         locs.add("Front");
         locs.add("Left");
@@ -4577,6 +4618,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             locs.add("Rear Turret");
 
         cmbLocation.setModel(new DefaultComboBoxModel(locs.toArray()));
+        int curSelection = cmbLocation.getSelectedIndex();
+        if ( curSelection < 0 || curSelection >= locs.size()) {
+            curSelection = 0; // reset to Front
+        }
         cmbLocation.setSelectedIndex(curSelection);
     }
 
@@ -5907,31 +5952,50 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // if we have any systems that requires ECM and don't have it, let the user know
         if( ! CurVee.ValidateECM() ) {
-            Media.Messager( "This 'Mech requires an ECM system of some sort to be valid.\nPlease install an ECM system." );
-            tbpMainTabPane.setSelectedComponent( jPanel3 );
+            Media.Messager( "This Vehicle requires an ECM system of some sort to be valid.\nPlease install an ECM system." );
+            tbpMainTabPane.setSelectedComponent( pnlEquipment );
             SetSource = true;
             return false;
         }
 
         // ensure we're not overweight
+        ArrayList<ifCVLoadout> loadouts = new ArrayList<>();
         if( CurVee.IsOmni() ) {
-            ArrayList v = CurVee.GetLoadouts();
-            for( int i = 0; i < v.size(); i++ ) {
-                CurVee.SetCurLoadout( ((ifCVLoadout) v.get( i )).GetName() );
-                if( CurVee.GetCurrentTons() > CurVee.GetTonnage() ) {
-                    Media.Messager( this, ((ifCVLoadout) v.get( i )).GetName() +
-                        " loadout is overweight.  Reduce the weight\nto equal or below the Vehicle's tonnage." );
-                    //cmbOmniVariant.setSelectedItem( ((ifCVLoadout) v.get( i )).GetName() );
-                    //cmbOmniVariantActionPerformed( evt );
-                    tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
-                    SetSource = true;
-                    return false;
-                }
-            }
+            loadouts.addAll( CurVee.GetLoadouts() );
         } else {
+            loadouts.add( null );
+        }
+        for( ifCVLoadout loadout : loadouts ) {
+            String name;
+            JPanel panel;
+            if( loadout == null ) {
+                name = "This Vehicle";
+                panel = pnlBasicSetup;
+            } else {
+                name = loadout.GetName() + " loadout";
+                CurVee.SetCurLoadout( loadout.GetName() );
+                panel = pnlEquipment;
+            }
             if( CurVee.GetCurrentTons() > CurVee.GetTonnage() ) {
-                Media.Messager( this, "This Vehicle is overweight.  Reduce the weight to\nequal or below the Vehicle's tonnage." );
-                tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
+                Media.Messager( this, name + " is overweight.\n" +
+                        "Reduce the weight to equal or below the Vehicle's tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
+                SetSource = true;
+                return false;
+            }
+            Turret turret = CurVee.GetLoadout().GetTurret();
+            if( turret.isTonnageSet() && turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                Media.Messager( this, name + "'s turret is overweight.\n" +
+                        "Reduce the turret's weight to equal or below its max tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
+                SetSource = true;
+                return false;
+            }
+            turret = CurVee.GetLoadout().GetRearTurret();
+            if( turret.isTonnageSet() && turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                Media.Messager( this, name + "'s rear turret is overweight.\n" +
+                        "Reduce the rear turret's weight to equal or below its max tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
                 SetSource = true;
                 return false;
             }
@@ -6062,6 +6126,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbTechBase.setEnabled( true );
         cmbTurret.setSelectedIndex(0);
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
+        spnRearTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
 
         cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
 
@@ -6225,11 +6290,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now let's ensure that all the omni controls are enabled or disabled
         // as appropriate
-        if( chkOmniVee.isEnabled() ) {
-            btnLockChassis.setEnabled(chkOmniVee.isSelected());
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmniVee.isEnabled() && chkOmniVee.isSelected() );
     }
 
     private void RefreshEquipment() {
@@ -6338,7 +6399,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // an Omni.
         isLocked = false;
 
-        chkOmniVee.setSelected( false );
         chkOmniVee.setEnabled( true );
         mnuUnlock.setEnabled( false );
         cmbMotiveType.setEnabled( true );
@@ -6346,6 +6406,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbEngineType.setEnabled( true );
         cmbTurret.setEnabled( true );
         spnTurretTonnage.setEnabled( true );
+        spnRearTurretTonnage.setEnabled( true );
         spnFrontArmor.setEnabled( true );
         spnLeftArmor.setEnabled( true );
         spnRightArmor.setEnabled( true );
@@ -6360,20 +6421,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkTrailer.setEnabled( true );
         //btnEfficientArmor.setEnabled( true );
         //btnBalanceArmor.setEnabled( true );
-        btnLockChassis.setEnabled( false );
+        btnLockChassis.setEnabled( chkOmniVee.isSelected() );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
         chkCASE.setEnabled( true );
-        chkOmniVee.setSelected( false );
-        chkOmniVee.setEnabled( true );
         spnCruiseMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
         chkSupercharger.setEnabled( true );
         chkJetBooster.setEnabled(true);
         chkEnviroSealing.setEnabled( false );
         // now enable the Omni controls
-        cmbOmniVariant.setSelectedItem("");
         cmbOmniVariant.setEnabled( false );
         btnAddVariant.setEnabled( false );
         btnDeleteVariant.setEnabled( false );
@@ -6967,19 +7025,29 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( Load ) { return; }
 
         String Turret = cmbTurret.getSelectedItem().toString();
-        if ( Turret.equals("Single Turret") || Turret.equals("Chin Turret")) {
+        if(Turret.equals("Single Turret") || Turret.equals("Chin Turret") ) {
             CurVee.setHasTurret1(true);
-            if (chkOmniVee.isSelected() && !isLocked )
-                spnTurretTonnage.setEnabled(true);
-        } else if(Turret.equals("Dual Turret")) {
+            CurVee.setHasTurret2(false);
+        } else if( Turret.equals("Dual Turret") ) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
-            if (chkOmniVee.isSelected() && !isLocked )
-                spnTurretTonnage.setEnabled(true);
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
-            spnTurretTonnage.setEnabled(false);
+        }
+        if( CurVee.isHasTurret1() ) {
+            spnTurretTonnage.setEnabled( chkOmniVee.isSelected() && !isLocked );
+            SetTurretTonnage( null );
+        } else {
+            spnTurretTonnage.setEnabled( false );
+            SetTurretTonnage( 0.0 );
+        }
+        if( CurVee.isHasTurret2() ) {
+            spnRearTurretTonnage.setEnabled( chkOmniVee.isSelected() && !isLocked );
+            SetRearTurretTonnage( null );
+        } else {
+            spnRearTurretTonnage.setEnabled( false );
+            SetRearTurretTonnage( 0.0 );
         }
 
         BuildLocationSelector();
@@ -7536,7 +7604,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // make it an omni
         CurVee.SetOmni(VariantName);
-        chkOmniVee.setEnabled(false);
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         LockGUIForOmni();
@@ -7584,7 +7651,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // this locks most of the GUI controls.  Used mainly by OmniVehicles.
         isLocked = true;
 
-        chkOmniVee.setSelected( true );
         chkOmniVee.setEnabled( false );
         mnuUnlock.setEnabled( true );
         spnTonnage.setEnabled( false );
@@ -7592,6 +7658,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbEngineType.setEnabled( false );
         cmbTurret.setEnabled( false );
         spnTurretTonnage.setEnabled( false );
+        spnRearTurretTonnage.setEnabled( false );
         spnFrontArmor.setEnabled( false );
         spnLeftArmor.setEnabled( false );
         spnRightArmor.setEnabled( false );
@@ -7760,11 +7827,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void chkOmniVeeActionPerformed(java.awt.event.ActionEvent evt) {
-        if( chkOmniVee.isSelected() ) {
-            btnLockChassis.setEnabled( true );
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmniVee.isSelected() );
         cmbTurretActionPerformed(evt);
     }
 
@@ -7931,21 +7994,36 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbMotiveType.setSelectedItem( CurVee.GetMotiveLookupName() );
         spnTonnage.setModel( new javax.swing.SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1) );
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), CurVee.getMinCruiseMP(), CurVee.getMaxCruiseMP(), 1) );
-        if ( CurVee.isHasTurret1() ) cmbTurret.setSelectedItem("Single Turret");
-        if ( CurVee.isHasTurret2() ) cmbTurret.setSelectedItem("Dual Turret");
         FixArmorSpinners();
 
         // now that we're done with the special stuff...
         Load = false;
 
-        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
         if( CurVee.IsOmni() ) {
-            if ( CurVee.isHasTurret1() )
-                spnTurretTonnage.setModel( new SpinnerNumberModel(CurVee.GetBaseLoadout().GetTurret().GetMaxTonnage(), 0, 99.0, 0.5) );
+            chkOmniVee.setSelected( true );
             LockGUIForOmni();
             RefreshOmniVariants();
             RefreshOmniChoices();
+        } else {
+            cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
         }
+
+        double turretTons = 0.0;
+        if( CurVee.isHasTurret1() ) {
+            if( chkOmniVee.isSelected() ) {
+                spnTurretTonnage.setEnabled( !isLocked );
+                turretTons = CurVee.GetLoadout().GetTurret().GetTonnage();
+            }
+        }
+        SetTurretTonnage( turretTons );
+        double rearTurretTons = 0.0;
+        if( CurVee.isHasTurret2() ) {
+            if( chkOmniVee.isSelected() ) {
+                spnRearTurretTonnage.setEnabled( !isLocked );
+                rearTurretTons = CurVee.GetLoadout().GetRearTurret().GetTonnage();
+            }
+        }
+        SetRearTurretTonnage( rearTurretTons );
 
         FixTonnageSpinner( CurVee.GetMinTonnage(), CurVee.GetMaxTonnage() );
 
@@ -8668,18 +8746,59 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void spnTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
-        double Tons = 0;
-        try
-        {
-           Tons = Double.parseDouble(spnTurretTonnage.getValue().toString());
-           CurVee.GetLoadout().GetTurret().SetTonnage(Tons);
-        } catch ( Exception e ) {
+        SetTurretTonnage( null );
+        RefreshSummary();
+        RefreshInfoPane();
+    }
+
+    private void SetTurretTonnage( Double Tons ) {
+        try {
+            if( Tons != null ) {
+                // following may end up calling spnTurretTonnageStateChanged
+                // which in turn will call this again with null Tons,
+                // so it's okay although potentially redundant
+                spnTurretTonnage.setValue( Tons );
+            }
+            if( CurVee.isHasTurret1() && chkOmniVee.isSelected() ) {
+                if( Tons == null) {
+                    Tons = Double.parseDouble( spnTurretTonnage.getValue().toString() );
+                }
+                CurVee.GetLoadout().GetTurret().SetTonnage( Tons );
+            } else {
+                CurVee.GetLoadout().GetTurret().UnsetTonnage();
+            }
+        } catch( Exception e ) {
             Media.Messager(e.getMessage());
             return;
         }
+    }
 
+    private void spnRearTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
+        SetRearTurretTonnage( null );
         RefreshSummary();
         RefreshInfoPane();
+    }
+
+    private void SetRearTurretTonnage( Double Tons ) {
+        try {
+            if( Tons != null ) {
+                // following may end up calling spnRearTurretTonnageStateChanged
+                // which in turn will call this again with null Tons,
+                // so it's okay although potentially redundant
+                spnRearTurretTonnage.setValue( Tons );
+            }
+            if( CurVee.isHasTurret2() && chkOmniVee.isSelected() ) {
+                if( Tons == null) {
+                    Tons = Double.parseDouble( spnRearTurretTonnage.getValue().toString() );
+                }
+                CurVee.GetLoadout().GetRearTurret().SetTonnage( Tons );
+            } else {
+                CurVee.GetLoadout().GetRearTurret().UnsetTonnage();
+            }
+        } catch( Exception e ) {
+            Media.Messager(e.getMessage());
+            return;
+        }
     }
 
     private void chkTrailerActionPerformed(java.awt.event.ActionEvent evt) {
@@ -8936,7 +9055,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbTechBase;
     private javax.swing.JComboBox cmbTurret;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextArea jTextAreaBFConversion;
     private javax.swing.JLabel lblArmorCoverage;
     private javax.swing.JLabel lblArmorLeftInLot;
@@ -9006,6 +9124,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JPanel pnlBasicSetup;
     private javax.swing.JPanel pnlCapabilities;
     private javax.swing.JPanel pnlDeployment;
+    private javax.swing.JPanel pnlEquipment;
     private javax.swing.JPanel pnlHistory;
     private javax.swing.JPanel pnlNotables;
     private javax.swing.JPanel pnlOverview;
@@ -9025,6 +9144,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JSpinner spnTonnage;
     private javax.swing.JSpinner spnTurretArmor;
     private javax.swing.JSpinner spnTurretTonnage;
+    private javax.swing.JSpinner spnRearTurretTonnage;
     private javax.swing.JTable tblWeaponManufacturers;
     private JTabbedPane tbpMainTabPane;
     private JTabbedPane tbpWeaponChooser;
@@ -9045,6 +9165,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JTextField txtManufacturerLocation;
     private javax.swing.JTextField txtModel;
     private javax.swing.JTextField txtProdYear;
+    private javax.swing.JTextField txtRearTurretInfo;
     private javax.swing.JTextField txtSource;
     private javax.swing.JTextField txtSumArmAV;
     private javax.swing.JTextField txtSumArmSpace;

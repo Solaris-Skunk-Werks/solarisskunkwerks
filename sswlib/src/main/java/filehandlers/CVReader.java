@@ -416,6 +416,9 @@ public class CVReader {
         if ( omniCombatVehicle && map.getNamedItem("turretlimit") != null ) {
             m.GetLoadout().GetTurret().SetTonnage( Double.parseDouble(map.getNamedItem("turretlimit").getTextContent() ) );
         }
+        if ( omniCombatVehicle && map.getNamedItem("rearturretlimit") != null ) {
+            m.GetLoadout().GetRearTurret().SetTonnage( Double.parseDouble(map.getNamedItem("rearturretlimit").getTextContent() ) );
+        }
         n = n.item( 0 ).getChildNodes();
         LocationIndex ltc = new LocationIndex();
         for( int i = 0; i < n.getLength(); i++ ) {
@@ -1207,7 +1210,8 @@ public class CVReader {
                 name = FileCommon.LookupStripArc( name );
                 rear = true;
             } else if( name.substring( 0, 4 ).equals( "(T) " ) ) {
-                // turreted items are handled elsewhere, unfortunately.
+                // this is for mech turrets so shouldn't even exist,
+                // but handle it just in case
                 name = FileCommon.LookupStripArc( name );
             }
         }
@@ -1338,6 +1342,7 @@ public class CVReader {
                 retval.MountRear( true );
             }
         } catch( Exception e ) {
+            Messages += e.toString();
             return null;
         }
         return retval;

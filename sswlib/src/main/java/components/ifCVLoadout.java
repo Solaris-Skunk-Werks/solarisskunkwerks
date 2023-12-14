@@ -116,8 +116,8 @@ public interface ifCVLoadout {
     public void SetRightItems( ArrayList<abPlaceable> c );
     public void SetRearItems( ArrayList<abPlaceable> c );
     public void SetBodyItems( ArrayList<abPlaceable> c );
-    public void SetTurret1( ArrayList<abPlaceable> c );
-    public void SetTurret2( ArrayList<abPlaceable> c );
+    public void SetTurret1Items( ArrayList<abPlaceable> c );
+    public void SetTurret2Items( ArrayList<abPlaceable> c );
     public void SetSponsonTurretLeftItems(ArrayList<abPlaceable> c);
     public void SetSponsonTurretRightItems(ArrayList<abPlaceable> c);
     public void SetNonCore( ArrayList v );

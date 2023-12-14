@@ -2012,15 +2012,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         // now let's ensure that all the omni controls are enabled or disabled
         // as appropriate
-        if( chkOmnimech.isEnabled() ) {
-            if( chkOmnimech.isSelected() ) {
-                btnLockChassis.setEnabled( true );
-            } else {
-                btnLockChassis.setEnabled( false );
-            }
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmnimech.isEnabled() && chkOmnimech.isSelected() );
     }
 
     private void SaveOmniFluffInfo() {
@@ -3314,7 +3306,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private void UnlockGUIFromOmni() {
         // this should be used anytime a new mech is made or when unlocking
         // an omnimech.
-        chkOmnimech.setSelected( false );
         chkOmnimech.setEnabled( true );
         mnuUnlock.setEnabled( false );
         cmbTonnage.setEnabled( true );
@@ -3344,7 +3335,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         btnEfficientArmor.setEnabled( true );
         btnBalanceArmor.setEnabled( true );
         cmbJumpJetType.setEnabled( true );
-        btnLockChassis.setEnabled( true );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
@@ -3362,7 +3352,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         chkHDTurret.setEnabled( true );
         chkLTTurret.setEnabled( true );
         chkRTTurret.setEnabled( true );
-        btnLockChassis.setEnabled( false );
+        btnLockChassis.setEnabled( chkOmnimech.isSelected() );
         spnWalkMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
         chkNullSig.setEnabled( true );
@@ -3491,6 +3481,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void ConfigureUtilsMenu( java.awt.Component c ) {
         // configures the utilities popup menu
+        boolean rear = LegalRearMount( CurItem );
         boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
@@ -3498,11 +3489,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
-        mnuArmorComponent.setEnabled( armor );
-        mnuAddCapacitor.setEnabled( cap );
-        mnuAddInsulator.setEnabled( insul );
-        mnuAddPulseModule.setEnabled(pulseModule);
-        mnuCaseless.setEnabled( caseless );
+        mnuMountRear.setVisible( rear );
         mnuArmorComponent.setVisible( armor );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
@@ -3510,6 +3497,13 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
+        if( rear ) {
+            if( CurItem.IsMountedRear() ) {
+                mnuMountRear.setText( "Unmount Rear " );
+            } else {
+                mnuMountRear.setText( "Mount Rear " );
+            }
+        }
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
@@ -3517,8 +3511,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 mnuArmorComponent.setText( "Armor Component" );
             }
         }
-        if( turreted && ( CurItem instanceof RangedWeapon ) ) {
-            if( ((RangedWeapon) CurItem).IsTurreted() ) {
+        if( turreted ) {
+            if( CurItem.IsTurreted() ) {
                 mnuTurret.setText( "Remove from Turret" );
             } else {
                 mnuTurret.setText( "Add to Turret");
@@ -3626,22 +3620,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             } else {
                 mnuUnallocateAll.setText( "Unallocate All" );
                 mnuUnallocateAll.setEnabled( false );
-            }
-            if( c == lstHDCrits || c == lstCTCrits || c == lstLTCrits || c == lstRTCrits || c == lstLLCrits || c == lstRLCrits  || ( CurMech.IsQuad() && (c == lstRACrits || c == lstLACrits))) {
-                if( CurItem.CanMountRear() ) {
-                    mnuMountRear.setEnabled( true );
-                    if( CurItem.IsMountedRear() ) {
-                        mnuMountRear.setText( "Unmount Rear " );
-                    } else {
-                        mnuMountRear.setText( "Mount Rear " );
-                    }
-                } else {
-                    mnuMountRear.setEnabled( false );
-                    mnuMountRear.setText( "Mount Rear " );
-                }
-            } else {
-                mnuMountRear.setEnabled( false );
-                mnuMountRear.setText( "Mount Rear " );
             }
             if( CurItem.Contiguous() ) {
                 EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
@@ -3814,57 +3792,19 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     }
 
     private void TurretMount() {
-        if( CurItem instanceof RangedWeapon ) {
-            RangedWeapon w = (RangedWeapon) CurItem;
+        if( CurItem.IsTurreted() ) {
+            CurItem.MountTurret( null );
+        } else {
             int location = CurMech.GetLoadout().Find( CurItem );
-            if( w.IsTurreted() ) {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot remove from turret!" );
-                    return;
-                }
+            if( location == LocationIndex.MECH_LOC_HD ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetHDTurret() );
+            } else if( location == LocationIndex.MECH_LOC_LT ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetLTTurret() );
+            } else if( location == LocationIndex.MECH_LOC_RT ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetRTTurret() );
             } else {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot add to turret!" );
-                    return;
-                }
-            }
-        } else if( CurItem instanceof MGArray ) {
-            MGArray w = (MGArray) CurItem;
-            int location = CurMech.GetLoadout().Find( CurItem );
-            if( w.IsTurreted() ) {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot remove from turret!" );
-                    return;
-                }
-            } else {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot add to turret!" );
-                    return;
-                }
+                Media.Messager( this, "Invalid turret location!" );
+                return;
             }
         }
         RefreshInfoPane();
@@ -3994,6 +3934,23 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
     }
 
+    public boolean LegalRearMount( abPlaceable p ) {
+        switch( CurMech.GetLoadout().Find( p ) ) {
+            case LocationIndex.MECH_LOC_HD:
+            case LocationIndex.MECH_LOC_CT:
+            case LocationIndex.MECH_LOC_LT:
+            case LocationIndex.MECH_LOC_RT:
+            case LocationIndex.MECH_LOC_LL:
+            case LocationIndex.MECH_LOC_RL:
+                return CurItem.CanMountRear();
+            case LocationIndex.MECH_LOC_LA:
+            case LocationIndex.MECH_LOC_RA:
+                return CurMech.IsQuad() && CurItem.CanMountRear();
+            default:
+                return false;
+        }
+    }
+
     public boolean LegalArmoring( abPlaceable p ) {
         // This tells us whether it is legal to armor a particular component
         if( p.CanArmor() ) {
@@ -4049,7 +4006,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     }
 
     public boolean LegalTurretMount( abPlaceable p ) {
-        if( ! (( p instanceof RangedWeapon ) || ( p instanceof MGArray )) ) { return false; }
+        if( ! p.CanMountTurret() ) { return false; }
         int location = CurMech.GetLoadout().Find( p );
         if( location == LocationIndex.MECH_LOC_HD ) {
             if( CurMech.IsOmnimech() ) {
@@ -10635,6 +10592,7 @@ public void LoadMechIntoGUI() {
     txtMechModel.setText( CurMech.GetModel() );
 
     if( CurMech.IsOmnimech() ) {
+        chkOmnimech.setSelected( true );
         LockGUIForOmni();
         RefreshOmniVariants();
         RefreshOmniChoices();
@@ -13438,7 +13396,6 @@ private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     // make it an omni
     CurMech.SetOmnimech( VariantName );
-    chkOmnimech.setEnabled( false );
     FixTransferHandlers();
     SetLoadoutArrays();
     FixJJSpinnerModel();
@@ -13735,11 +13692,7 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_cmbMechTypeActionPerformed
 
 private void chkOmnimechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmnimechActionPerformed
-    if( chkOmnimech.isSelected() ) {
-        btnLockChassis.setEnabled( true );
-    } else {
-        btnLockChassis.setEnabled( false );
-    }
+    btnLockChassis.setEnabled( chkOmnimech.isSelected() );
 }//GEN-LAST:event_chkOmnimechActionPerformed
 
 private void cmbPhysEnhanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPhysEnhanceActionPerformed
