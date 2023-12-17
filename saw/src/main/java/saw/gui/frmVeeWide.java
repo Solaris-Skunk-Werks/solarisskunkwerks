@@ -998,9 +998,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnCruiseMP = new javax.swing.JSpinner();
         JLabel jLabel11 = new JLabel("Flank MP:");
         lblFlankMP = new javax.swing.JLabel("2");
+        lblMoveSummary = new javax.swing.JLabel("Max C/F: 12/20");
         JLabel jLabel13 = new JLabel("Jump MP:");
         spnJumpMP = new javax.swing.JSpinner();
-        lblMoveSummary = new javax.swing.JLabel("Max C/F: 12/20");
         JPanel pnlChassisMods = new JPanel();
         chkFlotationHull = new javax.swing.JCheckBox("Flotation Hull");
         chkLimitedAmph = new javax.swing.JCheckBox("Limited Amphibious");
@@ -1661,8 +1661,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnJumpMP.setEnabled(false);
         spnJumpMP.setPreferredSize(new Dimension(45, 20));
 
-        lblMoveSummary.setHorizontalAlignment(SwingConstants.RIGHT);
-
         GroupLayout pnlMovementLayout = new GroupLayout(pnlMovement);
         pnlMovement.setLayout(pnlMovementLayout);
         pnlMovementLayout.setHorizontalGroup(
@@ -1700,7 +1698,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addGroup(pnlMovementLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(spnJumpMP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addGap(5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         //endregion
 
@@ -7366,7 +7364,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JLabel lblEraYears;
     private javax.swing.JLabel lblFinalEngineRating;
     private javax.swing.JLabel lblFlankMP;
-    private javax.swing.JLabel lblMoveSummary;
     private javax.swing.JLabel lblFluffImage;
     private javax.swing.JLabel lblFreeHeatSinks;
     private javax.swing.JLabel lblFrontIntPts;
@@ -7391,6 +7388,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JLabel lblInfoType;
     private javax.swing.JLabel lblLeftIntPts;
     private javax.swing.JLabel lblMinEngineTons;
+    private javax.swing.JLabel lblMoveSummary;
     private javax.swing.JLabel lblNumCrew;
     private javax.swing.JLabel lblRearIntPts;
     private javax.swing.JLabel lblRearTurretIntPts;
