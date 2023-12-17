@@ -1400,7 +1400,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtTurretInfo.setEditable(false);
         txtTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTurretInfo.setText("Turret: 00.0/0.00");
+        txtTurretInfo.setText("Turret: 00.0/00.0");
         txtTurretInfo.setMaximumSize(new Dimension(100, 20));
         txtTurretInfo.setMinimumSize(new Dimension(100, 20));
         txtTurretInfo.setPreferredSize(new Dimension(100, 20));
@@ -1408,7 +1408,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtRearTurretInfo.setEditable(false);
         txtRearTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtRearTurretInfo.setText("Rear Turret: 00.0/0.00");
+        txtRearTurretInfo.setText("Rear Turret: 00.0/00.0");
         txtRearTurretInfo.setMaximumSize(new Dimension(120, 20));
         txtRearTurretInfo.setMinimumSize(new Dimension(120, 20));
         txtRearTurretInfo.setPreferredSize(new Dimension(120, 20));
@@ -1601,52 +1601,52 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbProductionEra.setPreferredSize(new Dimension(90, 20));
         cmbProductionEra.addActionListener(this::cmbProductionEraActionPerformed);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(pnlBasicInfo);
-        pnlBasicInfo.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBasicInfoLayout = new javax.swing.GroupLayout(pnlBasicInfo);
+        pnlBasicInfo.setLayout(pnlBasicInfoLayout);
+        pnlBasicInfoLayout.setHorizontalGroup(
+            pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel2)
                         .addGap(2, 2, 2)
                         .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel5)
                         .addGap(2, 2, 2)
                         .addComponent(cmbEra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel3)
                         .addGap(2, 2, 2)
                         .addComponent(cmbTechBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(129, 129, 129)
                         .addComponent(lblEraYears))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel81, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtVehicleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBasicInfoLayout.createSequentialGroup()
                                     .addGap(2, 2, 2)
                                     .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addComponent(lblProdYear)
                         .addGap(2, 2, 2)
                         .addComponent(txtProdYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1655,46 +1655,46 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addComponent(chkYearRestrict))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+        pnlBasicInfoLayout.setVerticalGroup(
+            pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel1))
                     .addComponent(txtVehicleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel4))
                     .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel81)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel2))
                     .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel5))
                     .addComponent(cmbEra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel3))
                     .addComponent(cmbTechBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(lblEraYears)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblProdYear))
                     .addComponent(txtProdYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2955,38 +2955,38 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnMaximize.setText("Maximize Armor");
         btnMaximize.addActionListener(this::btnMaximizeActionPerformed);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(pnlArmorType);
-        pnlArmorType.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlArmorTypeLayout = new javax.swing.GroupLayout(pnlArmorType);
+        pnlArmorType.setLayout(pnlArmorTypeLayout);
+        pnlArmorTypeLayout.setHorizontalGroup(
+            pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArmorTypeLayout.createSequentialGroup()
+                .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel52)
                         .addGap(2, 2, 2)
                         .addComponent(cmbArmorType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnSetArmorTons, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnUseRemaining, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnMaximize, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chkBalanceLRArmor)
                             .addComponent(chkBalanceFRArmor))))
                 .addGap(10, 10, 10))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        pnlArmorTypeLayout.setVerticalGroup(
+            pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArmorTypeLayout.createSequentialGroup()
+                .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel52))
                     .addComponent(cmbArmorType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
