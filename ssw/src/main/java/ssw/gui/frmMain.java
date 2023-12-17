@@ -4913,7 +4913,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkFCSApollo = new javax.swing.JCheckBox();
         chkClanCASE = new javax.swing.JCheckBox();
         pnlSelected = new javax.swing.JPanel();
-        jScrollPane23 = new javax.swing.JScrollPane();
+        scrSelectedEquip = new javax.swing.JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
         pnlControls = new javax.swing.JPanel();
         btnRemoveEquip = new javax.swing.JButton();
@@ -5009,7 +5009,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRLCrits = new javax.swing.JList();
         chkRLCASE2 = new javax.swing.JCheckBox();
         pnlEquipmentToPlace = new javax.swing.JPanel();
-        jScrollPane18 = new javax.swing.JScrollPane();
+        scrEquipToPlace = new javax.swing.JScrollPane();
         lstCritsToPlace = new javax.swing.JList();
         btnRemoveItemCrits = new javax.swing.JButton();
         onlLoadoutControls = new javax.swing.JPanel();
@@ -7632,11 +7632,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlSelected.setMinimumSize(new java.awt.Dimension(212, 286));
         pnlSelected.setLayout(new javax.swing.BoxLayout(pnlSelected, javax.swing.BoxLayout.LINE_AXIS));
 
-        jScrollPane23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane23.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrSelectedEquip.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrSelectedEquip.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel()
-        );
+        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel() );
         lstSelectedEquipment.setMaximumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setMinimumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setPreferredSize(null);
@@ -7673,9 +7672,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         };
         lstSelectedEquipment.addMouseListener( mlSelect );
         lstSelectedEquipment.setCellRenderer( new ssw.gui.EquipmentSelectedRenderer( this ) );
-        jScrollPane23.setViewportView(lstSelectedEquipment);
+        scrSelectedEquip.setViewportView(lstSelectedEquipment);
 
-        pnlSelected.add(jScrollPane23);
+        pnlSelected.add(scrSelectedEquip);
 
         pnlEquipment.add(pnlSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 20, 230, 300));
 
@@ -8847,7 +8846,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlEquipmentToPlace.setMinimumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setLayout(new javax.swing.BoxLayout(pnlEquipmentToPlace, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrEquipToPlace.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         lstCritsToPlace.setFont( PrintConsts.BaseCritFont );
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
@@ -8917,9 +8916,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 lstCritsToPlaceValueChanged(evt);
             }
         });
-        jScrollPane18.setViewportView(lstCritsToPlace);
+        scrEquipToPlace.setViewportView(lstCritsToPlace);
 
-        pnlEquipmentToPlace.add(jScrollPane18);
+        pnlEquipmentToPlace.add(scrEquipToPlace);
 
         btnRemoveItemCrits.setText("Remove Item");
         btnRemoveItemCrits.setEnabled(false);
@@ -14702,8 +14701,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
-    private javax.swing.JScrollPane jScrollPane18;
-    private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
@@ -14955,8 +14952,10 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlWeaponsManufacturers;
     private javax.swing.JScrollPane scpQuirkTable;
     private javax.swing.JScrollPane scpWeaponManufacturers;
+    private javax.swing.JScrollPane scrEquipToPlace;
     private javax.swing.JScrollPane scrLACrits;
     private javax.swing.JScrollPane scrRACrits;
+    private javax.swing.JScrollPane scrSelectedEquip;
     private javax.swing.JSpinner spnBoosterMP;
     private javax.swing.JSpinner spnCTArmor;
     private javax.swing.JSpinner spnCTRArmor;

@@ -4943,7 +4943,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         chkRACASE2 = new javax.swing.JCheckBox();
         chkRAAES = new javax.swing.JCheckBox();
         pnlEquipmentToPlace = new javax.swing.JPanel();
-        jScrollPane18 = new javax.swing.JScrollPane();
+        scrEquipToPlace = new javax.swing.JScrollPane();
         lstCritsToPlace = new javax.swing.JList();
         btnRemoveItemCrits = new javax.swing.JButton();
         btnAutoAllocate = new javax.swing.JButton();
@@ -8717,7 +8717,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlEquipmentToPlace.setMinimumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setLayout(new javax.swing.BoxLayout(pnlEquipmentToPlace, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrEquipToPlace.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         lstCritsToPlace.setFont( PrintConsts.BaseCritFont );
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
@@ -8792,9 +8792,9 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 lstCritsToPlaceKeyPressed(evt);
             }
         });
-        jScrollPane18.setViewportView(lstCritsToPlace);
+        scrEquipToPlace.setViewportView(lstCritsToPlace);
 
-        pnlEquipmentToPlace.add(jScrollPane18);
+        pnlEquipmentToPlace.add(scrEquipToPlace);
 
         btnRemoveItemCrits.setText("Remove Item");
         btnRemoveItemCrits.setEnabled(false);
@@ -14533,7 +14533,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
-    private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
@@ -14780,6 +14779,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlWeaponsManufacturers;
     private javax.swing.JScrollPane scpQuirkTable;
     private javax.swing.JScrollPane scpWeaponManufacturers;
+    private javax.swing.JScrollPane scrEquipToPlace;
     private javax.swing.JScrollPane scrLACrits;
     private javax.swing.JScrollPane scrRACrits;
     private javax.swing.JSpinner spnBoosterMP;

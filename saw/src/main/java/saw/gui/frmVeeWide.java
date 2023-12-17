@@ -2255,7 +2255,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         };
         lstSelectedEquipment.addMouseListener( mlSelect );
         lstSelectedEquipment.setCellRenderer( new saw.gui.EquipmentSelectedRenderer( this ) );
-        scrSelectedEquip.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrSelectedEquip.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrSelectedEquip.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrSelectedEquip.setViewportView(lstSelectedEquipment);
         pnlSelected.add(scrSelectedEquip);

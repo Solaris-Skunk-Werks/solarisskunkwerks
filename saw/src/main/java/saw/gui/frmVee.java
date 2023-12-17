@@ -1199,7 +1199,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkFCSApollo = new javax.swing.JCheckBox();
         chkCASE = new javax.swing.JCheckBox();
         JPanel pnlSelected = new JPanel();
-        JScrollPane jScrollPane23 = new JScrollPane();
+        JScrollPane scrSelectedEquip = new JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
         JPanel pnlEquipInfo = new JPanel();
         JLabel jLabel38 = new JLabel();
@@ -3167,11 +3167,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlSelected.setMinimumSize(new Dimension(212, 286));
         pnlSelected.setLayout(new javax.swing.BoxLayout(pnlSelected, javax.swing.BoxLayout.LINE_AXIS));
 
-        jScrollPane23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane23.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrSelectedEquip.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrSelectedEquip.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel()
-        );
+        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel() );
         lstSelectedEquipment.setMaximumSize(new Dimension(180, 225));
         lstSelectedEquipment.setMinimumSize(new Dimension(180, 225));
         lstSelectedEquipment.setPreferredSize(null);
@@ -3204,9 +3203,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         };
         lstSelectedEquipment.addMouseListener( mlSelect );
         lstSelectedEquipment.setCellRenderer( new saw.gui.EquipmentSelectedRenderer( this ) );
-        jScrollPane23.setViewportView(lstSelectedEquipment);
+        scrSelectedEquip.setViewportView(lstSelectedEquipment);
 
-        pnlSelected.add(jScrollPane23);
+        pnlSelected.add(scrSelectedEquip);
 
         pnlEquipInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
         pnlEquipInfo.setLayout(new java.awt.GridBagLayout());
