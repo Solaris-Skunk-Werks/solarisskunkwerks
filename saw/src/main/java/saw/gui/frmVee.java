@@ -1794,12 +1794,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnTurretTonnage.setEnabled(false);
         spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
-        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         spnRearTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnRearTurretTonnage.setEnabled(false);
         spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
-        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         javax.swing.GroupLayout pnlChassisLayout = new javax.swing.GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
@@ -1824,9 +1822,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(cmbTurret, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnTurretTonnage)
+                            .addComponent(spnTurretTonnage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnRearTurretTonnage))
+                            .addComponent(spnRearTurretTonnage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(pnlChassisLayout.createSequentialGroup()
                             .addComponent(jLabel9)
                             .addGap(2, 2, 2)
@@ -1920,7 +1918,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         javax.swing.GroupLayout pnlMovementLayout = new javax.swing.GroupLayout(pnlMovement);
         pnlMovement.setLayout(pnlMovementLayout);
-
         pnlMovementLayout.setHorizontalGroup(
             pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMovementLayout.createSequentialGroup()
@@ -2027,6 +2024,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkJetBooster.setText("VTOL Jet Booster");
         chkJetBooster.setEnabled(false);
         chkJetBooster.addActionListener(this::chkJetBoosterActionPerformed);
+
         chkSupercharger.setText("Supercharger");
         chkSupercharger.setEnabled(false);
         chkSupercharger.addActionListener(this::chkSuperchargerActionPerformed);
@@ -4697,7 +4695,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnHeatSinks.getEditor()).getTextField().addFocusListener(spinners);
 
-        //Setup Spinner focus
+        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+
         ((JSpinner.DefaultEditor)spnFrontArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnLeftArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnRightArmor.getEditor()).getTextField().addFocusListener(spinners);

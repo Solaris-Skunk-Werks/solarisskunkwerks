@@ -1541,13 +1541,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         spnTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnTurretTonnage.setEnabled(false);
+        spnTurretTonnage.setMinimumSize(new java.awt.Dimension(45, 20));
+        spnTurretTonnage.setPreferredSize(new java.awt.Dimension(45, 20));
         spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
-        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         spnRearTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnRearTurretTonnage.setEnabled(false);
+        spnRearTurretTonnage.setMinimumSize(new java.awt.Dimension(45, 20));
+        spnRearTurretTonnage.setPreferredSize(new java.awt.Dimension(45, 20));
         spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
-        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         JLabel lblTurretTonnage = new JLabel("Turret Tonnage: ");
 
@@ -3020,7 +3022,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnHeatSinks.getEditor()).getTextField().addFocusListener(spinners);
 
-        //Setup Spinner focus
+        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+
         ((JSpinner.DefaultEditor)spnFrontArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnLeftArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnRightArmor.getEditor()).getTextField().addFocusListener(spinners);
