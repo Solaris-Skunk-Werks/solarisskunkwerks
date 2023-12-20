@@ -65,7 +65,7 @@ public class tbQuirks extends AbstractTableModel {
         switch (columnIndex)
         {
             case 0:
-                return ((Quirk)quirklist.get(rowIndex)).getCost();
+                return ((Quirk)quirklist.get(rowIndex)).getCostText();
             case 1:
                 return ((Quirk)quirklist.get(rowIndex)).getName();
         }

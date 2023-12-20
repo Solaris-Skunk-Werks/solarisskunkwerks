@@ -3817,7 +3817,7 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
         clone.SetRulesLevel( RulesLevel );
         clone.SetTechBase( TechBase );
         clone.SetEra( Era );
-        clone.SetYear( Year, false );
+        clone.SetYear( Year, YearSpecified );
         clone.SetHDCrits( HDCrits.clone() );
         clone.SetCTCrits( CTCrits.clone() );
         clone.SetLTCrits( LTCrits.clone() );

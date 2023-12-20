@@ -4979,10 +4979,10 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane23">
+                <Container class="javax.swing.JScrollPane" name="scrSelectedEquip">
                   <Properties>
-                    <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
-                    <Property name="verticalScrollBarPolicy" type="int" value="22"/>
+                    <Property name="horizontalScrollBarPolicy" type="int" value="30"/>
+                    <Property name="verticalScrollBarPolicy" type="int" value="20"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -6495,9 +6495,9 @@
                 <Property name="axis" type="int" value="3"/>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane18">
+                <Container class="javax.swing.JScrollPane" name="scrEquipToPlace">
                   <Properties>
-                    <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                    <Property name="horizontalScrollBarPolicy" type="int" value="30"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>

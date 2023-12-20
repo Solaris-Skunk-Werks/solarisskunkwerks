@@ -1007,7 +1007,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         JButton btnOptions = new JButton();
         JToolBar.Separator jSeparator21 = new JToolBar.Separator();
         JLabel lblSelectVariant = new JLabel();
-        lblMoveSummary = new javax.swing.JLabel();
         cmbOmniVariant = new javax.swing.JComboBox();
         tbpMainTabPane = new JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
@@ -1051,6 +1050,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnCruiseMP = new javax.swing.JSpinner();
         JLabel jLabel11 = new JLabel();
         lblFlankMP = new javax.swing.JLabel();
+        lblMoveSummary = new javax.swing.JLabel();
         JLabel jLabel13 = new JLabel();
         spnJumpMP = new javax.swing.JSpinner();
         JPanel pnlChassisMods = new JPanel();
@@ -1199,7 +1199,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkFCSApollo = new javax.swing.JCheckBox();
         chkCASE = new javax.swing.JCheckBox();
         JPanel pnlSelected = new JPanel();
-        JScrollPane jScrollPane23 = new JScrollPane();
+        JScrollPane scrSelectedEquip = new JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
         JPanel pnlEquipInfo = new JPanel();
         JLabel jLabel38 = new JLabel();
@@ -1400,7 +1400,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtTurretInfo.setEditable(false);
         txtTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTurretInfo.setText("Turret: 00.0/0.00");
+        txtTurretInfo.setText("Turret: 00.0/00.0");
         txtTurretInfo.setMaximumSize(new Dimension(100, 20));
         txtTurretInfo.setMinimumSize(new Dimension(100, 20));
         txtTurretInfo.setPreferredSize(new Dimension(100, 20));
@@ -1408,7 +1408,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtRearTurretInfo.setEditable(false);
         txtRearTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtRearTurretInfo.setText("Rear Turret: 00.0/0.00");
+        txtRearTurretInfo.setText("Rear Turret: 00.0/00.0");
         txtRearTurretInfo.setMaximumSize(new Dimension(120, 20));
         txtRearTurretInfo.setMinimumSize(new Dimension(120, 20));
         txtRearTurretInfo.setPreferredSize(new Dimension(120, 20));
@@ -1601,52 +1601,52 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbProductionEra.setPreferredSize(new Dimension(90, 20));
         cmbProductionEra.addActionListener(this::cmbProductionEraActionPerformed);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(pnlBasicInfo);
-        pnlBasicInfo.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBasicInfoLayout = new javax.swing.GroupLayout(pnlBasicInfo);
+        pnlBasicInfo.setLayout(pnlBasicInfoLayout);
+        pnlBasicInfoLayout.setHorizontalGroup(
+            pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel2)
                         .addGap(2, 2, 2)
                         .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel5)
                         .addGap(2, 2, 2)
                         .addComponent(cmbEra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel3)
                         .addGap(2, 2, 2)
                         .addComponent(cmbTechBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(129, 129, 129)
                         .addComponent(lblEraYears))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel81, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtVehicleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBasicInfoLayout.createSequentialGroup()
                                     .addGap(2, 2, 2)
                                     .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addComponent(lblProdYear)
                         .addGap(2, 2, 2)
                         .addComponent(txtProdYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1655,46 +1655,46 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addComponent(chkYearRestrict))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+        pnlBasicInfoLayout.setVerticalGroup(
+            pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel1))
                     .addComponent(txtVehicleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel4))
                     .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel81)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel2))
                     .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel5))
                     .addComponent(cmbEra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel3))
                     .addComponent(cmbTechBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(lblEraYears)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblProdYear))
                     .addComponent(txtProdYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1794,12 +1794,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnTurretTonnage.setEnabled(false);
         spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
-        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         spnRearTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnRearTurretTonnage.setEnabled(false);
         spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
-        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         javax.swing.GroupLayout pnlChassisLayout = new javax.swing.GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
@@ -1824,9 +1822,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(cmbTurret, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnTurretTonnage)
+                            .addComponent(spnTurretTonnage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnRearTurretTonnage))
+                            .addComponent(spnRearTurretTonnage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(pnlChassisLayout.createSequentialGroup()
                             .addComponent(jLabel9)
                             .addGap(2, 2, 2)
@@ -1909,6 +1907,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         lblFlankMP.setText("2");
 
+        lblMoveSummary.setText("W/R: 12/20");
+
         jLabel13.setText("Jump MP:");
 
         spnJumpMP.setEnabled(false);
@@ -1918,7 +1918,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         javax.swing.GroupLayout pnlMovementLayout = new javax.swing.GroupLayout(pnlMovement);
         pnlMovement.setLayout(pnlMovementLayout);
-
         pnlMovementLayout.setHorizontalGroup(
             pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMovementLayout.createSequentialGroup()
@@ -1926,41 +1925,33 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(2, 2, 2)
-                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(5, 5, 5)
-                            .addComponent(lblMoveSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMovementLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblFlankMP))
-                            .addGroup(pnlMovementLayout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(2, 2, 2)
-                                .addComponent(spnJumpMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMovementLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblFlankMP)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblMoveSummary))
+                    .addGroup(pnlMovementLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(10, 10, 10)
+                        .addComponent(spnJumpMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         pnlMovementLayout.setVerticalGroup(
             pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMovementLayout.createSequentialGroup()
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMovementLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel10))
-                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblMoveSummary, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE))
-                .addGap(2, 2, 2)
+                    .addComponent(jLabel10)
+                    .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(lblFlankMP))
-                .addGap(2, 2, 2)
+                    .addComponent(lblFlankMP)
+                    .addComponent(lblMoveSummary))
+                .addGap(8, 8, 8)
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMovementLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel13))
+                    .addComponent(jLabel13)
                     .addComponent(spnJumpMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1976,12 +1967,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlChassisMods.add(chkFlotationHull, gridBagConstraints);
-
-        lblMoveSummary.setText("W/R: 12/20");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
-        pnlMovement.add(lblMoveSummary, gridBagConstraints);
 
         chkLimitedAmph.setText("Limited Amphibious");
         chkLimitedAmph.setEnabled(false);
@@ -2039,6 +2024,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkJetBooster.setText("VTOL Jet Booster");
         chkJetBooster.setEnabled(false);
         chkJetBooster.addActionListener(this::chkJetBoosterActionPerformed);
+
         chkSupercharger.setText("Supercharger");
         chkSupercharger.setEnabled(false);
         chkSupercharger.addActionListener(this::chkSuperchargerActionPerformed);
@@ -2955,38 +2941,38 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnMaximize.setText("Maximize Armor");
         btnMaximize.addActionListener(this::btnMaximizeActionPerformed);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(pnlArmorType);
-        pnlArmorType.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlArmorTypeLayout = new javax.swing.GroupLayout(pnlArmorType);
+        pnlArmorType.setLayout(pnlArmorTypeLayout);
+        pnlArmorTypeLayout.setHorizontalGroup(
+            pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArmorTypeLayout.createSequentialGroup()
+                .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel52)
                         .addGap(2, 2, 2)
                         .addComponent(cmbArmorType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnSetArmorTons, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnUseRemaining, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnMaximize, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chkBalanceLRArmor)
                             .addComponent(chkBalanceFRArmor))))
                 .addGap(10, 10, 10))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        pnlArmorTypeLayout.setVerticalGroup(
+            pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArmorTypeLayout.createSequentialGroup()
+                .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel52))
                     .addComponent(cmbArmorType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3181,11 +3167,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlSelected.setMinimumSize(new Dimension(212, 286));
         pnlSelected.setLayout(new javax.swing.BoxLayout(pnlSelected, javax.swing.BoxLayout.LINE_AXIS));
 
-        jScrollPane23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane23.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrSelectedEquip.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrSelectedEquip.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel()
-        );
+        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel() );
         lstSelectedEquipment.setMaximumSize(new Dimension(180, 225));
         lstSelectedEquipment.setMinimumSize(new Dimension(180, 225));
         lstSelectedEquipment.setPreferredSize(null);
@@ -3218,9 +3203,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         };
         lstSelectedEquipment.addMouseListener( mlSelect );
         lstSelectedEquipment.setCellRenderer( new saw.gui.EquipmentSelectedRenderer( this ) );
-        jScrollPane23.setViewportView(lstSelectedEquipment);
+        scrSelectedEquip.setViewportView(lstSelectedEquipment);
 
-        pnlSelected.add(jScrollPane23);
+        pnlSelected.add(scrSelectedEquip);
 
         pnlEquipInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
         pnlEquipInfo.setLayout(new java.awt.GridBagLayout());
@@ -4551,29 +4536,19 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void SolidifyVehicle() {
         // sets some of the basic vehicle information normally kept in the GUI and
         // prepares the vehicle for saving to file
-        int year = 0;
+        int year;
         CurVee.setName( txtVehicleName.getText() );
         CurVee.setModel( txtModel.getText() );
         if( txtProdYear.getText().isEmpty() ) {
-            switch( cmbEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurVee.setYear( 2750, false );
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurVee.setYear( 3025, false );
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurVee.setYear( 3070, false );
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurVee.setYear( 3132, false );
-                    break;
+            year = CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() );
+            if( year != 0 ) {
+                CurVee.SetYear( year, false );
+                txtProdYear.setText( "" + year );
             }
-            txtProdYear.setText(""+CurVee.getYear());
         } else {
             try{
                 year = Integer.parseInt( txtProdYear.getText() ) ;
-                CurVee.setYear( year, true );
+                CurVee.SetYear( year, true );
             } catch( NumberFormatException n ) {
                 Media.Messager( this, "The production year is not a number." );
                 tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
@@ -4719,7 +4694,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnHeatSinks.getEditor()).getTextField().addFocusListener(spinners);
 
-        //Setup Spinner focus
+        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+
         ((JSpinner.DefaultEditor)spnFrontArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnLeftArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnRightArmor.getEditor()).getTextField().addFocusListener(spinners);
@@ -5789,23 +5766,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 CurVee.SetYear( Integer.parseInt( txtProdYear.getText() ), chkYearRestrict.isSelected() );
             } catch( Exception e ) {
                 // nothing really to be done, set it to a default.
-                switch( cmbEra.getSelectedIndex() ) {
-                    case AvailableCode.ERA_STAR_LEAGUE:
-                        CurVee.SetYear( 2750, false );
-                        break;
-                    case AvailableCode.ERA_SUCCESSION:
-                        CurVee.SetYear( 3025, false );
-                        break;
-                    case AvailableCode.ERA_CLAN_INVASION:
-                        CurVee.SetYear( 3070, false );
-                        break;
-                    case AvailableCode.ERA_DARK_AGES:
-                        CurVee.SetYear( 3132, false );
-                        break;
-                    case AvailableCode.ERA_ALL:
-                        CurVee.SetYear( 0, false );
-                        break;
-                }
+                CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
             }
         }
     }
@@ -5815,7 +5776,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbEra.setSelectedIndex( CurVee.GetEra() );
         cmbProductionEra.setSelectedIndex( CurVee.GetProductionEra() );
         txtSource.setText( CurVee.getSource() );
-        txtProdYear.setText( "" + CurVee.GetYear() );
+        txtProdYear.setText( CurVee.YearWasSpecified() ? "" + CurVee.GetYear() : "" );
         BuildTechBaseSelector();
     }
 
@@ -6151,23 +6112,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee.SetEra( cmbEra.getSelectedIndex() );
         CurVee.SetProductionEra( cmbProductionEra.getSelectedIndex() );
         CurVee.SetRulesLevel( cmbRulesLevel.getSelectedIndex() );
-        switch( CurVee.GetEra() ) {
-        case AvailableCode.ERA_STAR_LEAGUE:
-            CurVee.SetYear( 2750, false );
-            break;
-        case AvailableCode.ERA_SUCCESSION:
-            CurVee.SetYear( 3025, false );
-            break;
-        case AvailableCode.ERA_CLAN_INVASION:
-            CurVee.SetYear( 3070, false );
-            break;
-        case AvailableCode.ERA_DARK_AGES:
-            CurVee.SetYear( 3130, false );
-            break;
-        case AvailableCode.ERA_ALL:
-            CurVee.SetYear( 0, false );
-            break;
-        }
+        CurVee.SetYear( CommonTools.GetEraDefaultYear( CurVee.GetEra() ), false );
 
         cmbTechBase.setSelectedItem( Prefs.get( "NewVee_Techbase", "Inner Sphere" ) );
         switch( cmbTechBase.getSelectedIndex() ) {
@@ -6670,44 +6615,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         int tbsave = cmbTechBase.getSelectedIndex();
 
         // change the year range and tech base options
-        switch( cmbEra.getSelectedIndex() ) {
-            case AvailableCode.ERA_STAR_LEAGUE:
-                lblEraYears.setText( "2443 ~ 2800" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_STAR_LEAGUE );
-                CurVee.SetYear( 2750, false );
-                if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_SUCCESSION:
-                lblEraYears.setText( "2801 ~ 3050" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_SUCCESSION );
-                CurVee.SetYear( 3025, false );
-                if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                lblEraYears.setText( "3051 ~ 3131" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_CLAN_INVASION );
-                CurVee.SetYear( 3075, false );
-                if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_DARK_AGES:
-                lblEraYears.setText( "3132 on" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_DARK_AGES );
-                CurVee.SetYear( 3132, false );
-                if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_ALL:
-                lblEraYears.setText( "Any" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_ALL );
-                CurVee.SetYear( 0, false );
-                chkYearRestrict.setEnabled( false );
-                break;
+        lblEraYears.setText( CommonTools.GetEraYearRange( cmbEra.getSelectedIndex() ) );
+        txtProdYear.setText( "" );
+        CurVee.SetEra( cmbEra.getSelectedIndex() );
+        CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
+        if( cmbEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+            if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
+        } else {
+            chkYearRestrict.setEnabled( false );
         }
-        CurVee.SetChanged(true);
 
         if( CurVee.IsOmni() ) {
             RefreshEquipment();
@@ -7847,7 +7763,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 return;
             }
         }
-        GetNewVee();
         // Get the mech we're loading
         CombatVehicle m = LoadVehicle();
         if (m == null) {
@@ -7952,7 +7867,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         UnlockGUIFromOmni();
 
         chkYearRestrict.setSelected( CurVee.IsYearRestricted() );
-        txtProdYear.setText( "" + CurVee.GetYear() );
+        txtProdYear.setText( CurVee.YearWasSpecified() ? "" + CurVee.GetYear() : "" );
         cmbEra.setEnabled( true );
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
@@ -8553,23 +8468,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             cmbTechBase.setEnabled( true );
             txtProdYear.setEnabled( true );
             CurVee.SetYearRestricted( false );
-            switch( cmbEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurVee.SetYear( 2750, false );
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurVee.SetYear( 3025, false );
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurVee.SetYear( 3070, false );
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurVee.SetYear( 3132, false );
-                    break;
-                case AvailableCode.ERA_ALL:
-                    CurVee.SetYear( 0, false );
-                    break;
-            }
+            CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
         } else {
             // ensure we have a good year.
             try{
@@ -8582,47 +8481,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
 
             // ensure the year is between the era years.
-            switch ( cmbEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    // Star League era
-                    if( year < 2443 || year > 2800 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    // Succession Wars era
-                    if( year < 2801 || year > 3050 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    // Clan Invasion Era
-                    if( year < 3051 || year > 3131 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    // Clan Invasion Era
-                    if( year < 3132 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_ALL:
-                    // all era
+            if( cmbEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+                if( ! CommonTools.IsYearInEra( year, cmbEra.getSelectedIndex() ) ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
                     chkYearRestrict.setSelected( false );
-                    chkYearRestrict.setEnabled( false );
+                }
+            } else {
+                chkYearRestrict.setSelected( false );
+                chkYearRestrict.setEnabled( false );
             }
 
             // we know we have a good year, lock it in.
@@ -9206,7 +9073,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     public void setVee( CombatVehicle v ) {
-        GetNewVee();
         CurVee = v;
         LoadVehicleIntoGUI();
     }

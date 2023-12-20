@@ -92,7 +92,14 @@ public class Quirk {
     /**
      * @return the cost
      */
-    public String getCost() {
+    public int getCost() {
+        return cost;
+    }
+
+    /**
+     * @return the cost as a string with + or - prefix depending on isPositive()
+     */
+    public String getCostText() {
         if (isPositive()) {
             return "+" + cost;
         }

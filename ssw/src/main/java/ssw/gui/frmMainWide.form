@@ -6437,9 +6437,9 @@
                 <Property name="axis" type="int" value="3"/>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane18">
+                <Container class="javax.swing.JScrollPane" name="scrEquipToPlace">
                   <Properties>
-                    <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                    <Property name="horizontalScrollBarPolicy" type="int" value="30"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>

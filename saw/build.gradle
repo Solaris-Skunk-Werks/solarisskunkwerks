@@ -22,8 +22,9 @@ jar {
             'Main-Class' : 'saw.Main',
             'Class-Path' : configurations.runtimeClasspath.files
                     .findAll { it.name.endsWith(".jar") }.collect { "lib/${it.name}" }.join(' '),
+            'SplashScreen-Image' : 'saw/images/splash.png'
     )
-    jar.archiveName = "SAW.jar"
+    archiveName = "SAW.jar"
 }
 
 task deleteAssets {

@@ -2031,23 +2031,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 CurMech.SetYear( Integer.parseInt( txtProdYear.getText() ), chkYearRestrict.isSelected() );
             } catch( Exception e ) {
                 // nothing really to be done, set it to a default.
-                switch( cmbMechEra.getSelectedIndex() ) {
-                    case AvailableCode.ERA_STAR_LEAGUE:
-                        CurMech.SetYear( 2750, false );
-                        break;
-                    case AvailableCode.ERA_SUCCESSION:
-                        CurMech.SetYear( 3025, false );
-                        break;
-                    case AvailableCode.ERA_CLAN_INVASION:
-                        CurMech.SetYear( 3070, false );
-                        break;
-                    case AvailableCode.ERA_DARK_AGES:
-                        CurMech.SetYear( 3132, false );
-                        break;
-                    case AvailableCode.ERA_ALL:
-                        CurMech.SetYear( 0, false );
-                        break;
-                }
+                CurMech.SetYear( CommonTools.GetEraDefaultYear( cmbMechEra.getSelectedIndex() ), false );
             }
         }
     }
@@ -2057,7 +2041,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbMechEra.setSelectedIndex( CurMech.GetEra() );
         cmbProductionEra.setSelectedIndex( CurMech.GetProductionEra() );
         txtSource.setText( CurMech.GetSource() );
-        txtProdYear.setText( "" + CurMech.GetYear() );
+        txtProdYear.setText( CurMech.YearWasSpecified() ? "" + CurMech.GetYear() : "" );
         BuildTechBaseSelector();
     }
 
@@ -2646,23 +2630,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.SetEra( cmbMechEra.getSelectedIndex() );
         CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
         CurMech.SetRulesLevel( cmbRulesLevel.getSelectedIndex() );
-        switch( CurMech.GetEra() ) {
-        case AvailableCode.ERA_STAR_LEAGUE:
-            CurMech.SetYear( 2750, false );
-            break;
-        case AvailableCode.ERA_SUCCESSION:
-            CurMech.SetYear( 3025, false );
-            break;
-        case AvailableCode.ERA_CLAN_INVASION:
-            CurMech.SetYear( 3070, false );
-            break;
-        case AvailableCode.ERA_DARK_AGES:
-            CurMech.SetYear( 3130, false );
-            break;
-        case AvailableCode.ERA_ALL:
-            CurMech.SetYear( 0, false );
-            break;
-        }
+        CurMech.SetYear( CommonTools.GetEraDefaultYear( CurMech.GetEra() ), false );
         BuildTechBaseSelector();
         cmbTechBase.setSelectedItem( Prefs.get( "NewMech_Techbase", "Inner Sphere" ) );
         switch( cmbTechBase.getSelectedIndex() ) {
@@ -3161,23 +3129,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void SolidifyMech() {
         // sets some of the basic mech information normally kept in the BFB.GUI and
         // prepares the mech for saving to file
-        int year = 0;
+        int year;
         CurMech.SetName( txtMechName.getText() );
         CurMech.SetModel( txtMechModel.getText() );
         if( txtProdYear.getText().isEmpty() ) {
-            switch( cmbMechEra.getSelectedIndex() ) {
-            case AvailableCode.ERA_STAR_LEAGUE:
-                CurMech.SetYear( 2750, false );
-                break;
-            case AvailableCode.ERA_SUCCESSION:
-                CurMech.SetYear( 3025, false );
-                break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                CurMech.SetYear( 3070, false );
-                break;
-            case AvailableCode.ERA_DARK_AGES:
-                CurMech.SetYear( 3132, false );
-                break;
+            year = CommonTools.GetEraDefaultYear( cmbMechEra.getSelectedIndex() );
+            if( year != 0 ) {
+                CurMech.SetYear( year, false );
+                txtProdYear.setText( "" + year );
             }
         } else {
             try{
@@ -4954,7 +4913,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkFCSApollo = new javax.swing.JCheckBox();
         chkClanCASE = new javax.swing.JCheckBox();
         pnlSelected = new javax.swing.JPanel();
-        jScrollPane23 = new javax.swing.JScrollPane();
+        scrSelectedEquip = new javax.swing.JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
         pnlControls = new javax.swing.JPanel();
         btnRemoveEquip = new javax.swing.JButton();
@@ -5050,7 +5009,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRLCrits = new javax.swing.JList();
         chkRLCASE2 = new javax.swing.JCheckBox();
         pnlEquipmentToPlace = new javax.swing.JPanel();
-        jScrollPane18 = new javax.swing.JScrollPane();
+        scrEquipToPlace = new javax.swing.JScrollPane();
         lstCritsToPlace = new javax.swing.JList();
         btnRemoveItemCrits = new javax.swing.JButton();
         onlLoadoutControls = new javax.swing.JPanel();
@@ -7673,11 +7632,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlSelected.setMinimumSize(new java.awt.Dimension(212, 286));
         pnlSelected.setLayout(new javax.swing.BoxLayout(pnlSelected, javax.swing.BoxLayout.LINE_AXIS));
 
-        jScrollPane23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane23.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrSelectedEquip.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrSelectedEquip.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel()
-        );
+        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel() );
         lstSelectedEquipment.setMaximumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setMinimumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setPreferredSize(null);
@@ -7714,9 +7672,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         };
         lstSelectedEquipment.addMouseListener( mlSelect );
         lstSelectedEquipment.setCellRenderer( new ssw.gui.EquipmentSelectedRenderer( this ) );
-        jScrollPane23.setViewportView(lstSelectedEquipment);
+        scrSelectedEquip.setViewportView(lstSelectedEquipment);
 
-        pnlSelected.add(jScrollPane23);
+        pnlSelected.add(scrSelectedEquip);
 
         pnlEquipment.add(pnlSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 20, 230, 300));
 
@@ -8888,7 +8846,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlEquipmentToPlace.setMinimumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setLayout(new javax.swing.BoxLayout(pnlEquipmentToPlace, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrEquipToPlace.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         lstCritsToPlace.setFont( PrintConsts.BaseCritFont );
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
@@ -8958,9 +8916,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 lstCritsToPlaceValueChanged(evt);
             }
         });
-        jScrollPane18.setViewportView(lstCritsToPlace);
+        scrEquipToPlace.setViewportView(lstCritsToPlace);
 
-        pnlEquipmentToPlace.add(jScrollPane18);
+        pnlEquipmentToPlace.add(scrEquipToPlace);
 
         btnRemoveItemCrits.setText("Remove Item");
         btnRemoveItemCrits.setEnabled(false);
@@ -10449,42 +10407,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         int tbsave = cmbTechBase.getSelectedIndex();
 
         // change the year range and tech base options
-        switch( cmbMechEra.getSelectedIndex() ) {
-            case AvailableCode.ERA_STAR_LEAGUE:
-                lblEraYears.setText( "2443 ~ 2800" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_STAR_LEAGUE );
-                CurMech.SetYear( 2750, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_SUCCESSION:
-                lblEraYears.setText( "2801 ~ 3050" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_SUCCESSION );
-                CurMech.SetYear( 3025, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                lblEraYears.setText( "3051 ~ 3131" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_CLAN_INVASION );
-                CurMech.SetYear( 3075, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_DARK_AGES:
-                lblEraYears.setText( "3132 on" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_DARK_AGES );
-                CurMech.SetYear( 3132, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_ALL:
-                lblEraYears.setText( "Any" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_ALL );
-                CurMech.SetYear( 0, false );
-                chkYearRestrict.setEnabled( false );
-                break;
+        lblEraYears.setText( CommonTools.GetEraYearRange( cmbMechEra.getSelectedIndex() ) );
+        txtProdYear.setText( "" );
+        CurMech.SetEra( cmbMechEra.getSelectedIndex() );
+        if( cmbMechEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+            if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
+        } else {
+            chkYearRestrict.setEnabled( false );
         }
 
         if( CurMech.IsOmnimech() ) {
@@ -12270,23 +12199,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbTechBase.setEnabled( true );
             txtProdYear.setEnabled( true );
             CurMech.SetYearRestricted( false );
-            switch( cmbMechEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurMech.SetYear( 2750, false );
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurMech.SetYear( 3025, false );
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurMech.SetYear( 3070, false );
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurMech.SetYear( 3132, false );
-                    break;
-                case AvailableCode.ERA_ALL:
-                    CurMech.SetYear( 0, false );
-                    break;
-            }
+            CurMech.SetYear( CommonTools.GetEraDefaultYear( cmbMechEra.getSelectedIndex() ), false );
         } else {
             // ensure we have a good year.
             try{
@@ -12299,47 +12212,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
 
             // ensure the year is between the era years.
-            switch ( cmbMechEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    // Star League era
-                    if( year < 2443 || year > 2800 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    // Succession Wars era
-                    if( year < 2801 || year > 3050 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    // Clan Invasion Era
-                    if( year < 3051 || year > 3131 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    // Clan Invasion Era
-                    if( year < 3132 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_ALL:
-                    // all era
+            if( cmbMechEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+                if( ! CommonTools.IsYearInEra( year, cmbMechEra.getSelectedIndex() ) ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
                     chkYearRestrict.setSelected( false );
-                    chkYearRestrict.setEnabled( false );
+                }
+            } else {
+                chkYearRestrict.setSelected( false );
+                chkYearRestrict.setEnabled( false );
             }
 
             // we know we have a good year, lock it in.
@@ -13226,7 +13107,7 @@ public void LoadMechIntoGUI() {
         }
     }
     chkYearRestrict.setSelected( CurMech.IsYearRestricted() );
-    txtProdYear.setText( "" + CurMech.GetYear() );
+    txtProdYear.setText( CurMech.YearWasSpecified() ? "" + CurMech.GetYear() : "" );
     cmbMechEra.setEnabled( true );
     cmbTechBase.setEnabled( true );
     txtProdYear.setEnabled( true );
@@ -14820,8 +14701,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
-    private javax.swing.JScrollPane jScrollPane18;
-    private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
@@ -15073,8 +14952,10 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlWeaponsManufacturers;
     private javax.swing.JScrollPane scpQuirkTable;
     private javax.swing.JScrollPane scpWeaponManufacturers;
+    private javax.swing.JScrollPane scrEquipToPlace;
     private javax.swing.JScrollPane scrLACrits;
     private javax.swing.JScrollPane scrRACrits;
+    private javax.swing.JScrollPane scrSelectedEquip;
     private javax.swing.JSpinner spnBoosterMP;
     private javax.swing.JSpinner spnCTArmor;
     private javax.swing.JSpinner spnCTRArmor;

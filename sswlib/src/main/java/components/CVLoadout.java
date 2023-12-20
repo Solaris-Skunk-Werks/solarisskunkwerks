@@ -762,7 +762,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetRulesLevel( RulesLevel );
         clone.SetTechBase( TechBase );
         clone.SetEra( Era );
-        clone.SetYear( Year, false );
+        clone.SetYear( Year, YearSpecified );
         try {
             clone.SetFCSArtemisIV( UseAIVFCS );
             clone.SetFCSArtemisV( UseAVFCS );
