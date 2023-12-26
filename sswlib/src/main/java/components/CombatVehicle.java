@@ -117,7 +117,19 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         1.3, 1.3, 1.3, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.5,
         1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6 };
 
+    // Constructors
     public CombatVehicle() {
+        // no prefs file, create a default.
+        Prefs = Preferences.userRoot().node( Constants.SAWPrefs );
+        Load();
+    }
+
+    public CombatVehicle( Preferences p ) {
+        Prefs = p;
+        Load();
+    }
+
+    private void Load() {
         OmniAvailable.SetCodes( 'E', 'X', 'E', 'E', 'D', 'E', 'X', 'E', 'E', 'D' );
         OmniAvailable.SetFactions( "", "", "", "", "", "", "", "" );
         OmniAvailable.SetISDates( 0, 0, false, 3010, 0, 0, false, false );
@@ -2578,6 +2590,9 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                 if( (v.get( i ) instanceof Ammunition ) ) {
                     retval += ( (abPlaceable) v.get( i ) ).GetCost();
                 }
+            }
+            if( Prefs.getBoolean( "CostAmmoMult", false ) ) {
+                retval *= GetCostMult() * GetConfigMultiplier();
             }
             return retval;
         } else {

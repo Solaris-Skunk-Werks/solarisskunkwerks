@@ -8156,15 +8156,15 @@
               <Font name="Arial" size="11" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Max Heat: 000"/>
+            <Property name="text" type="java.lang.String" value="Max Heat: 00.0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[77, 20]"/>
+              <Dimension value="[87, 20]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[77, 20]"/>
+              <Dimension value="[87, 20]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[77, 20]"/>
+              <Dimension value="[87, 20]"/>
             </Property>
           </Properties>
         </Component>
@@ -8253,13 +8253,13 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Cost: 000,000,000"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[125, 20]"/>
+              <Dimension value="[115, 20]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[125, 20]"/>
+              <Dimension value="[115, 20]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[125, 20]"/>
+              <Dimension value="[115, 20]"/>
             </Property>
           </Properties>
         </Component>

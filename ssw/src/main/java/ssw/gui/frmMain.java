@@ -2163,7 +2163,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             txtInfoTonnage.setText( "Tons: " + CurMech.GetCurrentTons() );
             txtInfoFreeTons.setText( "Free Tons: " + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
         }
-        txtInfoMaxHeat.setText( "Max Heat: " + CurMech.GetMaxHeat() );
+        txtInfoMaxHeat.setText( "Max Heat: " + String.format( "%1$,.1f", CurMech.GetMaxHeat() ) );
         txtInfoHeatDiss.setText( "Heat Dissipation: " + CurMech.GetHeatSinks().TotalDissipation() );
         txtInfoFreeCrits.setText( "Free Crits: " + CurMech.GetLoadout().FreeCrits() );
         txtInfoUnplaced.setText( "Unplaced Crits: " + CurMech.GetLoadout().UnplacedCrits() );
@@ -9895,10 +9895,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtInfoMaxHeat.setEditable(false);
         txtInfoMaxHeat.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoMaxHeat.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtInfoMaxHeat.setText("Max Heat: 000");
-        txtInfoMaxHeat.setMaximumSize(new java.awt.Dimension(77, 20));
-        txtInfoMaxHeat.setMinimumSize(new java.awt.Dimension(77, 20));
-        txtInfoMaxHeat.setPreferredSize(new java.awt.Dimension(77, 20));
+        txtInfoMaxHeat.setText("Max Heat: 00.0");
+        txtInfoMaxHeat.setMaximumSize(new java.awt.Dimension(87, 20));
+        txtInfoMaxHeat.setMinimumSize(new java.awt.Dimension(87, 20));
+        txtInfoMaxHeat.setPreferredSize(new java.awt.Dimension(87, 20));
         pnlInfoPanel.add(txtInfoMaxHeat);
 
         txtInfoHeatDiss.setEditable(false);
@@ -9941,9 +9941,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoCost.setText("Cost: 000,000,000");
-        txtInfoCost.setMaximumSize(new java.awt.Dimension(125, 20));
-        txtInfoCost.setMinimumSize(new java.awt.Dimension(125, 20));
-        txtInfoCost.setPreferredSize(new java.awt.Dimension(125, 20));
+        txtInfoCost.setMaximumSize(new java.awt.Dimension(115, 20));
+        txtInfoCost.setMinimumSize(new java.awt.Dimension(115, 20));
+        txtInfoCost.setPreferredSize(new java.awt.Dimension(115, 20));
         pnlInfoPanel.add(txtInfoCost);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
