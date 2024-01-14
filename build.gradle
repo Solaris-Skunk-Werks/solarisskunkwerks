@@ -6,7 +6,7 @@ plugins {
 allprojects {
     version '0.7.6.1'
     ext {
-        release='Stable'
+        release='Snapshot'
         rev=versionDetails().gitHash
     }
     jar {
