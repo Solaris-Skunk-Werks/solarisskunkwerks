@@ -26,35 +26,27 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.gui;
+package dialog;
 
-import common.DataFactory;
 import components.Quirk;
-import java.util.ArrayList;
+import components.ifUnit;
 import list.view.tbQuirks;
+import java.util.ArrayList;
 
 public class dlgQuirks extends javax.swing.JDialog {
-    private DataFactory list;
-    private ArrayList<Quirk> existingQuirks;
     private tbQuirks tblQ;
+    private ifUnit Unit;
 
     /** Creates new form dlgQuirks */
-    public dlgQuirks(java.awt.Frame parent, boolean modal, DataFactory quirks, ArrayList<Quirk> currentQuirks) {
+    public dlgQuirks(java.awt.Frame parent, boolean modal, ifUnit unit, ArrayList<Quirk> availableQuirks, ArrayList<Quirk> currentQuirks) {
         super(parent, modal);
         initComponents();
 
-        list = quirks;
-        ArrayList<Quirk> mechQuirks = new ArrayList<Quirk>();
-        for (Quirk item : list.GetQuirks()) {
-            if (item.isBattlemech() || item.isIndustrialmech()) {
-                mechQuirks.add(item);
-            }
-        }
-        existingQuirks = currentQuirks;
+        Unit = unit;
 
         tblQ = new tbQuirks(currentQuirks);
         tblQ.setupTable(tblSelected);
-        tblList.setModel(new tbQuirks(mechQuirks));
+        tblList.setModel(new tbQuirks(availableQuirks));
     }
 
     private void Refresh()
@@ -228,7 +220,7 @@ public class dlgQuirks extends javax.swing.JDialog {
     }
 
 
-    // Variables declaration - do not modify
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDone;
     private javax.swing.JButton btnRemove;
@@ -237,6 +229,6 @@ public class dlgQuirks extends javax.swing.JDialog {
     private javax.swing.JLabel lblBattleMechQuirks;
     private javax.swing.JTable tblList;
     private javax.swing.JTable tblSelected;
-    // End of variables declaration
+    // End of variables declaration//GEN-END:variables
 
 }

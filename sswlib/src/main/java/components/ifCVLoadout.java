@@ -116,8 +116,8 @@ public interface ifCVLoadout {
     public void SetRightItems( ArrayList<abPlaceable> c );
     public void SetRearItems( ArrayList<abPlaceable> c );
     public void SetBodyItems( ArrayList<abPlaceable> c );
-    public void SetTurret1( ArrayList<abPlaceable> c );
-    public void SetTurret2( ArrayList<abPlaceable> c );
+    public void SetTurret1Items( ArrayList<abPlaceable> c );
+    public void SetTurret2Items( ArrayList<abPlaceable> c );
     public void SetSponsonTurretLeftItems(ArrayList<abPlaceable> c);
     public void SetSponsonTurretRightItems(ArrayList<abPlaceable> c);
     public void SetNonCore( ArrayList v );
@@ -130,11 +130,12 @@ public interface ifCVLoadout {
     public ArrayList GetMechMods();
     public boolean CanUseClanCASE();
     public boolean IsUsingClanCASE();
-    public void SetClanCASE( boolean b );
-    public void RemoveISCase();
-    public void SetISCASE();
-    public boolean HasISCASE();
-    public CASE GetISCase();
+    public void AddCase(boolean isClan);
+    public void RemoveCase();
+    public boolean HasCase();
+    public void SetCase( CASE c );
+    public CASE GetCase();
+    public void SetClanCASE(boolean b);
     public void SetFCSArtemisIV( boolean b ) throws Exception;
     public void SetFCSArtemisV( boolean b ) throws Exception;
     public void SetFCSApollo( boolean b ) throws Exception;
@@ -148,6 +149,10 @@ public interface ifCVLoadout {
     public void SetSupercharger( Supercharger s );
     public boolean HasSupercharger();
     public Supercharger GetSupercharger();
+    public void SetVTOLBooster(boolean b) throws Exception;
+    public void SetVTOLBooster(VTOLBooster s);
+    public boolean HasVTOLBooster();
+    public VTOLBooster GetVTOLBooster();
     public CVPowerAmplifier GetPowerAmplifier();
     public void CheckExclusions( abPlaceable a ) throws Exception;
     public void MoveToQueue(int loc);
@@ -157,6 +162,10 @@ public interface ifCVLoadout {
     public double GetSponsonTurretCost();
     public void ResetHeatSinks();
     public int NumCVAmmoSpaces();
+    public boolean HasArmoredMotiveSystem();
+    public boolean IsArmoredMotiveSystemClan();
+    public void SetArmoredMotiveSystem(boolean b, boolean isClan);
+    public ArmoredMotiveSystem GetArmoredMotiveSystem();
 /*
     public void AddMechModifier( MechModifier m );
     public void RemoveMechMod( MechModifier m );

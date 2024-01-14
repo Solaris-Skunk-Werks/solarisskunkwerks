@@ -1326,11 +1326,13 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_RIGHT_ARMOR-+>", "" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_RIGHT ) );
         lookup.put( "<+-SSW_REAR_ARMOR-+>", "" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_REAR ) );
         lookup.put( "<+-SSW_TURRET_ARMOR-+>", "" + (CurVee.isHasTurret1() ? CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_TURRET1 ) : "") );
+        lookup.put( "<+-SSW_REAR_TURRET_ARMOR-+>", "" + (CurVee.isHasTurret2() ? CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_TURRET2 ) : "") );
         lookup.put( "<+-SSW_ROTOR_ARMOR-+>", "" + (CurVee.IsVTOL() ? CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_ROTOR ) : "") );
         lookup.put( "<+-SSW_FRONT_ARMOR_TYPE-+>", " (" + CurVee.GetArmor().GetFrontArmorType().LookupName() + ")" );
         lookup.put( "<+-SSW_LEFT_ARMOR_TYPE-+>", " (" + CurVee.GetArmor().GetLeftArmorType().LookupName() + ")" );
         lookup.put( "<+-SSW_RIGHT_ARMOR_TYPE-+>", " (" + CurVee.GetArmor().GetRightArmorType().LookupName() + ")" );
         lookup.put( "<+-SSW_TURRET_ARMOR_TYPE-+>", (CurVee.isHasTurret1() ? " (" + CurVee.GetArmor().GetTurret1ArmorType().LookupName() + ")" : "") );
+        lookup.put( "<+-SSW_REAR_TURRET_ARMOR_TYPE-+>", (CurVee.isHasTurret2() ? " (" + CurVee.GetArmor().GetTurret2ArmorType().LookupName() + ")" : "") );
         lookup.put( "<+-SSW_ROTOR_ARMOR_TYPE-+>", ( CurVee.IsVTOL() ? " (" + CurVee.GetArmor().GetRotorArmorType().LookupName() + ")" : "" ) );
         lookup.put( "<+-SSW_REAR_ARMOR_TYPE-+>", " (" + CurVee.GetArmor().GetRearArmorType().LookupName() + ")" );
         lookup.put( "<+-SSW_ARMOR_COVERAGE-+>", "" + CurVee.GetArmor().GetCoverage() );
@@ -1382,6 +1384,7 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_CONTROLS_TONNAGE-+>", CurVee.GetControls() );
         lookup.put( "<+-SSW_LIFTEQUIPMENT_TONNAGE-+>", (CurVee.GetLiftEquipmentTonnage() == 0) ? "" : CurVee.GetLiftEquipmentTonnage() + "" );
         lookup.put( "<+-SSW_TURRET_TONNAGE-+>", (CurVee.GetLoadout().GetTurret().GetTonnage() == 0) ? "" : CurVee.GetLoadout().GetTurret().GetTonnage() + "" );
+        lookup.put( "<+-SSW_REAR_TURRET_TONNAGE-+>", (CurVee.GetLoadout().GetRearTurret().GetTonnage() == 0) ? "" : CurVee.GetLoadout().GetRearTurret().GetTonnage() + "" );
         lookup.put( "<+-SSW_RULES_LEVEL-+>", CommonTools.GetRulesLevelString( CurVee.GetRulesLevel() ) );
         if( CurVee.IsOmni() ) {
             lookup.put( "<+-SSW_POD_TONNAGE-+>", FormatTonnage( ( CurVee.GetTonnage() - CurVee.GetCurrentTons() ), 1 ) );

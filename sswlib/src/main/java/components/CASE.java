@@ -28,10 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-public class CASE extends abPlaceable {
+public class CASE extends Equipment {
     // A simple class for Inner Sphere CASE.
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private boolean IsClan = false;
 
     public CASE() {
         AC.SetISCodes( 'E', 'C', 'F', 'D', 'C' );
@@ -72,9 +71,7 @@ public class CASE extends abPlaceable {
         return "CASE";
     }
 
-    public String MegaMekName( boolean UseRear ) {
-        return "ISCASE";
-    }
+    public String MegaMekName( boolean UseRear ) { return (IsClan() ? "CL" : "IS") + "CASE"; }
 
     public String BookReference() {
         return "Tech Manual";
@@ -86,12 +83,12 @@ public class CASE extends abPlaceable {
 
     @Override
     public int NumCVSpaces() {
-        if ( IsClan ) return 0;
+        if ( IsClan() ) return 0;
         return 1;
     }
 
     public double GetTonnage() {
-        if ( IsClan ) return 0;
+        if ( IsClan() ) return 0;
         return 0.5;
     }
 
@@ -133,10 +130,16 @@ public class CASE extends abPlaceable {
 
     @Override
     public String toString() {
-        return "C.A.S.E.";
+        return "CASE";
     }
-    
-    public void SetClan(boolean b ) {
-        IsClan = b;
+
+    public void SetClan(boolean b ) { super.SetCurrentTech(b ? AvailableCode.TECH_CLAN : AvailableCode.TECH_INNER_SPHERE); }
+
+    public boolean IsClan() { return (super.GetCurrentTech() == AvailableCode.TECH_CLAN); }
+
+    @Override
+    public String GetEquipmentType() {
+        return "CASE";
     }
+
 }

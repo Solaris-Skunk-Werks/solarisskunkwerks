@@ -29,10 +29,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 
-public class Equipment extends abPlaceable {
+public class Equipment extends abPlaceable implements ifEquipment {
     private String ActualName,
                    CritName,
                    Type,
@@ -51,7 +50,8 @@ public class Equipment extends abPlaceable {
                 LngRange = 0,
                 Heat = 0,
                 MaxAllowed = 0,
-                MaxAllowedPerLocation = 0;
+                MaxAllowedPerLocation = 0,
+                CurrentTechBase = AvailableCode.TECH_INNER_SPHERE;
     private double Tonnage = 0.0,
                   Cost = 0.0,
                   OffBV = 0.0,
@@ -81,6 +81,7 @@ public class Equipment extends abPlaceable {
                     RequiresNuclear = false,
                     RequiresPowerAmps = false;
     private transient boolean Rear = false;
+    private transient ifTurret Turret = null;
     @SerializedName("Availability") private AvailableCode AC;
 
     public Equipment() {
@@ -104,6 +105,8 @@ public class Equipment extends abPlaceable {
         LookupName = e.LookupName;
         Type = e.Type;
         AC = e.AC.Clone();
+        CurrentTechBase = AC.GetTechBase();
+        if (CurrentTechBase == AvailableCode.TECH_BOTH) { CurrentTechBase = AvailableCode.TECH_INNER_SPHERE; }
         MegaMekName = e.MegaMekName;
         Crits = e.Crits;
         CVSpace = e.CVSpace;
@@ -227,6 +230,7 @@ public class Equipment extends abPlaceable {
         BookReference = b;
     }
 
+    //NOTE: Do NOT use a Rear reference here as this field is used on the Validate method
     public String ActualName() {
         return ActualName;
     }
@@ -236,11 +240,7 @@ public class Equipment extends abPlaceable {
         if( VariableSize ) {
             retval += " (" + Tonnage + " tons)";
         }
-        if( Rear ) {
-            return "(R) " + retval;
-        } else {
-            return retval;
-        }
+        return NameModifier() + retval;
     }
 
     @Override
@@ -253,11 +253,7 @@ public class Equipment extends abPlaceable {
     }
     
     public String LookupName() {
-        if( Rear ) {
-            return "(R) " + LookupName;
-        } else {
-            return LookupName;
-        }
+        return NameModifier() + LookupName;
     }
 
     public String ChatName() {
@@ -265,11 +261,7 @@ public class Equipment extends abPlaceable {
     }
 
     public String MegaMekName( boolean UseRear ) {
-        if( Rear ) {
-            return MegaMekName + " (R)";
-        } else {
-            return MegaMekName;
-        }
+        return (MegaMekName + " " + NameModifier()).trim();
     }
 
     public String BookReference() {
@@ -414,18 +406,21 @@ public class Equipment extends abPlaceable {
 
     @Override
     public boolean CanAllocCVRear() {
-        return alloc_sides;
+        return alloc_rear;
     }
 
     @Override
     public boolean CanAllocCVSide() {
-        return alloc_rear;
+        return alloc_sides;
     }
 
     @Override
     public boolean CanAllocCVTurret() {
         return alloc_turret;
     }
+
+    @Override
+    public boolean CanAllocCVBody() { return alloc_body; }
 
     public int GetTechBase() {
         return AC.GetTechBase();
@@ -438,7 +433,7 @@ public class Equipment extends abPlaceable {
 
     @Override
     public boolean CanMountRear() {
-        return CanMountRear;
+        return CanMountRear && ! IsTurreted();
     }
 
     @Override
@@ -449,6 +444,28 @@ public class Equipment extends abPlaceable {
     @Override
     public boolean IsMountedRear() {
         return Rear;
+    }
+
+    @Override
+    public boolean CanMountTurret() {
+        return CanAllocCVTurret() && ! IsMountedRear();
+    }
+
+    @Override
+    public void MountTurret( ifTurret t ) {
+        if( Turret == t ) return;
+        if( Turret != null ) {
+            Turret.RemoveItem( this );
+        }
+        if( t != null ) {
+            t.AddItem( this );
+        }
+        Turret = t;
+    }
+
+    @Override
+    public ifTurret GetTurret() {
+        return Turret;
     }
 
     @Override
@@ -481,6 +498,7 @@ public class Equipment extends abPlaceable {
         return RequiresPowerAmps;
     }
 
+    @Override
     public int MaxAllowed() {
         return MaxAllowed;
     }
@@ -530,10 +548,10 @@ public class Equipment extends abPlaceable {
             ArrayList currentEquipment = m.GetLoadout().GetEquipment();
             for (int i = 0, c = 0; i < currentEquipment.size(); ++i) {
                 abPlaceable currentItem = (abPlaceable) currentEquipment.get(i);
-                if (currentItem.LookupName().equals(LookupName)) {
+                if (currentItem.ActualName().equals(ActualName)) {
                     ++c;
                     if (c == MaxAllowed) {
-                        throw new Exception("Only " + MaxAllowed + " " + CritName + "(s) may be mounted on one 'Mech.");
+                        throw new Exception("Only " + MaxAllowed + " " + CritName + "(s) may be mounted.");
                     }
                 }
             }
@@ -543,24 +561,19 @@ public class Equipment extends abPlaceable {
         }
     }
 
-    public boolean Validate( CombatVehicle v )
-    {
+    @Override
+    public void Validate( CombatVehicle v ) throws Exception {
         if( MaxAllowed > 0 ) {
             ArrayList currentEquipment = v.GetLoadout().GetEquipment();
             for( int i = 0, c = 0; i < currentEquipment.size(); ++i ) {
                 abPlaceable currentItem = (abPlaceable) currentEquipment.get( i );
-                if( currentItem.LookupName().equals( LookupName ) ) {
+                if( currentItem.ActualName().equals( ActualName ) ) {
                     ++c;
                     if( c == MaxAllowed ) {
-                        return false;
+                        throw new Exception("Only " + MaxAllowed + " " + CritName + "(s) may be mounted.");
                     }
                 }
             }
-            return true;
-        } else if( RequiresQuad ) {
-            return false;
-        } else {
-            return true;
         }
     }
 
@@ -589,6 +602,17 @@ public class Equipment extends abPlaceable {
         }
         return retval;
     }
+
+    @Override
+    public String GetEquipmentType() {
+        return "equipment";
+    }
+
+    @Override
+    public void SetCurrentTech(int techbase) { CurrentTechBase = techbase; }
+
+    @Override
+    public int GetCurrentTech() { return CurrentTechBase; }
 
     @Override
     public String toString() {

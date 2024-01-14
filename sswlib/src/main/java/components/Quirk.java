@@ -96,6 +96,24 @@ public class Quirk {
         return cost;
     }
 
+    /**
+     * @return the cost as a string with + or - prefix depending on isPositive()
+     */
+    public String getCostText() {
+        if (isPositive()) {
+            return "+" + cost;
+        }
+        return "-" + cost;
+    }
+
+    public String getDirection() {
+        if (isPositive()) {
+            return "Pos";
+        } else {
+            return "Neg";
+        }
+    }
+
 
     /**
      * @return the description
@@ -198,7 +216,7 @@ public class Quirk {
     /**
      * @return the isvariable
      */
-    public boolean isIsvariable() {
+    public boolean isVariable() {
         return isvariable;
     }
 

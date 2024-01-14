@@ -94,6 +94,10 @@ public class CVJumpJetFactory {
         return CurConfig.IsUMU();
     }
 
+    public boolean IsProto() {
+        return CurConfig.IsProto();
+    }
+
     public int GetNumJJ() {
         return NumJJ;
     }

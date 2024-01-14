@@ -319,8 +319,8 @@ public class CVReader {
         } else if( n.item( 0 ).getTextContent().equals( AvailableCode.TechBaseSTR[AvailableCode.TECH_BOTH] ) ) {
             m.SetMixed();
         }
-        m.SetCompany( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
-        m.SetLocation( FileCommon.DecodeFluff( map.getNamedItem( "location" ).getTextContent() ) );
+        m.SetCompany( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() ) ) );
+        m.SetLocation( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "location" ).getTextContent() ) ) );
         n = d.getElementsByTagName( "year" );
         map = n.item( 0 ).getAttributes();
         m.SetYear( Integer.parseInt( n.item( 0 ).getTextContent() ), true );
@@ -370,7 +370,7 @@ public class CVReader {
                 m.Visit( v );
             }
         }
-        m.SetChassisModel( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
+        m.SetChassisModel( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() ) ) );
         
         n = d.getElementsByTagName( "engine" );
         map = n.item( 0 ).getAttributes();
@@ -393,7 +393,7 @@ public class CVReader {
             m.Visit( v );
         }
         //m.SetEngineRating( Integer.parseInt( map.getNamedItem( "rating" ).getTextContent() ) );
-        m.SetEngineManufacturer( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
+        m.SetEngineManufacturer( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() ) ) );
 
         // base loadout
         // get the actuators first since that will complete the structural components
@@ -416,10 +416,8 @@ public class CVReader {
         if ( omniCombatVehicle && map.getNamedItem("turretlimit") != null ) {
             m.GetLoadout().GetTurret().SetTonnage( Double.parseDouble(map.getNamedItem("turretlimit").getTextContent() ) );
         }
-        // take care of Clan CASE on previous save file versions
-        if( SaveFileVersion < 1 ) {
-            // this will fail if Inner Sphere, so we're safe
-            //m.GetLoadout().SetClanCASE( true );
+        if ( omniCombatVehicle && map.getNamedItem("rearturretlimit") != null ) {
+            m.GetLoadout().GetRearTurret().SetTonnage( Double.parseDouble(map.getNamedItem("rearturretlimit").getTextContent() ) );
         }
         n = n.item( 0 ).getChildNodes();
         LocationIndex ltc = new LocationIndex();
@@ -428,7 +426,7 @@ public class CVReader {
             if( n.item( i ).getNodeName().equals( "source" ) ) {
                 m.setSource( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
-                //m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
+                m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
             } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                 map = n.item( i ).getAttributes();
                 int numhs = Integer.parseInt( map.getNamedItem( "number" ).getTextContent() );
@@ -507,6 +505,7 @@ public class CVReader {
                 String eMan = "";
                 String eType = "";
                 String eName = "";
+                String techbase = CommonTools.GetTechbaseString(m.GetTechbase());
                 int VGLArc = 0;
                 int VGLAmmo = 0;
                 double vtons = 0.0;
@@ -515,10 +514,12 @@ public class CVReader {
                 for( int j = 0; j < nl.getLength(); j++ ) {
                     if( nl.item( j ).getNodeName().equals( "name" ) ) {
                         map = nl.item( j ).getAttributes();
-                        eMan = map.getNamedItem( "manufacturer" ).getTextContent();
+                        eMan = CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() );
                         eName = nl.item( j ).getTextContent();
                     } else if( nl.item( j ).getNodeName().equals( "type" ) ) {
                         eType = nl.item( j ).getTextContent();
+                    } else if( nl.item( j ).getNodeName().equals( "techbase" ) ) {
+                        techbase = nl.item( j ).getTextContent();
                     } else if( nl.item( j ).getNodeName().equals( "location" ) ) {
                         l = DecodeLocation( nl.item( j ) );
                         if (l.Location == LocationIndex.CV_LOC_SPONSON_LEFT|| l.Location == LocationIndex.CV_LOC_SPONSON_RIGHT) {
@@ -536,32 +537,31 @@ public class CVReader {
                         lotsize = Integer.parseInt( nl.item( j ).getTextContent() );
                     }
                 }
-                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
+                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" )
+                        || eType.equals( "CASEII" ) || eType.equals( "Supercharger" )
+                        || eType.equals( "VTOL Jet Booster")) {
                     if( eType.equals( "TargetingComputer") ) {
                         if( SaveFileVersion == 0 ) {
-                            if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
-                                m.UseTC( true, true );
-                            } else {
-                                m.UseTC( true, false );
-                            }
+                            m.UseTC( true, ( m.GetTechbase() == AvailableCode.TECH_CLAN ) );
                         } else {
-                            if( eName.contains( "(CL)" ) ) {
-                                m.UseTC( true, true );
-                            } else {
-                                m.UseTC( true, false );
-                            }
+                            m.UseTC( true, eName.contains( "(CL)" ) );
                         }
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
-                        m.GetLoadout().SetISCASE();
-                        m.GetLoadout().SetClanCASE(( m.GetTechBase() == AvailableCode.TECH_CLAN));
+                        m.GetLoadout().AddCase(m.GetLoadout().IsUsingClanCASE() || (m.GetTechBase() == AvailableCode.TECH_CLAN));
                     } else if( eType.equals( "Supercharger" ) ) {
                         m.GetLoadout().SetSupercharger( true );
+                    } else if( eType.equals( "VTOL Jet Booster" ) ) {
+                        m.GetLoadout().SetVTOLBooster( true );
+                    } else if ( eType.equals("Armored Motive System")) {
+                        m.GetLoadout().SetArmoredMotiveSystem(true, techbase == CommonTools.GetTechbaseString(AvailableCode.TECH_CLAN)
+                                                                                        || (m.GetTechBase() == AvailableCode.TECH_CLAN));
                     }
                 } else {
                     abPlaceable p = GetEquipmentByName( eName, eType, m );
                     if( p == null ) {
-                        throw new Exception( "Could not find " + eName + " as a piece of equipment.\nThe CombatVehicle cannot be loaded." );
+                        Messages += "Could not find " + eName + " as a piece of equipment.\n";
+                        continue;
                     }
                     p.SetManufacturer( eMan );
                     if( p instanceof Equipment ) {
@@ -569,6 +569,7 @@ public class CVReader {
                             ((Equipment) p).SetMaxTons(m.GetTonnage());
                             ((Equipment) p).SetTonnage( vtons );
                         }
+                        ((Equipment) p).SetCurrentTech(CommonTools.GetTechbaseValue(techbase));
                     }
                     if( ( p instanceof Ammunition ) && lotsize > 0 ) {
                         ((Ammunition) p).SetLotSize( lotsize );
@@ -577,7 +578,12 @@ public class CVReader {
                         ((VehicularGrenadeLauncher) p).SetArc( VGLArc );
                         ((VehicularGrenadeLauncher) p).SetAmmoType( VGLAmmo );
                     }
-                    m.GetLoadout().AddTo(p, l.Location);
+                    try {
+                        m.GetLoadout().AddTo(p, l.Location);
+                    } catch (Exception e) {
+                        Messages += e.toString();
+                        continue;
+                    }
                 }
             } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                 NodeList nl = n.item( i ).getChildNodes();
@@ -628,7 +634,7 @@ public class CVReader {
         String pwtype = "";
         int pwtech = 0;
         boolean oldfile = false, clanarmor = false;
-        m.SetArmorModel( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
+        m.SetArmorModel( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() ) ) );
         if( map.getNamedItem( "techbase" ) == null ) {
             // old style save file, set the armor based on the 'CombatVehicle's techbase
             if( m.GetBaseTechbase() == AvailableCode.TECH_CLAN ) {
@@ -870,11 +876,6 @@ public class CVReader {
                     }
                     m.GetLoadout().SetRulesLevel( ruleslevel );
                 }
-                // take care of Clan CASE on previous save file versions
-                if( SaveFileVersion < 1 ) {
-                    // this will fail if Inner Sphere, so we're safe
-                    //m.GetLoadout().SetClanCASE( true );
-                }
                 if( SaveFileVersion < 2 ) {
                     m.setSource( Source );
                 }
@@ -901,7 +902,7 @@ public class CVReader {
                             }
                         }
                     } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
-                        //m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
+                        m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
                     } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                         hsLoc.clear();
                         map = n.item( i ).getAttributes();
@@ -986,7 +987,7 @@ public class CVReader {
                         for( int j = 0; j < nl.getLength(); j++ ) {
                             if( nl.item( j ).getNodeName().equals( "name" ) ) {
                                 map = nl.item( j ).getAttributes();
-                                eMan = map.getNamedItem( "manufacturer" ).getTextContent();
+                                eMan = CommonTools.UnknownToEmpty( map.getNamedItem( "manufacturer" ).getTextContent() );
                                 eName = nl.item( j ).getTextContent();
                             } else if( nl.item( j ).getNodeName().equals( "type" ) ) {
                                 eType = nl.item( j ).getTextContent();
@@ -1004,7 +1005,9 @@ public class CVReader {
                                 lotsize = Integer.parseInt( nl.item( j ).getTextContent() );
                             }
                         }
-                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
+                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" )
+                                || eType.equals( "CASEII" ) || eType.equals( "Supercharger" )
+                                || eType.equals( "VTOL Jet Booster")) {
                             if( eType.equals( "TargetingComputer") ) {
                                 if( SaveFileVersion == 0 ) {
                                     if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
@@ -1021,30 +1024,37 @@ public class CVReader {
                                 }
                                 ltc = l;
                             } else if( eType.equals( "CASE" ) ) {
-                                m.GetLoadout().SetISCASE();
-                                m.GetLoadout().SetClanCASE(( m.GetTechBase() == AvailableCode.TECH_CLAN));
+                                m.GetLoadout().AddCase(m.GetLoadout().IsUsingClanCASE() || (m.GetTechBase() == AvailableCode.TECH_CLAN));
                             } else if( eType.equals( "Supercharger" ) ) {
                                 m.GetLoadout().SetSupercharger( true );
+                            } else if ( eType.equals( "VTOL Jet Booster")) {
+                                m.GetLoadout().SetVTOLBooster( true);
                             }
                         } else {
                             abPlaceable p = GetEquipmentByName( eName, eType, m );
                             if( p == null ) {
-                                throw new Exception( "Could not find " + eName + " as a piece of equipment.\nThe CombatVehicle cannot be loaded." );
+                                Messages += "Could not find " + eName + " as a piece of equipment.\n";
+                                continue;
                             }
-                            p.SetManufacturer( eMan );
-                            if( p instanceof Equipment ) {
-                                if( ((Equipment) p).IsVariableSize() ) {
-                                    ((Equipment) p).SetTonnage( vtons );
+                            try {
+                                p.SetManufacturer( eMan );
+                                if( p instanceof Equipment ) {
+                                    if( ((Equipment) p).IsVariableSize() ) {
+                                        ((Equipment) p).SetTonnage( vtons );
+                                    }
                                 }
+                                if( ( p instanceof Ammunition ) && lotsize > 0 ) {
+                                    ((Ammunition) p).SetLotSize( lotsize );
+                                }
+                                if( p instanceof VehicularGrenadeLauncher ) {
+                                    ((VehicularGrenadeLauncher) p).SetArc( VGLArc );
+                                    ((VehicularGrenadeLauncher) p).SetAmmoType( VGLAmmo );
+                                }
+                                m.GetLoadout().AddTo(p, l.Location);
+                            } catch( Exception e ) {
+                                Messages += e.toString();
+                                continue;
                             }
-                            if( ( p instanceof Ammunition ) && lotsize > 0 ) {
-                                ((Ammunition) p).SetLotSize( lotsize );
-                            }
-                            if( p instanceof VehicularGrenadeLauncher ) {
-                                ((VehicularGrenadeLauncher) p).SetArc( VGLArc );
-                                ((VehicularGrenadeLauncher) p).SetAmmoType( VGLAmmo );
-                            }
-                            m.GetLoadout().AddTo(p, l.Location);
                         }
                     } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                         NodeList nl = n.item( i ).getChildNodes();
@@ -1110,24 +1120,62 @@ public class CVReader {
         } else {
             m.SetAdditional( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
         }
+        n = d.getElementsByTagName( "quirks" );
+        if (n.getLength() != 0) {
+            ArrayList<Quirk> quirks = new ArrayList<Quirk>();
+            NodeList quirkList = n.item( 0 ).getChildNodes();
+            for( int i = 0; i < quirkList.getLength(); i++ ) {
+                if (quirkList.item(i).getNodeName().equals("quirk")) {
+                    Node nodeQuirk = quirkList.item(i);
+                    map = nodeQuirk.getAttributes();
+
+                    boolean postive = Boolean.parseBoolean(map.getNamedItem("postive").getTextContent());
+                    boolean battlemech = Boolean.parseBoolean(map.getNamedItem("battlemech").getTextContent());
+                    boolean industrialmech = Boolean.parseBoolean(map.getNamedItem("industrialmech").getTextContent());
+                    boolean combatvehicle = Boolean.parseBoolean(map.getNamedItem("combatvehicle").getTextContent());
+                    boolean battlearmor = Boolean.parseBoolean(map.getNamedItem("battlearmor").getTextContent());
+                    boolean aerospacefighter = Boolean.parseBoolean(map.getNamedItem("aerospacefighter").getTextContent());
+                    boolean conventionalfighter = Boolean.parseBoolean(map.getNamedItem("conventionalfigher").getTextContent());
+                    boolean dropship = Boolean.parseBoolean(map.getNamedItem("dropship").getTextContent());
+                    boolean jumpship = Boolean.parseBoolean(map.getNamedItem("jumpship").getTextContent());
+                    boolean warship = Boolean.parseBoolean(map.getNamedItem("warship").getTextContent());
+                    boolean spacestation = Boolean.parseBoolean(map.getNamedItem("spacestation").getTextContent());
+                    boolean protomech = Boolean.parseBoolean(map.getNamedItem("protomech").getTextContent());
+                    boolean isvariable = Boolean.parseBoolean(map.getNamedItem("isvariable").getTextContent());
+                    String name = null;
+                    String description = null;
+                    int cost = 0;
+                    if (nodeQuirk != null) {
+                        NodeList items = nodeQuirk.getChildNodes();
+                        for (int w = 0; w < items.getLength(); w++) {
+                            if (items.item(w).getNodeName().equals("Name")) {
+                                name = items.item(w).getTextContent();
+                            }
+                            else if (items.item(w).getNodeName().equals("Cost")) {
+                                // Backcompat for bug where quirks were saved with + or - prefixes
+                                String costText = items.item(w).getTextContent().replaceAll( "[-+]", "" );
+                                cost = Integer.parseInt( costText );
+                            }
+                            else if (items.item(w).getNodeName().equals("Description")) {
+                                description = items.item(w).getTextContent();
+                            }
+                        }
+                        if (name != null && description != null && cost != 0)
+                        {
+                            quirks.add(new Quirk(name, postive, cost, battlemech, industrialmech, combatvehicle, battlearmor, aerospacefighter, conventionalfighter,dropship,
+                                    jumpship, warship, spacestation, protomech, isvariable, description));
+                        }
+                    }
+                }
+            }
+            m.SetQuirks(quirks);
+        }
         n = d.getElementsByTagName( "jumpjet_model" );
-        if( n.item( 0 ).getTextContent() == null ) {
-            m.SetJJModel( "" );
-        } else {
-            m.SetJJModel( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
-        }
+        m.SetJJModel( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( n.item( 0 ).getTextContent() ) ) );
         n = d.getElementsByTagName( "commsystem" );
-        if( n.item( 0 ).getTextContent() == null ) {
-            m.SetCommSystem( "" );
-        } else {
-            m.SetCommSystem( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
-        }
+        m.SetCommSystem( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( n.item( 0 ).getTextContent() ) ) );
         n = d.getElementsByTagName( "tandtsystem" );
-        if( n.item( 0 ).getTextContent() == null ) {
-            m.SetTandTSystem( "" );
-        } else {
-            m.SetTandTSystem( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
-        }
+        m.SetTandTSystem( FileCommon.DecodeFluff( CommonTools.UnknownToEmpty( n.item( 0 ).getTextContent() ) ) );
 
         // all done, return the CombatVehicle
         m.SetChanged( false );
@@ -1164,11 +1212,12 @@ public class CVReader {
                 name = FileCommon.LookupStripArc( name );
                 rear = true;
             } else if( name.substring( 0, 4 ).equals( "(T) " ) ) {
-                // turreted items are handled elsewhere, unfortunately.
+                // this is for mech turrets so shouldn't even exist,
+                // but handle it just in case
                 name = FileCommon.LookupStripArc( name );
             }
         }
-        if( ! name.contains( "(CL)" ) |! name.contains( "(IS)" ) ) {
+        if( ! name.contains( "(CL)" ) && ! name.contains( "(IS)" ) ) {
             // old style save file or an item that can be used by both techbases
             // we'll need to check.
             if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
@@ -1180,6 +1229,7 @@ public class CVReader {
         if( type.equals( "energy" ) ) {
             boolean ppccap = false;
             boolean insulated = false;
+            boolean pulsemodule = false;
             if( name.contains( " + PPC Capacitor" ) ) {
                 name = name.substring( 0, name.length() - 16 );
                 ppccap = true;
@@ -1192,6 +1242,10 @@ public class CVReader {
                 name = name.substring( 0, name.length() - 12 );
                 insulated = true;
             }
+            if( name.contains(" + Pulse Module")) {
+                name = name.replace(" + Pulse Module", "");
+                pulsemodule = true;
+            }
             if( name.contains( "Variable Speed Laser" ) ) {
                 name = name.replace( "Variable Speed Laser", "Variable Speed Pulse Laser" );
             }
@@ -1203,6 +1257,7 @@ public class CVReader {
             if( retval != null ) {
                 ((RangedWeapon) retval).UseCapacitor( ppccap );
                 ((RangedWeapon) retval).UseInsulator( insulated );
+                ((RangedWeapon) retval).UsePulseModule( pulsemodule);
             }
         } else if( type.equals( "ballistic" ) ) {
             boolean caseless = false;
@@ -1289,6 +1344,7 @@ public class CVReader {
                 retval.MountRear( true );
             }
         } catch( Exception e ) {
+            Messages += e.toString();
             return null;
         }
         return retval;

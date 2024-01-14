@@ -168,7 +168,7 @@ public class BattleForceTools {
         // at least 10 turns.  If not, reduce the damage by 25%.
         if ( w.HasAmmo() && ! w.IsOneShot() )
         {
-            if ( (b.GetAmmoCount( w.GetAmmoIndex() ) / b.GetWeaponCount(w.GetAmmoIndex()) ) < 10 )
+            if ((b.GetWeaponCount(w.GetAmmoIndex()) == 0) || (b.GetAmmoCount( w.GetAmmoIndex() ) / b.GetWeaponCount(w.GetAmmoIndex()) < 10) )
             {
                 retval[BFConstants.BF_SHORT] *= 0.75;
                 retval[BFConstants.BF_MEDIUM] *= 0.75;

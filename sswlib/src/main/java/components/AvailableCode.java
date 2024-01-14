@@ -128,10 +128,10 @@ public class AvailableCode {
         IS_SW = isSW;
         IS_CI = isCI;
         IS_DA = isDA;
-        CL_TechRating = istech;
-        CL_SL = isSL;
-        CL_SW = isSW;
-        CL_CI = isCI;
+        CL_TechRating = cltech;
+        CL_SL = clSL;
+        CL_SW = clSW;
+        CL_CI = clCI;
         CL_DA = clDA;
     }
 

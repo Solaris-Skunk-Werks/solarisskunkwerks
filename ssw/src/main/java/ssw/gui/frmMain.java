@@ -49,6 +49,7 @@ import visitors.VSetArmorTonnage;
 import visitors.ifVisitor;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -457,6 +458,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbEngineType.setSelectedItem( SSWConstants.DEFAULT_ENGINE );
         cmbGyroType.setSelectedItem( SSWConstants.DEFAULT_GYRO );
         cmbCockpitType.setSelectedItem( SSWConstants.DEFAULT_COCKPIT );
+        chkCommandConsole.setSelected( false );
         cmbPhysEnhance.setSelectedItem( SSWConstants.DEFAULT_ENHANCEMENT );
         cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
         cmbJumpJetType.setSelectedItem( SSWConstants.DEFAULT_JUMPJET );
@@ -480,7 +482,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public Object getValueAt( int row, int col ) {
                 Object o = CurMech.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
@@ -1556,6 +1558,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         
         try {
             CurMech.Visit( v );
+
+            if (!CurMech.GetCockpit().CanArmor())
+                CurMech.GetCockpit().ArmorComponent(false);
+
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
@@ -2012,15 +2018,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // now let's ensure that all the omni controls are enabled or disabled
         // as appropriate
-        if( chkOmnimech.isEnabled() ) {
-            if( chkOmnimech.isSelected() ) {
-                btnLockChassis.setEnabled( true );
-            } else {
-                btnLockChassis.setEnabled( false );
-            }
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmnimech.isEnabled() && chkOmnimech.isSelected() );
     }
 
     private void SaveOmniFluffInfo() {
@@ -2033,23 +2031,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 CurMech.SetYear( Integer.parseInt( txtProdYear.getText() ), chkYearRestrict.isSelected() );
             } catch( Exception e ) {
                 // nothing really to be done, set it to a default.
-                switch( cmbMechEra.getSelectedIndex() ) {
-                    case AvailableCode.ERA_STAR_LEAGUE:
-                        CurMech.SetYear( 2750, false );
-                        break;
-                    case AvailableCode.ERA_SUCCESSION:
-                        CurMech.SetYear( 3025, false );
-                        break;
-                    case AvailableCode.ERA_CLAN_INVASION:
-                        CurMech.SetYear( 3070, false );
-                        break;
-                    case AvailableCode.ERA_DARK_AGES:
-                        CurMech.SetYear( 3132, false );
-                        break;
-                    case AvailableCode.ERA_ALL:
-                        CurMech.SetYear( 0, false );
-                        break;
-                }
+                CurMech.SetYear( CommonTools.GetEraDefaultYear( cmbMechEra.getSelectedIndex() ), false );
             }
         }
     }
@@ -2059,7 +2041,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbMechEra.setSelectedIndex( CurMech.GetEra() );
         cmbProductionEra.setSelectedIndex( CurMech.GetProductionEra() );
         txtSource.setText( CurMech.GetSource() );
-        txtProdYear.setText( "" + CurMech.GetYear() );
+        txtProdYear.setText( CurMech.YearWasSpecified() ? "" + CurMech.GetYear() : "" );
         BuildTechBaseSelector();
     }
 
@@ -2181,7 +2163,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             txtInfoTonnage.setText( "Tons: " + CurMech.GetCurrentTons() );
             txtInfoFreeTons.setText( "Free Tons: " + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
         }
-        txtInfoMaxHeat.setText( "Max Heat: " + CurMech.GetMaxHeat() );
+        txtInfoMaxHeat.setText( "Max Heat: " + String.format( "%1$,.1f", CurMech.GetMaxHeat() ) );
         txtInfoHeatDiss.setText( "Heat Dissipation: " + CurMech.GetHeatSinks().TotalDissipation() );
         txtInfoFreeCrits.setText( "Free Crits: " + CurMech.GetLoadout().FreeCrits() );
         txtInfoUnplaced.setText( "Unplaced Crits: " + CurMech.GetLoadout().UnplacedCrits() );
@@ -2648,23 +2630,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.SetEra( cmbMechEra.getSelectedIndex() );
         CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
         CurMech.SetRulesLevel( cmbRulesLevel.getSelectedIndex() );
-        switch( CurMech.GetEra() ) {
-        case AvailableCode.ERA_STAR_LEAGUE:
-            CurMech.SetYear( 2750, false );
-            break;
-        case AvailableCode.ERA_SUCCESSION:
-            CurMech.SetYear( 3025, false );
-            break;
-        case AvailableCode.ERA_CLAN_INVASION:
-            CurMech.SetYear( 3070, false );
-            break;
-        case AvailableCode.ERA_DARK_AGES:
-            CurMech.SetYear( 3130, false );
-            break;
-        case AvailableCode.ERA_ALL:
-            CurMech.SetYear( 0, false );
-            break;
-        }
+        CurMech.SetYear( CommonTools.GetEraDefaultYear( CurMech.GetEra() ), false );
         BuildTechBaseSelector();
         cmbTechBase.setSelectedItem( Prefs.get( "NewMech_Techbase", "Inner Sphere" ) );
         switch( cmbTechBase.getSelectedIndex() ) {
@@ -2709,6 +2675,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbEngineType.setSelectedItem( SSWConstants.DEFAULT_ENGINE );
         cmbGyroType.setSelectedItem( SSWConstants.DEFAULT_GYRO );
         cmbCockpitType.setSelectedItem( SSWConstants.DEFAULT_COCKPIT );
+        chkCommandConsole.setSelected( false );
         cmbPhysEnhance.setSelectedItem( SSWConstants.DEFAULT_ENHANCEMENT );
         cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
         cmbJumpJetType.setSelectedItem( SSWConstants.DEFAULT_JUMPJET );
@@ -2776,7 +2743,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public Object getValueAt( int row, int col ) {
                 Object o = CurMech.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
@@ -3162,23 +3129,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void SolidifyMech() {
         // sets some of the basic mech information normally kept in the BFB.GUI and
         // prepares the mech for saving to file
-        int year = 0;
+        int year;
         CurMech.SetName( txtMechName.getText() );
         CurMech.SetModel( txtMechModel.getText() );
         if( txtProdYear.getText().isEmpty() ) {
-            switch( cmbMechEra.getSelectedIndex() ) {
-            case AvailableCode.ERA_STAR_LEAGUE:
-                CurMech.SetYear( 2750, false );
-                break;
-            case AvailableCode.ERA_SUCCESSION:
-                CurMech.SetYear( 3025, false );
-                break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                CurMech.SetYear( 3070, false );
-                break;
-            case AvailableCode.ERA_DARK_AGES:
-                CurMech.SetYear( 3132, false );
-                break;
+            year = CommonTools.GetEraDefaultYear( cmbMechEra.getSelectedIndex() );
+            if( year != 0 ) {
+                CurMech.SetYear( year, false );
+                txtProdYear.setText( "" + year );
             }
         } else {
             try{
@@ -3242,7 +3200,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void LockGUIForOmni() {
         // this locks most of the BFB.GUI controls.  Used mainly by Omnimechs.
-        chkOmnimech.setSelected( true );
         chkOmnimech.setEnabled( false );
         mnuUnlock.setEnabled( true );
         cmbTonnage.setEnabled( false );
@@ -3358,7 +3315,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void UnlockGUIFromOmni() {
         // this should be used anytime a new mech is made or when unlocking
         // an omnimech.
-        chkOmnimech.setSelected( false );
         chkOmnimech.setEnabled( true );
         mnuUnlock.setEnabled( false );
         cmbTonnage.setEnabled( true );
@@ -3388,7 +3344,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnEfficientArmor.setEnabled( true );
         btnBalanceArmor.setEnabled( true );
         cmbJumpJetType.setEnabled( true );
-        btnLockChassis.setEnabled( true );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
@@ -3406,9 +3361,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkHDTurret.setEnabled( true );
         chkLTTurret.setEnabled( true );
         chkRTTurret.setEnabled( true );
-        chkOmnimech.setSelected( false );
-        chkOmnimech.setEnabled( true );
-        btnLockChassis.setEnabled( false );
+        btnLockChassis.setEnabled( chkOmnimech.isSelected() );
         spnWalkMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
         chkNullSig.setEnabled( true );
@@ -3537,6 +3490,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void ConfigureUtilsMenu( java.awt.Component c ) {
         // configures the utilities popup menu
+        boolean rear = LegalRearMount( CurItem );
         boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
@@ -3545,11 +3499,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
         boolean dumper = LegalDumper( CurItem );
-        mnuArmorComponent.setEnabled( armor );
-        mnuAddCapacitor.setEnabled( cap );
-        mnuAddInsulator.setEnabled( insul );
-        mnuAddPulseModule.setEnabled(pulseModule);
-        mnuCaseless.setEnabled( caseless );
+        mnuMountRear.setVisible( rear );
         mnuArmorComponent.setVisible( armor );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
@@ -3558,6 +3508,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
         mnuDumper.setVisible( dumper );
+        if( rear ) {
+            if( CurItem.IsMountedRear() ) {
+                mnuMountRear.setText( "Unmount Rear " );
+            } else {
+                mnuMountRear.setText( "Mount Rear " );
+            }
+        }
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
@@ -3565,8 +3522,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuArmorComponent.setText( "Armor Component" );
             }
         }
-        if( turreted && ( CurItem instanceof RangedWeapon ) ) {
-            if( ((RangedWeapon) CurItem).IsTurreted() ) {
+        if( turreted ) {
+            if( CurItem.IsTurreted() ) {
                 mnuTurret.setText( "Remove from Turret" );
             } else {
                 mnuTurret.setText( "Add to Turret");
@@ -3674,22 +3631,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             } else {
                 mnuUnallocateAll.setText( "Unallocate All" );
                 mnuUnallocateAll.setEnabled( false );
-            }
-            if( c == lstHDCrits || c == lstCTCrits || c == lstLTCrits || c == lstRTCrits || c == lstLLCrits || c == lstRLCrits || ( CurMech.IsQuad() && (c == lstRACrits || c == lstLACrits))) {
-                if( CurItem.CanMountRear() ) {
-                    mnuMountRear.setEnabled( true );
-                    if( CurItem.IsMountedRear() ) {
-                        mnuMountRear.setText( "Unmount Rear " );
-                    } else {
-                        mnuMountRear.setText( "Mount Rear " );
-                    }
-                } else {
-                    mnuMountRear.setEnabled( false );
-                    mnuMountRear.setText( "Mount Rear " );
-                }
-            } else {
-                mnuMountRear.setEnabled( false );
-                mnuMountRear.setText( "Mount Rear " );
             }
             if( CurItem.Contiguous() ) {
                 EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
@@ -3862,57 +3803,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void TurretMount() {
-        if( CurItem instanceof RangedWeapon ) {
-            RangedWeapon w = (RangedWeapon) CurItem;
+        if( CurItem.IsTurreted() ) {
+            CurItem.MountTurret( null );
+        } else {
             int location = CurMech.GetLoadout().Find( CurItem );
-            if( w.IsTurreted() ) {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot remove from turret!" );
-                    return;
-                }
+            if( location == LocationIndex.MECH_LOC_HD ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetHDTurret() );
+            } else if( location == LocationIndex.MECH_LOC_LT ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetLTTurret() );
+            } else if( location == LocationIndex.MECH_LOC_RT ) {
+                CurItem.MountTurret( CurMech.GetLoadout().GetRTTurret() );
             } else {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot add to turret!" );
-                    return;
-                }
-            }
-        } else if( CurItem instanceof MGArray ) {
-            MGArray w = (MGArray) CurItem;
-            int location = CurMech.GetLoadout().Find( CurItem );
-            if( w.IsTurreted() ) {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot remove from turret!" );
-                    return;
-                }
-            } else {
-                if( location == LocationIndex.MECH_LOC_HD ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
-                } else if( location == LocationIndex.MECH_LOC_LT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
-                } else if( location == LocationIndex.MECH_LOC_RT ) {
-                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
-                } else {
-                    Media.Messager( this, "Cannot add to turret!" );
-                    return;
-                }
+                Media.Messager( this, "Invalid turret location!" );
+                return;
             }
         }
         RefreshInfoPane();
@@ -4048,6 +3951,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
     }
 
+    public boolean LegalRearMount( abPlaceable p ) {
+        switch( CurMech.GetLoadout().Find( p ) ) {
+            case LocationIndex.MECH_LOC_HD:
+            case LocationIndex.MECH_LOC_CT:
+            case LocationIndex.MECH_LOC_LT:
+            case LocationIndex.MECH_LOC_RT:
+            case LocationIndex.MECH_LOC_LL:
+            case LocationIndex.MECH_LOC_RL:
+                return CurItem.CanMountRear();
+            case LocationIndex.MECH_LOC_LA:
+            case LocationIndex.MECH_LOC_RA:
+                return CurMech.IsQuad() && CurItem.CanMountRear();
+            default:
+                return false;
+        }
+    }
+
     public boolean LegalArmoring( abPlaceable p ) {
         // This tells us whether it is legal to armor a particular component
         if( p.CanArmor() ) {
@@ -4103,7 +4023,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     public boolean LegalTurretMount( abPlaceable p ) {
-        if( ! (( p instanceof RangedWeapon ) || ( p instanceof MGArray )) ) { return false; }
+        if( ! p.CanMountTurret() ) { return false; }
         int location = CurMech.GetLoadout().Find( p );
         if( location == LocationIndex.MECH_LOC_HD ) {
             if( CurMech.IsOmnimech() ) {
@@ -4978,41 +4898,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblPWRLLoc = new javax.swing.JLabel();
         pnlEquipment = new javax.swing.JPanel();
         tbpWeaponChooser = new javax.swing.JTabbedPane();
-        pnlBallistic = new javax.swing.JPanel();
-        jSeparator3 = new javax.swing.JSeparator();
-        jScrollPane8 = new javax.swing.JScrollPane();
         lstChooseBallistic = new javax.swing.JList();
-        jSeparator4 = new javax.swing.JSeparator();
-        pnlEnergy = new javax.swing.JPanel();
-        jSeparator2 = new javax.swing.JSeparator();
-        jScrollPane9 = new javax.swing.JScrollPane();
         lstChooseEnergy = new javax.swing.JList();
-        jSeparator1 = new javax.swing.JSeparator();
-        pnlMissile = new javax.swing.JPanel();
-        jSeparator5 = new javax.swing.JSeparator();
-        jScrollPane19 = new javax.swing.JScrollPane();
         lstChooseMissile = new javax.swing.JList();
-        jSeparator6 = new javax.swing.JSeparator();
-        pnlPhysical = new javax.swing.JPanel();
-        jSeparator8 = new javax.swing.JSeparator();
-        jScrollPane20 = new javax.swing.JScrollPane();
         lstChoosePhysical = new javax.swing.JList();
-        jSeparator7 = new javax.swing.JSeparator();
-        pnlEquipmentChooser = new javax.swing.JPanel();
-        jSeparator10 = new javax.swing.JSeparator();
-        jScrollPane21 = new javax.swing.JScrollPane();
         lstChooseEquipment = new javax.swing.JList();
-        jSeparator9 = new javax.swing.JSeparator();
-        pnlArtillery = new javax.swing.JPanel();
-        jSeparator18 = new javax.swing.JSeparator();
-        jScrollPane24 = new javax.swing.JScrollPane();
         lstChooseArtillery = new javax.swing.JList();
-        jSeparator19 = new javax.swing.JSeparator();
-        pnlAmmunition = new javax.swing.JPanel();
-        jSeparator11 = new javax.swing.JSeparator();
-        jScrollPane22 = new javax.swing.JScrollPane();
         lstChooseAmmunition = new javax.swing.JList();
-        jSeparator12 = new javax.swing.JSeparator();
         pnlSpecials = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         chkUseTC = new javax.swing.JCheckBox();
@@ -5021,7 +4913,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkFCSApollo = new javax.swing.JCheckBox();
         chkClanCASE = new javax.swing.JCheckBox();
         pnlSelected = new javax.swing.JPanel();
-        jScrollPane23 = new javax.swing.JScrollPane();
+        scrSelectedEquip = new javax.swing.JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
         pnlControls = new javax.swing.JPanel();
         btnRemoveEquip = new javax.swing.JButton();
@@ -5117,7 +5009,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRLCrits = new javax.swing.JList();
         chkRLCASE2 = new javax.swing.JCheckBox();
         pnlEquipmentToPlace = new javax.swing.JPanel();
-        jScrollPane18 = new javax.swing.JScrollPane();
+        scrEquipToPlace = new javax.swing.JScrollPane();
         lstCritsToPlace = new javax.swing.JList();
         btnRemoveItemCrits = new javax.swing.JButton();
         onlLoadoutControls = new javax.swing.JPanel();
@@ -5697,7 +5589,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlBasicInformation.add(jSeparator28, new java.awt.GridBagConstraints());
         pnlBasicInformation.add(jSeparator29, new java.awt.GridBagConstraints());
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages", "ilClan" }));
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
@@ -7625,339 +7517,32 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlEquipment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        //region Equipment Tab / Weapons and Equipment Lists
+        AbstractListModel placeholder = new AbstractListModel() {
+            String[] strings = { "Placeholder" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        };
+
+        MouseListener mlAddEquip = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    btnAddEquipActionPerformed( null );
+                }
+            }
+        };
+
         tbpWeaponChooser.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
         tbpWeaponChooser.setMaximumSize(new java.awt.Dimension(300, 300));
         tbpWeaponChooser.setMinimumSize(new java.awt.Dimension(300, 300));
         tbpWeaponChooser.setPreferredSize(new java.awt.Dimension(300, 300));
-
-        pnlBallistic.setLayout(new javax.swing.BoxLayout(pnlBallistic, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator3.setAlignmentX(0.0F);
-        jSeparator3.setAlignmentY(0.0F);
-        pnlBallistic.add(jSeparator3);
-
-        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane8.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane8.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane8.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseBallistic.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseBallistic.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseBallistic.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseBallistic.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseBallistic.setVisibleRowCount(16);
-        lstChooseBallistic.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseBallisticValueChanged(evt);
-            }
-        });
-        MouseListener mlBallistic = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseBallistic.addMouseListener( mlBallistic );
-        lstChooseBallistic.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
-        jScrollPane8.setViewportView(lstChooseBallistic);
-
-        pnlBallistic.add(jScrollPane8);
-
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator4.setAlignmentX(0.0F);
-        jSeparator4.setAlignmentY(0.0F);
-        pnlBallistic.add(jSeparator4);
-
-        tbpWeaponChooser.addTab("Ballistic", pnlBallistic);
-
-        pnlEnergy.setLayout(new javax.swing.BoxLayout(pnlEnergy, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator2.setAlignmentX(0.0F);
-        jSeparator2.setAlignmentY(0.0F);
-        pnlEnergy.add(jSeparator2);
-
-        jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane9.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane9.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane9.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane9.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseEnergy.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseEnergy.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEnergy.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseEnergy.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEnergy.setVisibleRowCount(16);
-        lstChooseEnergy.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseEnergyValueChanged(evt);
-            }
-        });
-        MouseListener mlEnergy = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseEnergy.addMouseListener( mlEnergy );
-        lstChooseEnergy.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
-        jScrollPane9.setViewportView(lstChooseEnergy);
-
-        pnlEnergy.add(jScrollPane9);
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator1.setAlignmentX(0.0F);
-        jSeparator1.setAlignmentY(0.0F);
-        pnlEnergy.add(jSeparator1);
-
-        tbpWeaponChooser.addTab("Energy", pnlEnergy);
-
-        pnlMissile.setLayout(new javax.swing.BoxLayout(pnlMissile, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator5.setAlignmentX(0.0F);
-        jSeparator5.setAlignmentY(0.0F);
-        pnlMissile.add(jSeparator5);
-
-        jScrollPane19.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane19.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane19.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane19.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane19.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseMissile.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseMissile.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseMissile.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseMissile.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseMissile.setVisibleRowCount(16);
-        lstChooseMissile.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseMissileValueChanged(evt);
-            }
-        });
-        MouseListener mlMissile = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseMissile.addMouseListener( mlMissile );
-        lstChooseMissile.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
-        jScrollPane19.setViewportView(lstChooseMissile);
-
-        pnlMissile.add(jScrollPane19);
-
-        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator6.setAlignmentX(0.0F);
-        jSeparator6.setAlignmentY(0.0F);
-        pnlMissile.add(jSeparator6);
-
-        tbpWeaponChooser.addTab("Missile", pnlMissile);
-
-        pnlPhysical.setLayout(new javax.swing.BoxLayout(pnlPhysical, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator8.setAlignmentX(0.0F);
-        jSeparator8.setAlignmentY(0.0F);
-        pnlPhysical.add(jSeparator8);
-
-        jScrollPane20.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane20.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane20.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane20.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane20.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChoosePhysical.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChoosePhysical.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChoosePhysical.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChoosePhysical.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChoosePhysical.setVisibleRowCount(16);
-        lstChoosePhysical.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChoosePhysicalValueChanged(evt);
-            }
-        });
-        MouseListener mlPhysical = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChoosePhysical.addMouseListener( mlPhysical );
-        lstChoosePhysical.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
-        jScrollPane20.setViewportView(lstChoosePhysical);
-
-        pnlPhysical.add(jScrollPane20);
-
-        jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator7.setAlignmentX(0.0F);
-        jSeparator7.setAlignmentY(0.0F);
-        pnlPhysical.add(jSeparator7);
-
-        tbpWeaponChooser.addTab("Physical", pnlPhysical);
-
-        pnlEquipmentChooser.setLayout(new javax.swing.BoxLayout(pnlEquipmentChooser, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator10.setAlignmentX(0.0F);
-        jSeparator10.setAlignmentY(0.0F);
-        pnlEquipmentChooser.add(jSeparator10);
-
-        jScrollPane21.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane21.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane21.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane21.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane21.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseEquipment.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEquipment.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseEquipment.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEquipment.setVisibleRowCount(16);
-        lstChooseEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseEquipmentValueChanged(evt);
-            }
-        });
-        MouseListener mlEquipment = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseEquipment.addMouseListener( mlEquipment );
-        lstChooseEquipment.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
-        jScrollPane21.setViewportView(lstChooseEquipment);
-
-        pnlEquipmentChooser.add(jScrollPane21);
-
-        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator9.setAlignmentX(0.0F);
-        jSeparator9.setAlignmentY(0.0F);
-        pnlEquipmentChooser.add(jSeparator9);
-
-        tbpWeaponChooser.addTab("Equipment", pnlEquipmentChooser);
-
-        pnlArtillery.setLayout(new javax.swing.BoxLayout(pnlArtillery, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator18.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator18.setAlignmentX(0.0F);
-        jSeparator18.setAlignmentY(0.0F);
-        pnlArtillery.add(jSeparator18);
-
-        jScrollPane24.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane24.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane24.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane24.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane24.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseArtillery.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseArtillery.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseArtillery.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseArtillery.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseArtillery.setVisibleRowCount(16);
-        lstChooseArtillery.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseArtilleryValueChanged(evt);
-            }
-        });
-        MouseListener mlArtillery = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseArtillery.addMouseListener( mlArtillery );
-        lstChooseArtillery.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
-        jScrollPane24.setViewportView(lstChooseArtillery);
-
-        pnlArtillery.add(jScrollPane24);
-
-        jSeparator19.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator19.setAlignmentX(0.0F);
-        jSeparator19.setAlignmentY(0.0F);
-        pnlArtillery.add(jSeparator19);
-
-        tbpWeaponChooser.addTab("Artillery", pnlArtillery);
-
-        pnlAmmunition.setLayout(new javax.swing.BoxLayout(pnlAmmunition, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator11.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator11.setAlignmentX(0.0F);
-        jSeparator11.setAlignmentY(0.0F);
-        pnlAmmunition.add(jSeparator11);
-
-        jScrollPane22.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane22.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane22.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane22.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane22.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseAmmunition.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseAmmunition.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseAmmunition.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseAmmunition.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseAmmunition.setVisibleRowCount(16);
-        lstChooseAmmunition.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseAmmunitionValueChanged(evt);
-            }
-        });
-        MouseListener mlAmmo = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseAmmunition.addMouseListener( mlAmmo );
-        lstChooseAmmunition.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
-        jScrollPane22.setViewportView(lstChooseAmmunition);
-
-        pnlAmmunition.add(jScrollPane22);
-
-        jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator12.setAlignmentX(0.0F);
-        jSeparator12.setAlignmentY(0.0F);
-        pnlAmmunition.add(jSeparator12);
-
-        tbpWeaponChooser.addTab("Ammunition", pnlAmmunition);
+        tbpWeaponChooser.addTab("Ballistic", EquipmentLocation(lstChooseBallistic, this::lstChooseBallisticValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Energy", EquipmentLocation(lstChooseEnergy, this::lstChooseEnergyValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Missile", EquipmentLocation(lstChooseMissile, this::lstChooseMissileValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Physical", EquipmentLocation(lstChoosePhysical, this::lstChoosePhysicalValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Equipment", EquipmentLocation(lstChooseEquipment, this::lstChooseEquipmentValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Artillery", EquipmentLocation(lstChooseArtillery, this::lstChooseArtilleryValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Ammunition", EquipmentLocation(lstChooseAmmunition, this::lstChooseAmmunitionValueChanged, mlAddEquip, placeholder));
 
         pnlEquipment.add(tbpWeaponChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
@@ -8047,11 +7632,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlSelected.setMinimumSize(new java.awt.Dimension(212, 286));
         pnlSelected.setLayout(new javax.swing.BoxLayout(pnlSelected, javax.swing.BoxLayout.LINE_AXIS));
 
-        jScrollPane23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane23.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrSelectedEquip.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrSelectedEquip.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel()
-        );
+        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel() );
         lstSelectedEquipment.setMaximumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setMinimumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setPreferredSize(null);
@@ -8088,9 +7672,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         };
         lstSelectedEquipment.addMouseListener( mlSelect );
         lstSelectedEquipment.setCellRenderer( new ssw.gui.EquipmentSelectedRenderer( this ) );
-        jScrollPane23.setViewportView(lstSelectedEquipment);
+        scrSelectedEquip.setViewportView(lstSelectedEquipment);
 
-        pnlSelected.add(jScrollPane23);
+        pnlSelected.add(scrSelectedEquip);
 
         pnlEquipment.add(pnlSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 20, 230, 300));
 
@@ -9262,7 +8846,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlEquipmentToPlace.setMinimumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setLayout(new javax.swing.BoxLayout(pnlEquipmentToPlace, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrEquipToPlace.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         lstCritsToPlace.setFont( PrintConsts.BaseCritFont );
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
@@ -9332,9 +8916,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 lstCritsToPlaceValueChanged(evt);
             }
         });
-        jScrollPane18.setViewportView(lstCritsToPlace);
+        scrEquipToPlace.setViewportView(lstCritsToPlace);
 
-        pnlEquipmentToPlace.add(jScrollPane18);
+        pnlEquipmentToPlace.add(scrEquipToPlace);
 
         btnRemoveItemCrits.setText("Remove Item");
         btnRemoveItemCrits.setEnabled(false);
@@ -9923,7 +9507,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             tblQuirks.getColumnModel().getColumn(1).setPreferredWidth(5);
         }
 
-        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.setText("Manage Quirks");
         btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddQuirkActionPerformed(evt);
@@ -10311,10 +9895,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtInfoMaxHeat.setEditable(false);
         txtInfoMaxHeat.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoMaxHeat.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtInfoMaxHeat.setText("Max Heat: 000");
-        txtInfoMaxHeat.setMaximumSize(new java.awt.Dimension(77, 20));
-        txtInfoMaxHeat.setMinimumSize(new java.awt.Dimension(77, 20));
-        txtInfoMaxHeat.setPreferredSize(new java.awt.Dimension(77, 20));
+        txtInfoMaxHeat.setText("Max Heat: 00.0");
+        txtInfoMaxHeat.setMaximumSize(new java.awt.Dimension(87, 20));
+        txtInfoMaxHeat.setMinimumSize(new java.awt.Dimension(87, 20));
+        txtInfoMaxHeat.setPreferredSize(new java.awt.Dimension(87, 20));
         pnlInfoPanel.add(txtInfoMaxHeat);
 
         txtInfoHeatDiss.setEditable(false);
@@ -10357,9 +9941,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoCost.setText("Cost: 000,000,000");
-        txtInfoCost.setMaximumSize(new java.awt.Dimension(125, 20));
-        txtInfoCost.setMinimumSize(new java.awt.Dimension(125, 20));
-        txtInfoCost.setPreferredSize(new java.awt.Dimension(125, 20));
+        txtInfoCost.setMaximumSize(new java.awt.Dimension(115, 20));
+        txtInfoCost.setMinimumSize(new java.awt.Dimension(115, 20));
+        txtInfoCost.setPreferredSize(new java.awt.Dimension(115, 20));
         pnlInfoPanel.add(txtInfoCost);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -10655,6 +10239,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private JPanel EquipmentLocation(JList list, ListSelectionListener selection, MouseListener listener, AbstractListModel display) {
+        JPanel panel = new JPanel();
+        list.setModel(display);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.addListSelectionListener(selection);
+        list.addMouseListener( listener );
+        list.setCellRenderer( new EquipmentListRenderer( this ) );
+        JScrollPane pane = new JScrollPane();
+        pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        pane.setViewportView(list);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(pane);
+        return panel;
+    }
+
     private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
         if( CurMech.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
@@ -10807,42 +10407,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         int tbsave = cmbTechBase.getSelectedIndex();
 
         // change the year range and tech base options
-        switch( cmbMechEra.getSelectedIndex() ) {
-            case AvailableCode.ERA_STAR_LEAGUE:
-                lblEraYears.setText( "2443 ~ 2800" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_STAR_LEAGUE );
-                CurMech.SetYear( 2750, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_SUCCESSION:
-                lblEraYears.setText( "2801 ~ 3050" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_SUCCESSION );
-                CurMech.SetYear( 3025, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                lblEraYears.setText( "3051 ~ 3131" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_CLAN_INVASION );
-                CurMech.SetYear( 3075, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_DARK_AGES:
-                lblEraYears.setText( "3132 on" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_DARK_AGES );
-                CurMech.SetYear( 3132, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_ALL:
-                lblEraYears.setText( "Any" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_ALL );
-                CurMech.SetYear( 0, false );
-                chkYearRestrict.setEnabled( false );
-                break;
+        lblEraYears.setText( CommonTools.GetEraYearRange( cmbMechEra.getSelectedIndex() ) );
+        txtProdYear.setText( "" );
+        CurMech.SetEra( cmbMechEra.getSelectedIndex() );
+        if( cmbMechEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+            if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
+        } else {
+            chkYearRestrict.setEnabled( false );
         }
 
         if( CurMech.IsOmnimech() ) {
@@ -12311,8 +11882,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( a != null ) {
             try {
                 CurMech.GetLoadout().CheckExclusions( a );
-                if( a instanceof Equipment ) {
-                    ((Equipment)a).Validate( CurMech );
+                if( a instanceof ifEquipment ) {
+                    ((ifEquipment)a).Validate( CurMech );
                 }
             } catch( Exception e ) {
                 Media.Messager( e.getMessage() );
@@ -12498,7 +12069,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         String filename = "";
-        IO.MTFWriter mtfw = new IO.MTFWriter( CurMech );
+        IO.MTFWriter mtfw = new IO.MTFWriter( CurMech, SSWConstants.AppDescription + " " + SSWConstants.GetVersion() );
         try {
             filename = savemech.getCanonicalPath();
             mtfw.WriteMTF( filename );
@@ -12628,23 +12199,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbTechBase.setEnabled( true );
             txtProdYear.setEnabled( true );
             CurMech.SetYearRestricted( false );
-            switch( cmbMechEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurMech.SetYear( 2750, false );
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurMech.SetYear( 3025, false );
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurMech.SetYear( 3070, false );
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurMech.SetYear( 3132, false );
-                    break;
-                case AvailableCode.ERA_ALL:
-                    CurMech.SetYear( 0, false );
-                    break;
-            }
+            CurMech.SetYear( CommonTools.GetEraDefaultYear( cmbMechEra.getSelectedIndex() ), false );
         } else {
             // ensure we have a good year.
             try{
@@ -12657,47 +12212,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
 
             // ensure the year is between the era years.
-            switch ( cmbMechEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    // Star League era
-                    if( year < 2443 || year > 2800 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    // Succession Wars era
-                    if( year < 2801 || year > 3050 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    // Clan Invasion Era
-                    if( year < 3051 || year > 3131 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    // Clan Invasion Era
-                    if( year < 3132 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_ALL:
-                    // all era
+            if( cmbMechEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+                if( ! CommonTools.IsYearInEra( year, cmbMechEra.getSelectedIndex() ) ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
                     chkYearRestrict.setSelected( false );
-                    chkYearRestrict.setEnabled( false );
+                }
+            } else {
+                chkYearRestrict.setSelected( false );
+                chkYearRestrict.setEnabled( false );
             }
 
             // we know we have a good year, lock it in.
@@ -12835,6 +12358,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             FixWalkMPSpinner();
             FixJJSpinnerModel();
             RefreshEquipment();
+            CheckOmnimech();
 
             // now reset the combo boxes to the closest choices we previously selected
             LoadSelections();
@@ -12906,7 +12430,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // make it an omni
         CurMech.SetOmnimech( VariantName );
-        chkOmnimech.setEnabled( false );
         FixTransferHandlers();
         SetLoadoutArrays();
         FixJJSpinnerModel();
@@ -12920,11 +12443,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnLockChassisActionPerformed
 
     private void chkOmnimechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmnimechActionPerformed
-        if( chkOmnimech.isSelected() ) {
-            btnLockChassis.setEnabled( true );
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmnimech.isSelected() );
     }//GEN-LAST:event_chkOmnimechActionPerformed
 
     private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVariantActionPerformed
@@ -13588,7 +13107,7 @@ public void LoadMechIntoGUI() {
         }
     }
     chkYearRestrict.setSelected( CurMech.IsYearRestricted() );
-    txtProdYear.setText( "" + CurMech.GetYear() );
+    txtProdYear.setText( CurMech.YearWasSpecified() ? "" + CurMech.GetYear() : "" );
     cmbMechEra.setEnabled( true );
     cmbTechBase.setEnabled( true );
     txtProdYear.setEnabled( true );
@@ -13626,6 +13145,7 @@ public void LoadMechIntoGUI() {
     txtMechModel.setText( CurMech.GetModel() );
 
     if( CurMech.IsOmnimech() ) {
+        chkOmnimech.setSelected( true );
         LockGUIForOmni();
         RefreshOmniVariants();
         RefreshOmniChoices();
@@ -13698,20 +13218,20 @@ public void LoadMechIntoGUI() {
     Additional.SetText( CurMech.GetAdditional() );
     quirks = CurMech.GetQuirks();
     tblQuirks.setModel( new tbQuirks(quirks) );
-    txtManufacturer.setText( CurMech.GetCompany() );
-    txtManufacturerLocation.setText( CurMech.GetLocation() );
-    txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
-    txtArmorModel.setText( CurMech.GetArmorModel() );
-    txtChassisModel.setText( CurMech.GetChassisModel() );
+    txtManufacturer.setText( CommonTools.UnknownToEmpty( CurMech.GetCompany() ) );
+    txtManufacturerLocation.setText( CommonTools.UnknownToEmpty( CurMech.GetLocation() ) );
+    txtEngineManufacturer.setText( CommonTools.UnknownToEmpty( CurMech.GetEngineManufacturer() ) );
+    txtArmorModel.setText( CommonTools.UnknownToEmpty( CurMech.GetArmorModel() ) );
+    txtChassisModel.setText( CommonTools.UnknownToEmpty( CurMech.GetChassisModel() ) );
     if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
         txtJJModel.setEnabled( true );
     }
     txtSource.setText( CurMech.GetSource() );
 
     // omnimechs may have jump jets in one loadout and not another.
-    txtJJModel.setText( CurMech.GetJJModel() );
-    txtCommSystem.setText( CurMech.GetCommSystem() );
-    txtTNTSystem.setText( CurMech.GetTandTSystem() );
+    txtJJModel.setText( CommonTools.UnknownToEmpty( CurMech.GetJJModel() ) );
+    txtCommSystem.setText( CommonTools.UnknownToEmpty( CurMech.GetCommSystem() ) );
+    txtTNTSystem.setText( CommonTools.UnknownToEmpty( CurMech.GetTandTSystem() ) );
 
     // see if we should enable the Power Amplifier display
     if( CurMech.GetEngine().IsNuclear() ) {
@@ -14965,12 +14485,13 @@ private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//
     CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
 }//GEN-LAST:event_cmbProductionEraActionPerformed
 
-private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
-    dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
-    qmanage.setLocationRelativeTo(this);
-    qmanage.setVisible(true);
-    tblQuirks.setModel(new tbQuirks(quirks));
-}//GEN-LAST:event_btnAddQuirkActionPerformed
+    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
+        dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
+        qmanage.setLocationRelativeTo(this);
+        qmanage.setVisible(true);
+        tblQuirks.setModel(new tbQuirks(quirks));
+        CurMech.SetQuirks(quirks);
+    }
 
     private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
         try {
@@ -15180,27 +14701,11 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
-    private javax.swing.JScrollPane jScrollPane18;
-    private javax.swing.JScrollPane jScrollPane19;
-    private javax.swing.JScrollPane jScrollPane20;
-    private javax.swing.JScrollPane jScrollPane21;
-    private javax.swing.JScrollPane jScrollPane22;
-    private javax.swing.JScrollPane jScrollPane23;
-    private javax.swing.JScrollPane jScrollPane24;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
     private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator17;
-    private javax.swing.JSeparator jSeparator18;
-    private javax.swing.JSeparator jSeparator19;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JToolBar.Separator jSeparator21;
     private javax.swing.JToolBar.Separator jSeparator22;
@@ -15211,14 +14716,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JSeparator jSeparator27;
     private javax.swing.JSeparator jSeparator28;
     private javax.swing.JSeparator jSeparator29;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator30;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextArea jTextAreaBFConversion;
     private javax.swing.JLabel lblAVInLot;
     private javax.swing.JLabel lblArmorCoverage;
@@ -15396,13 +14894,10 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBoxMenuItem mnuViewToolbar;
     private javax.swing.JPanel onlLoadoutControls;
     private javax.swing.JPanel pnlAdditionalFluff;
-    private javax.swing.JPanel pnlAmmunition;
     private javax.swing.JPanel pnlArmor;
     private javax.swing.JPanel pnlArmorInfo;
     private javax.swing.JPanel pnlArmorSetup;
-    private javax.swing.JPanel pnlArtillery;
     private javax.swing.JPanel pnlBFStats;
-    private javax.swing.JPanel pnlBallistic;
     private javax.swing.JPanel pnlBasicInformation;
     private javax.swing.JPanel pnlBasicSetup;
     private javax.swing.JPanel pnlBasicSummary;
@@ -15417,10 +14912,8 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlCriticals;
     private javax.swing.JPanel pnlDamageChart;
     private javax.swing.JPanel pnlDeployment;
-    private javax.swing.JPanel pnlEnergy;
     private javax.swing.JPanel pnlEquipInfo;
     private javax.swing.JPanel pnlEquipment;
-    private javax.swing.JPanel pnlEquipmentChooser;
     private javax.swing.JPanel pnlEquipmentToPlace;
     private javax.swing.JPanel pnlExport;
     private javax.swing.JPanel pnlFluff;
@@ -15439,13 +14932,11 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlLTCrits;
     private javax.swing.JPanel pnlLTRArmorBox;
     private javax.swing.JPanel pnlManufacturers;
-    private javax.swing.JPanel pnlMissile;
     private javax.swing.JPanel pnlMovement;
     private javax.swing.JPanel pnlNotables;
     private javax.swing.JPanel pnlOmniInfo;
     private javax.swing.JPanel pnlOverview;
     private javax.swing.JPanel pnlPatchworkChoosers;
-    private javax.swing.JPanel pnlPhysical;
     private javax.swing.JPanel pnlQuirks;
     private javax.swing.JPanel pnlRAArmorBox;
     private javax.swing.JPanel pnlRACrits;
@@ -15461,8 +14952,10 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlWeaponsManufacturers;
     private javax.swing.JScrollPane scpQuirkTable;
     private javax.swing.JScrollPane scpWeaponManufacturers;
+    private javax.swing.JScrollPane scrEquipToPlace;
     private javax.swing.JScrollPane scrLACrits;
     private javax.swing.JScrollPane scrRACrits;
+    private javax.swing.JScrollPane scrSelectedEquip;
     private javax.swing.JSpinner spnBoosterMP;
     private javax.swing.JSpinner spnCTArmor;
     private javax.swing.JSpinner spnCTRArmor;

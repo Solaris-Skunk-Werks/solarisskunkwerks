@@ -122,6 +122,7 @@ public class EquipmentFactory {
         Equipment.add( new ModularArmor() );
         Equipment.add( new EquipmentProtoSuccWarsDoubleHeatSink());
         Equipment.add( new EquipmentProtoStarLeagueDoubleHeatSink());
+        Equipment.add( new LiftHoist(m));
         BuildPhysicals( m );
         if (( m.GetUnitType() == AvailableCode.UNIT_BATTLEMECH ) && ( m instanceof Mech) ) {
             PhysicalWeapons.add( new Talons( (Mech) m ) );
@@ -130,6 +131,7 @@ public class EquipmentFactory {
         }
         if ( m instanceof CombatVehicle ) {
             Equipment.add( new Hitch() );
+            Equipment.add( new ArmoredMotiveSystem(((CombatVehicle) m).GetLoadout()));
         }
         BuildMGArrays();
     }
@@ -141,6 +143,10 @@ public class EquipmentFactory {
             retval = new ExtendedFuelTank( (Mech) m );
         } else if( p instanceof DroneOperatingSystem ) {
             retval = new DroneOperatingSystem( (Mech) m );
+        } else if (p instanceof LiftHoist) {
+            retval = new LiftHoist(m);
+        } else if (p instanceof ArmoredMotiveSystem) {
+            retval = new ArmoredMotiveSystem(((CombatVehicle)m).GetLoadout());
         } else if( p instanceof Equipment ) {
             retval = ((Equipment) p).Clone();
         } else if( p instanceof ModularArmor ) {
@@ -558,7 +564,7 @@ public class EquipmentFactory {
         a.SetCLFactions( "", "", "CSF", "" );
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
-        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // MGA light machine gun
         addBW = GetRangedWeaponByName( "(IS) Light Machine Gun", null );
@@ -611,7 +617,7 @@ public class EquipmentFactory {
         a.SetCLFactions( "--", "--", "CDS", "--" );
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
-        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // LMGA light machine gun
         addBW = GetRangedWeaponByName( "(CL) Light Machine Gun", null );

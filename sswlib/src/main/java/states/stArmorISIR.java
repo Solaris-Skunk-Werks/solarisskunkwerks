@@ -45,7 +45,7 @@ public class stArmorISIR implements ifArmor, ifState {
         /*AC.SetCLCodes( 'E', 'X', 'X', 'X', 'E' );
         AC.SetCLDates( 0, 0, false, 3126, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );*/
-        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         AC.SetPBMAllowed(true);
     }
 

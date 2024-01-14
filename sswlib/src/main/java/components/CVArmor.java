@@ -41,7 +41,8 @@ public class CVArmor extends abPlaceable {
 
     // Declares
     private CombatVehicle Owner;
-    private int[] ArmorPoints = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    private int Placed = 0;
+    private int[] ArmorPoints = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     private int[] MaxArmor = { 390, 390, 390, 390, 390, 390, 2, 390 };
     private ifArmor Industrial = new stArmorIN(),
                     Standard = new stArmorMS(),
@@ -1000,7 +1001,7 @@ public class CVArmor extends abPlaceable {
 
     @Override
     public double GetCost() {
-        if( Owner.GetYear() < 2450 ) {
+        if( Owner.YearWasSpecified() && Owner.GetYear() < 2450 ) {
             return GetTonnage() * Config.GetCostMult() * 2.0;
         } else {
             return GetTonnage() * Config.GetCostMult();
@@ -1029,7 +1030,9 @@ public class CVArmor extends abPlaceable {
     }
 
     @Override
-    public void ResetPlaced() { return; }
+    public void ResetPlaced() {
+        Placed = 0;
+    }
 
     @Override
     public boolean Contiguous() {
@@ -1068,6 +1071,17 @@ public class CVArmor extends abPlaceable {
 
     @Override
     public String toString() {
+		if( Config.NumCrits() > 0 ) {
+            if( Config.NumCrits() > Placed ) {
+                if( Config.IsStealth() ) {
+                    return Config.CritName();
+                } else {
+                    return Config.CritName() + " (" + ( Config.NumCrits() - Placed ) + ")";
+                }
+            } else {
+                return Config.CritName();
+            }
+        }
         return Config.CritName();
     }
 

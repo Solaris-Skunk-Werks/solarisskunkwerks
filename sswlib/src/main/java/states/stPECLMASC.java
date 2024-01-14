@@ -47,11 +47,11 @@ public class stPECLMASC implements ifPhysEnhance, ifState {
     }
 
     public int GetTonnage( int mechtons ) {
-        return (int) (mechtons * 0.04f + 0.51f);
+        return (int) Math.max((mechtons * 0.04f + 0.51f), 1);
     }
     
     public int GetCrits( int mechtons ) {
-        return (int) (mechtons * 0.04f + 0.51f);
+        return (int) Math.max((mechtons * 0.04f + 0.51f), 1);
     }
 
     public String ActualName() {

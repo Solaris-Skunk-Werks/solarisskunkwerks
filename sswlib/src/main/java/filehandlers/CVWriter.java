@@ -32,6 +32,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import common.*;
 import battleforce.BattleForceStats;
@@ -51,16 +52,24 @@ public class CVWriter {
     }
 
     public void WriteXML( String filename ) throws IOException {
-        //BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
-        BufferedWriter FR = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( filename ), "UTF-8" ) );
+        StringWriter stringWriter = new StringWriter();
+        BufferedWriter FR = new BufferedWriter( stringWriter );
 
         // beginning of an XML file:
         FR.write( "<?xml version=\"1.0\" encoding =\"UTF-8\"?>" );
         FR.newLine();
 
-        WriteXML(FR);
+        try {
+            WriteXML(FR);
+        } catch ( RuntimeException e ) {
+            throw new IOException( e );
+        }
 
         FR.close();
+
+        try( OutputStreamWriter writer = new OutputStreamWriter( new FileOutputStream( filename ), "UTF-8" ) ) {
+            writer.write(stringWriter.toString());
+        }
     }
 
     public void WriteXML( BufferedWriter FR ) throws IOException {
@@ -165,7 +174,14 @@ public class CVWriter {
         if( CurUnit.IsOmni() ) {
             CurUnit.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
         }
-        FR.write( tab + "<baseloadout fcsa4=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisIV() ) + "\" fcsa5=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisV() ) + "\" fcsapollo=\"" + FileCommon.GetBoolean( CurUnit.UsingApollo() ) + "\" turretlimit=\"" + CurUnit.GetBaseLoadout().GetTurret().GetMaxTonnage() + "\" >" );
+        FR.write( tab + "<baseloadout fcsa4=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisIV() ) + "\" fcsa5=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisV() ) + "\" fcsapollo=\"" + FileCommon.GetBoolean( CurUnit.UsingApollo() ) + "\"");
+        if( CurUnit.GetLoadout().GetTurret().isTonnageSet() ) {
+            FR.write( " turretlimit=\"" + CurUnit.GetLoadout().GetTurret().GetMaxTonnage() + "\"");
+        }
+        if( CurUnit.GetLoadout().GetRearTurret().isTonnageSet() ) {
+            FR.write( " rearturretlimit=\"" + CurUnit.GetLoadout().GetRearTurret().GetMaxTonnage() + "\"" );
+        }
+        FR.write( ">" );
         FR.newLine();
 
         FR.write( tab + tab + "<source>" + FileCommon.EncodeFluff( CurUnit.getSource() ) + "</source>" );
@@ -173,6 +189,9 @@ public class CVWriter {
 
         // chat information
         FR.write( tab + tab + "<info>" + CurUnit.GetChatInfo() + "</info>" );
+        FR.newLine();
+
+        FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
         FR.newLine();
 
         BattleForceStats stat = new BattleForceStats(CurUnit);
@@ -243,8 +262,8 @@ public class CVWriter {
                 FR.newLine();
                 FR.write( tab + tab + "<cost>" + CurUnit.GetTotalCost() + "</cost>" );
                 FR.newLine();
-                //FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
-                //FR.newLine();
+                FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
+                FR.newLine();
                 if( CurUnit.GetJumpJets().GetNumJJ() > CurUnit.GetJumpJets().GetBaseLoadoutNumJJ() ) {
                     FR.write( tab + tab + "<jumpjets number=\"" + CurUnit.GetJumpJets().GetNumJJ() + "\">" );
                     FR.newLine();
@@ -263,7 +282,7 @@ public class CVWriter {
                     FR.newLine();
                 }
                 FR.write( GetEquipmentLines( tab + tab ) );
-                if( CurUnit.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+                if( CurUnit.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
                     // check for armored components
                     FR.write( GetArmoredLocations( tab + tab ) );
                 }
@@ -289,6 +308,32 @@ public class CVWriter {
         FR.newLine();
         FR.write( tab + tab + "<additional>" + FileCommon.EncodeFluff( CurUnit.GetAdditional() ) + "</additional>" );
         FR.newLine();
+        if (CurUnit.GetQuirks().size() > 0)
+        {
+            FR.write(tab + tab + "<quirks>");
+            FR.newLine();
+            for (Quirk quirk : CurUnit.GetQuirks())
+            {
+                FR.write(tab + tab + tab + "<quirk postive=\"" + Boolean.toString(quirk.isPositive())+"\" battlemech=\"" + Boolean.toString(quirk.isBattlemech()) +
+                        "\" industrialmech=\"" + Boolean.toString(quirk.isIndustrialmech()) + "\" combatvehicle=\"" + Boolean.toString(quirk.isCombatvehicle()) +
+                        "\" battlearmor=\"" + Boolean.toString(quirk.isBattlearmor()) + "\" aerospacefighter=\"" + Boolean.toString(quirk.isAerospacefighter()) +
+                        "\" conventionalfigher=\"" + Boolean.toString(quirk.isConventionalfighter()) + "\" dropship=\"" + Boolean.toString(quirk.isDropship()) +
+                        "\" jumpship=\"" + Boolean.toString(quirk.isDropship()) + "\" warship=\"" + Boolean.toString(quirk.isWarship()) +
+                        "\" spacestation=\"" + Boolean.toString(quirk.isSpacestation()) + "\" protomech=\"" + Boolean.toString(quirk.isProtomech())
+                        + "\" isvariable=\"" + Boolean.toString(quirk.isVariable()) + "\">");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Name>" + FileCommon.EncodeFluff(quirk.getName()) + "</Name>");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Cost>" + quirk.getCost() + "</Cost>");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Description>" + FileCommon.EncodeFluff(quirk.getDescription()) + "</Description>");
+                FR.newLine();
+                FR.write(tab + tab + tab + "</quirk>");
+                FR.newLine();
+            }
+            FR.write(tab + tab + "</quirks>");
+            FR.newLine();
+        }
         FR.write( tab + tab + "<jumpjet_model>" + FileCommon.EncodeFluff( CurUnit.GetJJModel() ) + "</jumpjet_model>" );
         FR.newLine();
         FR.write( tab + tab + "<commsystem>" + FileCommon.EncodeFluff( CurUnit.GetCommSystem() ) + "</commsystem>" );
@@ -407,6 +452,9 @@ public class CVWriter {
                     retval += prefix + tab + "<vglammo>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglammo>" + NL;
                 }
                 if( p instanceof Equipment ) {
+                    if (CurUnit.GetTechbase() != ((Equipment)p).GetCurrentTech()) {
+                        retval += prefix + tab + "<techbase>" + CommonTools.GetTechbaseString(((Equipment)p).GetCurrentTech()) + "</techbase>" + NL;
+                    }
                     if( ((Equipment) p).IsVariableSize() ) {
                         retval += prefix + tab + "<tons>" + ((Equipment)p).GetTonnage(false) + "</tons>" + NL;
                     }
@@ -430,14 +478,14 @@ public class CVWriter {
             retval += prefix + "</equipment>" + NL;
         }
         */
-        if( CurUnit.GetLoadout().HasSupercharger() ) {
-            abPlaceable p = (abPlaceable) CurUnit.GetLoadout().GetSupercharger();
-            retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">Supercharger</name>" + NL;
-            retval += prefix + tab + "<type>Supercharger</type>" + NL;
-            retval += GetLocationLines( prefix + tab, p );
-            retval += prefix + "</equipment>" + NL;
-        }
+//        if( CurUnit.GetLoadout().HasSupercharger() ) {
+//            abPlaceable p = (abPlaceable) CurUnit.GetLoadout().GetSupercharger();
+//            retval += prefix + "<equipment>" + NL;
+//            retval += prefix + tab + "<name manufacturer=\"\">Supercharger</name>" + NL;
+//            retval += prefix + tab + "<type>Supercharger</type>" + NL;
+//            retval += GetLocationLines( prefix + tab, p );
+//            retval += prefix + "</equipment>" + NL;
+//        }
         return retval;
     }
 
@@ -462,13 +510,11 @@ public class CVWriter {
         } else if( p instanceof PhysicalWeapon ) {
             return "physical";
         } else if( p instanceof Equipment ) {
-            return "equipment";
+            return ((Equipment)p).GetEquipmentType();
         } else if( p instanceof Ammunition ) {
             return "ammunition";
         } else if( p instanceof TargetingComputer ) {
             return "TargetingComputer";
-        } else if ( p instanceof CASE ) {
-            return "CASE";
         } else {
             return "miscellaneous";
         }

@@ -325,6 +325,12 @@ public class Ammunition extends abPlaceable {
         return false;
     }
 
+    @Override
+    public boolean CanMountTurret() {
+        // Ammunition can never be mounted in a turret
+        return false;
+    }
+
     public Ammunition Clone() {
         return new Ammunition( this );
     }

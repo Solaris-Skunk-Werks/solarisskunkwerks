@@ -183,6 +183,7 @@ public class thRTTransferHandler extends TransferHandler {
 
         LocationDragDatagram DropItem = null;
         boolean rear = false;
+        boolean turreted = false;
         // get the item data
         try {
             DropItem = (LocationDragDatagram) info.getTransferable().getTransferData( new DataFlavor( LocationDragDatagram.class, "Location Drag Datagram" ) );
@@ -204,6 +205,7 @@ public class thRTTransferHandler extends TransferHandler {
             // from another location
             a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
             rear = a.IsMountedRear();
+            turreted = a.IsTurreted();
             if( a.CanSplit() && a.Contiguous() ) {
                 // find all locations before unallocating
                 v = CurMech.GetLoadout().FindSplitIndex( a );
@@ -269,6 +271,9 @@ public class thRTTransferHandler extends TransferHandler {
             CurMech.GetLoadout().RemoveFromQueue( a );
         }
         a.MountRear( rear );
+        if( turreted ) {
+            a.MountTurret( CurMech.GetLoadout().GetRTTurret() );
+        }
         if( a instanceof VehicularGrenadeLauncher ) {
             // reset the arc as it may not be appropriate
             ((VehicularGrenadeLauncher ) a).SetArcFore();

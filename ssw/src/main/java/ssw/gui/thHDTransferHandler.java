@@ -129,6 +129,7 @@ public class thHDTransferHandler extends TransferHandler {
 
         LocationDragDatagram DropItem = null;
         boolean rear = false;
+        boolean turreted = false;
         // get the item data
         try {
             DropItem = (LocationDragDatagram) info.getTransferable().getTransferData( new DataFlavor( LocationDragDatagram.class, "Location Drag Datagram" ) );
@@ -149,6 +150,7 @@ public class thHDTransferHandler extends TransferHandler {
             // from another location
             a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
             rear = a.IsMountedRear();
+            turreted = a.IsTurreted();
             if( a.CanSplit() && a.Contiguous() ) {
                 CurMech.GetLoadout().UnallocateAll( a, false );
             } else {
@@ -170,6 +172,9 @@ public class thHDTransferHandler extends TransferHandler {
             CurMech.GetLoadout().RemoveFromQueue( a );
         }
         a.MountRear( rear );
+        if( turreted ) {
+            a.MountTurret( CurMech.GetLoadout().GetHDTurret() );
+        }
         Parent.RefreshSummary();
         Parent.RefreshInfoPane();
         return true;

@@ -177,6 +177,15 @@ public class Gyro extends abPlaceable {
     }
 
     public double GetDefensiveBV() {
+        //IntOps p.187 "Gyroless ’Mechs: If a ’Mech with a Machina Domini Interface Cockpit is not equipped with a gyro,
+        //treat the unit as if it is equipped with a standard gyro when finding its Defensive Battle Rating."
+        if( CurConfig instanceof stGyroNone) {
+            if(((Mech)Owner).GetCockpit().GetCurrentState() instanceof stCockpitInterface) {
+                Gyro temp = new Gyro((Mech)Owner);
+                temp.SetStandard();
+                return temp.GetDefensiveBV();
+            }
+        }
         if( IsArmored() ) {
             double result = Owner.GetTonnage() * CurConfig.GetBVMult();
             result += result * NumCrits() * 0.05;

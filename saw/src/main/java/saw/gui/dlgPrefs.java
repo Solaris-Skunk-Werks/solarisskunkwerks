@@ -81,6 +81,8 @@ public class dlgPrefs extends javax.swing.JDialog {
             chkHeatAllMP.setEnabled( true );
         }
         chkHeatUAC.setSelected( Prefs.getBoolean( "HeatACFullRate", false ) );
+        chkHeatStreaks.setSelected( Prefs.getBoolean( "HeatStreaksHalfRate", false ) );
+        chkCostAmmoMult.setSelected( Prefs.getBoolean( "CostAmmoMult", false ) );
         chkAutoAddECM.setSelected( Prefs.getBoolean( "AutoAddECM", true ) );
 
         chkMaxNotInt.setSelected( Prefs.getBoolean( "UseMaxArmorInstead", false ) );
@@ -127,6 +129,9 @@ public class dlgPrefs extends javax.swing.JDialog {
             case saw.Constants.SCREEN_SIZE_WIDE_1280:
                 rdoWidescreen.setSelected( true );
                 break;
+            case saw.Constants.SCREEN_SIZE_WIDE_1600:
+                rdoLargescreen.setSelected(true);
+                break;
             default:
                 rdoNormalSize.setSelected( true );
                 break;
@@ -152,6 +157,8 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "HeatExcludeJumpMP", chkHeatJumpMP.isSelected() );
         Prefs.putBoolean( "HeatExcludeAllMP", chkHeatAllMP.isSelected() );
         Prefs.putBoolean( "HeatACFullRate", chkHeatUAC.isSelected() );
+        Prefs.putBoolean( "HeatStreaksHalfRate", chkHeatStreaks.isSelected() );
+        Prefs.putBoolean( "CostAmmoMult", chkCostAmmoMult.isSelected() );
         Prefs.putBoolean( "UseMaxArmorInstead", chkMaxNotInt.isSelected() );
         Prefs.putBoolean( "ArmorUseCustomPercent", chkCustomPercents.isSelected() );
         Prefs.putBoolean( "ArmorMaxHead", rdoArmorMaxHead.isSelected() );
@@ -193,6 +200,8 @@ public class dlgPrefs extends javax.swing.JDialog {
             Prefs.putInt( "SSWScreenSize", saw.Constants.SCREEN_SIZE_NORMAL );
         } else if( rdoWidescreen.isSelected() ) {
             Prefs.putInt( "SSWScreenSize", saw.Constants.SCREEN_SIZE_WIDE_1280 );
+        } else if (rdoLargescreen.isSelected()) {
+            Prefs.putInt( "SSWScreenSize", saw.Constants.SCREEN_SIZE_WIDE_1600);
         }
     }
 
@@ -214,6 +223,8 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "HeatExcludeJumpMP", false );
         Prefs.putBoolean( "HeatExcludeAllMP", false );
         Prefs.putBoolean( "HeatACFullRate", false );
+        Prefs.putBoolean( "HeatStreaksHalfRate", false );
+        Prefs.putBoolean( "CostAmmoMult", false );
         Prefs.putBoolean( "UseMaxArmorInstead", false );
         Prefs.putBoolean( "ArmorUseCustomPercent", false );
         Prefs.putBoolean( "ArmorMaxHead", true );
@@ -292,7 +303,10 @@ public class dlgPrefs extends javax.swing.JDialog {
         chkHeatJumpMP = new javax.swing.JCheckBox();
         chkHeatAllMP = new javax.swing.JCheckBox();
         chkHeatUAC = new javax.swing.JCheckBox();
+        chkHeatStreaks = new javax.swing.JCheckBox();
         jLabel19 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        chkCostAmmoMult = new javax.swing.JCheckBox();
         jPanel13 = new javax.swing.JPanel();
         chkAutoAddECM = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
@@ -349,6 +363,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         jPanel14 = new javax.swing.JPanel();
         rdoNormalSize = new javax.swing.JRadioButton();
         rdoWidescreen = new javax.swing.JRadioButton();
+        rdoLargescreen = new javax.swing.JRadioButton();
         lblScreenSizeNotice = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
@@ -660,6 +675,14 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         jPanel8.add(chkHeatUAC, gridBagConstraints);
 
+        chkHeatStreaks.setText("Streaks have 50% fire rate (ala MML)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
+        jPanel8.add(chkHeatStreaks, gridBagConstraints);
+
         jLabel19.setText("Non-BV Heat Calculations:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -668,9 +691,24 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlConstruction.add(jPanel8, gridBagConstraints);
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cost Options"));
+        jPanel15.setLayout(new java.awt.GridBagLayout());
+
+        chkCostAmmoMult.setText("Apply weight mult to ammo (ala MML)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
+        jPanel15.add(chkCostAmmoMult, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        pnlConstruction.add(jPanel15, gridBagConstraints);
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Usability Options"));
         jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
@@ -1196,10 +1234,18 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel14.add(rdoWidescreen, gridBagConstraints);
 
-        lblScreenSizeNotice.setText("Change requires restart of SSW.");
+        btgScreenSize.add(rdoLargescreen);
+        rdoLargescreen.setText("Large Screen (1600 wide)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel14.add(rdoLargescreen, gridBagConstraints);
+
+        lblScreenSizeNotice.setText("Change requires restart of SSW.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel14.add(lblScreenSizeNotice, gridBagConstraints);
 
@@ -1653,6 +1699,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JButton btnSetDefaults;
     private javax.swing.JButton btnTXTPath;
     private javax.swing.JCheckBox chkAutoAddECM;
+    private javax.swing.JCheckBox chkCostAmmoMult;
     private javax.swing.JCheckBox chkCustomPercents;
     private javax.swing.JCheckBox chkGroupAmmoAtBottom;
     private javax.swing.JCheckBox chkHeatAllMP;
@@ -1660,6 +1707,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkHeatJumpMP;
     private javax.swing.JCheckBox chkHeatOSWeapons;
     private javax.swing.JCheckBox chkHeatRearWeapons;
+    private javax.swing.JCheckBox chkHeatStreaks;
     private javax.swing.JCheckBox chkHeatSystems;
     private javax.swing.JCheckBox chkHeatUAC;
     private javax.swing.JCheckBox chkLoadLastMech;
@@ -1691,6 +1739,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1717,6 +1766,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JRadioButton rdoArmorTorsoPriority;
     private javax.swing.JRadioButton rdoExportSortIn;
     private javax.swing.JRadioButton rdoExportSortOut;
+    private javax.swing.JRadioButton rdoLargescreen;
     private javax.swing.JRadioButton rdoNormalSize;
     private javax.swing.JRadioButton rdoWidescreen;
     private javax.swing.JTextField txtAmmoExportName;

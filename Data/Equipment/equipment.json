@@ -606,7 +606,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": false,
+    "RequiresFusion": false,
     "RequiresNuclear": false,
     "RequiresPowerAmps": true,
     "Availability": {
@@ -703,7 +703,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": false,
+    "RequiresFusion": false,
     "RequiresNuclear": false,
     "RequiresPowerAmps": true,
     "Availability": {
@@ -800,9 +800,8 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": false,
+    "RequiresFusion": false,
     "RequiresNuclear": false,
-    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "E",
       "IS_SW": "F",
@@ -898,9 +897,8 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": false,
+    "RequiresFusion": false,
     "RequiresNuclear": false,
-    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "F",
       "IS_SW": "X",
@@ -1533,9 +1531,9 @@
     "Exclusions": [
       "C3 Computer (Master)",
       "C3 Computer (Slave)",
-	  "C3 Boosted Computer (Master)",
-	  "C3 Boosted Computer (Slave)",
-	  "C3 Emergency Master",
+      "C3 Boosted Computer (Master)",
+      "C3 Boosted Computer (Slave)",
+      "C3 Emergency Master",
       "Null Signature System",
       "Void Signature System"
     ]
@@ -2448,7 +2446,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": true,
+    "RequiresFusion": true,
     "RequiresNuclear": false,
     "RequiresPowerAmps": true,
     "Availability": {
@@ -3361,7 +3359,7 @@
     },
     "BattleForceAbilities": [
       "WAT",
-	  "ECM"
+      "ECM"
     ]
   },
   "Bridgelayer, Light": {
@@ -4032,100 +4030,6 @@
       "-"
     ]
   },
-  "Lift Hoist": {
-    "ActualName": "Lift Hoist",
-    "CritName": "Lift Hoist",
-    "Type": "IE",
-    "LookupName": "Lift Hoist",
-    "MegaMekName": "LiftHoist",
-    "BookReference": "Tech Manual",
-    "ChatName": "LftHst",
-    "Specials": "-",
-    "Crits": 3,
-    "CVSpace": 1,
-    "LotSize": 0,
-    "AmmoIndex": 0,
-    "ShtRange": 0,
-    "MedRange": 0,
-    "LngRange": 0,
-    "Heat": 0,
-    "MaxAllowed": 2,
-    "Tonnage": 3.0,
-    "Cost": 50000.0,
-    "OffBV": 0.0,
-    "DefBV": 0.0,
-    "MinTons": 0.0,
-    "MaxTons": 0.0,
-    "VariableIncrement": 0.0,
-    "TonsPerCrit": 0.0,
-    "CostPerTon": 0.0,
-    "HasAmmo": false,
-    "alloc_head": false,
-    "alloc_ct": false,
-    "alloc_torsos": true,
-    "alloc_arms": true,
-    "alloc_legs": false,
-    "alloc_front": true,
-    "alloc_sides": true,
-    "alloc_rear": true,
-    "alloc_turret": true,
-    "alloc_body": false,
-    "CanSplit": false,
-    "CanMountRear": true,
-    "Explosive": false,
-    "VariableSize": false,
-    "RequiresQuad": false,
-    "Availability": {
-      "IS_SL": "A",
-      "IS_SW": "A",
-      "IS_CI": "A",
-      "IS_DA": "A",
-      "IS_TechRating": "A",
-      "CL_SL": "X",
-      "CL_SW": "A",
-      "CL_CI": "A",
-      "CL_DA": "A",
-      "CL_TechRating": "A",
-      "IS_RandDStartDate": 0,
-      "IS_PrototypeDate": 0,
-      "IS_IntroDate": 1950,
-      "IS_ExtinctDate": 0,
-      "IS_ReIntroDate": 0,
-      "CL_RandDStartDate": 0,
-      "CL_PrototypeDate": 0,
-      "CL_IntroDate": 1950,
-      "CL_ExtinctDate": 0,
-      "CL_ReIntroDate": 0,
-      "RulesLevelBM": 1,
-      "RulesLevelIM": 1,
-      "RulesLevelCV": 1,
-      "RulesLevelAF": -1,
-      "RulesLevelCF": -1,
-      "TechBase": 2,
-      "IS_IntroFaction": "PS",
-      "IS_ReIntroFaction": "--",
-      "IS_RandDFaction": "--",
-      "IS_PrototypeFaction": "--",
-      "CL_IntroFaction": "PS",
-      "CL_ReIntroFaction": "--",
-      "CL_RandDFaction": "--",
-      "CL_PrototypeFaction": "--",
-      "IS_WentExtinct": false,
-      "IS_ReIntroduced": false,
-      "IS_IsPrototype": false,
-      "CL_WentExtinct": false,
-      "CL_ReIntroduced": false,
-      "CL_IsPrototype": false,
-      "PBMAllowed": true,
-      "PIMAllowed": true,
-      "PrimitiveOnly": false,
-      "SuperHeavyCompatible": true,
-      "SuperHeavyOnly": false
-    },
-    "BattleForceAbilities": [
-      "-"
-    ]
-  },
   "Nail Gun": {
     "ActualName": "Nail Gun",
     "CritName": "Nail Gun",
@@ -4351,7 +4255,7 @@
     "alloc_sides": true,
     "alloc_rear": true,
     "alloc_turret": true,
-    "alloc_body": false,
+    "alloc_body": true,
     "CanSplit": false,
     "CanMountRear": true,
     "Explosive": false,
@@ -5071,7 +4975,7 @@
     "CritName": "Cargo, Liquid",
     "Type": "IE",
     "LookupName": "Cargo, Liquid",
-    "MegaMekName": "CargoLiquid",
+    "MegaMekName": "Liquid Storage",
     "BookReference": "Tech Manual",
     "ChatName": "LqdCrgo",
     "Specials": "-",
@@ -6425,7 +6329,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresFusion": true,
+    "RequiresFusion": true,
     "RequiresNuclear": false,
     "RequiresPowerAmps": true,
     "Availability": {
@@ -6477,9 +6381,9 @@
     },
     "BattleForceAbilities": [
       "NOVA",
-	  "PRB",
-	  "RCN",
-	  "ECM"
+      "PRB",
+      "RCN",
+      "ECM"
     ]
   },
   "Centurion Weapon System": {
@@ -6525,6 +6429,7 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
+    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "F",
       "IS_SW": "F",
@@ -6856,6 +6761,100 @@
     },
     "BattleForceAbilities": [
       "-"
+    ]
+  },
+  "Combat Vehicle Escape Pod": {
+    "ActualName": "Combat Vehicle Escape Pod",
+    "CritName": "Combat Vehicle Escape Pod",
+    "Type": "PE",
+    "LookupName": "Combat Vehicle Escape Pod",
+    "MegaMekName": "ISCombatVehicleEscapePod",
+    "BookReference": "TO:AU&E",
+    "ChatName": "CVEP",
+    "Specials": "OS",
+    "Crits": 1,
+    "CVSpace": 1,
+    "LotSize": 0,
+    "AmmoIndex": 0,
+    "ShtRange": 0,
+    "MedRange": 0,
+    "LngRange": 0,
+    "Heat": 0,
+    "MaxAllowed": 1,
+    "Tonnage": 4.0,
+    "Cost": 10000.0,
+    "OffBV": 0.0,
+    "DefBV": 0.0,
+    "MinTons": 0.0,
+    "MaxTons": 0.0,
+    "VariableIncrement": 0.0,
+    "TonsPerCrit": 0.0,
+    "CostPerTon": 0.0,
+    "HasAmmo": false,
+    "alloc_head": false,
+    "alloc_ct": false,
+    "alloc_torsos": false,
+    "alloc_arms": false,
+    "alloc_legs": false,
+    "alloc_front": false,
+    "alloc_sides": false,
+    "alloc_rear": true,
+    "alloc_turret": false,
+    "alloc_body": false,
+    "CanSplit": false,
+    "CanMountRear": false,
+    "Explosive": false,
+    "VariableSize": false,
+    "RequiresQuad": false,
+    "Availability": {
+      "IS_SL": "X",
+      "IS_SW": "X",
+      "IS_CI": "E",
+      "IS_DA": "E",
+      "IS_TechRating": "D",
+      "CL_SL": "X",
+      "CL_SW": "X",
+      "CL_CI": "X",
+      "CL_DA": "X",
+      "CL_TechRating": "X",
+      "IS_RandDStartDate": 3032,
+      "IS_PrototypeDate": 3038,
+      "IS_IntroDate": 3079,
+      "IS_ExtinctDate": 0,
+      "IS_ReIntroDate": 0,
+      "CL_RandDStartDate": 0,
+      "CL_PrototypeDate": 0,
+      "CL_IntroDate": 0,
+      "CL_ExtinctDate": 0,
+      "CL_ReIntroDate": 0,
+      "RulesLevelBM": -1,
+      "RulesLevelIM": -1,
+      "RulesLevelCV": 3,
+      "RulesLevelAF": -1,
+      "RulesLevelCF": -1,
+      "TechBase": 0,
+      "IS_IntroFaction": "LC",
+      "IS_ReIntroFaction": "--",
+      "IS_RandDFaction": "FC",
+      "IS_PrototypeFaction": "FC",
+      "CL_IntroFaction": "--",
+      "CL_ReIntroFaction": "--",
+      "CL_RandDFaction": "--",
+      "CL_PrototypeFaction": "--",
+      "IS_WentExtinct": false,
+      "IS_ReIntroduced": false,
+      "IS_IsPrototype": false,
+      "CL_WentExtinct": false,
+      "CL_ReIntroduced": false,
+      "CL_IsPrototype": false,
+      "PBMAllowed": false,
+      "PIMAllowed": false,
+      "PrimitiveOnly": false,
+      "SuperHeavyCompatible": true,
+      "SuperHeavyOnly": false
+    },
+    "BattleForceAbilities": [
+      "ES"
     ]
   },
   "Paramedic Equipment": {
@@ -7277,7 +7276,6 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "X",
       "IS_SW": "X",
@@ -7328,7 +7326,7 @@
     "BattleForceAbilities": [
       "DJ"
     ],
-	"Exclusions": [
+    "Exclusions": [
       "RISC Viral Jammer (Homing)"
     ]
   },
@@ -7375,7 +7373,6 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
-	"RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "X",
       "IS_SW": "X",
@@ -7426,7 +7423,7 @@
     "BattleForceAbilities": [
       "HJ"
     ],
-	"Exclusions": [
+    "Exclusions": [
       "RISC Viral Jammer (Decoy)"
     ]
   },

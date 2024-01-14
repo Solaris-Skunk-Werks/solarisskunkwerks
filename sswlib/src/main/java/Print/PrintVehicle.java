@@ -56,7 +56,8 @@ public class PrintVehicle implements Printable {
                     TRO = false,
                     printMech = false,
                     printLogo = false,
-                    makeAmmoGeneric = false;
+                    makeAmmoGeneric = false,
+                    UseMiniRate = false;
     private String PilotName = "",
                     GroupName = "",
                     currentAmmoFormat = "";
@@ -110,8 +111,9 @@ public class PrintVehicle implements Printable {
         PrintPilot = PrintP;
     }
 
-    public void SetMiniConversion( int conv ) {
+    public void SetMiniConversion( int conv, Boolean useMini ) {
         MiniConvRate = conv;
+        UseMiniRate = useMini;
     }
 
     public void setMechwarrior(String name) {
@@ -168,7 +170,7 @@ public class PrintVehicle implements Printable {
         this.TRO = TRO;
         setCanon(true);
         setCharts(false);
-        SetMiniConversion(1);
+        SetMiniConversion(1, false);
         setPrintPilot(false);
         currentAmmoFormat = Prefs.get( "AmmoNamePrintFormat", "" );
         Prefs.put( "AmmoNamePrintFormat", "Ammo (%P) %L" );
@@ -295,6 +297,14 @@ public class PrintVehicle implements Printable {
 //            graphics.drawString("+2", p[7].x, p[7].y-15);
 //            graphics.drawString("+4", p[8].x, p[8].y-15);
 //        }
+		
+		//Coverup the (hexes) above the ranges if we are not using traditional measurements
+        if (UseMiniRate)
+        {
+            graphics.setColor(Color.white);
+            graphics.fillRect(p[6].x-5, p[6].y-28, 30, 10);
+            graphics.setColor(Color.black);
+        }
 
         graphics.setFont( PrintConsts.ReallySmallFont );
         if (TotalItemLines() > 15) { graphics.setFont( PrintConsts.TinyFont ); }
@@ -345,7 +355,7 @@ public class PrintVehicle implements Printable {
         if ( !TRO ) {
             if ( AmmoList.size() > 0 ) {
                 offset += 2;
-                graphics.drawString("Ammunition Type" + ( CurVee.GetLoadout().HasISCASE() ? " [CASE]":"" ), p[0].x, p[0].y + offset);
+                graphics.drawString("Ammunition Type" + ( CurVee.GetLoadout().HasCase() ? " [CASE]":"" ), p[0].x, p[0].y + offset);
                 graphics.drawString("Rounds", p[3].x-30, p[3].y + offset);
                 offset += 2;
                 graphics.drawLine(p[0].x, p[0].y + offset, p[8].x + 8, p[8].y + offset);
@@ -383,8 +393,23 @@ public class PrintVehicle implements Printable {
 
         // have to hack the movement to print the correct stuff here.
         graphics.setFont( PrintConsts.Small8Font );
-        graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
-        graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+        //graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+        //graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+
+        if( CurVee.GetAdjustedCruiseMP( false, true ) != CurVee.getCruiseMP() ) {
+            graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + " (" + ( CurVee.GetAdjustedCruiseMP( false, true ) * MiniConvRate ) + ")", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+        } else {
+            graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+        }
+        if( CurVee.GetAdjustedFlankMP( false, true ) != CurVee.getFlankMP() ) {
+            if( CurVee.GetAdjustedFlankMP( false, true ) < CurVee.getFlankMP() ) {
+                graphics.drawString( CurVee.GetAdjustedFlankMP( false, true, MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+            } else {
+                graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + " (" + CurVee.GetAdjustedFlankMP( false, true, MiniConvRate ) + ")", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+            }
+        } else {
+            graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+        }
 
         // Movement and Engine
         if ( !CurVee.IsVTOL() ) {

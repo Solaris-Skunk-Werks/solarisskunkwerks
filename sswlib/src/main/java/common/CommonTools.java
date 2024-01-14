@@ -103,6 +103,56 @@ public class CommonTools {
         }
     }
 
+    public static int GetEraDefaultYear( int era ) {
+        switch( era ) {
+            case AvailableCode.ERA_STAR_LEAGUE:
+                return 2750;
+            case AvailableCode.ERA_SUCCESSION:
+                return 3025;
+            case AvailableCode.ERA_CLAN_INVASION:
+                return 3070;
+            case AvailableCode.ERA_DARK_AGES:
+                return 3132;
+            default:
+                return 0;
+        }
+    }
+
+    public static String GetEraYearRange( int era ) {
+        switch( era ) {
+            case AvailableCode.ERA_STAR_LEAGUE:
+                return "2443 ~ 2800";
+            case AvailableCode.ERA_SUCCESSION:
+                return "2801 ~ 3050";
+            case AvailableCode.ERA_CLAN_INVASION:
+                return "3051 ~ 3131";
+            case AvailableCode.ERA_DARK_AGES:
+                return "3132 on";
+            default:
+                return "Any";
+        }
+    }
+
+    public static boolean IsYearInEra( int year, int era ) {
+        switch ( era ) {
+            case AvailableCode.ERA_STAR_LEAGUE:
+                // Star League era
+                return year >= 2443 && year <= 2800;
+            case AvailableCode.ERA_SUCCESSION:
+                // Succession Wars era
+                return year >= 2801 && year <= 3050;
+            case AvailableCode.ERA_CLAN_INVASION:
+                // Clan Invasion Era
+                return year >= 3051 && year <= 3131;
+            case AvailableCode.ERA_DARK_AGES:
+                // Clan Invasion Era
+                return year >= 3132;
+            default:
+                // all era
+                return true;
+        }
+    }
+
     public static String GetRulesLevelString( int level ) {
         switch( level ) {
             case AvailableCode.RULES_INTRODUCTORY:
@@ -132,6 +182,17 @@ public class CommonTools {
                 return "Mixed";
             default:
                 return "Unknown";
+        }
+    }
+
+    public static int GetTechbaseValue( String tech ) {
+        switch( tech ) {
+            case "Clan":
+                return AvailableCode.TECH_CLAN;
+            case "Mixed":
+                return AvailableCode.TECH_BOTH;
+            default:
+                return AvailableCode.TECH_INNER_SPHERE;
         }
     }
 
@@ -852,5 +913,14 @@ public class CommonTools {
             newPath += parts[parts.length-1];
         }
         return newPath;
+    }
+
+    public static String UnknownToEmpty( String str ) {
+        if( str == null || str.isEmpty()
+                || str.equalsIgnoreCase( "Unknown" )
+                || str.equalsIgnoreCase( "None" ) ) {
+            return "";
+        }
+        return str;
     }
 }

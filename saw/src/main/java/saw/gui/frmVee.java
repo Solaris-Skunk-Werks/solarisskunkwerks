@@ -37,9 +37,11 @@ import Print.preview.dlgPreview;
 import battleforce.BattleForceStats;
 import common.*;
 import components.*;
+import dialog.dlgQuirks;
 import dialog.frmForce;
 import filehandlers.*;
 import gui.TextPane;
+import list.view.tbQuirks;
 import saw.filehandlers.HTMLWriter;
 import states.ifState;
 import visitors.VArmorSetPatchworkLocation;
@@ -48,10 +50,10 @@ import visitors.VSetArmorTonnage;
 import visitors.ifVisitor;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.*;
@@ -66,8 +68,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     Preferences Prefs;
     String[] Selections = { "", "" };
     public DataFactory data;
-    private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
-    private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
+    private final Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
+    private final Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     boolean Load = false,
             isLocked = false,
             SetSource = true;
@@ -86,9 +88,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private final AvailableCode PulseModuleAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
-    private ImageTracker imageTracker = new ImageTracker();
+    private final ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
     public frmForce dForce = new frmForce(this, imageTracker);
+    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
 
     TextPane Overview = new TextPane();
     TextPane Capabilities = new TextPane();
@@ -134,11 +137,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         public void focusGained(FocusEvent e) {
             if ( e.getSource() instanceof JTextComponent ) {
                 final JTextComponent textComponent = ((JTextComponent)e.getSource());
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        textComponent.selectAll();
-                    }
-                });
+                SwingUtilities.invokeLater(textComponent::selectAll);
             }
         }
     };
@@ -212,112 +211,47 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlAdditionalFluff.add( Additional );
         pnlVariants.add( Variants );
         pnlNotables.add( Notables );
+        quirks = CurVee.GetQuirks();
         pack();
 
 
-        mnuDetails.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GetInfoOn();
-                ShowInfoOn(CurItem);
-            }
+        mnuDetails.addActionListener(evt -> {
+            GetInfoOn();
+            ShowInfoOn(CurItem);
         });
 
-        mnuSetVariable.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVariableSize();
-            }
-        });
+        mnuSetVariable.addActionListener(e -> SetVariableSize());
 
-        mnuSetLotSize.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetAmmoLotSize();
-            }
-        });
+        mnuSetLotSize.addActionListener(e -> SetAmmoLotSize());
 
-        mnuAddCapacitor.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PPCCapacitor();
-            }
-        });
+        mnuAddCapacitor.addActionListener(e -> PPCCapacitor());
 
-        mnuAddInsulator.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LaserInsulator();
-            }
-        });
+        mnuAddInsulator.addActionListener(e -> LaserInsulator());
 
-        mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PulseModule();
-            }
-        });
+        mnuAddPulseModule.addActionListener(e -> PulseModule());
 
 
-        mnuDumper.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DumperMount();
-            }
-        });
+        mnuDumper.addActionListener(e -> DumperMount());
 
-        mnuCaseless.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwitchCaseless();
-            }
-        });
+        mnuCaseless.addActionListener(e -> SwitchCaseless());
 
-        mnuVGLArcFore.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLArcFore();
-            }
-        });
+        mnuVGLArcFore.addActionListener(e -> SetVGLArcFore());
 
-        mnuVGLArcForeSide.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLArcForeSide();
-            }
-        });
+        mnuVGLArcForeSide.addActionListener(e -> SetVGLArcForeSide());
 
-        mnuVGLArcRear.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLArcRear();
-            }
-        });
+        mnuVGLArcRear.addActionListener(e -> SetVGLArcRear());
 
-        mnuVGLArcRearSide.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLArcRearSide();
-            }
-        });
+        mnuVGLArcRearSide.addActionListener(e -> SetVGLArcRearSide());
 
-        mnuVGLAmmoFrag.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLAmmoFrag();
-            }
-        });
+        mnuVGLAmmoFrag.addActionListener(e -> SetVGLAmmoFrag());
 
-        mnuVGLAmmoChaff.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLAmmoChaff();
-            }
-        });
+        mnuVGLAmmoChaff.addActionListener(e -> SetVGLAmmoChaff());
 
-        mnuVGLAmmoIncen.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLAmmoIncendiary();
-            }
-        });
+        mnuVGLAmmoIncen.addActionListener(e -> SetVGLAmmoIncendiary());
 
-        mnuVGLAmmoSmoke.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLAmmoSmoke();
-            }
-        });
+        mnuVGLAmmoSmoke.addActionListener(e -> SetVGLAmmoSmoke());
 
-        mnuRemoveItem.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                RemoveItemCritTab();
-            }
-        });
+        mnuRemoveItem.addActionListener(e -> RemoveItemCritTab());
 
         mnuVGLArc.setText( "Set VGL Arc" );
         mnuVGLArc.add( mnuVGLArcFore );
@@ -382,23 +316,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ((JSpinner.DefaultEditor)spnRearTurretArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnRotorArmor.getEditor()).getTextField().addFocusListener(spinners);
 
-        mnuFluffCut.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( ActionEvent e ) {
-                FluffCut( mnuFluff.getInvoker() );
-            }
-        });
+        mnuFluffCut.addActionListener(e -> FluffCut( mnuFluff.getInvoker() ));
 
-        mnuFluffCopy.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                FluffCopy( mnuFluff.getInvoker() );
-            }
-        });
+        mnuFluffCopy.addActionListener(e -> FluffCopy( mnuFluff.getInvoker() ));
 
-        mnuFluffPaste.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                FluffPaste( mnuFluff.getInvoker() );
-            }
-        });
+        mnuFluffPaste.addActionListener(e -> FluffPaste( mnuFluff.getInvoker() ));
 
         mnuFluff.add( mnuFluffCut );
         mnuFluff.add( mnuFluffCopy );
@@ -419,18 +341,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public Object getValueAt( int row, int col ) {
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
             }
             @Override
             public boolean isCellEditable( int row, int col ) {
-                if( col == 0 ) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return col != 0;
             }
             @Override
             public void setValueAt( Object value, int row, int col ) {
@@ -442,9 +360,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     fireTableCellUpdated( row, col );
                 } else {
                     ArrayList v = CurVee.GetLoadout().GetEquipment();
-                    for( int i = 0; i < v.size(); i++ ) {
-                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
-                            ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
+                    for (Object o : v) {
+                        if (FileCommon.LookupStripArc(((abPlaceable) o).LookupName()).equals(FileCommon.LookupStripArc(a.LookupName()))) {
+                            ((abPlaceable) o).SetManufacturer((String) value);
                         }
                     }
                     fireTableDataChanged();
@@ -611,29 +529,29 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             ArrayList replace = new ArrayList();
             abPlaceable p;
             boolean HasOrig = false;
-            for( int i = 0; i < check.size(); i++ ) {
-                p = (abPlaceable) check.get( i );
-                if( p instanceof RangedWeapon ) {
-                    if( ((RangedWeapon) p).GetAmmoIndex() == origIDX ) {
+            for (Object o : check) {
+                p = (abPlaceable) o;
+                if (p instanceof RangedWeapon) {
+                    if (((RangedWeapon) p).GetAmmoIndex() == origIDX) {
                         HasOrig = true;
                     }
                 }
-                if( p instanceof Ammunition ) {
-                    replace.add( p );
+                if (p instanceof Ammunition) {
+                    replace.add(p);
                 }
             }
 
             // replace any ammo with the new stuff if there are no other original weapons
             if( ! HasOrig ) {
                 Object[] newammo = data.GetEquipment().GetAmmo( newIDX, CurVee );
-                for( int i = 0; i < replace.size(); i++ ) {
-                    p = (abPlaceable) replace.get( i );
-                    if( ((Ammunition) p).GetAmmoIndex() == origIDX ) {
-                        CurVee.GetLoadout().Remove( p );
-                        if( newammo.length > 0 ) {
-                            p = data.GetEquipment().GetCopy( (abPlaceable) newammo[0], CurVee);
+                for (Object o : replace) {
+                    p = (abPlaceable) o;
+                    if (((Ammunition) p).GetAmmoIndex() == origIDX) {
+                        CurVee.GetLoadout().Remove(p);
+                        if (newammo.length > 0) {
+                            p = data.GetEquipment().GetCopy((abPlaceable) newammo[0], CurVee);
                             try {
-                                CurVee.GetLoadout().AddTo( p, LocationIndex.CV_LOC_BODY );
+                                CurVee.GetLoadout().AddTo(p, LocationIndex.CV_LOC_BODY);
                             } catch (Exception ex) {
                                 Media.Messager(ex.getMessage());
                             }
@@ -734,9 +652,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         Prefs.putBoolean("ViewToolbar", Visible);
         //mnuViewToolbar.setState(Visible);
         if (Visible) {
-            if (this.getHeight() != 600) { this.setSize(750, 600); }
+            if (this.getHeight() != 600) { this.setSize(750, 625); }
         } else {
-            if (this.getHeight() != 575) { this.setSize(750, 575); }
+            if (this.getHeight() != 575) { this.setSize(750, 600); }
         }
     }
     private void ConfigureUtilsMenu( java.awt.Component c ) {
@@ -747,10 +665,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurVee );
         boolean lotchange = LegalLotChange( CurItem );
         boolean dumper = LegalDumper( CurItem );
-        mnuAddCapacitor.setEnabled( cap );
-        mnuAddInsulator.setEnabled( insul );
-        mnuAddPulseModule.setEnabled(pulseModule);
-        mnuCaseless.setEnabled( caseless );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
         mnuAddPulseModule.setVisible(pulseModule);
@@ -796,19 +710,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         }
         if( CurItem instanceof Equipment ) {
-            if( ((Equipment) CurItem).IsVariableSize() ) {
-                mnuSetVariable.setVisible( true );
-            } else {
-                mnuSetVariable.setVisible( false );
-            }
+            mnuSetVariable.setVisible(((Equipment) CurItem).IsVariableSize());
         } else {
             mnuSetVariable.setVisible( false );
         }
-        if( CurItem.CoreComponent() || CurItem.LocationLinked() ) {
-            mnuRemoveItem.setEnabled( false );
-        } else {
-            mnuRemoveItem.setEnabled( true );
-        }
+        mnuRemoveItem.setEnabled(!CurItem.CoreComponent() && !CurItem.LocationLinked());
     }
 
     private void RemoveItemCritTab() {
@@ -863,14 +769,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     public boolean LegalLotChange( abPlaceable p ) {
         if( ! ( p instanceof Ammunition ) ) { return false; }
-        if( CurVee.UsingFractionalAccounting() ) { return true; }
-        return false;
+        return CurVee.UsingFractionalAccounting();
     }
 
     public boolean LegalDumper( abPlaceable p ) {
         if ( ! ( p instanceof Equipment ) ) { return false; }
-        if ( ( (Equipment)p).CritName().equals("Cargo Container") ) { return true; }
-        return false;
+        return ((Equipment) p).CritName().equals("Cargo Container");
     }
 
     public void RefreshInfoPane() {
@@ -889,6 +793,41 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         } else {
             txtInfoFreeCrits.setForeground(Color.black);
         }
+
+        if( CurVee.isHasTurret1() ) {
+            txtTurretInfo.setVisible( true );
+            Turret turret = CurVee.GetLoadout().GetTurret();
+            if( turret.isTonnageSet() ) {
+                if( turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                    txtTurretInfo.setForeground( Color.red );
+                } else {
+                    txtTurretInfo.setForeground( Color.black );
+                }
+            }
+        } else {
+            txtTurretInfo.setVisible( false );
+        }
+        if( CurVee.isHasTurret2() ) {
+            txtRearTurretInfo.setVisible( true );
+            Turret turret = CurVee.GetLoadout().GetRearTurret();
+            if( turret.isTonnageSet() ) {
+                if( turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                    txtRearTurretInfo.setForeground( Color.red );
+                } else {
+                    txtRearTurretInfo.setForeground( Color.black );
+                }
+            }
+        } else {
+            txtRearTurretInfo.setVisible( false );
+        }
+
+        // fill in the movement summary
+        String temp = "Max C/F: ";
+        temp += CurVee.GetAdjustedCruiseMP( false, true ) + "/";
+        temp += CurVee.GetAdjustedFlankMP( false, true );
+//        temp += CurMech.GetAdjustedJumpingMP( false ) + "/";
+//        temp += CurMech.GetAdjustedBoosterMP( false );
+        lblMoveSummary.setText( temp );
 
         // fill in the info
         if( CurVee.UsingFractionalAccounting() ) {
@@ -933,7 +872,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( cut );
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents( export, (ClipboardOwner) this);
+        clipboard.setContents( export, this);
     }
 
     private void FluffCopy( Component c ) {
@@ -960,7 +899,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( copy );
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents( export, (ClipboardOwner) this);
+        clipboard.setContents( export, this);
     }
 
     private void FluffPaste( Component c ) {
@@ -968,7 +907,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         char space = 20;
         char linereturn = 13;
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
-        String txtimport = null;
+        String txtimport;
         try {
             txtimport = (String) clipboard.getData( DataFlavor.stringFlavor );
             txtimport.replace(linereturn, space);
@@ -977,7 +916,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             e.printStackTrace();
             return;
         }
-        if( txtimport == null ) { return; }
         if( c instanceof JEditorPane ) {
             JEditorPane j = (JEditorPane) c;
             int insert = j.getCaretPosition();
@@ -997,15 +935,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ArrayList v = CurVee.GetLoadout().GetNonCore(), wep = new ArrayList();
         Object a;
 
-        for( int i = 0; i < v.size(); i++ ) {
-            a = v.get( i );
-            if( a instanceof ifWeapon ) {
-                if( ((ifWeapon) a).HasAmmo() ) {
-                    wep.add( a );
+        for (Object o : v) {
+            a = o;
+            if (a instanceof ifWeapon) {
+                if (((ifWeapon) a).HasAmmo()) {
+                    wep.add(a);
                 }
-            } else if( a instanceof Equipment ) {
-                if( ((Equipment) a).HasAmmo() ) {
-                    wep.add( a );
+            } else if (a instanceof Equipment) {
+                if (((Equipment) a).HasAmmo()) {
+                    wep.add(a);
                 }
             }
         }
@@ -1039,86 +977,89 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
+        GridBagConstraints gridBagConstraints;
 
-        pnlInfoPane = new javax.swing.JPanel();
+        JPanel pnlInfoPane = new JPanel();
         txtInfoTonnage = new javax.swing.JTextField();
         txtInfoFreeTons = new javax.swing.JTextField();
         txtInfoFreeCrits = new javax.swing.JTextField();
         txtTurretInfo = new javax.swing.JTextField();
+        txtRearTurretInfo = new javax.swing.JTextField();
         txtInfoBattleValue = new javax.swing.JTextField();
         txtInfoCost = new javax.swing.JTextField();
         tlbIconBar = new javax.swing.JToolBar();
-        btnNewVee = new javax.swing.JButton();
-        btnOpen = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
-        btnPrint = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
-        btnExportClipboardIcon = new javax.swing.JButton();
-        btnExportHTMLIcon = new javax.swing.JButton();
-        btnExportTextIcon = new javax.swing.JButton();
-        btnExportMTFIcon = new javax.swing.JButton();
-        btnChatInfo = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
-        jSeparator25 = new javax.swing.JToolBar.Separator();
-        btnAddToForceList = new javax.swing.JButton();
-        btnForceList = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
-        btnOptions = new javax.swing.JButton();
-        jSeparator21 = new javax.swing.JToolBar.Separator();
-        lblSelectVariant = new javax.swing.JLabel();
+        JButton btnNewVee = new JButton();
+        JButton btnOpen = new JButton();
+        JButton btnSave = new JButton();
+        JToolBar.Separator jSeparator1 = new JToolBar.Separator();
+        JButton btnPrint = new JButton();
+        JToolBar.Separator jSeparator2 = new JToolBar.Separator();
+        JButton btnExportClipboardIcon = new JButton();
+        JButton btnExportHTMLIcon = new JButton();
+        JButton btnExportTextIcon = new JButton();
+        JButton btnExportMTFIcon = new JButton();
+        JButton btnChatInfo = new JButton();
+        JToolBar.Separator jSeparator3 = new JToolBar.Separator();
+        JToolBar.Separator jSeparator25 = new JToolBar.Separator();
+        JButton btnAddToForceList = new JButton();
+        JButton btnForceList = new JButton();
+        JToolBar.Separator jSeparator4 = new JToolBar.Separator();
+        JButton btnOptions = new JButton();
+        JToolBar.Separator jSeparator21 = new JToolBar.Separator();
+        JLabel lblSelectVariant = new JLabel();
         cmbOmniVariant = new javax.swing.JComboBox();
-        tbpMainTabPane = new javax.swing.JTabbedPane();
+        tbpMainTabPane = new JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        JPanel pnlBasicInfo = new JPanel();
+        JLabel jLabel1 = new JLabel();
         txtVehicleName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        JLabel jLabel4 = new JLabel();
         txtModel = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        JLabel jLabel2 = new JLabel();
         cmbRulesLevel = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
+        JLabel jLabel5 = new JLabel();
         cmbEra = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
+        JLabel jLabel3 = new JLabel();
         cmbTechBase = new javax.swing.JComboBox();
         lblEraYears = new javax.swing.JLabel();
         chkYearRestrict = new javax.swing.JCheckBox();
-        jLabel81 = new javax.swing.JLabel();
+        JLabel jLabel81 = new JLabel();
         txtSource = new javax.swing.JTextField();
-        lblProdYear = new javax.swing.JLabel();
+        JLabel lblProdYear = new JLabel();
         txtProdYear = new javax.swing.JTextField();
         cmbProductionEra = new javax.swing.JComboBox();
-        pnlChassis = new javax.swing.JPanel();
+        JPanel pnlChassis = new JPanel();
         cmbMotiveType = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        JLabel jLabel7 = new JLabel();
+        JLabel jLabel8 = new JLabel();
         chkOmniVee = new javax.swing.JCheckBox();
         chkTrailer = new javax.swing.JCheckBox();
         spnTonnage = new javax.swing.JSpinner();
-        jLabel9 = new javax.swing.JLabel();
+        JLabel jLabel9 = new JLabel();
         cmbEngineType = new javax.swing.JComboBox();
-        jLabel32 = new javax.swing.JLabel();
+        JLabel jLabel32 = new JLabel();
         cmbTurret = new javax.swing.JComboBox();
         lblVeeClass = new javax.swing.JLabel();
         lblVeeLimits = new javax.swing.JLabel();
-        jLabel91 = new javax.swing.JLabel();
+        JLabel jLabel91 = new JLabel();
         spnHeatSinks = new javax.swing.JSpinner();
         spnTurretTonnage = new javax.swing.JSpinner();
-        pnlMovement = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        spnRearTurretTonnage = new javax.swing.JSpinner();
+        JPanel pnlMovement = new JPanel();
+        JLabel jLabel10 = new JLabel();
         spnCruiseMP = new javax.swing.JSpinner();
-        jLabel11 = new javax.swing.JLabel();
+        JLabel jLabel11 = new JLabel();
         lblFlankMP = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lblMoveSummary = new javax.swing.JLabel();
+        JLabel jLabel13 = new JLabel();
         spnJumpMP = new javax.swing.JSpinner();
-        pnlChassisMods = new javax.swing.JPanel();
+        JPanel pnlChassisMods = new JPanel();
         chkFlotationHull = new javax.swing.JCheckBox();
         chkLimitedAmph = new javax.swing.JCheckBox();
         chkFullAmph = new javax.swing.JCheckBox();
         chkDuneBuggy = new javax.swing.JCheckBox();
         chkEnviroSealing = new javax.swing.JCheckBox();
-        pnlExperimental = new javax.swing.JPanel();
+        JPanel pnlExperimental = new JPanel();
         chkArmoredMotive = new javax.swing.JCheckBox();
         chkCommandConsole = new javax.swing.JCheckBox();
         chkEscapePod = new javax.swing.JCheckBox();
@@ -1126,230 +1067,203 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkJetBooster = new javax.swing.JCheckBox();
         chkSupercharger = new javax.swing.JCheckBox();
         chkSponsonTurret = new javax.swing.JCheckBox();
-        jPanel11 = new javax.swing.JPanel();
+        JPanel jPanel11 = new JPanel();
         chkFractional = new javax.swing.JCheckBox();
-        pnlSummary = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        JPanel pnlSummary = new JPanel();
+        JLabel jLabel12 = new JLabel();
+        JLabel jLabel14 = new JLabel();
+        JLabel jLabel15 = new JLabel();
+        JLabel jLabel16 = new JLabel();
+        JLabel jLabel17 = new JLabel();
         txtSumIntTons = new javax.swing.JTextField();
         txtSumIntAV = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
+        JLabel jLabel18 = new JLabel();
         txtSumEngTons = new javax.swing.JTextField();
         txtSumEngAV = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
+        JLabel jLabel19 = new JLabel();
         txtSumLifTons = new javax.swing.JTextField();
         txtSumLifAV = new javax.swing.JTextField();
         txtSumEngSpace = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
+        JLabel jLabel20 = new JLabel();
         txtSumConTons = new javax.swing.JTextField();
         txtSumConAV = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
+        JLabel jLabel21 = new JLabel();
         txtSumJJTons = new javax.swing.JTextField();
-        txtSumJJSpace = new javax.swing.JTextField();
+        JTextField txtSumJJSpace = new JTextField();
         txtSumJJAV = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
+        JLabel jLabel22 = new JLabel();
         txtSumHSTons = new javax.swing.JTextField();
         txtSumHSAV = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
+        JLabel jLabel23 = new JLabel();
         txtSumArmTons = new javax.swing.JTextField();
         txtSumArmSpace = new javax.swing.JTextField();
         txtSumArmAV = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
+        JLabel jLabel24 = new JLabel();
         txtSumTurTons = new javax.swing.JTextField();
         txtSumTurAV = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
+        JLabel jLabel25 = new JLabel();
         txtSumRTuTons = new javax.swing.JTextField();
         txtSumRTuAV = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
+        JLabel jLabel26 = new JLabel();
         txtSumSpnTons = new javax.swing.JTextField();
         txtSumSpnAV = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
+        JLabel jLabel27 = new JLabel();
         txtSumPATons = new javax.swing.JTextField();
         txtSumPAAV = new javax.swing.JTextField();
-        pnlInformation = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
+        JPanel pnlInformation = new JPanel();
+        JLabel jLabel29 = new JLabel();
         lblSupensionFacter = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        JLabel jLabel31 = new JLabel();
         lblMinEngineTons = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
+        JLabel jLabel33 = new JLabel();
         lblBaseEngineRating = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
+        JLabel jLabel35 = new JLabel();
         lblFinalEngineRating = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        JLabel jLabel28 = new JLabel();
         lblFreeHeatSinks = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        JLabel jLabel30 = new JLabel();
         lblNumCrew = new javax.swing.JLabel();
-        pnlOmniInfo = new javax.swing.JPanel();
+        JPanel pnlOmniInfo = new JPanel();
         btnLockChassis = new javax.swing.JButton();
         btnAddVariant = new javax.swing.JButton();
         btnDeleteVariant = new javax.swing.JButton();
         btnRenameVariant = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        pnlRightArmor = new javax.swing.JPanel();
+        JPanel jPanel2 = new JPanel();
+        JPanel jPanel6 = new JPanel();
+        JPanel pnlRightArmor = new JPanel();
         lblRightIntPts = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
+        JLabel jLabel40 = new JLabel();
+        JLabel jLabel46 = new JLabel();
         spnRightArmor = new javax.swing.JSpinner();
-        pnlFrontArmor = new javax.swing.JPanel();
+        JPanel pnlFrontArmor = new JPanel();
         lblFrontIntPts = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
+        JLabel jLabel45 = new JLabel();
+        JLabel jLabel47 = new JLabel();
         spnFrontArmor = new javax.swing.JSpinner();
-        pnlLeftArmor = new javax.swing.JPanel();
+        JPanel pnlLeftArmor = new JPanel();
         lblLeftIntPts = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
+        JLabel jLabel41 = new JLabel();
+        JLabel jLabel48 = new JLabel();
         spnLeftArmor = new javax.swing.JSpinner();
-        pnlRearArmor = new javax.swing.JPanel();
+        JPanel pnlRearArmor = new JPanel();
         lblRearIntPts = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
+        JLabel jLabel44 = new JLabel();
+        JLabel jLabel49 = new JLabel();
         spnRearArmor = new javax.swing.JSpinner();
         pnlTurretArmor = new javax.swing.JPanel();
         lblTurretIntPts = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
+        JLabel jLabel42 = new JLabel();
+        JLabel jLabel50 = new JLabel();
         spnTurretArmor = new javax.swing.JSpinner();
         pnlRearTurretArmor = new javax.swing.JPanel();
         lblRearTurretIntPts = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
+        JLabel jLabel43 = new JLabel();
+        JLabel jLabel51 = new JLabel();
         spnRearTurretArmor = new javax.swing.JSpinner();
         pnlRotorArmor = new javax.swing.JPanel();
         lblRotorIntPts = new javax.swing.JLabel();
-        jLabel92 = new javax.swing.JLabel();
-        jLabel93 = new javax.swing.JLabel();
+        JLabel jLabel92 = new JLabel();
+        JLabel jLabel93 = new JLabel();
         spnRotorArmor = new javax.swing.JSpinner();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel52 = new javax.swing.JLabel();
+        JPanel pnlArmorType = new JPanel();
+        JLabel jLabel52 = new JLabel();
         cmbArmorType = new javax.swing.JComboBox();
         chkBalanceLRArmor = new javax.swing.JCheckBox();
         chkBalanceFRArmor = new javax.swing.JCheckBox();
         btnSetArmorTons = new javax.swing.JButton();
         btnUseRemaining = new javax.swing.JButton();
         btnMaximize = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
+        JPanel jPanel8 = new JPanel();
+        JLabel jLabel34 = new JLabel();
+        JLabel jLabel36 = new JLabel();
         lblArmorTotals = new javax.swing.JLabel();
         lblArmorCoverage = new javax.swing.JLabel();
         txtArmorTons = new javax.swing.JTextField();
         txtArmorSpace = new javax.swing.JTextField();
         lblArmorTonsWasted = new javax.swing.JLabel();
         lblArmorLeftInLot = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        tbpWeaponChooser = new javax.swing.JTabbedPane();
-        pnlBallistic = new javax.swing.JPanel();
-        jSeparator5 = new javax.swing.JSeparator();
-        jScrollPane8 = new javax.swing.JScrollPane();
+        pnlEquipment = new javax.swing.JPanel();
+        tbpWeaponChooser = new JTabbedPane();
         lstChooseBallistic = new javax.swing.JList();
-        jSeparator6 = new javax.swing.JSeparator();
-        pnlEnergy = new javax.swing.JPanel();
-        jSeparator7 = new javax.swing.JSeparator();
-        jScrollPane9 = new javax.swing.JScrollPane();
         lstChooseEnergy = new javax.swing.JList();
-        jSeparator8 = new javax.swing.JSeparator();
-        pnlMissile = new javax.swing.JPanel();
-        jSeparator9 = new javax.swing.JSeparator();
-        jScrollPane19 = new javax.swing.JScrollPane();
         lstChooseMissile = new javax.swing.JList();
-        jSeparator10 = new javax.swing.JSeparator();
-        pnlPhysical = new javax.swing.JPanel();
-        jSeparator11 = new javax.swing.JSeparator();
-        jScrollPane20 = new javax.swing.JScrollPane();
         lstChoosePhysical = new javax.swing.JList();
-        jSeparator12 = new javax.swing.JSeparator();
-        pnlEquipmentChooser = new javax.swing.JPanel();
-        jSeparator13 = new javax.swing.JSeparator();
-        jScrollPane21 = new javax.swing.JScrollPane();
         lstChooseEquipment = new javax.swing.JList();
-        jSeparator14 = new javax.swing.JSeparator();
-        pnlArtillery = new javax.swing.JPanel();
-        jSeparator18 = new javax.swing.JSeparator();
-        jScrollPane24 = new javax.swing.JScrollPane();
         lstChooseArtillery = new javax.swing.JList();
-        jSeparator19 = new javax.swing.JSeparator();
-        pnlAmmunition = new javax.swing.JPanel();
-        jSeparator15 = new javax.swing.JSeparator();
-        jScrollPane22 = new javax.swing.JScrollPane();
         lstChooseAmmunition = new javax.swing.JList();
-        jSeparator16 = new javax.swing.JSeparator();
-        pnlSpecials = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
+        JPanel pnlSpecials = new JPanel();
+        JLabel jLabel37 = new JLabel();
         chkUseTC = new javax.swing.JCheckBox();
         chkFCSAIV = new javax.swing.JCheckBox();
         chkFCSAV = new javax.swing.JCheckBox();
         chkFCSApollo = new javax.swing.JCheckBox();
-        chkClanCASE = new javax.swing.JCheckBox();
-        pnlSelected = new javax.swing.JPanel();
-        jScrollPane23 = new javax.swing.JScrollPane();
+        chkCASE = new javax.swing.JCheckBox();
+        JPanel pnlSelected = new JPanel();
+        JScrollPane scrSelectedEquip = new JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
-        pnlEquipInfo = new javax.swing.JPanel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel53 = new javax.swing.JLabel();
+        JPanel pnlEquipInfo = new JPanel();
+        JLabel jLabel38 = new JLabel();
+        JLabel jLabel39 = new JLabel();
+        JLabel jLabel53 = new JLabel();
         lblInfoAVSL = new javax.swing.JLabel();
         lblInfoAVSW = new javax.swing.JLabel();
         lblInfoAVCI = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
+        JLabel jLabel54 = new JLabel();
+        JLabel jLabel55 = new JLabel();
+        JLabel jLabel56 = new JLabel();
         lblInfoIntro = new javax.swing.JLabel();
         lblInfoExtinct = new javax.swing.JLabel();
         lblInfoReintro = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
-        jLabel58 = new javax.swing.JLabel();
-        jLabel59 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        jLabel61 = new javax.swing.JLabel();
+        JLabel jLabel57 = new JLabel();
+        JLabel jLabel58 = new JLabel();
+        JLabel jLabel59 = new JLabel();
+        JLabel jLabel60 = new JLabel();
+        JLabel jLabel61 = new JLabel();
         lblInfoName = new javax.swing.JLabel();
         lblInfoType = new javax.swing.JLabel();
         lblInfoHeat = new javax.swing.JLabel();
         lblInfoDamage = new javax.swing.JLabel();
         lblInfoRange = new javax.swing.JLabel();
-        jSeparator17 = new javax.swing.JSeparator();
-        jLabel62 = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
-        jLabel64 = new javax.swing.JLabel();
-        jLabel65 = new javax.swing.JLabel();
+        JSeparator jSeparator17 = new JSeparator();
+        JLabel jLabel62 = new JLabel();
+        JLabel jLabel63 = new JLabel();
+        JLabel jLabel64 = new JLabel();
+        JLabel jLabel65 = new JLabel();
         lblInfoAmmo = new javax.swing.JLabel();
         lblInfoTonnage = new javax.swing.JLabel();
         lblInfoCrits = new javax.swing.JLabel();
         lblInfoSpecials = new javax.swing.JLabel();
-        jSeparator20 = new javax.swing.JSeparator();
-        jLabel66 = new javax.swing.JLabel();
+        JSeparator jSeparator20 = new JSeparator();
+        JLabel jLabel66 = new JLabel();
         lblInfoCost = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
+        JLabel jLabel67 = new JLabel();
         lblInfoBV = new javax.swing.JLabel();
-        jLabel68 = new javax.swing.JLabel();
+        JLabel jLabel68 = new JLabel();
         lblInfoMountRestrict = new javax.swing.JLabel();
-        jLabel69 = new javax.swing.JLabel();
+        JLabel jLabel69 = new JLabel();
         lblInfoRulesLevel = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        JLabel jLabel6 = new JLabel();
         lblInfoAVDA = new javax.swing.JLabel();
-        pnlControls = new javax.swing.JPanel();
-        btnRemoveEquip = new javax.swing.JButton();
-        btnClearEquip = new javax.swing.JButton();
-        btnAddEquip = new javax.swing.JButton();
+        JPanel pnlControls = new JPanel();
+        JButton btnRemoveEquip = new JButton();
+        JButton btnClearEquip = new JButton();
+        // Variables declaration - do not modify//GEN-BEGIN:variables
+        JButton btnAddEquip = new JButton();
         cmbNumEquips = new javax.swing.JComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        JScrollPane jScrollPane1 = new JScrollPane();
         cmbLocation = new javax.swing.JList();
-        jPanel4 = new javax.swing.JPanel();
-        pnlFluff = new javax.swing.JPanel();
-        pnlImage = new javax.swing.JPanel();
+        JPanel jPanel4 = new JPanel();
+        JPanel pnlFluff = new JPanel();
+        JPanel pnlImage = new JPanel();
         lblFluffImage = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        btnLoadImage = new javax.swing.JButton();
-        btnClearImage = new javax.swing.JButton();
-        pnlExport = new javax.swing.JPanel();
-        btnExportTXT = new javax.swing.JButton();
-        btnExportHTML = new javax.swing.JButton();
-        btnExportMTF = new javax.swing.JButton();
-        tbpFluffEditors = new javax.swing.JTabbedPane();
+        JPanel jPanel1 = new JPanel();
+        JButton btnLoadImage = new JButton();
+        JButton btnClearImage = new JButton();
+        JPanel pnlExport = new JPanel();
+        JButton btnExportTXT = new JButton();
+        JButton btnExportHTML = new JButton();
+        JButton btnExportMTF = new JButton();
+        JTabbedPane tbpFluffEditors = new JTabbedPane();
         pnlOverview = new javax.swing.JPanel();
         pnlCapabilities = new javax.swing.JPanel();
         pnlHistory = new javax.swing.JPanel();
@@ -1357,45 +1271,45 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlVariants = new javax.swing.JPanel();
         pnlNotables = new javax.swing.JPanel();
         pnlAdditionalFluff = new javax.swing.JPanel();
-        pnlManufacturers = new javax.swing.JPanel();
-        jLabel82 = new javax.swing.JLabel();
-        jLabel83 = new javax.swing.JLabel();
-        jLabel84 = new javax.swing.JLabel();
-        jLabel85 = new javax.swing.JLabel();
-        jLabel86 = new javax.swing.JLabel();
-        jLabel87 = new javax.swing.JLabel();
-        jLabel88 = new javax.swing.JLabel();
-        jLabel89 = new javax.swing.JLabel();
+        JPanel pnlManufacturers = new JPanel();
+        JLabel jLabel82 = new JLabel();
+        JLabel jLabel83 = new JLabel();
+        JLabel jLabel84 = new JLabel();
+        JLabel jLabel85 = new JLabel();
+        JLabel jLabel86 = new JLabel();
+        JLabel jLabel87 = new JLabel();
+        JLabel jLabel88 = new JLabel();
+        JLabel jLabel89 = new JLabel();
         txtManufacturer = new javax.swing.JTextField();
         txtEngineManufacturer = new javax.swing.JTextField();
         txtArmorModel = new javax.swing.JTextField();
         txtChassisModel = new javax.swing.JTextField();
         txtCommSystem = new javax.swing.JTextField();
         txtTNTSystem = new javax.swing.JTextField();
-        pnlWeaponsManufacturers = new javax.swing.JPanel();
+        JPanel pnlWeaponsManufacturers = new JPanel();
         chkIndividualWeapons = new javax.swing.JCheckBox();
-        scpWeaponManufacturers = new javax.swing.JScrollPane();
+        JScrollPane scpWeaponManufacturers = new JScrollPane();
         tblWeaponManufacturers = new javax.swing.JTable();
         txtManufacturerLocation = new javax.swing.JTextField();
-        jLabel90 = new javax.swing.JLabel();
+        JLabel jLabel90 = new JLabel();
         txtJJModel = new javax.swing.JTextField();
-        pnlQuirks = new javax.swing.JPanel();
-        lblBattleMechQuirks = new javax.swing.JLabel();
-        scpQuirkTable = new javax.swing.JScrollPane();
-        tblQuirks = new javax.swing.JTable();
-        btnAddQuirk = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
-        pnlBFStats = new javax.swing.JPanel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel73 = new javax.swing.JLabel();
-        jLabel74 = new javax.swing.JLabel();
-        jLabel75 = new javax.swing.JLabel();
-        jLabel76 = new javax.swing.JLabel();
-        jLabel77 = new javax.swing.JLabel();
-        jLabel78 = new javax.swing.JLabel();
-        jLabel79 = new javax.swing.JLabel();
+        JPanel pnlQuirks = new JPanel();
+        JLabel lblBattleMechQuirks = new JLabel();
+        JScrollPane scpQuirkTable = new JScrollPane();
+        tblQuirks = new JTable();
+        JButton btnAddQuirk = new JButton();
+        JPanel jPanel9 = new JPanel();
+        JPanel pnlBFStats = new JPanel();
+        JLabel jLabel70 = new JLabel();
+        JLabel jLabel71 = new JLabel();
+        JLabel jLabel72 = new JLabel();
+        JLabel jLabel73 = new JLabel();
+        JLabel jLabel74 = new JLabel();
+        JLabel jLabel75 = new JLabel();
+        JLabel jLabel76 = new JLabel();
+        JLabel jLabel77 = new JLabel();
+        JLabel jLabel78 = new JLabel();
+        JLabel jLabel79 = new JLabel();
         lblBFMV = new javax.swing.JLabel();
         lblBFWt = new javax.swing.JLabel();
         lblBFOV = new javax.swing.JLabel();
@@ -1406,53 +1320,53 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblBFArmor = new javax.swing.JLabel();
         lblBFStructure = new javax.swing.JLabel();
         lblBFSA = new javax.swing.JLabel();
-        jLabel80 = new javax.swing.JLabel();
+        JLabel jLabel80 = new JLabel();
         lblBFPoints = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jScrollPane14 = new javax.swing.JScrollPane();
+        JPanel jPanel10 = new JPanel();
+        JScrollPane jScrollPane14 = new JScrollPane();
         jTextAreaBFConversion = new javax.swing.JTextArea();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        mnuFile = new javax.swing.JMenu();
-        mnuNewMech = new javax.swing.JMenuItem();
-        mnuLoad = new javax.swing.JMenuItem();
-        mnuOpen = new javax.swing.JMenuItem();
-        mnuImport = new javax.swing.JMenu();
-        mnuImportHMP = new javax.swing.JMenuItem();
-        mnuBatchHMP = new javax.swing.JMenuItem();
-        jSeparator22 = new javax.swing.JSeparator();
-        mnuSave = new javax.swing.JMenuItem();
-        mnuSaveAs = new javax.swing.JMenuItem();
-        mnuExport = new javax.swing.JMenu();
-        mnuExportHTML = new javax.swing.JMenuItem();
-        mnuExportMTF = new javax.swing.JMenuItem();
-        mnuExportTXT = new javax.swing.JMenuItem();
-        mnuExportClipboard = new javax.swing.JMenuItem();
-        mnuCreateTCGMech = new javax.swing.JMenuItem();
-        jSeparator23 = new javax.swing.JSeparator();
-        mnuPrint = new javax.swing.JMenu();
-        mnuPrintPreview = new javax.swing.JMenuItem();
-        jSeparator24 = new javax.swing.JSeparator();
-        mnuExit = new javax.swing.JMenuItem();
-        mnuClearFluff = new javax.swing.JMenu();
-        mnuSummary = new javax.swing.JMenuItem();
-        mnuCostBVBreakdown = new javax.swing.JMenuItem();
-        mnuTextTRO = new javax.swing.JMenuItem();
-        jSeparator26 = new javax.swing.JSeparator();
-        mnuBFB = new javax.swing.JMenuItem();
-        jSeparator27 = new javax.swing.JSeparator();
-        mnuOptions = new javax.swing.JMenuItem();
+        JMenuBar jMenuBar1 = new JMenuBar();
+        JMenu mnuFile = new JMenu();
+        JMenuItem mnuNewMech = new JMenuItem();
+        JMenuItem mnuLoad = new JMenuItem();
+        JMenuItem mnuOpen = new JMenuItem();
+        JMenu mnuImport = new JMenu();
+        JMenuItem mnuImportHMP = new JMenuItem();
+        JMenuItem mnuBatchHMP = new JMenuItem();
+        JSeparator jSeparator22 = new JSeparator();
+        JMenuItem mnuSave = new JMenuItem();
+        JMenuItem mnuSaveAs = new JMenuItem();
+        JMenu mnuExport = new JMenu();
+        JMenuItem mnuExportHTML = new JMenuItem();
+        JMenuItem mnuExportMTF = new JMenuItem();
+        JMenuItem mnuExportTXT = new JMenuItem();
+        JMenuItem mnuExportClipboard = new JMenuItem();
+        JMenuItem mnuCreateTCGMech = new JMenuItem();
+        JSeparator jSeparator23 = new JSeparator();
+        JMenu mnuPrint = new JMenu();
+        JMenuItem mnuPrintPreview = new JMenuItem();
+        JSeparator jSeparator24 = new JSeparator();
+        JMenuItem mnuExit = new JMenuItem();
+        JMenu mnuClearFluff = new JMenu();
+        JMenuItem mnuSummary = new JMenuItem();
+        JMenuItem mnuCostBVBreakdown = new JMenuItem();
+        JMenuItem mnuTextTRO = new JMenuItem();
+        JSeparator jSeparator26 = new JSeparator();
+        JMenuItem mnuBFB = new JMenuItem();
+        JSeparator jSeparator27 = new JSeparator();
+        JMenuItem mnuOptions = new JMenuItem();
         mnuViewToolbar = new javax.swing.JCheckBoxMenuItem();
-        mnuClearUserData = new javax.swing.JMenuItem();
-        jSeparator30 = new javax.swing.JSeparator();
+        JMenuItem mnuClearUserData = new JMenuItem();
+        JSeparator jSeparator30 = new JSeparator();
         mnuUnlock = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        mnuReloadEquipment = new javax.swing.JMenuItem();
-        mnuHelp = new javax.swing.JMenu();
-        mnuCredits = new javax.swing.JMenuItem();
-        mnuAboutSSW = new javax.swing.JMenuItem();
+        JMenuItem jMenuItem1 = new JMenuItem();
+        JMenuItem mnuReloadEquipment = new JMenuItem();
+        JMenu mnuHelp = new JMenu();
+        JMenuItem mnuCredits = new JMenuItem();
+        JMenuItem mnuAboutSSW = new JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new Dimension(800, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -1463,49 +1377,57 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtInfoTonnage.setEditable(false);
         txtInfoTonnage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoTonnage.setText("Tonnage: 000.00");
-        txtInfoTonnage.setMaximumSize(new java.awt.Dimension(110, 20));
-        txtInfoTonnage.setMinimumSize(new java.awt.Dimension(110, 20));
-        txtInfoTonnage.setPreferredSize(new java.awt.Dimension(110, 20));
+        txtInfoTonnage.setMaximumSize(new Dimension(110, 20));
+        txtInfoTonnage.setMinimumSize(new Dimension(110, 20));
+        txtInfoTonnage.setPreferredSize(new Dimension(110, 20));
         pnlInfoPane.add(txtInfoTonnage);
 
         txtInfoFreeTons.setEditable(false);
         txtInfoFreeTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoFreeTons.setText("Free Tons: 000.00");
-        txtInfoFreeTons.setMaximumSize(new java.awt.Dimension(115, 20));
-        txtInfoFreeTons.setMinimumSize(new java.awt.Dimension(115, 20));
-        txtInfoFreeTons.setPreferredSize(new java.awt.Dimension(115, 20));
+        txtInfoFreeTons.setMaximumSize(new Dimension(115, 20));
+        txtInfoFreeTons.setMinimumSize(new Dimension(115, 20));
+        txtInfoFreeTons.setPreferredSize(new Dimension(115, 20));
         pnlInfoPane.add(txtInfoFreeTons);
 
         txtInfoFreeCrits.setEditable(false);
         txtInfoFreeCrits.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoFreeCrits.setText("Space: 00");
-        txtInfoFreeCrits.setMaximumSize(new java.awt.Dimension(65, 20));
-        txtInfoFreeCrits.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtInfoFreeCrits.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtInfoFreeCrits.setMaximumSize(new Dimension(65, 20));
+        txtInfoFreeCrits.setMinimumSize(new Dimension(65, 20));
+        txtInfoFreeCrits.setPreferredSize(new Dimension(65, 20));
         pnlInfoPane.add(txtInfoFreeCrits);
 
         txtTurretInfo.setEditable(false);
         txtTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTurretInfo.setText("Turret: 000.00");
-        txtTurretInfo.setMaximumSize(new java.awt.Dimension(120, 20));
-        txtTurretInfo.setMinimumSize(new java.awt.Dimension(120, 20));
-        txtTurretInfo.setPreferredSize(new java.awt.Dimension(100, 20));
+        txtTurretInfo.setText("Turret: 00.0/00.0");
+        txtTurretInfo.setMaximumSize(new Dimension(100, 20));
+        txtTurretInfo.setMinimumSize(new Dimension(100, 20));
+        txtTurretInfo.setPreferredSize(new Dimension(100, 20));
         pnlInfoPane.add(txtTurretInfo);
+
+        txtRearTurretInfo.setEditable(false);
+        txtRearTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtRearTurretInfo.setText("Rear Turret: 00.0/00.0");
+        txtRearTurretInfo.setMaximumSize(new Dimension(120, 20));
+        txtRearTurretInfo.setMinimumSize(new Dimension(120, 20));
+        txtRearTurretInfo.setPreferredSize(new Dimension(120, 20));
+        pnlInfoPane.add(txtRearTurretInfo);
 
         txtInfoBattleValue.setEditable(false);
         txtInfoBattleValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoBattleValue.setText("BV: 00,000");
-        txtInfoBattleValue.setMaximumSize(new java.awt.Dimension(75, 20));
-        txtInfoBattleValue.setMinimumSize(new java.awt.Dimension(75, 20));
-        txtInfoBattleValue.setPreferredSize(new java.awt.Dimension(75, 20));
+        txtInfoBattleValue.setMaximumSize(new Dimension(75, 20));
+        txtInfoBattleValue.setMinimumSize(new Dimension(75, 20));
+        txtInfoBattleValue.setPreferredSize(new Dimension(75, 20));
         pnlInfoPane.add(txtInfoBattleValue);
 
         txtInfoCost.setEditable(false);
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtInfoCost.setText("Cost: 000,000,000,000.00");
-        txtInfoCost.setMaximumSize(new java.awt.Dimension(165, 20));
-        txtInfoCost.setMinimumSize(new java.awt.Dimension(165, 20));
-        txtInfoCost.setPreferredSize(new java.awt.Dimension(165, 20));
+        txtInfoCost.setText("Cost: 000,000,000");
+        txtInfoCost.setMaximumSize(new Dimension(120, 20));
+        txtInfoCost.setMinimumSize(new Dimension(120, 20));
+        txtInfoCost.setPreferredSize(new Dimension(120, 20));
         pnlInfoPane.add(txtInfoCost);
 
         tlbIconBar.setFloatable(false);
@@ -1513,108 +1435,72 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         btnNewVee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document--plus.png"))); // NOI18N
         btnNewVee.setFocusable(false);
-        btnNewVee.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnNewVee.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnNewVee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewVeeActionPerformed(evt);
-            }
-        });
+        btnNewVee.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnNewVee.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnNewVee.addActionListener(this::btnNewVeeActionPerformed);
         tlbIconBar.add(btnNewVee);
 
         btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/folder-open-document.png"))); // NOI18N
         btnOpen.setFocusable(false);
-        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOpenActionPerformed(evt);
-            }
-        });
+        btnOpen.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnOpen.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnOpen.addActionListener(this::btnOpenActionPerformed);
         tlbIconBar.add(btnOpen);
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/disk-black.png"))); // NOI18N
         btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
+        btnSave.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnSave.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnSave.addActionListener(this::btnSaveActionPerformed);
         tlbIconBar.add(btnSave);
         tlbIconBar.add(jSeparator1);
 
         btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/printer.png"))); // NOI18N
         btnPrint.setFocusable(false);
-        btnPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
-            }
-        });
+        btnPrint.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnPrint.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnPrint.addActionListener(this::btnPrintActionPerformed);
         tlbIconBar.add(btnPrint);
         tlbIconBar.add(jSeparator2);
 
         btnExportClipboardIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-clipboard.png"))); // NOI18N
         btnExportClipboardIcon.setToolTipText("Export Text to Clipboard");
         btnExportClipboardIcon.setFocusable(false);
-        btnExportClipboardIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExportClipboardIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportClipboardIcon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportClipboardIconActionPerformed(evt);
-            }
-        });
+        btnExportClipboardIcon.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnExportClipboardIcon.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnExportClipboardIcon.addActionListener(this::btnExportClipboardIconActionPerformed);
         tlbIconBar.add(btnExportClipboardIcon);
 
         btnExportHTMLIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-image.png"))); // NOI18N
         btnExportHTMLIcon.setToolTipText("Export HTML");
         btnExportHTMLIcon.setFocusable(false);
-        btnExportHTMLIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExportHTMLIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportHTMLIcon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportHTMLIconActionPerformed(evt);
-            }
-        });
+        btnExportHTMLIcon.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnExportHTMLIcon.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnExportHTMLIcon.addActionListener(this::btnExportHTMLIconActionPerformed);
         tlbIconBar.add(btnExportHTMLIcon);
 
         btnExportTextIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-text.png"))); // NOI18N
         btnExportTextIcon.setToolTipText("Export Text");
         btnExportTextIcon.setFocusable(false);
-        btnExportTextIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExportTextIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportTextIcon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportTextIconActionPerformed(evt);
-            }
-        });
+        btnExportTextIcon.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnExportTextIcon.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnExportTextIcon.addActionListener(this::btnExportTextIconActionPerformed);
         tlbIconBar.add(btnExportTextIcon);
 
         btnExportMTFIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document--arrow.png"))); // NOI18N
         btnExportMTFIcon.setToolTipText("Export MTF");
         btnExportMTFIcon.setFocusable(false);
-        btnExportMTFIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExportMTFIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportMTFIcon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportMTFIconActionPerformed(evt);
-            }
-        });
+        btnExportMTFIcon.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnExportMTFIcon.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnExportMTFIcon.addActionListener(this::btnExportMTFIconActionPerformed);
         tlbIconBar.add(btnExportMTFIcon);
 
         btnChatInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/balloon.png"))); // NOI18N
         btnChatInfo.setToolTipText("Copy Chat Line");
         btnChatInfo.setFocusable(false);
-        btnChatInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnChatInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnChatInfo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChatInfoActionPerformed(evt);
-            }
-        });
+        btnChatInfo.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnChatInfo.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnChatInfo.addActionListener(this::btnChatInfoActionPerformed);
         tlbIconBar.add(btnChatInfo);
         tlbIconBar.add(jSeparator3);
         tlbIconBar.add(jSeparator25);
@@ -1622,37 +1508,25 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnAddToForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/clipboard--plus.png"))); // NOI18N
         btnAddToForceList.setToolTipText("Add  to Force List");
         btnAddToForceList.setFocusable(false);
-        btnAddToForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAddToForceList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAddToForceList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddToForceListActionPerformed(evt);
-            }
-        });
+        btnAddToForceList.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnAddToForceList.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnAddToForceList.addActionListener(this::btnAddToForceListActionPerformed);
         tlbIconBar.add(btnAddToForceList);
 
         btnForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/clipboard.png"))); // NOI18N
         btnForceList.setToolTipText("Force List");
         btnForceList.setFocusable(false);
-        btnForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnForceList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnForceList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnForceListActionPerformed(evt);
-            }
-        });
+        btnForceList.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnForceList.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnForceList.addActionListener(this::btnForceListActionPerformed);
         tlbIconBar.add(btnForceList);
         tlbIconBar.add(jSeparator4);
 
         btnOptions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/gear.png"))); // NOI18N
         btnOptions.setFocusable(false);
-        btnOptions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnOptions.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOptionsActionPerformed(evt);
-            }
-        });
+        btnOptions.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnOptions.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnOptions.addActionListener(this::btnOptionsActionPerformed);
         tlbIconBar.add(btnOptions);
         tlbIconBar.add(jSeparator21);
 
@@ -1661,142 +1535,118 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         tlbIconBar.add(lblSelectVariant);
 
         cmbOmniVariant.setEnabled(false);
-        cmbOmniVariant.setMaximumSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbOmniVariantActionPerformed(evt);
-            }
-        });
+        cmbOmniVariant.setMaximumSize(new Dimension(150, 20));
+        cmbOmniVariant.setMinimumSize(new Dimension(150, 20));
+        cmbOmniVariant.setPreferredSize(new Dimension(150, 20));
+        cmbOmniVariant.addActionListener(this::cmbOmniVariantActionPerformed);
         tlbIconBar.add(cmbOmniVariant);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Basic Information"));
+        pnlBasicInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Basic Information"));
 
         jLabel1.setText("Vehicle Name:");
 
-        txtVehicleName.setMinimumSize(new java.awt.Dimension(150, 20));
-        txtVehicleName.setPreferredSize(new java.awt.Dimension(150, 20));
+        txtVehicleName.setMinimumSize(new Dimension(150, 20));
+        txtVehicleName.setPreferredSize(new Dimension(150, 20));
 
         jLabel4.setText("Model:");
 
-        txtModel.setMinimumSize(new java.awt.Dimension(150, 20));
-        txtModel.setPreferredSize(new java.awt.Dimension(150, 20));
+        txtModel.setMinimumSize(new Dimension(150, 20));
+        txtModel.setPreferredSize(new Dimension(150, 20));
 
         jLabel2.setText("Rules Level:");
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced", "Experimental" }));
         cmbRulesLevel.setSelectedIndex(1);
-        cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbRulesLevel.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbRulesLevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbRulesLevelActionPerformed(evt);
-            }
-        });
+        cmbRulesLevel.setMinimumSize(new Dimension(150, 20));
+        cmbRulesLevel.setPreferredSize(new Dimension(150, 20));
+        cmbRulesLevel.addActionListener(this::cmbRulesLevelActionPerformed);
 
         jLabel5.setText("Era:");
 
         cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
         cmbEra.setSelectedIndex(1);
-        cmbEra.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbEra.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbEra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbEraActionPerformed(evt);
-            }
-        });
+        cmbEra.setMinimumSize(new Dimension(150, 20));
+        cmbEra.setPreferredSize(new Dimension(150, 20));
+        cmbEra.addActionListener(this::cmbEraActionPerformed);
 
         jLabel3.setText("Tech Base:");
 
-        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed" }));
-        cmbTechBase.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbTechBase.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbTechBase.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTechBaseActionPerformed(evt);
-            }
-        });
+        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed Tech" }));
+        cmbTechBase.setMinimumSize(new Dimension(150, 20));
+        cmbTechBase.setPreferredSize(new Dimension(150, 20));
+        cmbTechBase.addActionListener(this::cmbTechBaseActionPerformed);
 
         lblEraYears.setText("2443~2800");
 
         chkYearRestrict.setText("Restrict Availability by Year");
-        chkYearRestrict.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkYearRestrictActionPerformed(evt);
-            }
-        });
+        chkYearRestrict.addActionListener(this::chkYearRestrictActionPerformed);
 
-        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel81.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel81.setText("Source:");
 
-        txtSource.setMinimumSize(new java.awt.Dimension(150, 20));
-        txtSource.setPreferredSize(new java.awt.Dimension(150, 20));
+        txtSource.setMinimumSize(new Dimension(150, 20));
+        txtSource.setPreferredSize(new Dimension(150, 20));
 
         lblProdYear.setText("Prod Year/Era:");
 
         txtProdYear.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtProdYear.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtProdYear.setMaximumSize(new java.awt.Dimension(60, 20));
-        txtProdYear.setMinimumSize(new java.awt.Dimension(60, 20));
-        txtProdYear.setPreferredSize(new java.awt.Dimension(60, 20));
+        txtProdYear.setMaximumSize(new Dimension(60, 20));
+        txtProdYear.setMinimumSize(new Dimension(60, 20));
+        txtProdYear.setPreferredSize(new Dimension(60, 20));
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
-        cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
-        cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
-        cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
-        cmbProductionEra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbProductionEraActionPerformed(evt);
-            }
-        });
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages", "ilClan" }));
+        cmbProductionEra.setMaximumSize(new Dimension(90, 20));
+        cmbProductionEra.setMinimumSize(new Dimension(90, 20));
+        cmbProductionEra.setPreferredSize(new Dimension(90, 20));
+        cmbProductionEra.addActionListener(this::cmbProductionEraActionPerformed);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBasicInfoLayout = new javax.swing.GroupLayout(pnlBasicInfo);
+        pnlBasicInfo.setLayout(pnlBasicInfoLayout);
+        pnlBasicInfoLayout.setHorizontalGroup(
+            pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel2)
                         .addGap(2, 2, 2)
                         .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel5)
                         .addGap(2, 2, 2)
                         .addComponent(cmbEra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel3)
                         .addGap(2, 2, 2)
                         .addComponent(cmbTechBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(129, 129, 129)
                         .addComponent(lblEraYears))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel81, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtVehicleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBasicInfoLayout.createSequentialGroup()
                                     .addGap(2, 2, 2)
                                     .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addComponent(lblProdYear)
                         .addGap(2, 2, 2)
                         .addComponent(txtProdYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1805,46 +1655,46 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addComponent(chkYearRestrict))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+        pnlBasicInfoLayout.setVerticalGroup(
+            pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBasicInfoLayout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel1))
                     .addComponent(txtVehicleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel4))
                     .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel81)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel2))
                     .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel5))
                     .addComponent(cmbEra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel3))
                     .addComponent(cmbTechBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(lblEraYears)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(pnlBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBasicInfoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblProdYear))
                     .addComponent(txtProdYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1872,75 +1722,51 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlChassis.setNextFocusableComponent(spnCruiseMP);
 
         cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hovercraft", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "VTOL", "Wheeled", "WiGE", "Hovercraft (Super Heavy)", "Displacement (Super Heavy)" }));
-        cmbMotiveType.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbMotiveType.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbMotiveType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbMotiveTypeActionPerformed(evt);
-            }
-        });
+        cmbMotiveType.setMinimumSize(new Dimension(150, 20));
+        cmbMotiveType.setPreferredSize(new Dimension(150, 20));
+        cmbMotiveType.addActionListener(this::cmbMotiveTypeActionPerformed);
 
         jLabel7.setText("Motive Type:");
 
         jLabel8.setText("Tonnage:");
 
         chkOmniVee.setText("OmniVehicle");
-        chkOmniVee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkOmniVeeActionPerformed(evt);
-            }
-        });
+        chkOmniVee.addActionListener(this::chkOmniVeeActionPerformed);
 
         chkTrailer.setText("Trailer");
         chkTrailer.setEnabled(false);
-        chkTrailer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkTrailerActionPerformed(evt);
-            }
-        });
+        chkTrailer.addActionListener(this::chkTrailerActionPerformed);
 
         spnTonnage.setModel(new javax.swing.SpinnerNumberModel(10, 1, null, 1));
-        spnTonnage.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnTonnage.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnTonnage.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnTonnageStateChanged(evt);
-            }
-        });
+        spnTonnage.setMinimumSize(new Dimension(45, 20));
+        spnTonnage.setPreferredSize(new Dimension(45, 20));
+        spnTonnage.addChangeListener(this::spnTonnageStateChanged);
         spnTonnage.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 spnTonnageFocusGained(evt);
             }
         });
         spnTonnage.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnTonnageInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
         jLabel9.setText("Engine:");
 
         cmbEngineType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "I.C.E.", "Fusion", "Light Fusion", "XL Fusion", "Compact Fusion" }));
-        cmbEngineType.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbEngineType.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbEngineType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbEngineTypeActionPerformed(evt);
-            }
-        });
+        cmbEngineType.setMinimumSize(new Dimension(150, 20));
+        cmbEngineType.setPreferredSize(new Dimension(150, 20));
+        cmbEngineType.addActionListener(this::cmbEngineTypeActionPerformed);
 
         jLabel32.setText("Turret:");
 
         cmbTurret.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No Turret", "Single Turret", "Dual Turret", "Sponson Turrets", "Chin Turret", "Mast Turret" }));
-        cmbTurret.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTurretActionPerformed(evt);
-            }
-        });
+        cmbTurret.addActionListener(this::cmbTurretActionPerformed);
 
-        lblVeeClass.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblVeeClass.setHorizontalAlignment(SwingConstants.LEFT);
         lblVeeClass.setText("Assault Vee");
 
         lblVeeLimits.setText("500t Max");
@@ -1948,34 +1774,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jLabel91.setText("Heat Sinks:");
 
         spnHeatSinks.setModel(new javax.swing.SpinnerNumberModel(10, 1, null, 1));
-        spnHeatSinks.setMinimumSize(new java.awt.Dimension(45, 20));
+        spnHeatSinks.setMinimumSize(new Dimension(45, 20));
         spnHeatSinks.setNextFocusableComponent(spnCruiseMP);
-        spnHeatSinks.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnHeatSinks.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnHeatSinksStateChanged(evt);
-            }
-        });
+        spnHeatSinks.setPreferredSize(new Dimension(45, 20));
+        spnHeatSinks.addChangeListener(this::spnHeatSinksStateChanged);
         spnHeatSinks.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 spnHeatSinksFocusGained(evt);
             }
         });
         spnHeatSinks.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnHeatSinksInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
         spnTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnTurretTonnage.setEnabled(false);
-        spnTurretTonnage.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnTurretTonnageStateChanged(evt);
-            }
-        });
+        spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
+
+        spnRearTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
+        spnRearTurretTonnage.setEnabled(false);
+        spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
 
         javax.swing.GroupLayout pnlChassisLayout = new javax.swing.GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
@@ -2000,7 +1822,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(cmbTurret, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnTurretTonnage))
+                            .addComponent(spnTurretTonnage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(spnRearTurretTonnage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(pnlChassisLayout.createSequentialGroup()
                             .addComponent(jLabel9)
                             .addGap(2, 2, 2)
@@ -2051,7 +1875,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addGroup(pnlChassisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
                     .addComponent(cmbTurret, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnRearTurretTonnage, javax.swing.GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChassisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlChassisLayout.createSequentialGroup()
@@ -2067,18 +1892,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jLabel10.setText("Cruise MP:");
 
         spnCruiseMP.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
-        spnCruiseMP.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnCruiseMP.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnCruiseMP.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnCruiseMPStateChanged(evt);
-            }
-        });
+        spnCruiseMP.setMinimumSize(new Dimension(45, 20));
+        spnCruiseMP.setPreferredSize(new Dimension(45, 20));
+        spnCruiseMP.addChangeListener(this::spnCruiseMPStateChanged);
         spnCruiseMP.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnCruiseMPInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -2086,12 +1907,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         lblFlankMP.setText("2");
 
+        lblMoveSummary.setText("W/R: 12/20");
+
         jLabel13.setText("Jump MP:");
 
         spnJumpMP.setEnabled(false);
-        spnJumpMP.setMinimumSize(new java.awt.Dimension(45, 20));
+        spnJumpMP.setMinimumSize(new Dimension(45, 20));
         spnJumpMP.setNextFocusableComponent(chkFlotationHull);
-        spnJumpMP.setPreferredSize(new java.awt.Dimension(45, 20));
+        spnJumpMP.setPreferredSize(new Dimension(45, 20));
 
         javax.swing.GroupLayout pnlMovementLayout = new javax.swing.GroupLayout(pnlMovement);
         pnlMovement.setLayout(pnlMovementLayout);
@@ -2102,38 +1925,33 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(2, 2, 2)
+                        .addGap(5, 5, 5)
                         .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlMovementLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMovementLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblFlankMP))
-                            .addGroup(pnlMovementLayout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(2, 2, 2)
-                                .addComponent(spnJumpMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblFlankMP)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblMoveSummary))
+                    .addGroup(pnlMovementLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(10, 10, 10)
+                        .addComponent(spnJumpMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         pnlMovementLayout.setVerticalGroup(
             pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMovementLayout.createSequentialGroup()
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMovementLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel10))
+                    .addComponent(jLabel10)
                     .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
+                .addGap(5, 5, 5)
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(lblFlankMP))
-                .addGap(2, 2, 2)
+                    .addComponent(lblFlankMP)
+                    .addComponent(lblMoveSummary))
+                .addGap(8, 8, 8)
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMovementLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel13))
+                    .addComponent(jLabel13)
                     .addComponent(spnJumpMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -2143,68 +1961,48 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkFlotationHull.setText("Flotation Hull");
         chkFlotationHull.setEnabled(false);
-        chkFlotationHull.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFlotationHullActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkFlotationHull.addActionListener(this::chkFlotationHullActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlChassisMods.add(chkFlotationHull, gridBagConstraints);
 
         chkLimitedAmph.setText("Limited Amphibious");
         chkLimitedAmph.setEnabled(false);
-        chkLimitedAmph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkLimitedAmphActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkLimitedAmph.addActionListener(this::chkLimitedAmphActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlChassisMods.add(chkLimitedAmph, gridBagConstraints);
 
         chkFullAmph.setText("Fully Amphibious");
         chkFullAmph.setEnabled(false);
-        chkFullAmph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFullAmphActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkFullAmph.addActionListener(this::chkFullAmphActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlChassisMods.add(chkFullAmph, gridBagConstraints);
 
         chkDuneBuggy.setText("Dune Buggy");
         chkDuneBuggy.setEnabled(false);
-        chkDuneBuggy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkDuneBuggyActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkDuneBuggy.addActionListener(this::chkDuneBuggyActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlChassisMods.add(chkDuneBuggy, gridBagConstraints);
 
         chkEnviroSealing.setText("Enviro (Vacuum) Sealing");
         chkEnviroSealing.setEnabled(false);
         chkEnviroSealing.setNextFocusableComponent(chkArmoredMotive);
-        chkEnviroSealing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkEnviroSealingActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkEnviroSealing.addActionListener(this::chkEnviroSealingActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlChassisMods.add(chkEnviroSealing, gridBagConstraints);
 
         pnlExperimental.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Experimental Equipment"));
@@ -2218,34 +2016,23 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkEscapePod.setText("Combat Vehicle Escape Pod");
         chkEscapePod.setEnabled(false);
         chkEscapePod.setNextFocusableComponent(chkFractional);
-        chkEscapePod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkEscapePodActionPerformed(evt);
-            }
-        });
+        chkEscapePod.addActionListener(this::chkEscapePodActionPerformed);
 
         chkMinesweeper.setText("Minesweeper");
         chkMinesweeper.setEnabled(false);
 
         chkJetBooster.setText("VTOL Jet Booster");
         chkJetBooster.setEnabled(false);
+        chkJetBooster.addActionListener(this::chkJetBoosterActionPerformed);
 
         chkSupercharger.setText("Supercharger");
         chkSupercharger.setEnabled(false);
-        chkSupercharger.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkSuperchargerActionPerformed(evt);
-            }
-        });
+        chkSupercharger.addActionListener(this::chkSuperchargerActionPerformed);
 
         chkSponsonTurret.setText("Sponson Turret");
         chkSponsonTurret.setEnabled(false);
         chkSponsonTurret.setNextFocusableComponent(chkFractional);
-        chkSponsonTurret.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkSponsonTurretActionPerformed(evt);
-            }
-        });
+        chkSponsonTurret.addActionListener(this::chkSponsonTurretActionPerformed);
 
         javax.swing.GroupLayout pnlExperimentalLayout = new javax.swing.GroupLayout(pnlExperimental);
         pnlExperimental.setLayout(pnlExperimentalLayout);
@@ -2287,192 +2074,188 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkFractional.setText("Use Fractional Accounting");
         chkFractional.setEnabled(false);
         chkFractional.setNextFocusableComponent(txtVehicleName);
-        chkFractional.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFractionalActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkFractional.addActionListener(this::chkFractionalActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         jPanel11.add(chkFractional, gridBagConstraints);
 
         pnlSummary.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Summary"));
         pnlSummary.setLayout(new java.awt.GridBagLayout());
 
         jLabel12.setText("Item");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel12, gridBagConstraints);
 
         jLabel14.setText("Tonnage");
-        pnlSummary.add(jLabel14, new java.awt.GridBagConstraints());
+        pnlSummary.add(jLabel14, new GridBagConstraints());
 
         jLabel15.setText("Space");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlSummary.add(jLabel15, gridBagConstraints);
 
         jLabel16.setText("Availability");
-        pnlSummary.add(jLabel16, new java.awt.GridBagConstraints());
+        pnlSummary.add(jLabel16, new GridBagConstraints());
 
         jLabel17.setText("Internal Structure:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel17, gridBagConstraints);
 
         txtSumIntTons.setEditable(false);
         txtSumIntTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumIntTons.setText("000.00");
-        txtSumIntTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumIntTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumIntTons.setMinimumSize(new Dimension(50, 20));
+        txtSumIntTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumIntTons, gridBagConstraints);
 
         txtSumIntAV.setEditable(false);
         txtSumIntAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumIntAV.setText("X/X-X-X");
-        txtSumIntAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumIntAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumIntAV.setMinimumSize(new Dimension(65, 20));
+        txtSumIntAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumIntAV, gridBagConstraints);
 
         jLabel18.setText("Engine:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel18, gridBagConstraints);
 
         txtSumEngTons.setEditable(false);
         txtSumEngTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumEngTons.setText("000.00");
-        txtSumEngTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumEngTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumEngTons.setMinimumSize(new Dimension(50, 20));
+        txtSumEngTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumEngTons, gridBagConstraints);
 
         txtSumEngAV.setEditable(false);
         txtSumEngAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumEngAV.setText("X/X-X-X");
-        txtSumEngAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumEngAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumEngAV.setMinimumSize(new Dimension(65, 20));
+        txtSumEngAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumEngAV, gridBagConstraints);
 
         jLabel19.setText("Lift/Dive/Rotor:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel19, gridBagConstraints);
 
         txtSumLifTons.setEditable(false);
         txtSumLifTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumLifTons.setText("000.00");
-        txtSumLifTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumLifTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumLifTons.setMinimumSize(new Dimension(50, 20));
+        txtSumLifTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumLifTons, gridBagConstraints);
 
         txtSumLifAV.setEditable(false);
         txtSumLifAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumLifAV.setText("X/X-X-X");
-        txtSumLifAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumLifAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumLifAV.setMinimumSize(new Dimension(65, 20));
+        txtSumLifAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumLifAV, gridBagConstraints);
 
         txtSumEngSpace.setEditable(false);
         txtSumEngSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumEngSpace.setText("00");
-        txtSumEngSpace.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtSumEngSpace.setPreferredSize(new java.awt.Dimension(40, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumEngSpace.setMinimumSize(new Dimension(40, 20));
+        txtSumEngSpace.setPreferredSize(new Dimension(40, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlSummary.add(txtSumEngSpace, gridBagConstraints);
 
         jLabel20.setText("Controls:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel20, gridBagConstraints);
 
         txtSumConTons.setEditable(false);
         txtSumConTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumConTons.setText("000.00");
-        txtSumConTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumConTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumConTons.setMinimumSize(new Dimension(50, 20));
+        txtSumConTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumConTons, gridBagConstraints);
 
         txtSumConAV.setEditable(false);
         txtSumConAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumConAV.setText("X/X-X-X");
-        txtSumConAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumConAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumConAV.setMinimumSize(new Dimension(65, 20));
+        txtSumConAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumConAV, gridBagConstraints);
 
         jLabel21.setText("Jump Jets:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel21, gridBagConstraints);
 
         txtSumJJTons.setEditable(false);
         txtSumJJTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumJJTons.setText("000.00");
-        txtSumJJTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumJJTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumJJTons.setMinimumSize(new Dimension(50, 20));
+        txtSumJJTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumJJTons, gridBagConstraints);
 
         txtSumJJSpace.setEditable(false);
         txtSumJJSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumJJSpace.setText("00");
-        txtSumJJSpace.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtSumJJSpace.setPreferredSize(new java.awt.Dimension(40, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumJJSpace.setMinimumSize(new Dimension(40, 20));
+        txtSumJJSpace.setPreferredSize(new Dimension(40, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
@@ -2481,69 +2264,69 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtSumJJAV.setEditable(false);
         txtSumJJAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumJJAV.setText("X/X-X-X");
-        txtSumJJAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumJJAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumJJAV.setMinimumSize(new Dimension(65, 20));
+        txtSumJJAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumJJAV, gridBagConstraints);
 
         jLabel22.setText("Heat Sinks:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel22, gridBagConstraints);
 
         txtSumHSTons.setEditable(false);
         txtSumHSTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumHSTons.setText("000.00");
-        txtSumHSTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumHSTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumHSTons.setMinimumSize(new Dimension(50, 20));
+        txtSumHSTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumHSTons, gridBagConstraints);
 
         txtSumHSAV.setEditable(false);
         txtSumHSAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumHSAV.setText("X/X-X-X");
-        txtSumHSAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumHSAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumHSAV.setMinimumSize(new Dimension(65, 20));
+        txtSumHSAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumHSAV, gridBagConstraints);
 
         jLabel23.setText("Armor:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel23, gridBagConstraints);
 
         txtSumArmTons.setEditable(false);
         txtSumArmTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumArmTons.setText("000.00");
-        txtSumArmTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumArmTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumArmTons.setMinimumSize(new Dimension(50, 20));
+        txtSumArmTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumArmTons, gridBagConstraints);
 
         txtSumArmSpace.setEditable(false);
         txtSumArmSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumArmSpace.setText("00");
-        txtSumArmSpace.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtSumArmSpace.setPreferredSize(new java.awt.Dimension(40, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumArmSpace.setMinimumSize(new Dimension(40, 20));
+        txtSumArmSpace.setPreferredSize(new Dimension(40, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
@@ -2552,132 +2335,132 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtSumArmAV.setEditable(false);
         txtSumArmAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumArmAV.setText("X/X-X-X");
-        txtSumArmAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumArmAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumArmAV.setMinimumSize(new Dimension(65, 20));
+        txtSumArmAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumArmAV, gridBagConstraints);
 
         jLabel24.setText("Turret:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel24, gridBagConstraints);
 
         txtSumTurTons.setEditable(false);
         txtSumTurTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumTurTons.setText("000.00");
-        txtSumTurTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumTurTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumTurTons.setMinimumSize(new Dimension(50, 20));
+        txtSumTurTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumTurTons, gridBagConstraints);
 
         txtSumTurAV.setEditable(false);
         txtSumTurAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumTurAV.setText("X/X-X-X");
-        txtSumTurAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumTurAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumTurAV.setMinimumSize(new Dimension(65, 20));
+        txtSumTurAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumTurAV, gridBagConstraints);
 
         jLabel25.setText("Rear Turret:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel25, gridBagConstraints);
 
         txtSumRTuTons.setEditable(false);
         txtSumRTuTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumRTuTons.setText("000.00");
-        txtSumRTuTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumRTuTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumRTuTons.setMinimumSize(new Dimension(50, 20));
+        txtSumRTuTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumRTuTons, gridBagConstraints);
 
         txtSumRTuAV.setEditable(false);
         txtSumRTuAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumRTuAV.setText("X/X-X-X");
-        txtSumRTuAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumRTuAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumRTuAV.setMinimumSize(new Dimension(65, 20));
+        txtSumRTuAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumRTuAV, gridBagConstraints);
 
         jLabel26.setText("Sponsons:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel26, gridBagConstraints);
 
         txtSumSpnTons.setEditable(false);
         txtSumSpnTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumSpnTons.setText("000.00");
-        txtSumSpnTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumSpnTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumSpnTons.setMinimumSize(new Dimension(50, 20));
+        txtSumSpnTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumSpnTons, gridBagConstraints);
 
         txtSumSpnAV.setEditable(false);
         txtSumSpnAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumSpnAV.setText("X/X-X-X");
-        txtSumSpnAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumSpnAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumSpnAV.setMinimumSize(new Dimension(65, 20));
+        txtSumSpnAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumSpnAV, gridBagConstraints);
 
         jLabel27.setText("Power Amplifiers:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlSummary.add(jLabel27, gridBagConstraints);
 
         txtSumPATons.setEditable(false);
         txtSumPATons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumPATons.setText("000.00");
-        txtSumPATons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumPATons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumPATons.setMinimumSize(new Dimension(50, 20));
+        txtSumPATons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlSummary.add(txtSumPATons, gridBagConstraints);
 
         txtSumPAAV.setEditable(false);
         txtSumPAAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumPAAV.setText("X/X-X-X");
-        txtSumPAAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumPAAV.setPreferredSize(new java.awt.Dimension(65, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtSumPAAV.setMinimumSize(new Dimension(65, 20));
+        txtSumPAAV.setPreferredSize(new Dimension(65, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlSummary.add(txtSumPAAV, gridBagConstraints);
 
         pnlInformation.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
@@ -2709,10 +2492,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
         pnlInformationLayout.setHorizontalGroup(
-            pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            pnlInformationLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
             .addGroup(pnlInformationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
                     .addGroup(pnlInformationLayout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(jLabel30)
@@ -2777,99 +2560,83 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         btnLockChassis.setText("Lock Chassis");
         btnLockChassis.setEnabled(false);
-        btnLockChassis.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnLockChassis.setMinimumSize(new java.awt.Dimension(105, 23));
-        btnLockChassis.setPreferredSize(new java.awt.Dimension(120, 23));
-        btnLockChassis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLockChassisActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        btnLockChassis.setMaximumSize(new Dimension(200, 23));
+        btnLockChassis.setMinimumSize(new Dimension(105, 23));
+        btnLockChassis.setPreferredSize(new Dimension(120, 23));
+        btnLockChassis.addActionListener(this::btnLockChassisActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         pnlOmniInfo.add(btnLockChassis, gridBagConstraints);
 
         btnAddVariant.setText("Add Variant");
         btnAddVariant.setEnabled(false);
-        btnAddVariant.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnAddVariant.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnAddVariant.setPreferredSize(new java.awt.Dimension(120, 23));
-        btnAddVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddVariantActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        btnAddVariant.setMaximumSize(new Dimension(200, 23));
+        btnAddVariant.setMinimumSize(new Dimension(80, 23));
+        btnAddVariant.setPreferredSize(new Dimension(120, 23));
+        btnAddVariant.addActionListener(this::btnAddVariantActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         pnlOmniInfo.add(btnAddVariant, gridBagConstraints);
 
         btnDeleteVariant.setText("Delete Variant");
         btnDeleteVariant.setEnabled(false);
-        btnDeleteVariant.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnDeleteVariant.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnDeleteVariant.setPreferredSize(new java.awt.Dimension(120, 23));
-        btnDeleteVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteVariantActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        btnDeleteVariant.setMaximumSize(new Dimension(200, 23));
+        btnDeleteVariant.setMinimumSize(new Dimension(80, 23));
+        btnDeleteVariant.setPreferredSize(new Dimension(120, 23));
+        btnDeleteVariant.addActionListener(this::btnDeleteVariantActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         pnlOmniInfo.add(btnDeleteVariant, gridBagConstraints);
 
         btnRenameVariant.setText("Rename Variant");
         btnRenameVariant.setEnabled(false);
-        btnRenameVariant.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnRenameVariant.setPreferredSize(new java.awt.Dimension(120, 23));
-        btnRenameVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRenameVariantActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        btnRenameVariant.setMinimumSize(new Dimension(80, 23));
+        btnRenameVariant.setPreferredSize(new Dimension(120, 23));
+        btnRenameVariant.addActionListener(this::btnRenameVariantActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         pnlOmniInfo.add(btnRenameVariant, gridBagConstraints);
 
         javax.swing.GroupLayout pnlBasicSetupLayout = new javax.swing.GroupLayout(pnlBasicSetup);
         pnlBasicSetup.setLayout(pnlBasicSetupLayout);
         pnlBasicSetupLayout.setHorizontalGroup(
-            pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(pnlBasicSetupLayout.createSequentialGroup()
-                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlChassisMods, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
+                    .addComponent(pnlChassisMods, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlMovement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlBasicInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
                     .addComponent(pnlExperimental, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlChassis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
                     .addComponent(pnlSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlOmniInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         pnlBasicSetupLayout.setVerticalGroup(
-            pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(pnlBasicSetupLayout.createSequentialGroup()
-                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
                     .addGroup(pnlBasicSetupLayout.createSequentialGroup()
                         .addComponent(pnlChassis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlExperimental, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
                         .addGroup(pnlBasicSetupLayout.createSequentialGroup()
                             .addComponent(pnlOmniInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2877,10 +2644,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicSetupLayout.createSequentialGroup()
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlBasicInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlMovement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlChassisMods, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -2892,34 +2659,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlRightArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right"));
         pnlRightArmor.setLayout(new java.awt.GridBagLayout());
 
-        lblRightIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRightIntPts.setHorizontalAlignment(SwingConstants.CENTER);
         lblRightIntPts.setText("00");
         lblRightIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRightIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblRightIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblRightIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        lblRightIntPts.setMaximumSize(new Dimension(45, 20));
+        lblRightIntPts.setMinimumSize(new Dimension(45, 20));
+        lblRightIntPts.setPreferredSize(new Dimension(45, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         pnlRightArmor.add(lblRightIntPts, gridBagConstraints);
 
         jLabel40.setText("Internal");
-        pnlRightArmor.add(jLabel40, new java.awt.GridBagConstraints());
+        pnlRightArmor.add(jLabel40, new GridBagConstraints());
 
         jLabel46.setText("Armor");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         pnlRightArmor.add(jLabel46, gridBagConstraints);
 
-        spnRightArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnRightArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnRightArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnRightArmorStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        spnRightArmor.setMinimumSize(new Dimension(45, 20));
+        spnRightArmor.setPreferredSize(new Dimension(45, 20));
+        spnRightArmor.addChangeListener(this::spnRightArmorStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         pnlRightArmor.add(spnRightArmor, gridBagConstraints);
@@ -2927,34 +2690,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlFrontArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Front"));
         pnlFrontArmor.setLayout(new java.awt.GridBagLayout());
 
-        lblFrontIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFrontIntPts.setHorizontalAlignment(SwingConstants.CENTER);
         lblFrontIntPts.setText("00");
         lblFrontIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblFrontIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblFrontIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblFrontIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        lblFrontIntPts.setMaximumSize(new Dimension(45, 20));
+        lblFrontIntPts.setMinimumSize(new Dimension(45, 20));
+        lblFrontIntPts.setPreferredSize(new Dimension(45, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         pnlFrontArmor.add(lblFrontIntPts, gridBagConstraints);
 
         jLabel45.setText("Internal");
-        pnlFrontArmor.add(jLabel45, new java.awt.GridBagConstraints());
+        pnlFrontArmor.add(jLabel45, new GridBagConstraints());
 
         jLabel47.setText("Armor");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         pnlFrontArmor.add(jLabel47, gridBagConstraints);
 
-        spnFrontArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnFrontArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnFrontArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnFrontArmorStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        spnFrontArmor.setMinimumSize(new Dimension(45, 20));
+        spnFrontArmor.setPreferredSize(new Dimension(45, 20));
+        spnFrontArmor.addChangeListener(this::spnFrontArmorStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         pnlFrontArmor.add(spnFrontArmor, gridBagConstraints);
@@ -2962,34 +2721,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlLeftArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left"));
         pnlLeftArmor.setLayout(new java.awt.GridBagLayout());
 
-        lblLeftIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLeftIntPts.setHorizontalAlignment(SwingConstants.CENTER);
         lblLeftIntPts.setText("00");
         lblLeftIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblLeftIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblLeftIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblLeftIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        lblLeftIntPts.setMaximumSize(new Dimension(45, 20));
+        lblLeftIntPts.setMinimumSize(new Dimension(45, 20));
+        lblLeftIntPts.setPreferredSize(new Dimension(45, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         pnlLeftArmor.add(lblLeftIntPts, gridBagConstraints);
 
         jLabel41.setText("Internal");
-        pnlLeftArmor.add(jLabel41, new java.awt.GridBagConstraints());
+        pnlLeftArmor.add(jLabel41, new GridBagConstraints());
 
         jLabel48.setText("Armor");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         pnlLeftArmor.add(jLabel48, gridBagConstraints);
 
-        spnLeftArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnLeftArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnLeftArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnLeftArmorStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        spnLeftArmor.setMinimumSize(new Dimension(45, 20));
+        spnLeftArmor.setPreferredSize(new Dimension(45, 20));
+        spnLeftArmor.addChangeListener(this::spnLeftArmorStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         pnlLeftArmor.add(spnLeftArmor, gridBagConstraints);
@@ -2997,34 +2752,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlRearArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rear"));
         pnlRearArmor.setLayout(new java.awt.GridBagLayout());
 
-        lblRearIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRearIntPts.setHorizontalAlignment(SwingConstants.CENTER);
         lblRearIntPts.setText("00");
         lblRearIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRearIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblRearIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblRearIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        lblRearIntPts.setMaximumSize(new Dimension(45, 20));
+        lblRearIntPts.setMinimumSize(new Dimension(45, 20));
+        lblRearIntPts.setPreferredSize(new Dimension(45, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         pnlRearArmor.add(lblRearIntPts, gridBagConstraints);
 
         jLabel44.setText("Internal");
-        pnlRearArmor.add(jLabel44, new java.awt.GridBagConstraints());
+        pnlRearArmor.add(jLabel44, new GridBagConstraints());
 
         jLabel49.setText("Armor");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         pnlRearArmor.add(jLabel49, gridBagConstraints);
 
-        spnRearArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnRearArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnRearArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnRearArmorStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        spnRearArmor.setMinimumSize(new Dimension(45, 20));
+        spnRearArmor.setPreferredSize(new Dimension(45, 20));
+        spnRearArmor.addChangeListener(this::spnRearArmorStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         pnlRearArmor.add(spnRearArmor, gridBagConstraints);
@@ -3032,34 +2783,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlTurretArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Turret"));
         pnlTurretArmor.setLayout(new java.awt.GridBagLayout());
 
-        lblTurretIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTurretIntPts.setHorizontalAlignment(SwingConstants.CENTER);
         lblTurretIntPts.setText("00");
         lblTurretIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblTurretIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblTurretIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblTurretIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        lblTurretIntPts.setMaximumSize(new Dimension(45, 20));
+        lblTurretIntPts.setMinimumSize(new Dimension(45, 20));
+        lblTurretIntPts.setPreferredSize(new Dimension(45, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         pnlTurretArmor.add(lblTurretIntPts, gridBagConstraints);
 
         jLabel42.setText("Internal");
-        pnlTurretArmor.add(jLabel42, new java.awt.GridBagConstraints());
+        pnlTurretArmor.add(jLabel42, new GridBagConstraints());
 
         jLabel50.setText("Armor");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         pnlTurretArmor.add(jLabel50, gridBagConstraints);
 
-        spnTurretArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnTurretArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnTurretArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnTurretArmorStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        spnTurretArmor.setMinimumSize(new Dimension(45, 20));
+        spnTurretArmor.setPreferredSize(new Dimension(45, 20));
+        spnTurretArmor.addChangeListener(this::spnTurretArmorStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         pnlTurretArmor.add(spnTurretArmor, gridBagConstraints);
@@ -3068,34 +2815,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlRearTurretArmor.setEnabled(false);
         pnlRearTurretArmor.setLayout(new java.awt.GridBagLayout());
 
-        lblRearTurretIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRearTurretIntPts.setHorizontalAlignment(SwingConstants.CENTER);
         lblRearTurretIntPts.setText("00");
         lblRearTurretIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRearTurretIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblRearTurretIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblRearTurretIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        lblRearTurretIntPts.setMaximumSize(new Dimension(45, 20));
+        lblRearTurretIntPts.setMinimumSize(new Dimension(45, 20));
+        lblRearTurretIntPts.setPreferredSize(new Dimension(45, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         pnlRearTurretArmor.add(lblRearTurretIntPts, gridBagConstraints);
 
         jLabel43.setText("Internal");
-        pnlRearTurretArmor.add(jLabel43, new java.awt.GridBagConstraints());
+        pnlRearTurretArmor.add(jLabel43, new GridBagConstraints());
 
         jLabel51.setText("Armor");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         pnlRearTurretArmor.add(jLabel51, gridBagConstraints);
 
-        spnRearTurretArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnRearTurretArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnRearTurretArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnRearTurretArmorStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        spnRearTurretArmor.setMinimumSize(new Dimension(45, 20));
+        spnRearTurretArmor.setPreferredSize(new Dimension(45, 20));
+        spnRearTurretArmor.addChangeListener(this::spnRearTurretArmorStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         pnlRearTurretArmor.add(spnRearTurretArmor, gridBagConstraints);
@@ -3104,34 +2847,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlRotorArmor.setEnabled(false);
         pnlRotorArmor.setLayout(new java.awt.GridBagLayout());
 
-        lblRotorIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRotorIntPts.setHorizontalAlignment(SwingConstants.CENTER);
         lblRotorIntPts.setText("00");
         lblRotorIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRotorIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblRotorIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblRotorIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        lblRotorIntPts.setMaximumSize(new Dimension(45, 20));
+        lblRotorIntPts.setMinimumSize(new Dimension(45, 20));
+        lblRotorIntPts.setPreferredSize(new Dimension(45, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         pnlRotorArmor.add(lblRotorIntPts, gridBagConstraints);
 
         jLabel92.setText("Internal");
-        pnlRotorArmor.add(jLabel92, new java.awt.GridBagConstraints());
+        pnlRotorArmor.add(jLabel92, new GridBagConstraints());
 
         jLabel93.setText("Armor");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         pnlRotorArmor.add(jLabel93, gridBagConstraints);
 
-        spnRotorArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnRotorArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnRotorArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnRotorArmorStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        spnRotorArmor.setMinimumSize(new Dimension(45, 20));
+        spnRotorArmor.setPreferredSize(new Dimension(45, 20));
+        spnRotorArmor.addChangeListener(this::spnRotorArmorStateChanged);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         pnlRotorArmor.add(spnRotorArmor, gridBagConstraints);
@@ -3180,77 +2919,60 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addContainerGap())
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Type"));
+        pnlArmorType.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Type"));
 
         jLabel52.setText("Armor Type:");
 
         cmbArmorType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard", "Industrial", "Commercial", "Ferro-Fibrous", "Light Ferro-Fibrous", "Heavy Ferro-Fibrous", "Vehicular Stealth" }));
-        cmbArmorType.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbArmorType.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbArmorType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbArmorTypeActionPerformed(evt);
-            }
-        });
+        cmbArmorType.setMinimumSize(new Dimension(150, 20));
+        cmbArmorType.setPreferredSize(new Dimension(150, 20));
+        cmbArmorType.addActionListener(this::cmbArmorTypeActionPerformed);
 
         chkBalanceLRArmor.setSelected(true);
         chkBalanceLRArmor.setText("Balance Left/Right Armor");
-
         chkBalanceFRArmor.setText("Balance Front/Rear Armor");
 
         btnSetArmorTons.setText("Set Armor Tonnage");
-        btnSetArmorTons.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSetArmorTonsActionPerformed(evt);
-            }
-        });
+        btnSetArmorTons.addActionListener(this::btnSetArmorTonsActionPerformed);
 
         btnUseRemaining.setText("Use Remaining Tonnage");
-        btnUseRemaining.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUseRemainingActionPerformed(evt);
-            }
-        });
+        btnUseRemaining.addActionListener(this::btnUseRemainingActionPerformed);
 
         btnMaximize.setText("Maximize Armor");
-        btnMaximize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMaximizeActionPerformed(evt);
-            }
-        });
+        btnMaximize.addActionListener(this::btnMaximizeActionPerformed);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlArmorTypeLayout = new javax.swing.GroupLayout(pnlArmorType);
+        pnlArmorType.setLayout(pnlArmorTypeLayout);
+        pnlArmorTypeLayout.setHorizontalGroup(
+            pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArmorTypeLayout.createSequentialGroup()
+                .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel52)
                         .addGap(2, 2, 2)
                         .addComponent(cmbArmorType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnSetArmorTons, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnUseRemaining, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnMaximize, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chkBalanceLRArmor)
                             .addComponent(chkBalanceFRArmor))))
                 .addGap(10, 10, 10))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        pnlArmorTypeLayout.setVerticalGroup(
+            pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArmorTypeLayout.createSequentialGroup()
+                .addGroup(pnlArmorTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlArmorTypeLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel52))
                     .addComponent(cmbArmorType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3270,30 +2992,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jPanel8.setLayout(new java.awt.GridBagLayout());
 
         jLabel34.setText("Tons");
-        jPanel8.add(jLabel34, new java.awt.GridBagConstraints());
+        jPanel8.add(jLabel34, new GridBagConstraints());
 
         jLabel36.setText("Space");
-        jPanel8.add(jLabel36, new java.awt.GridBagConstraints());
+        jPanel8.add(jLabel36, new GridBagConstraints());
 
         lblArmorTotals.setText("999 of 999 Armor Points");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         jPanel8.add(lblArmorTotals, gridBagConstraints);
 
         lblArmorCoverage.setText("100.00% Coverage");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
+        gridBagConstraints.anchor = GridBagConstraints.SOUTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         jPanel8.add(lblArmorCoverage, gridBagConstraints);
 
         txtArmorTons.setEditable(false);
         txtArmorTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtArmorTons.setText("000.00");
-        txtArmorTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtArmorTons.setPreferredSize(new java.awt.Dimension(50, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtArmorTons.setMinimumSize(new Dimension(50, 20));
+        txtArmorTons.setPreferredSize(new Dimension(50, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         jPanel8.add(txtArmorTons, gridBagConstraints);
@@ -3301,28 +3023,28 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtArmorSpace.setEditable(false);
         txtArmorSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtArmorSpace.setText("00");
-        txtArmorSpace.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtArmorSpace.setPreferredSize(new java.awt.Dimension(40, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        txtArmorSpace.setMinimumSize(new Dimension(40, 20));
+        txtArmorSpace.setPreferredSize(new Dimension(40, 20));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         jPanel8.add(txtArmorSpace, gridBagConstraints);
 
         lblArmorTonsWasted.setText("0.00 Tons Wasted");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         jPanel8.add(lblArmorTonsWasted, gridBagConstraints);
 
         lblArmorLeftInLot.setText("99 Points Left In This 1/2 Ton Lot");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         jPanel8.add(lblArmorLeftInLot, gridBagConstraints);
 
@@ -3336,7 +3058,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlArmorType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(214, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -3348,7 +3070,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlArmorType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(199, 199, 199))))
@@ -3356,463 +3078,104 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         tbpMainTabPane.addTab("Armor", jPanel2);
 
-        tbpWeaponChooser.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
-        tbpWeaponChooser.setMaximumSize(new java.awt.Dimension(300, 300));
-        tbpWeaponChooser.setMinimumSize(new java.awt.Dimension(300, 300));
-
-        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator5.setAlignmentX(0.0F);
-        jSeparator5.setAlignmentY(0.0F);
-
-        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane8.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane8.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane8.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseBallistic.setModel(new javax.swing.AbstractListModel() {
+        //region Equipment Tab / Weapons and Equipment Lists
+        AbstractListModel placeholder = new AbstractListModel() {
             String[] strings = { "Placeholder" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseBallistic.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseBallistic.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseBallistic.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseBallistic.setPreferredSize(null);
-        lstChooseBallistic.setVisibleRowCount(16);
-        lstChooseBallistic.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseBallisticValueChanged(evt);
-            }
-        });
-        MouseListener mlBallistic = new MouseAdapter() {
+        };
+
+        MouseListener mlAddEquip = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     btnAddEquipActionPerformed( null );
                 }
             }
         };
-        lstChooseBallistic.addMouseListener( mlBallistic );
-        lstChooseBallistic.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane8.setViewportView(lstChooseBallistic);
 
-        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator6.setAlignmentX(0.0F);
-        jSeparator6.setAlignmentY(0.0F);
-
-        javax.swing.GroupLayout pnlBallisticLayout = new javax.swing.GroupLayout(pnlBallistic);
-        pnlBallistic.setLayout(pnlBallisticLayout);
-        pnlBallisticLayout.setHorizontalGroup(
-            pnlBallisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
-            .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        pnlBallisticLayout.setVerticalGroup(
-            pnlBallisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1))
-        );
-
-        tbpWeaponChooser.addTab("Ballistic", pnlBallistic);
-
-        pnlEnergy.setLayout(new javax.swing.BoxLayout(pnlEnergy, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator7.setAlignmentX(0.0F);
-        jSeparator7.setAlignmentY(0.0F);
-        pnlEnergy.add(jSeparator7);
-
-        jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane9.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane9.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane9.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane9.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseEnergy.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseEnergy.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEnergy.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseEnergy.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEnergy.setPreferredSize(null);
-        lstChooseEnergy.setVisibleRowCount(16);
-        lstChooseEnergy.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseEnergyValueChanged(evt);
-            }
-        });
-        MouseListener mlEnergy = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseEnergy.addMouseListener( mlEnergy );
-        lstChooseEnergy.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane9.setViewportView(lstChooseEnergy);
-
-        pnlEnergy.add(jScrollPane9);
-
-        jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator8.setAlignmentX(0.0F);
-        jSeparator8.setAlignmentY(0.0F);
-        pnlEnergy.add(jSeparator8);
-
-        tbpWeaponChooser.addTab("Energy", pnlEnergy);
-
-        pnlMissile.setLayout(new javax.swing.BoxLayout(pnlMissile, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator9.setAlignmentX(0.0F);
-        jSeparator9.setAlignmentY(0.0F);
-        pnlMissile.add(jSeparator9);
-
-        jScrollPane19.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane19.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane19.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane19.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane19.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseMissile.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseMissile.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseMissile.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseMissile.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseMissile.setPreferredSize(null);
-        lstChooseMissile.setVisibleRowCount(16);
-        lstChooseMissile.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseMissileValueChanged(evt);
-            }
-        });
-        MouseListener mlMissile = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseMissile.addMouseListener( mlMissile );
-        lstChooseMissile.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane19.setViewportView(lstChooseMissile);
-
-        pnlMissile.add(jScrollPane19);
-
-        jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator10.setAlignmentX(0.0F);
-        jSeparator10.setAlignmentY(0.0F);
-        pnlMissile.add(jSeparator10);
-
-        tbpWeaponChooser.addTab("Missile", pnlMissile);
-
-        pnlPhysical.setLayout(new javax.swing.BoxLayout(pnlPhysical, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator11.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator11.setAlignmentX(0.0F);
-        jSeparator11.setAlignmentY(0.0F);
-        pnlPhysical.add(jSeparator11);
-
-        jScrollPane20.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane20.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane20.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane20.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane20.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChoosePhysical.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChoosePhysical.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChoosePhysical.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChoosePhysical.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChoosePhysical.setPreferredSize(null);
-        lstChoosePhysical.setVisibleRowCount(16);
-        lstChoosePhysical.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChoosePhysicalValueChanged(evt);
-            }
-        });
-        MouseListener mlPhysical = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChoosePhysical.addMouseListener( mlPhysical );
-        lstChoosePhysical.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane20.setViewportView(lstChoosePhysical);
-
-        pnlPhysical.add(jScrollPane20);
-
-        jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator12.setAlignmentX(0.0F);
-        jSeparator12.setAlignmentY(0.0F);
-        pnlPhysical.add(jSeparator12);
-
-        tbpWeaponChooser.addTab("Physical", pnlPhysical);
-
-        pnlEquipmentChooser.setLayout(new javax.swing.BoxLayout(pnlEquipmentChooser, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator13.setAlignmentX(0.0F);
-        jSeparator13.setAlignmentY(0.0F);
-        pnlEquipmentChooser.add(jSeparator13);
-
-        jScrollPane21.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane21.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane21.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane21.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane21.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseEquipment.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEquipment.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseEquipment.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEquipment.setPreferredSize(null);
-        lstChooseEquipment.setVisibleRowCount(16);
-        lstChooseEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseEquipmentValueChanged(evt);
-            }
-        });
-        MouseListener mlEquipment = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseEquipment.addMouseListener( mlEquipment );
-        lstChooseEquipment.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane21.setViewportView(lstChooseEquipment);
-
-        pnlEquipmentChooser.add(jScrollPane21);
-
-        jSeparator14.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator14.setAlignmentX(0.0F);
-        jSeparator14.setAlignmentY(0.0F);
-        pnlEquipmentChooser.add(jSeparator14);
-
-        tbpWeaponChooser.addTab("Equipment", pnlEquipmentChooser);
-
-        pnlArtillery.setLayout(new javax.swing.BoxLayout(pnlArtillery, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator18.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator18.setAlignmentX(0.0F);
-        jSeparator18.setAlignmentY(0.0F);
-        pnlArtillery.add(jSeparator18);
-
-        jScrollPane24.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane24.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane24.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane24.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane24.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseArtillery.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseArtillery.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseArtillery.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseArtillery.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseArtillery.setPreferredSize(null);
-        lstChooseArtillery.setVisibleRowCount(16);
-        lstChooseArtillery.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseArtilleryValueChanged(evt);
-            }
-        });
-        MouseListener mlArtillery = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseArtillery.addMouseListener( mlArtillery );
-        lstChooseArtillery.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane24.setViewportView(lstChooseArtillery);
-
-        pnlArtillery.add(jScrollPane24);
-
-        jSeparator19.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator19.setAlignmentX(0.0F);
-        jSeparator19.setAlignmentY(0.0F);
-        pnlArtillery.add(jSeparator19);
-
-        tbpWeaponChooser.addTab("Artillery", pnlArtillery);
-
-        pnlAmmunition.setLayout(new javax.swing.BoxLayout(pnlAmmunition, javax.swing.BoxLayout.Y_AXIS));
-
-        jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator15.setAlignmentX(0.0F);
-        jSeparator15.setAlignmentY(0.0F);
-        pnlAmmunition.add(jSeparator15);
-
-        jScrollPane22.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane22.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane22.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane22.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane22.setPreferredSize(new java.awt.Dimension(200, 260));
-
-        lstChooseAmmunition.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseAmmunition.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseAmmunition.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseAmmunition.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseAmmunition.setPreferredSize(null);
-        lstChooseAmmunition.setVisibleRowCount(16);
-        lstChooseAmmunition.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseAmmunitionValueChanged(evt);
-            }
-        });
-        MouseListener mlAmmo = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseAmmunition.addMouseListener( mlAmmo );
-        lstChooseAmmunition.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        jScrollPane22.setViewportView(lstChooseAmmunition);
-
-        pnlAmmunition.add(jScrollPane22);
-
-        jSeparator16.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator16.setAlignmentX(0.0F);
-        jSeparator16.setAlignmentY(0.0F);
-        pnlAmmunition.add(jSeparator16);
-
-        tbpWeaponChooser.addTab("Ammunition", pnlAmmunition);
+        tbpWeaponChooser.setTabPlacement(JTabbedPane.RIGHT);
+        tbpWeaponChooser.setMaximumSize(new Dimension(300, 300));
+        tbpWeaponChooser.setMinimumSize(new Dimension(300, 300));
+        tbpWeaponChooser.addTab("Ballistic", EquipmentLocation(lstChooseBallistic, this::lstChooseBallisticValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Energy", EquipmentLocation(lstChooseEnergy, this::lstChooseEnergyValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Missile", EquipmentLocation(lstChooseMissile, this::lstChooseMissileValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Physical", EquipmentLocation(lstChoosePhysical, this::lstChoosePhysicalValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Equipment", EquipmentLocation(lstChooseEquipment, this::lstChooseEquipmentValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Artillery", EquipmentLocation(lstChooseArtillery, this::lstChooseArtilleryValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Ammunition", EquipmentLocation(lstChooseAmmunition, this::lstChooseAmmunitionValueChanged, mlAddEquip, placeholder));
 
         pnlSpecials.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Specials"));
         pnlSpecials.setLayout(new java.awt.GridBagLayout());
 
         jLabel37.setText("Missile Guidance:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
         pnlSpecials.add(jLabel37, gridBagConstraints);
 
         chkUseTC.setText("Targeting Computer");
         chkUseTC.setEnabled(false);
-        chkUseTC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkUseTCActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkUseTC.addActionListener(this::chkUseTCActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
         pnlSpecials.add(chkUseTC, gridBagConstraints);
 
         chkFCSAIV.setText("Use Artemis IV");
-        chkFCSAIV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFCSAIVActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkFCSAIV.addActionListener(this::chkFCSAIVActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlSpecials.add(chkFCSAIV, gridBagConstraints);
 
         chkFCSAV.setText("Use Artemis V");
         chkFCSAV.setEnabled(false);
-        chkFCSAV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFCSAVActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkFCSAV.addActionListener(this::chkFCSAVActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlSpecials.add(chkFCSAV, gridBagConstraints);
 
         chkFCSApollo.setText("Use MRM Apollo");
         chkFCSApollo.setEnabled(false);
-        chkFCSApollo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFCSApolloActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkFCSApollo.addActionListener(this::chkFCSApolloActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlSpecials.add(chkFCSApollo, gridBagConstraints);
 
-        chkClanCASE.setText("Use CASE");
-        chkClanCASE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkClanCASEActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        chkCASE.setText("Use CASE");
+        chkCASE.addActionListener(this::chkCASEActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
-        pnlSpecials.add(chkClanCASE, gridBagConstraints);
+        pnlSpecials.add(chkCASE, gridBagConstraints);
 
         pnlSelected.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selected Equipment"));
-        pnlSelected.setMaximumSize(new java.awt.Dimension(212, 286));
-        pnlSelected.setMinimumSize(new java.awt.Dimension(212, 286));
+        pnlSelected.setMaximumSize(new Dimension(212, 286));
+        pnlSelected.setMinimumSize(new Dimension(212, 286));
         pnlSelected.setLayout(new javax.swing.BoxLayout(pnlSelected, javax.swing.BoxLayout.LINE_AXIS));
 
-        jScrollPane23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane23.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrSelectedEquip.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrSelectedEquip.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel()
-        );
-        lstSelectedEquipment.setMaximumSize(new java.awt.Dimension(180, 225));
-        lstSelectedEquipment.setMinimumSize(new java.awt.Dimension(180, 225));
+        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel() );
+        lstSelectedEquipment.setMaximumSize(new Dimension(180, 225));
+        lstSelectedEquipment.setMinimumSize(new Dimension(180, 225));
         lstSelectedEquipment.setPreferredSize(null);
         lstSelectedEquipment.setVisibleRowCount(16);
-        lstSelectedEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstSelectedEquipmentValueChanged(evt);
-            }
-        });
+        lstSelectedEquipment.addListSelectionListener(this::lstSelectedEquipmentValueChanged);
         lstSelectedEquipment.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 lstSelectedEquipmentKeyPressed(evt);
@@ -3840,289 +3203,289 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         };
         lstSelectedEquipment.addMouseListener( mlSelect );
         lstSelectedEquipment.setCellRenderer( new saw.gui.EquipmentSelectedRenderer( this ) );
-        jScrollPane23.setViewportView(lstSelectedEquipment);
+        scrSelectedEquip.setViewportView(lstSelectedEquipment);
 
-        pnlSelected.add(jScrollPane23);
+        pnlSelected.add(scrSelectedEquip);
 
         pnlEquipInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
         pnlEquipInfo.setLayout(new java.awt.GridBagLayout());
 
         jLabel38.setText("Availability(AoW/SL)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         pnlEquipInfo.add(jLabel38, gridBagConstraints);
 
         jLabel39.setText("Availability (SW)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         pnlEquipInfo.add(jLabel39, gridBagConstraints);
 
         jLabel53.setText("Availability (CI)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         pnlEquipInfo.add(jLabel53, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoAVSL, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoAVSW, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoAVCI, gridBagConstraints);
 
         jLabel54.setText("Introduction");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(jLabel54, gridBagConstraints);
 
         jLabel55.setText("Extinction");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(jLabel55, gridBagConstraints);
 
         jLabel56.setText("Reintroduction");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(jLabel56, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoIntro, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoExtinct, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoReintro, gridBagConstraints);
 
         jLabel57.setText("Name");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 3);
         pnlEquipInfo.add(jLabel57, gridBagConstraints);
 
         jLabel58.setText("Type");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         pnlEquipInfo.add(jLabel58, gridBagConstraints);
 
         jLabel59.setText("Heat");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         pnlEquipInfo.add(jLabel59, gridBagConstraints);
 
         jLabel60.setText("Damage");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         pnlEquipInfo.add(jLabel60, gridBagConstraints);
 
         jLabel61.setText("Range");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         pnlEquipInfo.add(jLabel61, gridBagConstraints);
 
         lblInfoName.setText(" ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         pnlEquipInfo.add(lblInfoName, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoType, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoHeat, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoDamage, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoRange, gridBagConstraints);
 
         jSeparator17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         pnlEquipInfo.add(jSeparator17, gridBagConstraints);
 
         jLabel62.setText("Ammo");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         pnlEquipInfo.add(jLabel62, gridBagConstraints);
 
         jLabel63.setText("Tonnage");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         pnlEquipInfo.add(jLabel63, gridBagConstraints);
 
         jLabel64.setText("Crits");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         pnlEquipInfo.add(jLabel64, gridBagConstraints);
 
         jLabel65.setText("Specials");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 0);
         pnlEquipInfo.add(jLabel65, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoAmmo, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoTonnage, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(lblInfoCrits, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
         pnlEquipInfo.add(lblInfoSpecials, gridBagConstraints);
 
         jSeparator20.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         pnlEquipInfo.add(jSeparator20, gridBagConstraints);
 
         jLabel66.setText("Cost");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(jLabel66, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
         pnlEquipInfo.add(lblInfoCost, gridBagConstraints);
 
         jLabel67.setText("BV");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(jLabel67, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
         pnlEquipInfo.add(lblInfoBV, gridBagConstraints);
 
         jLabel68.setText("Mounting Restrictions");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 3);
         pnlEquipInfo.add(jLabel68, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 4, 0);
         pnlEquipInfo.add(lblInfoMountRestrict, gridBagConstraints);
 
         jLabel69.setText("Rules Level");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(jLabel69, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
         pnlEquipInfo.add(lblInfoRulesLevel, gridBagConstraints);
 
         jLabel6.setText("Availability (DA)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         pnlEquipInfo.add(jLabel6, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
@@ -4132,41 +3495,29 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlControls.setLayout(new java.awt.GridBagLayout());
 
         btnRemoveEquip.setText("<<");
-        btnRemoveEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveEquipActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        btnRemoveEquip.addActionListener(this::btnRemoveEquipActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 8);
         pnlControls.add(btnRemoveEquip, gridBagConstraints);
 
         btnClearEquip.setText("Clear");
-        btnClearEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearEquipActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        btnClearEquip.addActionListener(this::btnClearEquipActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         pnlControls.add(btnClearEquip, gridBagConstraints);
 
         btnAddEquip.setText(">>");
-        btnAddEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddEquipActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        btnAddEquip.addActionListener(this::btnAddEquipActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlControls.add(btnAddEquip, gridBagConstraints);
 
         cmbNumEquips.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(4, 8, 0, 0);
@@ -4187,144 +3538,123 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         jScrollPane1.setViewportView(cmbLocation);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         pnlControls.add(jScrollPane1, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlEquipmentLayout = new javax.swing.GroupLayout(pnlEquipment);
+        pnlEquipment.setLayout(pnlEquipmentLayout);
+        pnlEquipmentLayout.setHorizontalGroup(
+            pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEquipmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEquipmentLayout.createSequentialGroup()
                         .addComponent(tbpWeaponChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pnlControls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlSpecials, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlEquipInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        pnlEquipmentLayout.setVerticalGroup(
+            pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEquipmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(pnlEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEquipmentLayout.createSequentialGroup()
                         .addComponent(pnlControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnlSpecials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnlSelected, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tbpWeaponChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(844, 844, 844))
+                .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        tbpMainTabPane.addTab("Equipment", jPanel3);
+        tbpMainTabPane.addTab("Equipment", pnlEquipment);
 
         pnlFluff.setLayout(new java.awt.GridBagLayout());
 
         pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlImage.setLayout(new java.awt.GridBagLayout());
 
-        lblFluffImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFluffImage.setHorizontalAlignment(SwingConstants.CENTER);
         lblFluffImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblFluffImage.setMaximumSize(new java.awt.Dimension(290, 350));
-        lblFluffImage.setMinimumSize(new java.awt.Dimension(290, 350));
-        lblFluffImage.setPreferredSize(new java.awt.Dimension(290, 350));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        lblFluffImage.setMaximumSize(new Dimension(325, 350));
+        lblFluffImage.setMinimumSize(new Dimension(325, 350));
+        lblFluffImage.setPreferredSize(new Dimension(325, 350));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         pnlImage.add(lblFluffImage, gridBagConstraints);
 
         btnLoadImage.setText("Load Image");
-        btnLoadImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadImageActionPerformed(evt);
-            }
-        });
+        btnLoadImage.addActionListener(this::btnLoadImageActionPerformed);
         jPanel1.add(btnLoadImage);
 
         btnClearImage.setText("Clear Image");
-        btnClearImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearImageActionPerformed(evt);
-            }
-        });
+        btnClearImage.addActionListener(this::btnClearImageActionPerformed);
         jPanel1.add(btnClearImage);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 4);
         pnlImage.add(jPanel1, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         pnlFluff.add(pnlImage, gridBagConstraints);
 
         pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlExport.setLayout(new java.awt.GridBagLayout());
 
         btnExportTXT.setText("to TXT");
-        btnExportTXT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportTXTActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        btnExportTXT.addActionListener(this::btnExportTXTActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlExport.add(btnExportTXT, gridBagConstraints);
 
         btnExportHTML.setText("to HTML");
-        btnExportHTML.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportHTMLActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        btnExportHTML.addActionListener(this::btnExportHTMLActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         pnlExport.add(btnExportHTML, gridBagConstraints);
 
         btnExportMTF.setText("to MegaMek");
-        btnExportMTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportMTFActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        btnExportMTF.addActionListener(this::btnExportMTFActionPerformed);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlExport.add(btnExportMTF, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.anchor = GridBagConstraints.NORTH;
         pnlFluff.add(pnlExport, gridBagConstraints);
 
-        tbpFluffEditors.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        tbpFluffEditors.setMaximumSize(new java.awt.Dimension(420, 455));
-        tbpFluffEditors.setMinimumSize(new java.awt.Dimension(420, 455));
+        tbpFluffEditors.setTabPlacement(JTabbedPane.RIGHT);
+        tbpFluffEditors.setMaximumSize(new Dimension(420, 455));
+        tbpFluffEditors.setMinimumSize(new Dimension(420, 455));
 
-        pnlOverview.setMaximumSize(new java.awt.Dimension(427, 485));
-        pnlOverview.setMinimumSize(new java.awt.Dimension(427, 485));
+        pnlOverview.setMaximumSize(new Dimension(427, 485));
+        pnlOverview.setMinimumSize(new Dimension(427, 485));
         pnlOverview.setLayout(new javax.swing.BoxLayout(pnlOverview, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Overview", pnlOverview);
 
-        pnlCapabilities.setMaximumSize(new java.awt.Dimension(427, 485));
-        pnlCapabilities.setMinimumSize(new java.awt.Dimension(427, 485));
+        pnlCapabilities.setMaximumSize(new Dimension(427, 485));
+        pnlCapabilities.setMinimumSize(new Dimension(427, 485));
         pnlCapabilities.setLayout(new javax.swing.BoxLayout(pnlCapabilities, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Capabilities", pnlCapabilities);
 
@@ -4347,108 +3677,108 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jLabel82.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel82.setText("Manufacturer Information");
-        jLabel82.setMaximumSize(new java.awt.Dimension(175, 15));
-        jLabel82.setMinimumSize(new java.awt.Dimension(175, 15));
-        jLabel82.setPreferredSize(new java.awt.Dimension(175, 15));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        jLabel82.setMaximumSize(new Dimension(175, 15));
+        jLabel82.setMinimumSize(new Dimension(175, 15));
+        jLabel82.setPreferredSize(new Dimension(175, 15));
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
         pnlManufacturers.add(jLabel82, gridBagConstraints);
 
         jLabel83.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel83.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel83.setText("Manufacturing Company:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         pnlManufacturers.add(jLabel83, gridBagConstraints);
 
         jLabel84.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel84.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel84.setText("Location:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 76;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel84, gridBagConstraints);
 
         jLabel85.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel85.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel85.setText("Engine Manufacturer:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 17;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel85, gridBagConstraints);
 
         jLabel86.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel86.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel86.setText("Armor Model:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 56;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel86, gridBagConstraints);
 
         jLabel87.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel87.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel87.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel87.setText("Chassis Model:");
         jLabel87.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 47;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel87, gridBagConstraints);
 
         jLabel88.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel88.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel88.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel88.setText("Communications System:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel88, gridBagConstraints);
 
         jLabel89.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel89.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel89.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel89.setText("Targeting and Tracking:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel89, gridBagConstraints);
 
         txtManufacturer.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 2, 0, 11);
         pnlManufacturers.add(txtManufacturer, gridBagConstraints);
         MouseListener mlManufacturer = new MouseAdapter() {
@@ -4466,12 +3796,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtManufacturer.addMouseListener( mlManufacturer );
 
         txtEngineManufacturer.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtEngineManufacturer, gridBagConstraints);
         MouseListener mlEngineManufacturer = new MouseAdapter() {
@@ -4489,12 +3819,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtEngineManufacturer.addMouseListener( mlEngineManufacturer );
 
         txtArmorModel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtArmorModel, gridBagConstraints);
         MouseListener mlArmorModel = new MouseAdapter() {
@@ -4513,12 +3843,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         txtChassisModel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtChassisModel.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtChassisModel, gridBagConstraints);
         MouseListener mlChassisModel = new MouseAdapter() {
@@ -4536,12 +3866,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtChassisModel.addMouseListener( mlChassisModel );
 
         txtCommSystem.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtCommSystem, gridBagConstraints);
         MouseListener mlCommSystem = new MouseAdapter() {
@@ -4559,12 +3889,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtCommSystem.addMouseListener( mlCommSystem );
 
         txtTNTSystem.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtTNTSystem, gridBagConstraints);
         MouseListener mlTNTSystem = new MouseAdapter() {
@@ -4583,18 +3913,18 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlWeaponsManufacturers.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        pnlWeaponsManufacturers.setMinimumSize(new java.awt.Dimension(315, 260));
+        pnlWeaponsManufacturers.setMinimumSize(new Dimension(315, 260));
         pnlWeaponsManufacturers.setLayout(new java.awt.GridBagLayout());
 
         chkIndividualWeapons.setText("Assign manufacturers individually");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 10, 4, 0);
         pnlWeaponsManufacturers.add(chkIndividualWeapons, gridBagConstraints);
 
-        scpWeaponManufacturers.setPreferredSize(new java.awt.Dimension(452, 392));
+        scpWeaponManufacturers.setPreferredSize(new Dimension(452, 392));
 
         tblWeaponManufacturers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -4617,26 +3947,26 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         scpWeaponManufacturers.setViewportView(tblWeaponManufacturers);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.ipadx = 280;
         gridBagConstraints.ipady = 180;
         pnlWeaponsManufacturers.add(scpWeaponManufacturers, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 10, 2, 10);
         pnlManufacturers.add(pnlWeaponsManufacturers, gridBagConstraints);
 
         txtManufacturerLocation.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtManufacturerLocation, gridBagConstraints);
         MouseListener mlManufacturerLocation = new MouseAdapter() {
@@ -4654,24 +3984,24 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtManufacturerLocation.addMouseListener( mlManufacturerLocation );
 
         jLabel90.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel90.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel90.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel90.setText("Jump Jet Model:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 44;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel90, gridBagConstraints);
 
         txtJJModel.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtJJModel, gridBagConstraints);
         MouseListener mlJJModel = new MouseAdapter() {
@@ -4692,9 +4022,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         lblBattleMechQuirks.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblBattleMechQuirks.setText("Quirks");
-        lblBattleMechQuirks.setMaximumSize(new java.awt.Dimension(175, 15));
-        lblBattleMechQuirks.setMinimumSize(new java.awt.Dimension(175, 15));
-        lblBattleMechQuirks.setPreferredSize(new java.awt.Dimension(175, 15));
+        lblBattleMechQuirks.setMaximumSize(new Dimension(175, 15));
+        lblBattleMechQuirks.setMinimumSize(new Dimension(175, 15));
+        lblBattleMechQuirks.setPreferredSize(new Dimension(175, 15));
 
         tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -4726,12 +4056,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         tblQuirks.getTableHeader().setReorderingAllowed(false);
         scpQuirkTable.setViewportView(tblQuirks);
 
-        btnAddQuirk.setText("Add Quirk");
-        btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddQuirkActionPerformed(evt);
-            }
-        });
+        btnAddQuirk.setText("Manage Quirk");
+        btnAddQuirk.addActionListener(this::btnAddQuirkActionPerformed);
 
         javax.swing.GroupLayout pnlQuirksLayout = new javax.swing.GroupLayout(pnlQuirks);
         pnlQuirks.setLayout(pnlQuirksLayout);
@@ -4760,11 +4086,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         tbpFluffEditors.addTab("Quirks", pnlQuirks);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 6);
         pnlFluff.add(tbpFluffEditors, gridBagConstraints);
 
@@ -4823,39 +4149,39 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jLabel79.setText("Special Abilities:");
         pnlBFStats.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
-        lblBFMV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFMV.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFMV.setText("0");
         pnlBFStats.add(lblBFMV, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 30, -1));
 
-        lblBFWt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFWt.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFWt.setText("1");
         pnlBFStats.add(lblBFWt, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 30, -1));
 
-        lblBFOV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFOV.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFOV.setText("0");
         pnlBFStats.add(lblBFOV, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 30, -1));
 
-        lblBFExtreme.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFExtreme.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFExtreme.setText("0");
         pnlBFStats.add(lblBFExtreme, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 30, -1));
 
-        lblBFShort.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFShort.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFShort.setText("0");
         pnlBFStats.add(lblBFShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 30, -1));
 
-        lblBFMedium.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFMedium.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFMedium.setText("0");
         pnlBFStats.add(lblBFMedium, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 30, -1));
 
-        lblBFLong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFLong.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFLong.setText("0");
         pnlBFStats.add(lblBFLong, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 30, -1));
 
-        lblBFArmor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFArmor.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFArmor.setText("0");
         pnlBFStats.add(lblBFArmor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 30, -1));
 
-        lblBFStructure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFStructure.setHorizontalAlignment(SwingConstants.CENTER);
         lblBFStructure.setText("0");
         pnlBFStats.add(lblBFStructure, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 30, -1));
 
@@ -4871,148 +4197,96 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Conversion Steps"));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextAreaBFConversion.setColumns(20);
+        jTextAreaBFConversion.setColumns(60);
         jTextAreaBFConversion.setEditable(false);
         jTextAreaBFConversion.setRows(5);
         jScrollPane14.setViewportView(jTextAreaBFConversion);
 
-        jPanel10.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 660, 190));
+        jPanel10.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 740, 190));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlBFStats, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
+                    .addComponent(pnlBFStats, javax.swing.GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE))
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(pnlBFStats, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap()
+                .addComponent(pnlBFStats, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                    .addContainerGap()
+                .addComponent(jPanel10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE))
         );
 
         tbpMainTabPane.addTab("BattleForce", jPanel9);
 
         mnuFile.setText("File");
-        mnuFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuFileActionPerformed(evt);
-            }
-        });
+        mnuFile.addActionListener(this::mnuFileActionPerformed);
 
-        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
         mnuNewMech.setText("New");
-        mnuNewMech.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuNewMechActionPerformed(evt);
-            }
-        });
+        mnuNewMech.addActionListener(this::mnuNewMechActionPerformed);
         mnuFile.add(mnuNewMech);
 
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         mnuLoad.setText("Load");
-        mnuLoad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuLoadActionPerformed(evt);
-            }
-        });
+        mnuLoad.addActionListener(this::mnuLoadActionPerformed);
         mnuFile.add(mnuLoad);
 
-        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         mnuOpen.setText("Open");
-        mnuOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuOpenActionPerformed(evt);
-            }
-        });
+        mnuOpen.addActionListener(this::mnuOpenActionPerformed);
         mnuFile.add(mnuOpen);
 
         mnuImport.setText("Import...");
 
         mnuImportHMP.setText("from Heavy Metal Pro (HMP)");
-        mnuImportHMP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuImportHMPActionPerformed(evt);
-            }
-        });
+        mnuImportHMP.addActionListener(this::mnuImportHMPActionPerformed);
         mnuImport.add(mnuImportHMP);
 
         mnuBatchHMP.setText("Batch Import HMP Files");
-        mnuBatchHMP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuBatchHMPActionPerformed(evt);
-            }
-        });
+        mnuBatchHMP.addActionListener(this::mnuBatchHMPActionPerformed);
         mnuImport.add(mnuBatchHMP);
 
         mnuFile.add(mnuImport);
         mnuFile.add(jSeparator22);
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         mnuSave.setText("Save");
-        mnuSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuSaveActionPerformed(evt);
-            }
-        });
+        mnuSave.addActionListener(this::mnuSaveActionPerformed);
         mnuFile.add(mnuSave);
 
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuSaveAs.setText("Save As...");
-        mnuSaveAs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuSaveAsActionPerformed(evt);
-            }
-        });
+        mnuSaveAs.addActionListener(this::mnuSaveAsActionPerformed);
         mnuFile.add(mnuSaveAs);
 
         mnuExport.setText("Export As...");
 
         mnuExportHTML.setText("to HTML (Web)");
-        mnuExportHTML.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportHTMLActionPerformed(evt);
-            }
-        });
+        mnuExportHTML.addActionListener(this::mnuExportHTMLActionPerformed);
         mnuExport.add(mnuExportHTML);
 
         mnuExportMTF.setText("to MTF (MegaMek)");
-        mnuExportMTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportMTFActionPerformed(evt);
-            }
-        });
+        mnuExportMTF.addActionListener(this::mnuExportMTFActionPerformed);
         mnuExport.add(mnuExportMTF);
 
         mnuExportTXT.setText("to TXT (Text)");
-        mnuExportTXT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportTXTActionPerformed(evt);
-            }
-        });
+        mnuExportTXT.addActionListener(this::mnuExportTXTActionPerformed);
         mnuExport.add(mnuExportTXT);
 
         mnuExportClipboard.setText("to Clipboard (Text)");
-        mnuExportClipboard.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportClipboardActionPerformed(evt);
-            }
-        });
+        mnuExportClipboard.addActionListener(this::mnuExportClipboardActionPerformed);
         mnuExport.add(mnuExportClipboard);
 
         mnuCreateTCGMech.setText("to TCG Format (Card)");
-        mnuCreateTCGMech.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCreateTCGMechActionPerformed(evt);
-            }
-        });
+        mnuCreateTCGMech.addActionListener(this::mnuCreateTCGMechActionPerformed);
         mnuExport.add(mnuCreateTCGMech);
 
         mnuFile.add(mnuExport);
@@ -5021,115 +4295,67 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuPrint.setText("Print");
         mnuFile.add(mnuPrint);
 
-        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintPreview.setText("Print Preview");
-        mnuPrintPreview.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuPrintPreviewActionPerformed(evt);
-            }
-        });
+        mnuPrintPreview.addActionListener(this::mnuPrintPreviewActionPerformed);
         mnuFile.add(mnuPrintPreview);
         mnuFile.add(jSeparator24);
 
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
         mnuExit.setText("Exit");
-        mnuExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExitActionPerformed(evt);
-            }
-        });
+        mnuExit.addActionListener(this::mnuExitActionPerformed);
         mnuFile.add(mnuExit);
 
         jMenuBar1.add(mnuFile);
 
         mnuClearFluff.setText("Tools");
 
-        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         mnuSummary.setText("Show Summary");
-        mnuSummary.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuSummaryActionPerformed(evt);
-            }
-        });
+        mnuSummary.addActionListener(this::mnuSummaryActionPerformed);
         mnuClearFluff.add(mnuSummary);
 
         mnuCostBVBreakdown.setText("Cost/BV Breakdown");
-        mnuCostBVBreakdown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCostBVBreakdownActionPerformed(evt);
-            }
-        });
+        mnuCostBVBreakdown.addActionListener(this::mnuCostBVBreakdownActionPerformed);
         mnuClearFluff.add(mnuCostBVBreakdown);
 
         mnuTextTRO.setText("Show Text TRO Format");
-        mnuTextTRO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuTextTROActionPerformed(evt);
-            }
-        });
+        mnuTextTRO.addActionListener(this::mnuTextTROActionPerformed);
         mnuClearFluff.add(mnuTextTRO);
         mnuClearFluff.add(jSeparator26);
 
         mnuBFB.setText("Load Force Balancer");
-        mnuBFB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuBFBActionPerformed(evt);
-            }
-        });
+        mnuBFB.addActionListener(this::mnuBFBActionPerformed);
         mnuClearFluff.add(mnuBFB);
         mnuClearFluff.add(jSeparator27);
 
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         mnuOptions.setText("Preferences");
-        mnuOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuOptionsActionPerformed(evt);
-            }
-        });
+        mnuOptions.addActionListener(this::mnuOptionsActionPerformed);
         mnuClearFluff.add(mnuOptions);
 
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.setText("View Toolbar");
-        mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuViewToolbarActionPerformed(evt);
-            }
-        });
+        mnuViewToolbar.addActionListener(this::mnuViewToolbarActionPerformed);
         mnuClearFluff.add(mnuViewToolbar);
 
         mnuClearUserData.setText("Clear User Data");
-        mnuClearUserData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuClearUserDataActionPerformed(evt);
-            }
-        });
+        mnuClearUserData.addActionListener(this::mnuClearUserDataActionPerformed);
         mnuClearFluff.add(mnuClearUserData);
         mnuClearFluff.add(jSeparator30);
 
         mnuUnlock.setText("Unlock Chassis");
         mnuUnlock.setEnabled(false);
-        mnuUnlock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuUnlockActionPerformed(evt);
-            }
-        });
+        mnuUnlock.addActionListener(this::mnuUnlockActionPerformed);
         mnuClearFluff.add(mnuUnlock);
 
         jMenuItem1.setText("Clear All Fluff");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         mnuClearFluff.add(jMenuItem1);
 
         mnuReloadEquipment.setText("Reload Equipment");
-        mnuReloadEquipment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuReloadEquipmentActionPerformed(evt);
-            }
-        });
+        mnuReloadEquipment.addActionListener(this::mnuReloadEquipmentActionPerformed);
         mnuClearFluff.add(mnuReloadEquipment);
 
         jMenuBar1.add(mnuClearFluff);
@@ -5137,19 +4363,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuHelp.setText("Help");
 
         mnuCredits.setText("Credits");
-        mnuCredits.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCreditsActionPerformed(evt);
-            }
-        });
+        mnuCredits.addActionListener(this::mnuCreditsActionPerformed);
         mnuHelp.add(mnuCredits);
 
         mnuAboutSSW.setText("About SAW");
-        mnuAboutSSW.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuAboutSSWActionPerformed(evt);
-            }
-        });
+        mnuAboutSSW.addActionListener(this::mnuAboutSSWActionPerformed);
         mnuHelp.add(mnuAboutSSW);
 
         jMenuBar1.add(mnuHelp);
@@ -5159,7 +4377,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addComponent(tlbIconBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -5168,17 +4386,33 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbIconBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbpMainTabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbpMainTabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(pnlInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private JPanel EquipmentLocation(JList list, ListSelectionListener selection, MouseListener listener, AbstractListModel display) {
+        JPanel panel = new JPanel();
+        list.setModel(display);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.addListSelectionListener(selection);
+        list.addMouseListener( listener );
+        list.setCellRenderer( new EquipmentListRenderer( this ) );
+        JScrollPane pane = new JScrollPane();
+        pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        pane.setViewportView(list);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(pane);
+        return panel;
+    }
 
     private void RefreshSummary() {
         // refreshes the display completely using info from the mech.
@@ -5197,7 +4431,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtSumConTons.setText("" + CurVee.GetControls() );
         txtSumTurTons.setText("" + CurVee.GetLoadout().GetTurret().GetTonnage() );
         txtSumTurAV.setText( CurVee.GetLoadout().GetTurret().GetAvailability().GetBestCombinedCode() );
-        txtTurretInfo.setText("Turret: " + CurVee.GetLoadout().GetTurret().GetTonnage() );
+        txtTurretInfo.setText( "Turret: " + CurVee.GetLoadout().GetTurret().GetTonnageText() );
+        txtRearTurretInfo.setText( "Rear Turret: " + CurVee.GetLoadout().GetRearTurret().GetTonnageText() );
         txtSumRTuTons.setText("" + CurVee.GetLoadout().GetRearTurret().GetTonnage() );
         txtSumRTuAV.setText( CurVee.GetLoadout().GetRearTurret().GetAvailability().GetBestCombinedCode() );
         txtSumSpnTons.setText("" + CurVee.GetLoadout().GetSponsonTurretTonnage() );
@@ -5301,29 +4536,19 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void SolidifyVehicle() {
         // sets some of the basic vehicle information normally kept in the GUI and
         // prepares the vehicle for saving to file
-        int year = 0;
+        int year;
         CurVee.setName( txtVehicleName.getText() );
         CurVee.setModel( txtModel.getText() );
         if( txtProdYear.getText().isEmpty() ) {
-            switch( cmbEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurVee.setYear( 2750, false );
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurVee.setYear( 3025, false );
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurVee.setYear( 3070, false );
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurVee.setYear( 3132, false );
-                    break;
+            year = CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() );
+            if( year != 0 ) {
+                CurVee.SetYear( year, false );
+                txtProdYear.setText( "" + year );
             }
-            txtProdYear.setText(""+CurVee.getYear());
         } else {
             try{
                 year = Integer.parseInt( txtProdYear.getText() ) ;
-                CurVee.setYear( year, true );
+                CurVee.SetYear( year, true );
             } catch( NumberFormatException n ) {
                 Media.Messager( this, "The production year is not a number." );
                 tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
@@ -5352,8 +4577,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void BuildLocationSelector() {
-        int curSelection = Math.max(cmbLocation.getSelectedIndex(), 0);
-
         ArrayList locs = new ArrayList();
         locs.add("Front");
         locs.add("Left");
@@ -5370,6 +4593,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             locs.add("Rear Turret");
 
         cmbLocation.setModel(new DefaultComboBoxModel(locs.toArray()));
+        int curSelection = cmbLocation.getSelectedIndex();
+        if ( curSelection < 0 || curSelection >= locs.size()) {
+            curSelection = 0; // reset to Front
+        }
         cmbLocation.setSelectedIndex(curSelection);
     }
 
@@ -5428,13 +4655,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // get the engine states and, for each that matches our criteria, add it
         // to the selector list
         ifState[] check = CurVee.GetEngine().GetStates();
-        for( int i = 0; i < check.length; i++ ) {
-            if( CommonTools.IsAllowed( check[i].GetAvailability(), CurVee ) ) {
-                if ( (check[i] instanceof states.stEngineNone) ) {
-                    if ( chkTrailer.isSelected() )
-                        list.add( BuildLookupName( check[i] ) );
+        for (states.ifState ifState : check) {
+            if (CommonTools.IsAllowed(ifState.GetAvailability(), CurVee)) {
+                if ((ifState instanceof states.stEngineNone)) {
+                    if (chkTrailer.isSelected())
+                        list.add(BuildLookupName(ifState));
                 } else
-                    list.add( BuildLookupName( check[i] ) );
+                    list.add(BuildLookupName(ifState));
             }
         }
 
@@ -5467,7 +4694,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnHeatSinks.getEditor()).getTextField().addFocusListener(spinners);
 
-        //Setup Spinner focus
+        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+
         ((JSpinner.DefaultEditor)spnFrontArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnLeftArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnRightArmor.getEditor()).getTextField().addFocusListener(spinners);
@@ -5561,7 +4790,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
             // since you can only ever change the rules level when not restricted,
             // we're not doing it here.  Pass in default values.
-            //CurVee.GetLoadout().FlushIllegal( locArmor.GetEra(), 0, false );
             CurVee.GetLoadout().FlushIllegal();
 
             // refresh all the combo boxes.
@@ -5571,25 +4799,24 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             BuildExpEquipmentSelector();
             FixMPSpinner();
             FixJJSpinnerModel();
-            RefreshEquipment();
 
             // now reset the combo boxes to the closest choices we previously selected
             LoadSelections();
 
             RecalcEngine();
-            //RecalcIntStruc();
-            //RecalcHeatSinks();
             RecalcArmor();
             RecalcEquipment();
         }
 
         BuildTurretSelector();
         // now refresh the information panes
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-}//GEN-LAST:event_cmbRulesLevelActionPerformed
+    }
+
     // check the tonnage to see if it's legal and acts accordingly
     public void CheckTonnage( boolean RulesChange ) {
         if( CurVee.GetTonnage() < 1 ) {
@@ -5614,15 +4841,20 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbArmorType.setSelectedItem( Selections[1] );
     }
 
-    private void BuildTurretSelector()
-    {
+    private void BuildTurretSelector() {
         ArrayList list = new ArrayList();
 
         if ( !CurVee.IsOmni())
             cmbTurret.setEnabled(true);
 
         list.add("No Turret");
-        if ( CurVee.CanUseTurret() ) list.add("Single Turret");
+        if ( CurVee.CanUseTurret() ) {
+            if (CurVee.IsVTOL()) {
+                list.add("Chin Turret");
+            } else{
+                list.add("Single Turret");
+            }
+        }
         if ( CurVee.CanUseDualTurret() ) list.add("Dual Turret");
 
         if ( list.isEmpty() ) {
@@ -5646,8 +4878,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             cmbTurret.setSelectedItem("No Turret");
     }
 
-    private void BuildChassisSelector()
-    {
+    private void BuildChassisSelector() {
         chkFlotationHull.setSelected(false);
         chkLimitedAmph.setSelected(false);
         chkFullAmph.setSelected(false);
@@ -5706,6 +4937,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                                                chkJetBooster,
                                                chkEscapePod,
                                                chkSponsonTurret };
+
         if (cmbRulesLevel.getSelectedIndex() > 1) {
             if (CurVee.CanUseSponson())
                 chkSponsonTurret.setEnabled(true);
@@ -5716,7 +4948,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
     }
 
-    private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMotiveTypeActionPerformed
+    private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {
         if ( Load ) return;
         boolean wasVtol = CurVee.IsVTOL();
 
@@ -5771,9 +5003,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( CurVee.IsVTOL() != wasVtol ) RecalcArmorPlacement();
         RecalcArmorLocations();
         SetWeaponChoosers();
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_cmbMotiveTypeActionPerformed
+        RefreshEquipment();
+    }
 
     private void ShowInfoOn( abPlaceable p ) {
         // this fills in all the information on the Equipment panel for the given
@@ -6018,11 +5252,49 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblInfoMountRestrict.setText(lblInfoMountRestrict.getText() + " MM Name " + p.MegaMekName(false));
     }
 
-    private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
+    private void chkJetBoosterActionPerformed(java.awt.event.ActionEvent evt) {
+        if( CurVee.GetLoadout().HasVTOLBooster() == chkJetBooster.isSelected() ) {
+            return;
+        }
+        try {
+            CurVee.GetLoadout().SetVTOLBooster( chkJetBooster.isSelected());
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            try {
+                CurVee.GetLoadout().SetVTOLBooster( false );
+            } catch( Exception x ) {
+                // how the hell did we get an error removing it?
+                Media.Messager( this, x.getMessage() );
+            }
+            chkJetBooster.setSelected( false );
+        }
+        RefreshSelectedEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+    }
 
-}//GEN-LAST:event_chkSuperchargerActionPerformed
+    private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {
+        if( CurVee.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
+            return;
+        }
+        try {
+            CurVee.GetLoadout().SetSupercharger( chkSupercharger.isSelected());
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            try {
+                CurVee.GetLoadout().SetSupercharger( false );
+            } catch( Exception x ) {
+                // how the hell did we get an error removing it?
+                Media.Messager( this, x.getMessage() );
+            }
+            chkSupercharger.setSelected( false );
+        }
+        RefreshSelectedEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+    }
 
-    private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseTCActionPerformed
+    private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.UsingTC() == chkUseTC.isSelected() ) { return; }
         if( chkUseTC.isSelected() ) {
             try {
@@ -6048,9 +5320,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSelectedEquipment();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_chkUseTCActionPerformed
+    }
 
-    private void chkFCSAIVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSAIVActionPerformed
+    private void chkFCSAIVActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.UsingArtemisIV() == chkFCSAIV.isSelected() ) { return; }
         if( chkFCSAIV.isSelected() ) {
             try {
@@ -6071,9 +5343,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-}//GEN-LAST:event_chkFCSAIVActionPerformed
+    }
 
-    private void chkFCSAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSAVActionPerformed
+    private void chkFCSAVActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.UsingArtemisV() == chkFCSAV.isSelected() ) { return; }
         if( chkFCSAV.isSelected() ) {
             try {
@@ -6094,9 +5366,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-}//GEN-LAST:event_chkFCSAVActionPerformed
+    }
 
-    private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSApolloActionPerformed
+    private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {
          if( CurVee.UsingApollo() == chkFCSApollo.isSelected() ) { return; }
         if( chkFCSApollo.isSelected() ) {
             try {
@@ -6117,12 +5389,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-}//GEN-LAST:event_chkFCSApolloActionPerformed
+    }
 
-    private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
-        if ( !chkClanCASE.isSelected() ) {
-            CurVee.GetLoadout().SetClanCASE(false);
-            CurVee.GetLoadout().RemoveISCase();
+    private void chkCASEActionPerformed(java.awt.event.ActionEvent evt) {
+        if ( !chkCASE.isSelected() ) {
+            CurVee.GetLoadout().RemoveCase();
             SetWeaponChoosers();
             RefreshSummary();
             RefreshInfoPane();
@@ -6132,19 +5403,16 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         try {
             switch ( CurVee.GetTechBase() ) {
                 case AvailableCode.TECH_INNER_SPHERE:
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(false);
                     break;
                 case AvailableCode.TECH_CLAN:
-                    CurVee.GetLoadout().SetClanCASE(true);
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(true);
                     break;
                 case AvailableCode.TECH_BOTH:
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
-                    if ( tech.IsClan() )
-                        CurVee.GetLoadout().SetClanCASE(true);
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(tech.IsClan());
                     break;
             }
         } catch ( Exception e ) {
@@ -6153,27 +5421,26 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         SetWeaponChoosers();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_chkClanCASEActionPerformed
+    }
 
-    private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged
+    private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
         abPlaceable p = (abPlaceable) Equipment[SELECTED][lstSelectedEquipment.getSelectedIndex()];
         ShowInfoOn( p );
-}//GEN-LAST:event_lstSelectedEquipmentValueChanged
-
-    private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentKeyPressed
-    if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
-        btnRemoveEquipActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), null));
     }
-}//GEN-LAST:event_lstSelectedEquipmentKeyPressed
 
-    private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEquipActionPerformed
+    private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {
+        if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
+            btnRemoveEquipActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), null));
+        }
+    }
+
+    private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
         int[] selected = lstSelectedEquipment.getSelectedIndices();
         if( selected.length == 0 ) { return; }
         // we work in reverse so we can properly manage the items in the queue
         for( int i = selected.length - 1; i >= 0; i-- ) {
-            // abPlaceable p = (abPlaceable) locArmor.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
             abPlaceable p = (abPlaceable) CurVee.GetLoadout().GetNonCore().get( selected[i] );
             if ( p instanceof TargetingComputer ) {
                 CurVee.UseTC(false, CurVee.GetTechBase() == AvailableCode.TECH_CLAN);
@@ -6204,9 +5471,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_btnRemoveEquipActionPerformed
+    }
 
-    private void btnClearEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearEquipActionPerformed
+    private void btnClearEquipActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.GetLoadout().SafeClearLoadout();
 
         // refresh the selected equipment listbox
@@ -6228,9 +5495,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_btnClearEquipActionPerformed
+    }
 
-    private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipActionPerformed
+    private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {
         abPlaceable a = null;
         int Index = 0;
         ArrayList v;
@@ -6308,12 +5575,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( a != null ) {
             try {
                 CurVee.GetLoadout().CheckExclusions( a );
-                if( a instanceof Equipment ) {
-                    if ( ! ((Equipment) a).Validate( CurVee ) ) {
-                        if( ((Equipment) a).MaxAllowed() > 0 ) {
-                            throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one Vehicle." );
-                        }
-                    }
+                if( a instanceof ifEquipment ) {
+                    ((ifEquipment) a).Validate( CurVee );
                 }
             } catch( Exception e ) {
                 Media.Messager( e.getMessage() );
@@ -6376,18 +5639,18 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             RefreshInfoPane();
             cmbNumEquips.setSelectedIndex( 0 );
         }
-}//GEN-LAST:event_btnAddEquipActionPerformed
+    }
 
-    private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToForceListActionPerformed
+    private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {
 
-}//GEN-LAST:event_btnAddToForceListActionPerformed
+    }
 
-    private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceListActionPerformed
+    private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {
         GetForceDialogue().setLocationRelativeTo(this);
         GetForceDialogue().setVisible(true);
-}//GEN-LAST:event_btnForceListActionPerformed
+    }
 
-    private void spnCruiseMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCruiseMPStateChanged
+    private void spnCruiseMPStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
 
         // see what changed and perform the appropriate action
@@ -6395,7 +5658,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         javax.swing.JComponent editor = spnCruiseMP.getEditor();
         javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
 
-        //n.setMinimum(1);
         // get the value from the text box, if it's valid.
         try {
             spnCruiseMP.commitEdit();
@@ -6428,19 +5690,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // spinner model and recalculate the heat sinks
         FixMPSpinner();
         FixJJSpinnerModel();
-        //CurVee.GetHeatSinks().ReCalculate();
-        //CurVee.GetLoadout().UnallocateFuelTanks();
 
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnCruiseMPStateChanged
+    }
 
-    private void spnTonnageFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnTonnageFocusGained
+    private void spnTonnageFocusGained(java.awt.event.FocusEvent evt) {
 
-    }//GEN-LAST:event_spnTonnageFocusGained
+    }
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
         setCursor( Hourglass );
 
         File savevee = GetSaveFile( "saw", Prefs.get( "LastOpenCVDirectory", "" ), true, false );
@@ -6494,7 +5754,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         setCursor( NormalCursor );
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         CurVee.SetChanged( false );
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }
+
     private void SaveOmniFluffInfo() {
         if( SetSource ) {
             CurVee.setSource( txtSource.getText() );
@@ -6505,23 +5766,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 CurVee.SetYear( Integer.parseInt( txtProdYear.getText() ), chkYearRestrict.isSelected() );
             } catch( Exception e ) {
                 // nothing really to be done, set it to a default.
-                switch( cmbEra.getSelectedIndex() ) {
-                    case AvailableCode.ERA_STAR_LEAGUE:
-                        CurVee.SetYear( 2750, false );
-                        break;
-                    case AvailableCode.ERA_SUCCESSION:
-                        CurVee.SetYear( 3025, false );
-                        break;
-                    case AvailableCode.ERA_CLAN_INVASION:
-                        CurVee.SetYear( 3070, false );
-                        break;
-                    case AvailableCode.ERA_DARK_AGES:
-                        CurVee.SetYear( 3132, false );
-                        break;
-                    case AvailableCode.ERA_ALL:
-                        CurVee.SetYear( 0, false );
-                        break;
-                }
+                CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
             }
         }
     }
@@ -6531,7 +5776,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbEra.setSelectedIndex( CurVee.GetEra() );
         cmbProductionEra.setSelectedIndex( CurVee.GetProductionEra() );
         txtSource.setText( CurVee.getSource() );
-        txtProdYear.setText( "" + CurVee.GetYear() );
+        txtProdYear.setText( CurVee.YearWasSpecified() ? "" + CurVee.GetYear() : "" );
         BuildTechBaseSelector();
     }
 
@@ -6668,31 +5913,50 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // if we have any systems that requires ECM and don't have it, let the user know
         if( ! CurVee.ValidateECM() ) {
-            Media.Messager( "This 'Mech requires an ECM system of some sort to be valid.\nPlease install an ECM system." );
-            tbpMainTabPane.setSelectedComponent( jPanel3 );
+            Media.Messager( "This Vehicle requires an ECM system of some sort to be valid.\nPlease install an ECM system." );
+            tbpMainTabPane.setSelectedComponent( pnlEquipment );
             SetSource = true;
             return false;
         }
 
         // ensure we're not overweight
+        ArrayList<ifCVLoadout> loadouts = new ArrayList<>();
         if( CurVee.IsOmni() ) {
-            ArrayList v = CurVee.GetLoadouts();
-            for( int i = 0; i < v.size(); i++ ) {
-                CurVee.SetCurLoadout( ((ifCVLoadout) v.get( i )).GetName() );
-                if( CurVee.GetCurrentTons() > CurVee.GetTonnage() ) {
-                    Media.Messager( this, ((ifCVLoadout) v.get( i )).GetName() +
-                        " loadout is overweight.  Reduce the weight\nto equal or below the Vehicle's tonnage." );
-                    //cmbOmniVariant.setSelectedItem( ((ifCVLoadout) v.get( i )).GetName() );
-                    //cmbOmniVariantActionPerformed( evt );
-                    tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
-                    SetSource = true;
-                    return false;
-                }
-            }
+            loadouts.addAll( CurVee.GetLoadouts() );
         } else {
+            loadouts.add( null );
+        }
+        for( ifCVLoadout loadout : loadouts ) {
+            String name;
+            JPanel panel;
+            if( loadout == null ) {
+                name = "This Vehicle";
+                panel = pnlBasicSetup;
+            } else {
+                name = loadout.GetName() + " loadout";
+                CurVee.SetCurLoadout( loadout.GetName() );
+                panel = pnlEquipment;
+            }
             if( CurVee.GetCurrentTons() > CurVee.GetTonnage() ) {
-                Media.Messager( this, "This Vehicle is overweight.  Reduce the weight to\nequal or below the Vehicle's tonnage." );
-                tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
+                Media.Messager( this, name + " is overweight.\n" +
+                        "Reduce the weight to equal or below the Vehicle's tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
+                SetSource = true;
+                return false;
+            }
+            Turret turret = CurVee.GetLoadout().GetTurret();
+            if( turret.isTonnageSet() && turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                Media.Messager( this, name + "'s turret is overweight.\n" +
+                        "Reduce the turret's weight to equal or below its max tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
+                SetSource = true;
+                return false;
+            }
+            turret = CurVee.GetLoadout().GetRearTurret();
+            if( turret.isTonnageSet() && turret.GetTonnageFromItems() > turret.GetMaxTonnage() ) {
+                Media.Messager( this, name + "'s rear turret is overweight.\n" +
+                        "Reduce the rear turret's weight to equal or below its max tonnage." );
+                tbpMainTabPane.setSelectedComponent( panel );
                 SetSource = true;
                 return false;
             }
@@ -6704,7 +5968,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         return true;
     }
 
-    private void spnTonnageStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnTonnageStateChanged
+    private void spnTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
 
         // We have to decode the selected index to set values.  A bit safer, I
@@ -6757,10 +6021,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         FixArmorSpinners();
 
         // now refresh the information panes
-        //RefreshInternalPoints();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnTonnageStateChanged
+    }
 
     private void EnableJumpJets( boolean enable ) {
         // this enables or disables the jump jet spinner if needed
@@ -6809,6 +6072,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void GetNewVee() {
         boolean Omni = CurVee.IsOmni();
 
+        quirks = new ArrayList<Quirk>();
         CurVee = new CombatVehicle();
         spnTonnage.setModel(new SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1));
         spnCruiseMP.setModel(new SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1));
@@ -6823,6 +6087,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbTechBase.setEnabled( true );
         cmbTurret.setSelectedIndex(0);
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
+        spnRearTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
 
         cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
 
@@ -6837,6 +6102,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkDuneBuggy.setSelected(false);
         chkEnviroSealing.setSelected(false);
         chkTrailer.setSelected(false);
+        chkSupercharger.setSelected(false);
+        chkJetBooster.setSelected(false);
 
         if( Omni ) {
             UnlockGUIFromOmni();
@@ -6845,23 +6112,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee.SetEra( cmbEra.getSelectedIndex() );
         CurVee.SetProductionEra( cmbProductionEra.getSelectedIndex() );
         CurVee.SetRulesLevel( cmbRulesLevel.getSelectedIndex() );
-        switch( CurVee.GetEra() ) {
-        case AvailableCode.ERA_STAR_LEAGUE:
-            CurVee.SetYear( 2750, false );
-            break;
-        case AvailableCode.ERA_SUCCESSION:
-            CurVee.SetYear( 3025, false );
-            break;
-        case AvailableCode.ERA_CLAN_INVASION:
-            CurVee.SetYear( 3070, false );
-            break;
-        case AvailableCode.ERA_DARK_AGES:
-            CurVee.SetYear( 3130, false );
-            break;
-        case AvailableCode.ERA_ALL:
-            CurVee.SetYear( 0, false );
-            break;
-        }
+        CurVee.SetYear( CommonTools.GetEraDefaultYear( CurVee.GetEra() ), false );
 
         cmbTechBase.setSelectedItem( Prefs.get( "NewVee_Techbase", "Inner Sphere" ) );
         switch( cmbTechBase.getSelectedIndex() ) {
@@ -6891,8 +6142,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildArmorSelector();
         BuildExpEquipmentSelector();
         CheckOmni();
-        //cmbEngineType.setSelectedItem( saw.Constants.DEFAULT_ENGINE );
-        //cmbArmorType.setSelectedItem( saw.Constants.DEFAULT_ARMOR );
         FixMPSpinner();
         FixJJSpinnerModel();
         FixArmorSpinners();
@@ -6902,6 +6151,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+
+        tblQuirks.setModel(new tbQuirks(new ArrayList<Quirk>()));
 
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
@@ -6934,20 +6185,18 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public int getRowCount() { return CurVee.GetLoadout().GetEquipment().size(); }
             public int getColumnCount() { return 2; }
             public Object getValueAt( int row, int col ) {
+                if (CurVee.GetLoadout().GetEquipment().isEmpty()) { return null; }
+                if (CurVee.GetLoadout().GetEquipment().size() <= row) { return null; }
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
-                    return ((abPlaceable) o).GetManufacturer();
+                    return CommonTools.UnknownToEmpty( ((abPlaceable) o).GetManufacturer() );
                 } else {
                     return ((abPlaceable) o).CritName();
                 }
             }
             @Override
             public boolean isCellEditable( int row, int col ) {
-                if( col == 0 ) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return col != 0;
             }
             @Override
             public void setValueAt( Object value, int row, int col ) {
@@ -6959,23 +6208,18 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 //    fireTableCellUpdated( row, col );
                 //} else {
                     ArrayList v = CurVee.GetLoadout().GetEquipment();
-                    for( int i = 0; i < v.size(); i++ ) {
-                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
-                            ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
-                        }
+                for (Object o : v) {
+                    if (FileCommon.LookupStripArc(((abPlaceable) o).LookupName()).equals(FileCommon.LookupStripArc(a.LookupName()))) {
+                        ((abPlaceable) o).SetManufacturer((String) value);
                     }
+                }
                     fireTableDataChanged();
                 //}
             }
         } );
-
         tblWeaponManufacturers.getInputMap( javax.swing.JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put( javax.swing.KeyStroke.getKeyStroke( java.awt.event.KeyEvent.VK_TAB, 0, false ), "selectNextRow" );
 
-        if( cmbEra.getSelectedIndex() == AvailableCode.ERA_ALL ) {
-            chkYearRestrict.setEnabled( false );
-        } else {
-            chkYearRestrict.setEnabled( true );
-        }
+        chkYearRestrict.setEnabled(cmbEra.getSelectedIndex() != AvailableCode.ERA_ALL);
         CurVee.SetChanged( false );
         setTitle( saw.Constants.AppDescription + " " + saw.Constants.GetVersion() );
     }
@@ -6991,139 +6235,34 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now let's ensure that all the omni controls are enabled or disabled
         // as appropriate
-        if( chkOmniVee.isEnabled() ) {
-            if( chkOmniVee.isSelected() ) {
-                btnLockChassis.setEnabled( true );
-            } else {
-                btnLockChassis.setEnabled( false );
-            }
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+        btnLockChassis.setEnabled( chkOmniVee.isEnabled() && chkOmniVee.isSelected() );
     }
+
     private void RefreshEquipment() {
         // refreshes the equipment selectors
         //fix the CASE control
         CASE Case = new CASE();
-        if ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ) {
-            chkClanCASE.setEnabled(true);
-        } else {
-            chkClanCASE.setSelected(false);
-            chkClanCASE.setEnabled(false);
-        }
+        setCheckbox(chkCASE, ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ), CurVee.GetLoadout().HasCase());
 
         // fix Artemis IV controls
         ifMissileGuidance ArtCheck = new ArtemisIVFCS( null );
-        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ) {
-            chkFCSAIV.setEnabled( true );
-        } else {
-            chkFCSAIV.setSelected( false );
-            chkFCSAIV.setEnabled( false );
-        }
+        setCheckbox(chkFCSAIV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisIV());
 
         // fix Artemis V controls
         ArtCheck = new ArtemisVFCS( null );
-        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ) {
-            chkFCSAV.setEnabled( true );
-        } else {
-            chkFCSAV.setSelected( false );
-            chkFCSAV.setEnabled( false );
-        }
+        setCheckbox(chkFCSAV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisV());
 
-        // fix Artemis IV controls
+        // fix ApolloFCS controls
         ArtCheck = new ApolloFCS( null );
-        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ) {
-            chkFCSApollo.setEnabled( true );
-        } else {
-            chkFCSApollo.setSelected( false );
-            chkFCSApollo.setEnabled( false );
-        }
+        setCheckbox(chkFCSApollo, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingApollo());
 
         // fix the targeting computer display
-        if( CommonTools.IsAllowed( CurVee.GetTC().GetAvailability(), CurVee ) ) {
-            chkUseTC.setEnabled( true );
-            if( CurVee.UsingTC() ) {
-                chkUseTC.setSelected( true );
-            } else {
-                chkUseTC.setSelected( false );
-            }
-        } else {
-            chkUseTC.setSelected( false );
-            chkUseTC.setEnabled( false );
-        }
+        setCheckbox(chkUseTC, ( CommonTools.IsAllowed( CurVee.GetTC().GetAvailability(), CurVee ) ), CurVee.UsingTC());
 
-        // check all multi-slot systems
-        if( CommonTools.IsAllowed( CurVee.GetBlueShield().GetAvailability(), CurVee ) ) {
-            //chkBSPFD.setEnabled( true );
-        } else {
-            //chkBSPFD.setEnabled( false );
-            //chkBSPFD.setSelected( false );
-        }
-        if( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) ) {
-            chkSupercharger.setEnabled( true );
-        } else {
-            chkSupercharger.setEnabled( false );
-        }
-
-        // now set all the equipment if needed
-        if( ! chkFCSAIV.isEnabled() ) {
-            try {
-                CurVee.SetFCSArtemisIV( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-            }
-            chkFCSAIV.setSelected( false );
-        } else {
-            if( CurVee.UsingArtemisIV() ) {
-                chkFCSAIV.setSelected( true );
-            } else {
-                chkFCSAIV.setSelected( false );
-            }
-        }
-        if( ! chkFCSAV.isEnabled() ) {
-            try {
-                CurVee.SetFCSArtemisV( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-            }
-            chkFCSAV.setSelected( false );
-        } else {
-            if( CurVee.UsingArtemisV() ) {
-                chkFCSAV.setSelected( true );
-            } else {
-                chkFCSAV.setSelected( false );
-            }
-        }
-        if( ! chkFCSApollo.isEnabled() ) {
-            try {
-                CurVee.SetFCSApollo( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-            }
-            chkFCSApollo.setSelected( false );
-        } else {
-            if( CurVee.UsingApollo() ) {
-                chkFCSApollo.setSelected( true );
-            } else {
-                chkFCSApollo.setSelected( false );
-            }
-        }
-        if( ! chkSupercharger.isEnabled() ) {
-            try {
-                CurVee.GetLoadout().SetSupercharger( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-            }
-        } else {
-            if( CurVee.GetLoadout().HasSupercharger() ) {
-                chkSupercharger.setSelected( true );
-            } else {
-                chkSupercharger.setSelected( false );
-            }
-        }
+        setCheckbox(chkSupercharger, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasSupercharger());
+        setCheckbox(chkJetBooster, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && CurVee.IsVTOL() && !CurVee.IsOmni() ), CurVee.GetLoadout().HasVTOLBooster());
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
-        chkClanCASE.setSelected( CurVee.GetLoadout().HasISCASE() );
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             chkFractional.setEnabled( true );
@@ -7136,25 +6275,28 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( CurVee.IsOmni() ) {
             // these items can only be loaded into the base chassis, so they
             // are always locked for an Omni (although they may be checked).
-            //chkBSPFD.setEnabled( false );
             chkEnviroSealing.setEnabled( false );
             chkCommandConsole.setEnabled( false );
+            chkJetBooster.setEnabled(false);
 
-            // now see if we have a supercharger on the base chassis
+            //These items can be selected on the base or variants but if the base
+            //has them disable and mark as selected
             if( CurVee.GetBaseLoadout().HasSupercharger() ) {
                 chkSupercharger.setEnabled( false );
+                chkSupercharger.setSelected( true );
             }
-            if( CurVee.GetBaseLoadout().HasISCASE() ) {
-                chkClanCASE.setEnabled(false);
+            if( CurVee.GetBaseLoadout().HasCase() ) {
+                chkCASE.setEnabled( false );
+                chkCASE.setSelected( true );
             }
-        } else {
-            try {
-                //if( ! chkBSPFD.isEnabled() ) { locArmor.SetBlueShield( false ); }
-                //if( ! chkCommandConsole.isEnabled() ) { locArmor.SetCommandConsole( false ); }
-            } catch( Exception e ) {
-                // we should never get this, but report it if we do
-                Media.Messager( this, e.getMessage() );
-            }
+        }
+    }
+
+    private void setCheckbox(JCheckBox element, Boolean isEnabled, Boolean isSelected) {
+        element.setEnabled(isEnabled);
+        element.setSelected(false);
+        if (isEnabled) {
+            element.setSelected(isSelected);
         }
     }
 
@@ -7202,7 +6344,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // an Omni.
         isLocked = false;
 
-        chkOmniVee.setSelected( false );
         chkOmniVee.setEnabled( true );
         mnuUnlock.setEnabled( false );
         cmbMotiveType.setEnabled( true );
@@ -7210,6 +6351,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbEngineType.setEnabled( true );
         cmbTurret.setEnabled( true );
         spnTurretTonnage.setEnabled( true );
+        spnRearTurretTonnage.setEnabled( true );
         spnFrontArmor.setEnabled( true );
         spnLeftArmor.setEnabled( true );
         spnRightArmor.setEnabled( true );
@@ -7224,20 +6366,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkTrailer.setEnabled( true );
         //btnEfficientArmor.setEnabled( true );
         //btnBalanceArmor.setEnabled( true );
-        btnLockChassis.setEnabled( false );
+        btnLockChassis.setEnabled( chkOmniVee.isSelected() );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
-        chkClanCASE.setEnabled( true );
-        chkOmniVee.setSelected( false );
-        chkOmniVee.setEnabled( true );
+        chkCASE.setEnabled( true );
         spnCruiseMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
-        //chkBSPFD.setEnabled( true );
         chkSupercharger.setEnabled( true );
+        chkJetBooster.setEnabled(true);
         chkEnviroSealing.setEnabled( false );
         // now enable the Omni controls
-        cmbOmniVariant.setSelectedItem("");
         cmbOmniVariant.setEnabled( false );
         btnAddVariant.setEnabled( false );
         btnDeleteVariant.setEnabled( false );
@@ -7280,6 +6419,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         SetPatchworkArmor();
     }
+
     private boolean AddECM() {
         // Adds an ECM suite if a certain system needs it
         if( Prefs.getBoolean( "AutoAddECM", true ) ) {
@@ -7420,7 +6560,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
     }
 
-    private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEngineTypeActionPerformed
+    private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         if( BuildLookupName( CurVee.GetEngine().GetCurrentState() ).equals( (String) cmbEngineType.getSelectedItem() ) ) {
             // only nuclear-powered mechs may use jump jets
@@ -7438,24 +6578,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             return;
         }
         RecalcEngine();
-        //spnCruiseMP.setValue(CurVee.getMinCruiseMP());
         FixMPSpinner();
 
         //When the engine changes we need to re-check the Heat Sinks
         CurVee.ResetHeatSinks();
-
-        // only nuclear-powered mechs may use jump jets
-        /*if( CurVee.GetEngine().IsNuclear() ) {
-            /*
-            if( cmbJumpJetType.getSelectedItem() == null ) {
-                EnableJumpJets( false );
-            } else {
-                EnableJumpJets( true );
-            }
-
-        } else {
-            EnableJumpJets( false );
-        }*/
 
         // refresh the selected equipment listbox
         if( CurVee.GetLoadout().GetNonCore().toArray().length <= 0 ) {
@@ -7468,9 +6594,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbEngineTypeActionPerformed
+    }
 
-    private void cmbEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEraActionPerformed
+    private void cmbEraActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         // whenever the era is changed we basically need to reset the GUI and
         // most of the mech.  Certain things we will transfer.
@@ -7489,47 +6615,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         int tbsave = cmbTechBase.getSelectedIndex();
 
         // change the year range and tech base options
-        switch( cmbEra.getSelectedIndex() ) {
-            case AvailableCode.ERA_STAR_LEAGUE:
-                lblEraYears.setText( "2443 ~ 2800" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_STAR_LEAGUE );
-                CurVee.SetYear( 2750, false );
-                if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_SUCCESSION:
-                lblEraYears.setText( "2801 ~ 3050" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_SUCCESSION );
-                CurVee.SetYear( 3025, false );
-                if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                lblEraYears.setText( "3051 ~ 3131" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_CLAN_INVASION );
-                CurVee.SetYear( 3075, false );
-                if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_DARK_AGES:
-                lblEraYears.setText( "3132 on" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_DARK_AGES );
-                CurVee.SetYear( 3132, false );
-                if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_ALL:
-                lblEraYears.setText( "Any" );
-                txtProdYear.setText( "" );
-                CurVee.SetEra( AvailableCode.ERA_ALL );
-                CurVee.SetYear( 0, false );
-                chkYearRestrict.setEnabled( false );
-                break;
+        lblEraYears.setText( CommonTools.GetEraYearRange( cmbEra.getSelectedIndex() ) );
+        txtProdYear.setText( "" );
+        CurVee.SetEra( cmbEra.getSelectedIndex() );
+        CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
+        if( cmbEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+            if( ! CurVee.IsOmni() ) { chkYearRestrict.setEnabled( true ); }
+        } else {
+            chkYearRestrict.setEnabled( false );
         }
-        CurVee.SetChanged(true);
 
         if( CurVee.IsOmni() ) {
-            //BuildJumpJetSelector();
             RefreshEquipment();
             RefreshSummary();
             RefreshInfoPane();
@@ -7555,14 +6651,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // get the currently chosen selections
         SaveSelections();
 
+        // since you can only ever change the era when not restricted, we're not
+        // doing it here.  Pass in default values.
+        CurVee.GetLoadout().FlushIllegal();
+
         // refresh all the combo boxes.
         BuildChassisSelector();
         BuildEngineSelector();
-        //BuildGyroSelector();
-        //BuildCockpitSelector();
-        //BuildEnhancementSelector();
-        //BuildHeatsinkSelector();
-        //BuildJumpJetSelector();
         BuildArmorSelector();
         FixMPSpinner();
         FixJJSpinnerModel();
@@ -7574,29 +6669,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // when a new era is selected, we have to recalculate the mech
         RecalcEngine();
-        //RecalcGyro();
-        //RecalcIntStruc();
-        //RecalcCockpit();
-        //CurVee.GetActuators().PlaceActuators();
-        //RecalcHeatSinks();
-        //RecalcJumpJets();
-        //RecalcEnhancements();
         RecalcArmor();
         RecalcEquipment();
-
-        // since you can only ever change the era when not restricted, we're not
-        // doing it here.  Pass in default values.
-        CurVee.GetLoadout().FlushIllegal();
-        //CurVee.GetLoadout().FlushIllegal( cmbEra.getSelectedIndex(), 0, false );
 
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-    }//GEN-LAST:event_cmbEraActionPerformed
+    }
 
-    private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFractionalActionPerformed
+    private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {
         if( chkFractional.isSelected() == CurVee.UsingFractionalAccounting() ) { return; }
         CurVee.SetFractionalAccounting( chkFractional.isSelected() );
         if( ! CurVee.UsingFractionalAccounting() ) {
@@ -7611,17 +6694,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_chkFractionalActionPerformed
+    }
 
-    private void spnTonnageInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spnTonnageInputMethodTextChanged
+    private void spnTonnageInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
         spnTonnageStateChanged(null);
-    }//GEN-LAST:event_spnTonnageInputMethodTextChanged
+    }
 
-    private void spnCruiseMPInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spnCruiseMPInputMethodTextChanged
+    private void spnCruiseMPInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
         spnCruiseMPStateChanged(null);
-    }//GEN-LAST:event_spnCruiseMPInputMethodTextChanged
+    }
 
-    private void btnMaximizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximizeActionPerformed
+    private void btnMaximizeActionPerformed(java.awt.event.ActionEvent evt) {
         // this simply maximizes the mech's armor
         CVArmor a = CurVee.GetArmor();
         a.Maximize();
@@ -7632,9 +6715,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnMaximizeActionPerformed
+    }
 
-    private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArmorTypeActionPerformed
+    private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         if( BuildLookupName( CurVee.GetArmor().GetCurrentState() ).equals( (String) cmbArmorType.getSelectedItem() ) ) {
             return;
@@ -7646,9 +6729,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbArmorTypeActionPerformed
+    }
 
-    private void btnUseRemainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUseRemainingActionPerformed
+    private void btnUseRemainingActionPerformed(java.awt.event.ActionEvent evt) {
         // see if we have a good number
         double freetons = CurVee.GetTonnage() - CurVee.GetCurrentTons() + CurVee.GetArmor().GetTonnage();
 
@@ -7671,9 +6754,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnUseRemainingActionPerformed
+    }
 
-    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
+    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {
         // Opens a file chooser for the user, then resizes the chosen image to
         // fit in the fluff label and adds it
         JFileChooser fc = new JFileChooser();
@@ -7730,15 +6813,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // add the image to the fluff image label
         lblFluffImage.setIcon( newFluffImage );
         CurVee.SetSSWImage( fc.getSelectedFile().getPath() );
-}//GEN-LAST:event_btnLoadImageActionPerformed
+    }
 
-    private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed
+    private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {
         // Set the fluff image to default
         lblFluffImage.setIcon( null );
         CurVee.SetSSWImage("");
-}//GEN-LAST:event_btnClearImageActionPerformed
+    }
 
-    private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTXTActionPerformed
+    private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {
         // exports the mech to TXT format
         String CurLoadout = "";
         if( CurVee.IsOmni() ) {
@@ -7773,9 +6856,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //cmbOmniVariantActionPerformed( evt );
         }
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
-}//GEN-LAST:event_btnExportTXTActionPerformed
+    }
 
-    private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
+    private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {
         // exports the mech to HTML format
         String CurLoadout = "";
         if( CurVee.IsOmni() ) {
@@ -7810,11 +6893,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //cmbOmniVariantActionPerformed( evt );
         }
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
-}//GEN-LAST:event_btnExportHTMLActionPerformed
+    }
 
-    private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFActionPerformed
+    private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {
         // exports the mech to MTF format for use in Megamek
-
         String dir = Prefs.get( "MTFExportPath", "none" );
         if( dir.equals( "none" ) ) {
             dir = Prefs.get( "LastOpenCVDirectory", "" );
@@ -7825,7 +6907,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         String filename = "";
-        IO.MTFWriter mtfw = new IO.MTFWriter( CurVee );
+        IO.MTFWriter mtfw = new IO.MTFWriter( CurVee, saw.Constants.AppDescription + " " + saw.Constants.GetVersion() );
         try {
             filename = savemech.getCanonicalPath();
             mtfw.WriteMTF( filename );
@@ -7837,35 +6919,51 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // if there were no problems, let the user know how it went
         Media.Messager( this, "Vehicle saved successfully to MTF:\n" + filename );
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
-}//GEN-LAST:event_btnExportMTFActionPerformed
+    }
 
-    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
-        /*
-        dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
-        qmanage.setLocationRelativeTo(this);
-        qmanage.setVisible(true);
-        tblQuirks.setModel(new tbQuirks(quirks));
-         *
-         */
-}//GEN-LAST:event_btnAddQuirkActionPerformed
+    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
+        ArrayList<Quirk> filtered = new ArrayList<Quirk>();
+        for (Quirk item : data.GetQuirks()) {
+            if (item.isCombatvehicle()) {
+                filtered.add(item);
+            }
+        }
+        dlgQuirks qmanage = new dlgQuirks(this, true, CurVee, filtered, quirks);
+        qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
+        CurVee.SetQuirks(quirks);
+        RefreshQuirks();
+    }
 
-    private void cmbTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTurretActionPerformed
+    private void RefreshQuirks() {
+        tblQuirks.setModel(new tbQuirks(CurVee.GetQuirks()));
+    }
+    private void cmbTurretActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
-        //TODO add logic to CombatVehicle to handle the turret
+
         String Turret = cmbTurret.getSelectedItem().toString();
-        if ( Turret.equals("Single Turret")) {
+        if(Turret.equals("Single Turret") || Turret.equals("Chin Turret") ) {
             CurVee.setHasTurret1(true);
-            if (chkOmniVee.isSelected() && !isLocked )
-                spnTurretTonnage.setEnabled(true);
-        } else if(Turret.equals("Dual Turret")) {
+            CurVee.setHasTurret2(false);
+        } else if( Turret.equals("Dual Turret") ) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
-            if (chkOmniVee.isSelected() && !isLocked )
-                spnTurretTonnage.setEnabled(true);
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
-            spnTurretTonnage.setEnabled(false);
+        }
+        if( CurVee.isHasTurret1() ) {
+            spnTurretTonnage.setEnabled( chkOmniVee.isSelected() && !isLocked );
+            SetTurretTonnage( null );
+        } else {
+            spnTurretTonnage.setEnabled( false );
+            SetTurretTonnage( 0.0 );
+        }
+        if( CurVee.isHasTurret2() ) {
+            spnRearTurretTonnage.setEnabled( chkOmniVee.isSelected() && !isLocked );
+            SetRearTurretTonnage( null );
+        } else {
+            spnRearTurretTonnage.setEnabled( false );
+            SetRearTurretTonnage( 0.0 );
         }
 
         BuildLocationSelector();
@@ -7873,9 +6971,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSelectedEquipment();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbTurretActionPerformed
+    }
 
-    private void btnSetArmorTonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetArmorTonsActionPerformed
+    private void btnSetArmorTonsActionPerformed(java.awt.event.ActionEvent evt) {
         // we'll need a new dialogue to get the tonnage
         dlgArmorTonnage ArmorDialogue = new dlgArmorTonnage( this, true, CurVee );
         ArmorDialogue.setLocationRelativeTo( this );
@@ -7904,9 +7002,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnSetArmorTonsActionPerformed
+    }
 
-    private void spnHeatSinksStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnHeatSinksStateChanged
+    private void spnHeatSinksStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHeatSinks.getModel();
@@ -7941,7 +7039,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnHeatSinksStateChanged
+    }
 
     private void FixHeatSinkSpinnerModel() {
         // mainly provided for Omnis.
@@ -7956,15 +7054,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ((JSpinner.DefaultEditor)spnHeatSinks.getEditor()).getTextField().addFocusListener(spinners);
     }
 
-    private void spnHeatSinksFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnHeatSinksFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnHeatSinksFocusGained
+    private void spnHeatSinksFocusGained(java.awt.event.FocusEvent evt) {
 
-    private void spnHeatSinksInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spnHeatSinksInputMethodTextChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnHeatSinksInputMethodTextChanged
+    }
 
-    private void spnFrontArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnFrontArmorStateChanged
+    private void spnHeatSinksInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+
+    }
+
+    private void spnFrontArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnFrontArmor.getModel();
@@ -8013,9 +7111,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnFrontArmorStateChanged
+    }
 
-    private void spnLeftArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLeftArmorStateChanged
+    private void spnLeftArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLeftArmor.getModel();
@@ -8064,9 +7162,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnLeftArmorStateChanged
+    }
 
-    private void spnRightArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRightArmorStateChanged
+    private void spnRightArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRightArmor.getModel();
@@ -8115,9 +7213,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRightArmorStateChanged
+    }
 
-    private void spnRearArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRearArmorStateChanged
+    private void spnRearArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRearArmor.getModel();
@@ -8166,9 +7264,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRearArmorStateChanged
+    }
 
-    private void spnTurretArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnTurretArmorStateChanged
+    private void spnTurretArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnTurretArmor.getModel();
@@ -8210,51 +7308,51 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnTurretArmorStateChanged
+    }
 
-    private void lstChooseAmmunitionValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseAmmunitionValueChanged
+    private void lstChooseAmmunitionValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseAmmunition.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[AMMUNITION][lstChooseAmmunition.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseAmmunitionValueChanged
+    }
 
-    private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseArtilleryValueChanged
+    private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseArtillery.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseArtilleryValueChanged
+    }
 
-    private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEquipmentValueChanged
+    private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseEquipment.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseEquipmentValueChanged
+    }
 
-    private void lstChooseMissileValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseMissileValueChanged
+    private void lstChooseMissileValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseMissile.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[MISSILE][lstChooseMissile.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseMissileValueChanged
+    }
 
-    private void lstChooseEnergyValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEnergyValueChanged
+    private void lstChooseEnergyValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseEnergy.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[ENERGY][lstChooseEnergy.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseEnergyValueChanged
+    }
 
-    private void lstChooseBallisticValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseBallisticValueChanged
+    private void lstChooseBallisticValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseBallistic.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[BALLISTIC][lstChooseBallistic.getSelectedIndex()];
         ShowInfoOn( CurItem );
-}//GEN-LAST:event_lstChooseBallisticValueChanged
+    }
 
-    private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChoosePhysicalValueChanged
+    private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChoosePhysical.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChoosePhysicalValueChanged
+    }
 
-    private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTechBaseActionPerformed
+    private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         // do we really need to do this?
         if( CurVee.IsOmni() ) {
@@ -8285,6 +7383,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     break;
             }
 
+            //Adding these here for now, since the loadout gets completely trashed, these selections need to go away.
+            chkSupercharger.setSelected(false);
+            chkJetBooster.setSelected(false);
+
             // save the current selections.  The 'Mech should have already
             // flushed any illegal equipment in the changeover
             SaveSelections();
@@ -8294,11 +7396,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             // refresh all the combo boxes.
             BuildChassisSelector();
             BuildEngineSelector();
-            //BuildGyroSelector();
-            //BuildCockpitSelector();
-            //BuildEnhancementSelector();
-            //BuildHeatsinkSelector();
-            //BuildJumpJetSelector();
             BuildArmorSelector();
             RefreshEquipment();
             FixMPSpinner();
@@ -8309,18 +7406,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             LoadSelections();
 
             if ( CurVee.GetTechBase() == AvailableCode.TECH_CLAN ) {
-                chkClanCASE.setSelected(true);
-                chkClanCASEActionPerformed(evt);
+                chkCASE.setSelected(true);
+                chkCASEActionPerformed(evt);
             }
             // recalculate the mech.
             RecalcEngine();
-            //RecalcGyro();
-            //RecalcIntStruc();
-            //RecalcCockpit();
-            //CurVee.GetActuators().PlaceActuators();
-            //RecalcHeatSinks();
-            //RecalcJumpJets();
-            //RecalcEnhancements();
             RecalcArmor();
         }
 
@@ -8329,12 +7419,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkUseTC.setSelected( false );
 
         // now refresh the information panes
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-    }//GEN-LAST:event_cmbTechBaseActionPerformed
+    }
 
-    private void spnRotorArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRotorArmorStateChanged
+    private void spnRotorArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRotorArmor.getModel();
@@ -8376,9 +7467,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRotorArmorStateChanged
+    }
 
-    private void btnNewVeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewVeeActionPerformed
+    private void btnNewVeeActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
                 "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
@@ -8386,9 +7477,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         GetNewVee();
         Prefs.put("Currentfile", "");
-    }//GEN-LAST:event_btnNewVeeActionPerformed
+    }
 
-    private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLockChassisActionPerformed
+    private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {
         // currently testing right now.
         SaveOmniFluffInfo();
         String VariantName = "";
@@ -8429,17 +7520,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // make it an omni
         CurVee.SetOmni(VariantName);
-        chkOmniVee.setEnabled(false);
-        //FixTransferHandlers();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         LockGUIForOmni();
         RefreshOmniVariants();
         RefreshOmniChoices();
-        //SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnLockChassisActionPerformed
+    }
 
     private void RefreshOmniVariants() {
         ArrayList v = CurVee.GetLoadouts();
@@ -8466,46 +7554,19 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     private void CheckEquipment() {
         // consolidating some code here.
-        if( CurVee.UsingArtemisIV() ) {
-            chkFCSAIV.setSelected( true );
-        } else {
-            chkFCSAIV.setSelected( false );
-        }
-        if( CurVee.UsingArtemisV() ) {
-            chkFCSAV.setSelected( true );
-        } else {
-            chkFCSAV.setSelected( false );
-        }
-        if( CurVee.UsingApollo() ) {
-            chkFCSApollo.setSelected( true );
-        } else {
-            chkFCSApollo.setSelected( false );
-        }
-
-        if( CurVee.UsingTC() ) {
-            chkUseTC.setSelected( true );
-        } else {
-            chkUseTC.setSelected( false );
-        }
-
-
-        if( CurVee.GetLoadout().HasSupercharger() ) {
-            chkSupercharger.setSelected( true );
-        } else {
-            chkSupercharger.setSelected( false );
-        }
-        if( CurVee.GetLoadout().HasISCASE() ) {
-            chkClanCASE.setSelected( true );
-        } else {
-            chkClanCASE.setSelected( false );
-        }
+        chkFCSAIV.setSelected( CurVee.UsingArtemisIV() );
+        chkFCSAV.setSelected( CurVee.UsingArtemisV() );
+        chkFCSApollo.setSelected( CurVee.UsingApollo() );
+        chkUseTC.setSelected( CurVee.UsingTC() );
+        chkJetBooster.setSelected( CurVee.GetBaseLoadout().HasVTOLBooster() );
+        chkSupercharger.setSelected( CurVee.GetBaseLoadout().HasSupercharger() );
+        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
     }
 
     private void LockGUIForOmni() {
-        // this locks most of the GUI controls.  Used mainly by Omnimechs.
+        // this locks most of the GUI controls.  Used mainly by OmniVehicles.
         isLocked = true;
 
-        chkOmniVee.setSelected( true );
         chkOmniVee.setEnabled( false );
         mnuUnlock.setEnabled( true );
         spnTonnage.setEnabled( false );
@@ -8513,6 +7574,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbEngineType.setEnabled( false );
         cmbTurret.setEnabled( false );
         spnTurretTonnage.setEnabled( false );
+        spnRearTurretTonnage.setEnabled( false );
         spnFrontArmor.setEnabled( false );
         spnLeftArmor.setEnabled( false );
         spnRightArmor.setEnabled( false );
@@ -8540,12 +7602,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( chkFCSApollo.isSelected() ) {
             chkFCSApollo.setEnabled( false );
         }
-        if ( chkClanCASE.isSelected() ) {
-            chkClanCASE.setEnabled(false);
+        if ( chkCASE.isSelected() ) {
+            chkCASE.setEnabled(false);
         }
 
         chkFractional.setEnabled( false );
         chkEnviroSealing.setEnabled( false );
+        chkJetBooster.setEnabled(false);
         if( CurVee.GetBaseLoadout().HasSupercharger() ) {
             chkSupercharger.setEnabled( false );
         }
@@ -8557,7 +7620,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnRenameVariant.setEnabled( true );
     }
 
-    private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVariantActionPerformed
+    private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {
         SaveOmniFluffInfo();
         String VariantName = "";
 
@@ -8585,20 +7648,16 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // fix the GUI
         LoadOmniFluffInfo();
-        //FixTransferHandlers();
-        //SetLoadoutArrays();
         SetWeaponChoosers();
-        //BuildJumpJetSelector();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniVariants();
         RefreshOmniChoices();
-        //SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnAddVariantActionPerformed
+    }
 
-    private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVariantActionPerformed
+    private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {
         // see if the user actually wants to delete the variant
         int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete this variant?", "Delete Variant?", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -8617,19 +7676,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // refresh all the displays
         LoadOmniFluffInfo();
         RefreshOmniVariants();
-        //FixTransferHandlers();
-        //SetLoadoutArrays();
         SetWeaponChoosers();
-        //BuildJumpJetSelector();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniChoices();
-        //SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnDeleteVariantActionPerformed
+    }
 
-    private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenameVariantActionPerformed
+    private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {
         SaveOmniFluffInfo();
         String VariantName = "";
 
@@ -8662,9 +7717,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         CurVee.GetLoadout().SetName(VariantName);
         RefreshOmniVariants();
-    }//GEN-LAST:event_btnRenameVariantActionPerformed
+    }
 
-    private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOmniVariantActionPerformed
+    private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {
         SaveOmniFluffInfo();
         String variant = (String) cmbOmniVariant.getSelectedItem();
         boolean changed = CurVee.HasChanged();
@@ -8673,11 +7728,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now fix the GUI
         LoadOmniFluffInfo();
-        //FixTransferHandlers();
-        //SetLoadoutArrays();
         SetWeaponChoosers();
-        //BuildJumpJetSelector();
-        //cmbJumpJetType.setSelectedItem(CurVee.GetJumpJets().LookupName());
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniVariants();
@@ -8689,26 +7740,22 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // this prevents the program from setting the changed tag if we simply
         // open an omnimech for browsing.
         CurVee.SetChanged(changed);
-    }//GEN-LAST:event_cmbOmniVariantActionPerformed
+    }
 
-    private void chkOmniVeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmniVeeActionPerformed
-        if( chkOmniVee.isSelected() ) {
-            btnLockChassis.setEnabled( true );
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
+    private void chkOmniVeeActionPerformed(java.awt.event.ActionEvent evt) {
+        btnLockChassis.setEnabled( chkOmniVee.isSelected() );
         cmbTurretActionPerformed(evt);
-    }//GEN-LAST:event_chkOmniVeeActionPerformed
+    }
 
-    private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductionEraActionPerformed
+    private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetProductionEra(cmbProductionEra.getSelectedIndex());
-    }//GEN-LAST:event_cmbProductionEraActionPerformed
+    }
 
-    private void mnuNewMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNewMechActionPerformed
+    private void mnuNewMechActionPerformed(java.awt.event.ActionEvent evt) {
         btnNewVeeActionPerformed(evt);
-    }//GEN-LAST:event_mnuNewMechActionPerformed
+    }
 
-    private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoadActionPerformed
+    private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {
         if (CurVee.HasChanged()) {
             int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                     "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -8724,11 +7771,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee = m;
         LoadVehicleIntoGUI();
         CurVee.SetChanged(false);
-    }//GEN-LAST:event_mnuLoadActionPerformed
+    }
 
-    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpenActionPerformed
+    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {
         btnOpenActionPerformed(evt);
-    }//GEN-LAST:event_mnuOpenActionPerformed
+    }
+
     public CombatVehicle LoadVehicle (){
         CombatVehicle m = null;
 
@@ -8795,8 +7843,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         return m;
     }
 
-    private void LoadVehicleFromFile( String filename )
-    {
+    private void LoadVehicleFromFile( String filename ) {
         CombatVehicle m = null;
         if (! filename.isEmpty() ) {
             try {
@@ -8820,12 +7867,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         UnlockGUIFromOmni();
 
         chkYearRestrict.setSelected( CurVee.IsYearRestricted() );
-        txtProdYear.setText( "" + CurVee.GetYear() );
+        txtProdYear.setText( CurVee.YearWasSpecified() ? "" + CurVee.GetYear() : "" );
         cmbEra.setEnabled( true );
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
         chkTrailer.setSelected( CurVee.isTrailer() );
-        chkClanCASE.setSelected(CurVee.GetLoadout().HasISCASE());
+
         switch( CurVee.GetEra() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
                 lblEraYears.setText( "2443 ~ 2800" );
@@ -8862,21 +7909,36 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbMotiveType.setSelectedItem( CurVee.GetMotiveLookupName() );
         spnTonnage.setModel( new javax.swing.SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1) );
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), CurVee.getMinCruiseMP(), CurVee.getMaxCruiseMP(), 1) );
-        if ( CurVee.isHasTurret1() ) cmbTurret.setSelectedItem("Single Turret");
-        if ( CurVee.isHasTurret2() ) cmbTurret.setSelectedItem("Dual Turret");
         FixArmorSpinners();
 
         // now that we're done with the special stuff...
         Load = false;
 
-        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
         if( CurVee.IsOmni() ) {
-            if ( CurVee.isHasTurret1() )
-                spnTurretTonnage.setModel( new SpinnerNumberModel(CurVee.GetBaseLoadout().GetTurret().GetMaxTonnage(), 0, 99.0, 0.5) );
+            chkOmniVee.setSelected( true );
             LockGUIForOmni();
             RefreshOmniVariants();
             RefreshOmniChoices();
+        } else {
+            cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
         }
+
+        double turretTons = 0.0;
+        if( CurVee.isHasTurret1() ) {
+            if( chkOmniVee.isSelected() ) {
+                spnTurretTonnage.setEnabled( !isLocked );
+                turretTons = CurVee.GetLoadout().GetTurret().GetTonnage();
+            }
+        }
+        SetTurretTonnage( turretTons );
+        double rearTurretTons = 0.0;
+        if( CurVee.isHasTurret2() ) {
+            if( chkOmniVee.isSelected() ) {
+                spnRearTurretTonnage.setEnabled( !isLocked );
+                rearTurretTons = CurVee.GetLoadout().GetRearTurret().GetTonnage();
+            }
+        }
+        SetRearTurretTonnage( rearTurretTons );
 
         FixTonnageSpinner( CurVee.GetMinTonnage(), CurVee.GetMaxTonnage() );
 
@@ -8900,7 +7962,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshEquipment();
         chkUseTC.setSelected( CurVee.UsingTC() );
         chkEnviroSealing.setSelected( CurVee.HasEnvironmentalSealing() );
-        //chkCommandConsole.setSelected( CurVee.HasCommandConsole() );
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -8911,6 +7972,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         media.blankLogo(lblFluffImage);
         media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
 
+        RefreshQuirks();
+
         Overview.SetText( CurVee.getOverview() );
         Capabilities.SetText( CurVee.getCapabilities() );
         History.SetText( CurVee.getHistory() );
@@ -8918,28 +7981,26 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         Variants.SetText( CurVee.getVariants() );
         Notables.SetText( CurVee.getNotables() );
         Additional.SetText( CurVee.GetAdditional() );
-        txtManufacturer.setText( CurVee.GetCompany() );
-        txtManufacturerLocation.setText( CurVee.GetLocation() );
-        txtEngineManufacturer.setText( CurVee.GetEngineManufacturer() );
-        txtArmorModel.setText( CurVee.GetArmorModel() );
-        txtChassisModel.setText( CurVee.GetChassisModel() );
+        txtManufacturer.setText( CommonTools.UnknownToEmpty( CurVee.GetCompany() ) );
+        txtManufacturerLocation.setText( CommonTools.UnknownToEmpty( CurVee.GetLocation() ) );
+        txtEngineManufacturer.setText( CommonTools.UnknownToEmpty( CurVee.GetEngineManufacturer() ) );
+        txtArmorModel.setText( CommonTools.UnknownToEmpty( CurVee.GetArmorModel() ) );
+        txtChassisModel.setText( CommonTools.UnknownToEmpty( CurVee.GetChassisModel() ) );
         if( CurVee.GetJumpJets().GetNumJJ() > 0 ) {
             txtJJModel.setEnabled( true );
         }
         txtSource.setText( CurVee.getSource() );
 
         // omnimechs may have jump jets in one loadout and not another.
-        txtJJModel.setText( CurVee.GetJJModel() );
-        txtCommSystem.setText( CurVee.GetCommSystem() );
-        txtTNTSystem.setText( CurVee.GetTandTSystem() );
+        txtJJModel.setText( CommonTools.UnknownToEmpty( CurVee.GetJJModel() ) );
+        txtCommSystem.setText( CommonTools.UnknownToEmpty( CurVee.GetCommSystem() ) );
+        txtTNTSystem.setText( CommonTools.UnknownToEmpty( CurVee.GetTandTSystem() ) );
 
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         CurVee.SetChanged(false);
     }
 
-
-
-    private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportHMPActionPerformed
+    private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {
         if (CurVee.HasChanged()) {
             int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                     "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -9018,15 +8079,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee = m;
         LoadVehicleIntoGUI();
         CurVee.SetChanged(false);
-    }//GEN-LAST:event_mnuImportHMPActionPerformed
+    }
 
-    private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBatchHMPActionPerformed
+    private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {
         dlgBatchHMP batch = new dlgBatchHMP(this, true);
         batch.setLocationRelativeTo(this);
         batch.setVisible(true);
-    }//GEN-LAST:event_mnuBatchHMPActionPerformed
+    }
 
-    private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveActionPerformed
+    private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {
         // Solidify the mech first.
         setCursor(Hourglass);
 
@@ -9089,9 +8150,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         setCursor(NormalCursor);
         setTitle(saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel());
         CurVee.SetChanged(false);
-    }//GEN-LAST:event_mnuSaveActionPerformed
+    }
 
-    private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveAsActionPerformed
+    private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {
         setCursor(Hourglass);
         File savemech = GetSaveFile("saw", Prefs.get("LastOpenCVDirectory", ""), false, false);
         if (savemech == null) {
@@ -9148,27 +8209,27 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         setTitle(saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel());
         CurVee.SetChanged(false);
         setCursor(NormalCursor);
-    }//GEN-LAST:event_mnuSaveAsActionPerformed
+    }
 
-    private void mnuExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportHTMLActionPerformed
+    private void mnuExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportHTMLActionPerformed(evt);
         SetSource = true;
-    }//GEN-LAST:event_mnuExportHTMLActionPerformed
+    }
 
-    private void mnuExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportMTFActionPerformed
+    private void mnuExportMTFActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportMTFActionPerformed(evt);
         SetSource = true;
-    }//GEN-LAST:event_mnuExportMTFActionPerformed
+    }
 
-    private void mnuExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportTXTActionPerformed
+    private void mnuExportTXTActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportTXTActionPerformed(evt);
         SetSource = true;
-    }//GEN-LAST:event_mnuExportTXTActionPerformed
+    }
 
-    private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportClipboardActionPerformed
+    private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
         // takes the text export and copies it to thesystem clipboard.
         String CurLoadout = "";
         String output = "";
@@ -9195,20 +8256,20 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(export, this);
-    }//GEN-LAST:event_mnuExportClipboardActionPerformed
+    }
 
-    private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreateTCGMechActionPerformed
+    private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {
         // Create CCG stats for mech
         // TODO: Add handling code to check if a canon card already exists.
         SolidifyVehicle();
         //dlgCCGMech ccgMech = new dlgCCGMech(this, true, CurVee);
         //ccgMech.setLocationRelativeTo(this);
         //ccgMech.setVisible(true);
-    }//GEN-LAST:event_mnuCreateTCGMechActionPerformed
+    }
 
-    private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
+    private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {
         btnPrintActionPerformed(evt);
-    }//GEN-LAST:event_mnuPrintPreviewActionPerformed
+    }
 
     public void QuickSave() {
         File saveFile = GetSaveFile( "saw", Prefs.get( "LastOpenCVDirectory", "" ), true, false );
@@ -9227,7 +8288,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
     }
 
-    private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
+    private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {
         if (CurVee.HasChanged()) {
             int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                     "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -9236,11 +8297,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         }
         CloseProgram();
-    }//GEN-LAST:event_mnuExitActionPerformed
+    }
 
-    private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_mnuFileActionPerformed
+    private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
     private void CloseProgram() {
         try {
@@ -9254,31 +8314,33 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         System.exit(0);
     }
 
-    private void mnuSummaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSummaryActionPerformed
+    private void mnuSummaryActionPerformed(java.awt.event.ActionEvent evt) {
         SolidifyVehicle();
         dlgSummaryInfo Summary = new dlgSummaryInfo(this, true, CurVee);
         Summary.setLocationRelativeTo(this);
         Summary.setVisible(true);
-    }//GEN-LAST:event_mnuSummaryActionPerformed
+    }
 
-    private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCostBVBreakdownActionPerformed
+    private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {
         SolidifyVehicle();
         dlgCostBVBreakdown costbv = new dlgCostBVBreakdown(this, true, CurVee);
         costbv.setLocationRelativeTo(this);
         costbv.setVisible(true);
-    }//GEN-LAST:event_mnuCostBVBreakdownActionPerformed
+    }
 
-    private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTextTROActionPerformed
+    private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         SolidifyVehicle();
         dlgTextExport Text = new dlgTextExport(this, true, CurVee);
         Text.setLocationRelativeTo(this);
         Text.setVisible(true);
-        CurVee.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
+        if (cmbOmniVariant.isEnabled()) {
+            CurVee.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
+        }
         SetSource = true;
-    }//GEN-LAST:event_mnuTextTROActionPerformed
+    }
 
-    private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBFBActionPerformed
+    private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {
         String[] call = {"java", "-Xmx256m", "-jar", "bfb.jar"};
         try {
             Runtime.getRuntime().exec(call);
@@ -9286,22 +8348,22 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             Media.Messager("Error while trying to open BFB\n" + ex.getMessage());
             System.out.println(ex.getMessage());
         }
-    }//GEN-LAST:event_mnuBFBActionPerformed
+    }
 
-    private void mnuOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOptionsActionPerformed
+    private void mnuOptionsActionPerformed(java.awt.event.ActionEvent evt) {
         dlgPrefs preferences = new dlgPrefs(this, true);
         preferences.setLocationRelativeTo(this);
         preferences.setVisible(true);
         ResetAmmo();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_mnuOptionsActionPerformed
+    }
 
-    private void mnuViewToolbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewToolbarActionPerformed
+    private void mnuViewToolbarActionPerformed(java.awt.event.ActionEvent evt) {
         setViewToolbar(mnuViewToolbar.getState());
-    }//GEN-LAST:event_mnuViewToolbarActionPerformed
+    }
 
-    private void mnuClearUserDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClearUserDataActionPerformed
+    private void mnuClearUserDataActionPerformed(java.awt.event.ActionEvent evt) {
         int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                 "This will remove all Solaris 7 user data.\nAre you sure you want to continue?", "Clear User Data?", javax.swing.JOptionPane.YES_NO_OPTION);
         if (choice == 1) {
@@ -9311,9 +8373,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             Prefs.put("S7Password", "");
             Prefs.put("S7UserID", "");
         }
-    }//GEN-LAST:event_mnuClearUserDataActionPerformed
+    }
 
-    private void mnuUnlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUnlockActionPerformed
+    private void mnuUnlockActionPerformed(java.awt.event.ActionEvent evt) {
         int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to unlock the chassis?\nAll omni loadouts"
                 + " will be deleted\nand the Vehicle will revert to its base loadout.",
@@ -9327,9 +8389,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         LoadVehicleIntoGUI();
-    }//GEN-LAST:event_mnuUnlockActionPerformed
+    }
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
         History.StartNewDocument();
@@ -9345,21 +8407,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtJJModel.setText("");
         txtCommSystem.setText("");
         txtTNTSystem.setText("");
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }
 
-    private void mnuCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreditsActionPerformed
+    private void mnuCreditsActionPerformed(java.awt.event.ActionEvent evt) {
         dlgCredits Credits = new dlgCredits(this, true);
         Credits.setLocationRelativeTo(this);
         Credits.setVisible(true);
-    }//GEN-LAST:event_mnuCreditsActionPerformed
+    }
 
-    private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutSSWActionPerformed
+    private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {
         dlgAboutBox about = new dlgAboutBox(this, true);
         about.setLocationRelativeTo(this);
         about.setVisible(true);
-    }//GEN-LAST:event_mnuAboutSSWActionPerformed
+    }
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {
         SolidifyVehicle();
         PagePrinter printer = SetupPrinter();
         Scenario s = new Scenario();
@@ -9367,9 +8429,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         dlgPreview prv = new dlgPreview("Print Preview", this, printer, s, imageTracker, true);
         prv.setLocationRelativeTo(this);
         prv.setVisible(true);
-    }//GEN-LAST:event_btnPrintActionPerformed
+    }
 
-    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
                 "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
@@ -9380,24 +8442,22 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         dOpen.setSize( 1024, 600 );
         dOpen.setVisible(true);
-    }//GEN-LAST:event_btnOpenActionPerformed
+    }
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         CloseProgram();
-    }//GEN-LAST:event_formWindowClosed
+    }
 
-    private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsActionPerformed
+    private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {
         dlgPrefs preferences = new dlgPrefs( this, true );
         preferences.setLocationRelativeTo( this );
         preferences.setVisible( true );
-        //Mechrender.Reset();
         ResetAmmo();
-        //RefreshInternalPoints();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnOptionsActionPerformed
+    }
 
-    private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkYearRestrictActionPerformed
+    private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {
         // This locks in the mech's production year, era, and tech base.
         int year = 0;
         if( CurVee.IsYearRestricted() == chkYearRestrict.isSelected() ) { return; }
@@ -9408,23 +8468,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             cmbTechBase.setEnabled( true );
             txtProdYear.setEnabled( true );
             CurVee.SetYearRestricted( false );
-            switch( cmbEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurVee.SetYear( 2750, false );
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurVee.SetYear( 3025, false );
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurVee.SetYear( 3070, false );
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurVee.SetYear( 3132, false );
-                    break;
-                case AvailableCode.ERA_ALL:
-                    CurVee.SetYear( 0, false );
-                    break;
-            }
+            CurVee.SetYear( CommonTools.GetEraDefaultYear( cmbEra.getSelectedIndex() ), false );
         } else {
             // ensure we have a good year.
             try{
@@ -9437,47 +8481,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
 
             // ensure the year is between the era years.
-            switch ( cmbEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    // Star League era
-                    if( year < 2443 || year > 2800 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    // Succession Wars era
-                    if( year < 2801 || year > 3050 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    // Clan Invasion Era
-                    if( year < 3051 || year > 3131 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    // Clan Invasion Era
-                    if( year < 3132 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_ALL:
-                    // all era
+            if( cmbEra.getSelectedIndex() != AvailableCode.ERA_ALL ) {
+                if( ! CommonTools.IsYearInEra( year, cmbEra.getSelectedIndex() ) ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
                     chkYearRestrict.setSelected( false );
-                    chkYearRestrict.setEnabled( false );
+                }
+            } else {
+                chkYearRestrict.setSelected( false );
+                chkYearRestrict.setEnabled( false );
             }
 
             // we know we have a good year, lock it in.
@@ -9494,11 +8506,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // first, refresh all the combo boxes.
         BuildChassisSelector();
         BuildEngineSelector();
-        //BuildGyroSelector();
-        //BuildCockpitSelector();
-        //BuildEnhancementSelector();
-        //BuildHeatsinkSelector();
-        //BuildJumpJetSelector();
         BuildArmorSelector();
         RefreshEquipment();
         CheckOmni();
@@ -9508,16 +8515,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now redo the mech based on what happened.
         RecalcEngine();
-        //RecalcGyro();
-        //RecalcIntStruc();
-        //RecalcCockpit();
-        //CurVee.GetActuators().PlaceActuators();
-        //RecalcHeatSinks();
-        //RecalcJumpJets();
-        //RecalcEnhancements();
         RecalcArmor();
         RecalcEquipment();
-        //CurVee.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), year, chkYearRestrict.isSelected() );
         CurVee.GetLoadout().FlushIllegal();
 
         // finally, refresh the information panes
@@ -9525,10 +8524,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-    }//GEN-LAST:event_chkYearRestrictActionPerformed
+    }
 
-    private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportClipboardIconActionPerformed
-    // takes the text export and copies it to thesystem clipboard.
+    private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {
+        // takes the text export and copies it to thesystem clipboard.
         String CurLoadout = "";
         String output = "";
 
@@ -9554,15 +8553,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents( export, this );
-    }//GEN-LAST:event_btnExportClipboardIconActionPerformed
+    }
 
-    private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatInfoActionPerformed
+    private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {
         java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection(CurVee.GetChatInfo());
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(export, this);
-    }//GEN-LAST:event_btnChatInfoActionPerformed
+    }
 
-    private void btnExportHTMLIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLIconActionPerformed
+    private void btnExportHTMLIconActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         // exports the mech to HTML format
         String CurLoadout = "";
@@ -9599,36 +8598,77 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         SetSource = true;
-    }//GEN-LAST:event_btnExportHTMLIconActionPerformed
+    }
 
-    private void btnExportTextIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTextIconActionPerformed
+    private void btnExportTextIconActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportTXTActionPerformed( evt );
         SetSource = true;
-    }//GEN-LAST:event_btnExportTextIconActionPerformed
+    }
 
-    private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFIconActionPerformed
+    private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportMTFActionPerformed( evt );
         SetSource = true;
-    }//GEN-LAST:event_btnExportMTFIconActionPerformed
+    }
 
-    private void spnTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnTurretTonnageStateChanged
-        double Tons = 0;
-        try
-        {
-           Tons = Double.parseDouble(spnTurretTonnage.getValue().toString());
-           CurVee.GetLoadout().GetTurret().SetTonnage(Tons);
-        } catch ( Exception e ) {
+    private void spnTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
+        SetTurretTonnage( null );
+        RefreshSummary();
+        RefreshInfoPane();
+    }
+
+    private void SetTurretTonnage( Double Tons ) {
+        try {
+            if( Tons != null ) {
+                // following may end up calling spnTurretTonnageStateChanged
+                // which in turn will call this again with null Tons,
+                // so it's okay although potentially redundant
+                spnTurretTonnage.setValue( Tons );
+            }
+            if( CurVee.isHasTurret1() && chkOmniVee.isSelected() ) {
+                if( Tons == null) {
+                    Tons = Double.parseDouble( spnTurretTonnage.getValue().toString() );
+                }
+                CurVee.GetLoadout().GetTurret().SetTonnage( Tons );
+            } else {
+                CurVee.GetLoadout().GetTurret().UnsetTonnage();
+            }
+        } catch( Exception e ) {
             Media.Messager(e.getMessage());
             return;
         }
+    }
 
+    private void spnRearTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
+        SetRearTurretTonnage( null );
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnTurretTonnageStateChanged
+    }
 
-    private void chkTrailerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTrailerActionPerformed
+    private void SetRearTurretTonnage( Double Tons ) {
+        try {
+            if( Tons != null ) {
+                // following may end up calling spnRearTurretTonnageStateChanged
+                // which in turn will call this again with null Tons,
+                // so it's okay although potentially redundant
+                spnRearTurretTonnage.setValue( Tons );
+            }
+            if( CurVee.isHasTurret2() && chkOmniVee.isSelected() ) {
+                if( Tons == null) {
+                    Tons = Double.parseDouble( spnRearTurretTonnage.getValue().toString() );
+                }
+                CurVee.GetLoadout().GetRearTurret().SetTonnage( Tons );
+            } else {
+                CurVee.GetLoadout().GetRearTurret().UnsetTonnage();
+            }
+        } catch( Exception e ) {
+            Media.Messager(e.getMessage());
+            return;
+        }
+    }
+
+    private void chkTrailerActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetTrailer(chkTrailer.isSelected());
         String curEngine = cmbEngineType.getSelectedItem().toString();
         BuildEngineSelector();
@@ -9655,40 +8695,38 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             else
                 cmbEngineType.setSelectedItem(curEngine);
             cmbEngineTypeActionPerformed(evt);
-            //spnCruiseMP.setValue(1);
-            //((SpinnerNumberModel)spnCruiseMP.getModel()).setMinimum(1);
             lblFlankMP.setText( "" + CurVee.getFlankMP() );
         }
         SetWeaponChoosers();
         RefreshEquipment();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkTrailerActionPerformed
+    }
 
-    private void chkFlotationHullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFlotationHullActionPerformed
+    private void chkFlotationHullActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetFlotationHull(chkFlotationHull.isSelected());
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkFlotationHullActionPerformed
+    }
 
-    private void chkLimitedAmphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLimitedAmphActionPerformed
+    private void chkLimitedAmphActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetLimitedAmphibious(chkLimitedAmph.isSelected());
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkLimitedAmphActionPerformed
+    }
 
-    private void chkDuneBuggyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDuneBuggyActionPerformed
+    private void chkDuneBuggyActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetDuneBuggy(chkDuneBuggy.isSelected());
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkDuneBuggyActionPerformed
+    }
 
-    private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnviroSealingActionPerformed
+    private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetEnvironmentalSealing(chkEnviroSealing.isSelected());
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkEnviroSealingActionPerformed
+    }
 
-    private void spnRearTurretArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRearTurretArmorStateChanged
+    private void spnRearTurretArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRearTurretArmor.getModel();
@@ -9726,29 +8764,25 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRearTurretArmorStateChanged
+    }
 
-    private void cmbLocationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbLocationMouseClicked
+    private void cmbLocationMouseClicked(java.awt.event.MouseEvent evt) {
         if ( evt.getClickCount() == 2 )
             btnAddEquipActionPerformed(null);
-    }//GEN-LAST:event_cmbLocationMouseClicked
+    }
 
-    private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSponsonTurretActionPerformed
-        if (chkSponsonTurret.isSelected())
-            CurVee.setHasSponsonTurret(true);
-        else
-            CurVee.setHasSponsonTurret(false);
+    private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {
+        CurVee.setHasSponsonTurret(chkSponsonTurret.isSelected());
         RefreshSelectedEquipment();
         BuildLocationSelector();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkSponsonTurretActionPerformed
+    }
 
-    private void chkEscapePodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEscapePodActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkEscapePodActionPerformed
+    private void chkEscapePodActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
-    private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
+    private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             data = new DataFactory( CurVee );
         } catch( Exception e ) {
@@ -9756,7 +8790,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             e.printStackTrace();
         }
         SetWeaponChoosers();
-    }//GEN-LAST:event_mnuReloadEquipmentActionPerformed
+    }
 
     private void chkFullAmphActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetFullAmphibious(chkFullAmph.isSelected());
@@ -9846,39 +8880,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnJumpMP.setModel( new javax.swing.SpinnerNumberModel( current, min, max, 1) );
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddEquip;
-    private javax.swing.JButton btnAddQuirk;
-    private javax.swing.JButton btnAddToForceList;
     private javax.swing.JButton btnAddVariant;
-    private javax.swing.JButton btnChatInfo;
-    private javax.swing.JButton btnClearEquip;
-    private javax.swing.JButton btnClearImage;
     private javax.swing.JButton btnDeleteVariant;
-    private javax.swing.JButton btnExportClipboardIcon;
-    private javax.swing.JButton btnExportHTML;
-    private javax.swing.JButton btnExportHTMLIcon;
-    private javax.swing.JButton btnExportMTF;
-    private javax.swing.JButton btnExportMTFIcon;
-    private javax.swing.JButton btnExportTXT;
-    private javax.swing.JButton btnExportTextIcon;
-    private javax.swing.JButton btnForceList;
-    private javax.swing.JButton btnLoadImage;
     private javax.swing.JButton btnLockChassis;
     private javax.swing.JButton btnMaximize;
-    private javax.swing.JButton btnNewVee;
-    private javax.swing.JButton btnOpen;
-    private javax.swing.JButton btnOptions;
-    private javax.swing.JButton btnPrint;
-    private javax.swing.JButton btnRemoveEquip;
     private javax.swing.JButton btnRenameVariant;
-    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSetArmorTons;
     private javax.swing.JButton btnUseRemaining;
     private javax.swing.JCheckBox chkArmoredMotive;
     private javax.swing.JCheckBox chkBalanceFRArmor;
     private javax.swing.JCheckBox chkBalanceLRArmor;
-    private javax.swing.JCheckBox chkClanCASE;
+    private javax.swing.JCheckBox chkCASE;
     private javax.swing.JCheckBox chkCommandConsole;
     private javax.swing.JCheckBox chkDuneBuggy;
     private javax.swing.JCheckBox chkEnviroSealing;
@@ -9910,150 +8922,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbTechBase;
     private javax.swing.JComboBox cmbTurret;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
-    private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel76;
-    private javax.swing.JLabel jLabel77;
-    private javax.swing.JLabel jLabel78;
-    private javax.swing.JLabel jLabel79;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
-    private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
-    private javax.swing.JLabel jLabel85;
-    private javax.swing.JLabel jLabel86;
-    private javax.swing.JLabel jLabel87;
-    private javax.swing.JLabel jLabel88;
-    private javax.swing.JLabel jLabel89;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
-    private javax.swing.JLabel jLabel93;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JScrollPane jScrollPane19;
-    private javax.swing.JScrollPane jScrollPane20;
-    private javax.swing.JScrollPane jScrollPane21;
-    private javax.swing.JScrollPane jScrollPane22;
-    private javax.swing.JScrollPane jScrollPane23;
-    private javax.swing.JScrollPane jScrollPane24;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator14;
-    private javax.swing.JSeparator jSeparator15;
-    private javax.swing.JSeparator jSeparator16;
-    private javax.swing.JSeparator jSeparator17;
-    private javax.swing.JSeparator jSeparator18;
-    private javax.swing.JSeparator jSeparator19;
-    private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JSeparator jSeparator20;
-    private javax.swing.JToolBar.Separator jSeparator21;
-    private javax.swing.JSeparator jSeparator22;
-    private javax.swing.JSeparator jSeparator23;
-    private javax.swing.JSeparator jSeparator24;
-    private javax.swing.JToolBar.Separator jSeparator25;
-    private javax.swing.JSeparator jSeparator26;
-    private javax.swing.JSeparator jSeparator27;
-    private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JSeparator jSeparator30;
-    private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextArea jTextAreaBFConversion;
     private javax.swing.JLabel lblArmorCoverage;
     private javax.swing.JLabel lblArmorLeftInLot;
@@ -10071,7 +8939,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JLabel lblBFStructure;
     private javax.swing.JLabel lblBFWt;
     private javax.swing.JLabel lblBaseEngineRating;
-    private javax.swing.JLabel lblBattleMechQuirks;
     private javax.swing.JLabel lblEraYears;
     private javax.swing.JLabel lblFinalEngineRating;
     private javax.swing.JLabel lblFlankMP;
@@ -10101,12 +8968,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JLabel lblLeftIntPts;
     private javax.swing.JLabel lblMinEngineTons;
     private javax.swing.JLabel lblNumCrew;
-    private javax.swing.JLabel lblProdYear;
     private javax.swing.JLabel lblRearIntPts;
     private javax.swing.JLabel lblRearTurretIntPts;
     private javax.swing.JLabel lblRightIntPts;
     private javax.swing.JLabel lblRotorIntPts;
-    private javax.swing.JLabel lblSelectVariant;
+    private javax.swing.JLabel lblMoveSummary;
     private javax.swing.JLabel lblSupensionFacter;
     private javax.swing.JLabel lblTurretIntPts;
     private javax.swing.JLabel lblVeeClass;
@@ -10119,80 +8985,20 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JList lstChooseMissile;
     private javax.swing.JList lstChoosePhysical;
     private javax.swing.JList lstSelectedEquipment;
-    private javax.swing.JMenuItem mnuAboutSSW;
-    private javax.swing.JMenuItem mnuBFB;
-    private javax.swing.JMenuItem mnuBatchHMP;
-    private javax.swing.JMenu mnuClearFluff;
-    private javax.swing.JMenuItem mnuClearUserData;
-    private javax.swing.JMenuItem mnuCostBVBreakdown;
-    private javax.swing.JMenuItem mnuCreateTCGMech;
-    private javax.swing.JMenuItem mnuCredits;
-    private javax.swing.JMenuItem mnuExit;
-    private javax.swing.JMenu mnuExport;
-    private javax.swing.JMenuItem mnuExportClipboard;
-    private javax.swing.JMenuItem mnuExportHTML;
-    private javax.swing.JMenuItem mnuExportMTF;
-    private javax.swing.JMenuItem mnuExportTXT;
-    private javax.swing.JMenu mnuFile;
-    private javax.swing.JMenu mnuHelp;
-    private javax.swing.JMenu mnuImport;
-    private javax.swing.JMenuItem mnuImportHMP;
-    private javax.swing.JMenuItem mnuLoad;
-    private javax.swing.JMenuItem mnuNewMech;
-    private javax.swing.JMenuItem mnuOpen;
-    private javax.swing.JMenuItem mnuOptions;
-    private javax.swing.JMenu mnuPrint;
-    private javax.swing.JMenuItem mnuPrintPreview;
-    private javax.swing.JMenuItem mnuReloadEquipment;
-    private javax.swing.JMenuItem mnuSave;
-    private javax.swing.JMenuItem mnuSaveAs;
-    private javax.swing.JMenuItem mnuSummary;
-    private javax.swing.JMenuItem mnuTextTRO;
     private javax.swing.JMenuItem mnuUnlock;
     private javax.swing.JCheckBoxMenuItem mnuViewToolbar;
     private javax.swing.JPanel pnlAdditionalFluff;
-    private javax.swing.JPanel pnlAmmunition;
-    private javax.swing.JPanel pnlArtillery;
-    private javax.swing.JPanel pnlBFStats;
-    private javax.swing.JPanel pnlBallistic;
     private javax.swing.JPanel pnlBasicSetup;
     private javax.swing.JPanel pnlCapabilities;
-    private javax.swing.JPanel pnlChassis;
-    private javax.swing.JPanel pnlChassisMods;
-    private javax.swing.JPanel pnlControls;
     private javax.swing.JPanel pnlDeployment;
-    private javax.swing.JPanel pnlEnergy;
-    private javax.swing.JPanel pnlEquipInfo;
-    private javax.swing.JPanel pnlEquipmentChooser;
-    private javax.swing.JPanel pnlExperimental;
-    private javax.swing.JPanel pnlExport;
-    private javax.swing.JPanel pnlFluff;
-    private javax.swing.JPanel pnlFrontArmor;
+    private javax.swing.JPanel pnlEquipment;
     private javax.swing.JPanel pnlHistory;
-    private javax.swing.JPanel pnlImage;
-    private javax.swing.JPanel pnlInfoPane;
-    private javax.swing.JPanel pnlInformation;
-    private javax.swing.JPanel pnlLeftArmor;
-    private javax.swing.JPanel pnlManufacturers;
-    private javax.swing.JPanel pnlMissile;
-    private javax.swing.JPanel pnlMovement;
     private javax.swing.JPanel pnlNotables;
-    private javax.swing.JPanel pnlOmniInfo;
     private javax.swing.JPanel pnlOverview;
-    private javax.swing.JPanel pnlPhysical;
-    private javax.swing.JPanel pnlQuirks;
-    private javax.swing.JPanel pnlRearArmor;
     private javax.swing.JPanel pnlRearTurretArmor;
-    private javax.swing.JPanel pnlRightArmor;
     private javax.swing.JPanel pnlRotorArmor;
-    private javax.swing.JPanel pnlSelected;
-    private javax.swing.JPanel pnlSpecials;
-    private javax.swing.JPanel pnlSummary;
     private javax.swing.JPanel pnlTurretArmor;
     private javax.swing.JPanel pnlVariants;
-    private javax.swing.JPanel pnlWeaponsManufacturers;
-    private javax.swing.JScrollPane scpQuirkTable;
-    private javax.swing.JScrollPane scpWeaponManufacturers;
     private javax.swing.JSpinner spnCruiseMP;
     private javax.swing.JSpinner spnFrontArmor;
     private javax.swing.JSpinner spnHeatSinks;
@@ -10205,11 +9011,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JSpinner spnTonnage;
     private javax.swing.JSpinner spnTurretArmor;
     private javax.swing.JSpinner spnTurretTonnage;
-    private javax.swing.JTable tblQuirks;
+    private javax.swing.JSpinner spnRearTurretTonnage;
     private javax.swing.JTable tblWeaponManufacturers;
-    private javax.swing.JTabbedPane tbpFluffEditors;
-    private javax.swing.JTabbedPane tbpMainTabPane;
-    private javax.swing.JTabbedPane tbpWeaponChooser;
+    private JTabbedPane tbpMainTabPane;
+    private JTabbedPane tbpWeaponChooser;
     private javax.swing.JToolBar tlbIconBar;
     private javax.swing.JTextField txtArmorModel;
     private javax.swing.JTextField txtArmorSpace;
@@ -10227,6 +9032,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JTextField txtManufacturerLocation;
     private javax.swing.JTextField txtModel;
     private javax.swing.JTextField txtProdYear;
+    private javax.swing.JTextField txtRearTurretInfo;
     private javax.swing.JTextField txtSource;
     private javax.swing.JTextField txtSumArmAV;
     private javax.swing.JTextField txtSumArmSpace;
@@ -10241,7 +9047,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JTextField txtSumIntAV;
     private javax.swing.JTextField txtSumIntTons;
     private javax.swing.JTextField txtSumJJAV;
-    private javax.swing.JTextField txtSumJJSpace;
     private javax.swing.JTextField txtSumJJTons;
     private javax.swing.JTextField txtSumLifAV;
     private javax.swing.JTextField txtSumLifTons;
@@ -10256,6 +9061,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JTextField txtTNTSystem;
     private javax.swing.JTextField txtTurretInfo;
     private javax.swing.JTextField txtVehicleName;
+    private javax.swing.JTable tblQuirks;
     // End of variables declaration//GEN-END:variables
 
     public void lostOwnership(Clipboard clipboard, Transferable contents) {

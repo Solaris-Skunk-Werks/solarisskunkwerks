@@ -33,6 +33,7 @@ import components.*;
 public class VArmorSetVStealth implements ifVisitor {
     // sets the mech's armor to stealth
     private Mech CurMech;
+    private CombatVehicle CurVee;
     private LocationIndex[] Locs = null;
 
     public VArmorSetVStealth() {
@@ -53,7 +54,36 @@ public class VArmorSetVStealth implements ifVisitor {
     }
 
     public void Visit( CombatVehicle v ) throws Exception {
-        v.GetArmor().SetISVST();
+        // only the armor changes, so pass us off
+        CurVee = v;
+        ifCVLoadout l = CurVee.GetLoadout();
+        CVArmor a = CurVee.GetArmor();
+
+        // remove the old armor, if needed
+        l.Remove( a );
+        a.ResetPatchworkConfigs();
+
+        a.SetISVST();
+
+        if( Locs == null ) {
+            // place the armor
+            if( ! a.Place( l ) ) {
+                // not enough free space.  tell the user
+                throw new Exception( "There is no available room for Stealth Armor!" );
+            }
+        } else {
+            // use the location index array given to allocate the armor
+            if( ! a.Place( l, Locs ) ) {
+                // not enough free space.  tell the user
+                throw new Exception( "There is no available room for Stealth Armor!" );
+            }
+        }
+        if( a.GetMechModifier() != null ) {
+            CurVee.AddMechModifier( a.GetMechModifier() );
+        }
+        // reset the locations just in case.  Any time this visitor is used we
+        // should load up a new set of locations.
+        Locs = null;
     }
 
     public void Visit( Infantry i ) throws Exception {

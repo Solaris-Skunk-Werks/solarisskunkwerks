@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008~2009, Justin R. Bengtson (poopshotgun@yahoo.com)
+Copyright (c) 2023~2024, Justin R. Bengtson (poopshotgun@yahoo.com)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -28,49 +28,42 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-public class Supercharger extends Equipment {
+public class VTOLBooster extends Equipment {
     private ifLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
-    public Supercharger( ifLoadout l ) {
-        AC.SetISCodes( 'C', 'F', 'F', 'F', 'D' );
-        AC.SetISDates( 0, 0, false, 3078, 0, 0, false, false );
+    public VTOLBooster(ifLoadout l ) {
+        AC.SetISCodes( 'D', 'X', 'F', 'E', 'D' );
+        AC.SetISDates( 0, 0, false, 3009, 0, 0, false, false );
         AC.SetISFactions( "", "", "ES", "" );
-        AC.SetCLCodes( 'C', 'X', 'F', 'F', 'D' );
-        AC.SetCLDates( 0, 0, false, 3078, 0, 0, false, false );
+        AC.SetCLCodes( 'D', 'X', 'F', 'E', 'D' );
+        AC.SetCLDates( 0, 0, false, 2839, 0, 0, false, false );
         AC.SetCLFactions( "", "", "ES", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = (ifLoadout)l;
-        AddMechModifier( new MechModifier( 0, 0, 0, 0.5, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false ) );
+        AddMechModifier(new MechModifier(0, 0, 0, 0.5, 0, 3, 0, 0.0, 0.0, 0.0, 0.0, true, false));
     }
 
     public String ActualName() {
-        return "Supercharger";
+        return "VTOL Jet Booster";
     }
 
     public String CritName() {
-        return "Supercharger";
+        return "VTOL Jet Booster";
     }
 
     public String LookupName() {
-        return "Supercharger";
+        return "VTOL Jet Booster";
     }
 
-    public String ChatName() {
-        // ammo isn't included in the chat
-        return "SuperC";
-    }
+    public String ChatName() { return "JtBstr"; }
 
     public String MegaMekName( boolean UseRear ) {
-        if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {
-            return "CL Super Charger";
-        } else {
-            return "IS Super Charger";
-        }
+        return (Owner.GetTechBase() >= AvailableCode.TECH_CLAN ? "CL" : "IS") + "VTOLJetBooster";
     }
 
     public String BookReference() {
-        return "Tactical Operations";
+        return "Tactical Operations: Advanced Units Equipment";
     }
 
     @Override
@@ -145,14 +138,6 @@ public class Supercharger extends Equipment {
         return true;
     }
 
-    public void SetClan(boolean b ) { super.SetCurrentTech(b ? AvailableCode.TECH_CLAN : AvailableCode.TECH_INNER_SPHERE); }
-
-    public boolean IsClan() { return (super.GetCurrentTech() == AvailableCode.TECH_CLAN); }
-    @Override
-    public String GetEquipmentType() {
-        return "Supercharger";
-    }
-
     @Override
     public AvailableCode GetAvailability() {
         AvailableCode retval = AC.Clone();
@@ -160,5 +145,19 @@ public class Supercharger extends Equipment {
             retval.Combine( ArmoredAC );
         }
         return retval;
+    }
+
+    @Override
+    public boolean CanAllocCVFront() { return false; }
+    @Override
+    public boolean CanAllocCVRear() { return false; }
+    @Override
+    public boolean CanAllocCVSide() { return false; }
+    @Override
+    public boolean CanAllocCVTurret() { return false; }
+
+    @Override
+    public String GetEquipmentType() {
+        return "VTOL Jet Booster";
     }
 }

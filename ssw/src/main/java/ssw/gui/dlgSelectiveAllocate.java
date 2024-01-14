@@ -70,10 +70,10 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
     private void InitializeSingle() {
         if( Parent.GetMech().IsQuad() ) {
-            ((TitledBorder) pnlRA.getBorder()).setTitle( "RFL" );
-            ((TitledBorder) pnlLA.getBorder()).setTitle( "LFL" );
+            ((TitledBorder) pnlRA.getBorder()).setTitle( "FRL" );
+            ((TitledBorder) pnlLA.getBorder()).setTitle( "FRL" );
             ((TitledBorder) pnlRL.getBorder()).setTitle( "RRL" );
-            ((TitledBorder) pnlLL.getBorder()).setTitle( "LRL" );
+            ((TitledBorder) pnlLL.getBorder()).setTitle( "RLL" );
         } else {
             ((TitledBorder) pnlRA.getBorder()).setTitle( "RA" );
             ((TitledBorder) pnlLA.getBorder()).setTitle( "LA" );

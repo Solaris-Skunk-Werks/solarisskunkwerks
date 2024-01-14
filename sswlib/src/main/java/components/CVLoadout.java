@@ -45,6 +45,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     private CVJumpJetFactory Jumps;
     private TargetingComputer CurTC = new TargetingComputer( this, false );
     private Supercharger SCharger = new Supercharger( this );
+    private VTOLBooster VBooster = new VTOLBooster(this);
+    private ArmoredMotiveSystem AMotiveS = new ArmoredMotiveSystem(this);
     private String Name = Constants.BASELOADOUT_NAME,
                    Source = "";
     private ArrayList<abPlaceable> Queue = new ArrayList<abPlaceable>(),
@@ -71,7 +73,9 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     UsingCASE = false,
                     UsingSupercharger = false,
                     YearSpecified = false,
-                    YearRestricted = false;
+                    YearRestricted = false,
+                    UsingVTOLBooster = false,
+                    UsingArmoredMotiveSystem = false;
     private Turret Turret1 = new Turret(this, false),
                    Turret2 = new Turret(this, false);
     private SponsonTurret SponsonTurretLeft = new SponsonTurret(this, false),
@@ -258,6 +262,10 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public void ClearLoadout() {
         FullUnallocate();
+
+        //Clear out any flags during the clearout as this is used for Tech changes
+        UsingSupercharger = false;
+        UsingVTOLBooster = false;
         Owner.SetChanged( true );
     }
 
@@ -311,7 +319,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         //Ammo only ever goes in the Body
         if ( p instanceof Ammunition ) Loc = LocationIndex.CV_LOC_BODY;
         //Quite a bit of equipment can only go in the body
-        if ( p instanceof Equipment ) {
+        if ( p instanceof Equipment &&  Loc != LocationIndex.CV_LOC_BODY) {
             if ( !((Equipment)p).CanAllocCVFront() && !((Equipment)p).CanAllocCVSide() && !((Equipment)p).CanAllocCVRear() && !((Equipment)p).CanAllocCVTurret() )
                 Loc = LocationIndex.CV_LOC_BODY;
             // Check max items allowed for that location
@@ -356,15 +364,9 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     throw new Exception(p.ActualName() + " cannot be allocated to the Side.");
                 break;
             case LocationIndex.CV_LOC_TURRET1:
-                if ( p.CanAllocCVTurret() ) {
+                if ( p.CanAllocCVTurret() )
                     Turret1Items.add(p);
-                    if ( Owner.IsOmni() ) {
-                        if ( Turret1.GetTonnage() > Turret1.GetMaxTonnage()  ) {
-                            Turret1Items.remove(p);
-                            throw new Exception("Turret is out of space");
-                        }
-                    }
-                } else
+                else
                     throw new Exception(p.ActualName() + " cannot be allocated to the Turret.");
                 
                 break;
@@ -398,8 +400,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         RefreshHeatSinks();
     }
     
-    private boolean HasHitch(ArrayList<abPlaceable> items)
-    {
+    private boolean HasHitch(ArrayList<abPlaceable> items) {
         for( int i = 0; i < items.size(); ++i ) {
             abPlaceable currentItem = (abPlaceable) items.get( i );
             if (currentItem instanceof Hitch)
@@ -407,6 +408,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         }
         return false;
     }
+
     public void RefreshHeatSinks() {
         if (GetHeatSinks().GetNumHS() != GetTotalHeat())
             GetHeatSinks().SetNumHS(GetTotalHeat());
@@ -553,60 +555,42 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public abPlaceable[] GetItems(int Loc) {
         switch(Loc) {
-            case LocationIndex.CV_LOC_BODY:
-                return BodyItems.toArray(new abPlaceable[BodyItems.size()]);
-            case LocationIndex.CV_LOC_FRONT:
-                return FrontItems.toArray(new abPlaceable[FrontItems.size()]);
-            case LocationIndex.CV_LOC_LEFT:
-                return LeftItems.toArray(new abPlaceable[LeftItems.size()]);
-            case LocationIndex.CV_LOC_REAR:
-                return RearItems.toArray(new abPlaceable[RearItems.size()]);
-            case LocationIndex.CV_LOC_RIGHT:
-                return RearItems.toArray(new abPlaceable[RightItems.size()]);
-            case LocationIndex.CV_LOC_TURRET1:
-                return Turret1Items.toArray(new abPlaceable[Turret1Items.size()]);
-            case LocationIndex.CV_LOC_TURRET2:
-                return Turret2Items.toArray(new abPlaceable[Turret2Items.size()]);
-            case LocationIndex.CV_LOC_SPONSON_LEFT:
-                return SponsonTurretLeftItems.toArray(new abPlaceable[SponsonTurretLeftItems.size()]);
-            case LocationIndex.CV_LOC_SPONSON_RIGHT:
-                return SponsonTurretRightItems.toArray(new abPlaceable[SponsonTurretRightItems.size()]);
+            case LocationIndex.CV_LOC_BODY:             return BodyItems.toArray(new abPlaceable[BodyItems.size()]);
+            case LocationIndex.CV_LOC_FRONT:            return FrontItems.toArray(new abPlaceable[FrontItems.size()]);
+            case LocationIndex.CV_LOC_LEFT:             return LeftItems.toArray(new abPlaceable[LeftItems.size()]);
+            case LocationIndex.CV_LOC_REAR:             return RearItems.toArray(new abPlaceable[RearItems.size()]);
+            case LocationIndex.CV_LOC_RIGHT:            return RightItems.toArray(new abPlaceable[RightItems.size()]);
+            case LocationIndex.CV_LOC_TURRET1:          return Turret1Items.toArray(new abPlaceable[Turret1Items.size()]);
+            case LocationIndex.CV_LOC_TURRET2:          return Turret2Items.toArray(new abPlaceable[Turret2Items.size()]);
+            case LocationIndex.CV_LOC_SPONSON_LEFT:     return SponsonTurretLeftItems.toArray(new abPlaceable[SponsonTurretLeftItems.size()]);
+            case LocationIndex.CV_LOC_SPONSON_RIGHT:    return SponsonTurretRightItems.toArray(new abPlaceable[SponsonTurretRightItems.size()]);
         }
         return null;
     }
 
     public int Find(abPlaceable p) {
-        if ( FrontItems.contains(p) )
-            return LocationIndex.CV_LOC_FRONT;
-        if ( LeftItems.contains(p) )
-            return LocationIndex.CV_LOC_LEFT;
-        if ( RightItems.contains(p) )
-            return LocationIndex.CV_LOC_RIGHT;
-        if ( RearItems.contains(p) )
-            return LocationIndex.CV_LOC_REAR;
-        if ( Turret1Items.contains(p) )
-            return LocationIndex.CV_LOC_TURRET1;
-        if ( Turret2Items.contains(p) )
-            return LocationIndex.CV_LOC_TURRET2;
-        if ( SponsonTurretLeftItems.contains(p) )
-            return LocationIndex.CV_LOC_SPONSON_LEFT;
-        if ( SponsonTurretRightItems.contains(p) )
-            return LocationIndex.CV_LOC_SPONSON_RIGHT;
-        if ( BodyItems.contains(p) )
-            return LocationIndex.CV_LOC_BODY;
+        if ( FrontItems.contains(p) )               return LocationIndex.CV_LOC_FRONT;
+        if ( LeftItems.contains(p) )                return LocationIndex.CV_LOC_LEFT;
+        if ( RightItems.contains(p) )               return LocationIndex.CV_LOC_RIGHT;
+        if ( BodyItems.contains(p) )                return LocationIndex.CV_LOC_BODY;
+        if ( RearItems.contains(p) )                return LocationIndex.CV_LOC_REAR;
+        if ( Turret1Items.contains(p) )             return LocationIndex.CV_LOC_TURRET1;
+        if ( Turret2Items.contains(p) )             return LocationIndex.CV_LOC_TURRET2;
+        if ( SponsonTurretLeftItems.contains(p) )   return LocationIndex.CV_LOC_SPONSON_LEFT;
+        if ( SponsonTurretRightItems.contains(p) )  return LocationIndex.CV_LOC_SPONSON_RIGHT;
         return 11;
     }
 
     public LocationIndex FindIndex(abPlaceable p) {
-        if ( FrontItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_FRONT, p.NumCVSpaces());
-        if ( LeftItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_LEFT, p.NumCVSpaces());
-        if ( RightItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_RIGHT, p.NumCVSpaces());
-        if ( BodyItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_BODY, p.NumCVSpaces());
-        if ( Turret1Items.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_TURRET1, p.NumCVSpaces());
-        if ( RearItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_REAR, p.NumCVSpaces());
-        if ( Turret2Items.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_TURRET2, p.NumCVSpaces());
-        if ( SponsonTurretLeftItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_LEFT, p.NumCVSpaces());
-        if ( SponsonTurretRightItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_RIGHT, p.NumCVSpaces());
+        if ( FrontItems.contains(p))                return new LocationIndex(0, LocationIndex.CV_LOC_FRONT, p.NumCVSpaces());
+        if ( LeftItems.contains(p))                 return new LocationIndex(0, LocationIndex.CV_LOC_LEFT, p.NumCVSpaces());
+        if ( RightItems.contains(p))                return new LocationIndex(0, LocationIndex.CV_LOC_RIGHT, p.NumCVSpaces());
+        if ( BodyItems.contains(p))                 return new LocationIndex(0, LocationIndex.CV_LOC_BODY, p.NumCVSpaces());
+        if ( Turret1Items.contains(p))              return new LocationIndex(0, LocationIndex.CV_LOC_TURRET1, p.NumCVSpaces());
+        if ( RearItems.contains(p))                 return new LocationIndex(0, LocationIndex.CV_LOC_REAR, p.NumCVSpaces());
+        if ( Turret2Items.contains(p))              return new LocationIndex(0, LocationIndex.CV_LOC_TURRET2, p.NumCVSpaces());
+        if ( SponsonTurretLeftItems.contains(p))    return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_LEFT, p.NumCVSpaces());
+        if ( SponsonTurretRightItems.contains(p))   return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_RIGHT, p.NumCVSpaces());
         return null;
     }
 
@@ -623,19 +607,19 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void FlushIllegal() {
-        // since most everything else is taken care of during mech recalculates,
+        // since most everything else is taken care of during recalculates,
         // this method is provided for non-core equipment
         AvailableCode AC;
         abPlaceable p;
         int Rules = Owner.GetRulesLevel();
 
         //Owner.CheckArmoredComponents();
-
+        NonCore = GetNonCore();
         // see if there's anything to flush out
-        if( GetNonCore().size() <= 0 ) { return; }
+        if( NonCore.isEmpty() ) { return; }
 
-        for( int i = GetNonCore().size() - 1; i >= 0; i-- ) {
-            p = (abPlaceable) GetNonCore().get( i );
+        for( int i = NonCore.size() - 1; i >= 0; i-- ) {
+            p = (abPlaceable) NonCore.get( i );
             AC = p.GetAvailability();
             try {
                 CheckExclusions( p );
@@ -645,7 +629,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             } catch( Exception e ) {
                 Remove( p );
             }
-            if( GetNonCore().contains( p ) ) {
+            if( NonCore.contains( p ) ) {
                 if( Rules < AvailableCode.RULES_EXPERIMENTAL ) {
                     p.ArmorComponent( false );
                 }
@@ -667,46 +651,32 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         SponsonTurretRightItems.remove(p);
         NonCore.remove(p);
         TCList.remove(p);
+        // if the item is an MG Array, check for it's MGs and unallocate
+        if( p instanceof MGArray ) {
+            for( int i = 0; i < ((MGArray) p).GetMGs().length; i++ ) {
+                UnallocateAll( ((MGArray) p).GetMGs()[i], true );
+            }
+        }
         Owner.SetChanged( true );
         return true;
     }
 
     public void Remove(abPlaceable p) {
-        // removes the item completely from the loadout.
-        // first, unallocate it.
         UnallocateAll( p, true );
 
-        // Now remove it from the queue
-        //RemoveFromQueue( p );
-
-        // check to see if this is a core component
-        //if( ! p.CoreComponent() ) {
-            // remove it to the non core list
-            if( NonCore.contains( p ) )
-                NonCore.remove( p );
-            if( Equipment.contains( p ) )
-                Equipment.remove( p );
-            if( TCList.contains( p ) )
-                TCList.remove( p );
-            if ( FrontItems.contains( p ) )
-                FrontItems.remove( p );
-            if ( LeftItems.contains(p))
-                LeftItems.remove(p);            
-            if ( RightItems.contains(p))
-                RightItems.remove(p);
-            if ( BodyItems.contains(p))
-                BodyItems.remove(p);
-            if ( RearItems.contains(p))
-                RearItems.remove(p);
-            if ( Turret1Items.contains(p))
-                Turret1Items.remove(p);
-            if ( Turret2Items.contains(p))
-                Turret2Items.remove(p);
-            if ( SponsonTurretLeftItems.contains(p))
-                SponsonTurretLeftItems.remove(p);
-            if ( SponsonTurretRightItems.contains(p))
-                SponsonTurretRightItems.remove(p);
-        //}
+        // remove it to the non core list
+        if( NonCore.contains( p ) )                 NonCore.remove( p );
+        if( Equipment.contains( p ) )               Equipment.remove( p );
+        if( TCList.contains( p ) )                  TCList.remove( p );
+        if ( FrontItems.contains( p ) )             FrontItems.remove( p );
+        if ( LeftItems.contains(p))                 LeftItems.remove(p);
+        if ( RightItems.contains(p))                RightItems.remove(p);
+        if ( BodyItems.contains(p))                 BodyItems.remove(p);
+        if ( RearItems.contains(p))                 RearItems.remove(p);
+        if ( Turret1Items.contains(p))              Turret1Items.remove(p);
+        if ( Turret2Items.contains(p))              Turret2Items.remove(p);
+        if ( SponsonTurretLeftItems.contains(p))    SponsonTurretLeftItems.remove(p);
+        if ( SponsonTurretRightItems.contains(p))   SponsonTurretRightItems.remove(p);
 
         GetHeatSinks().SetNumHS(GetTotalHeat());
         Owner.SetChanged( true );
@@ -725,7 +695,19 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean IsAllocated(abPlaceable p) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // checks to see if the specified item is allocated in the loadout
+
+        if( FrontItems.contains(p)) { return true; }
+        if( LeftItems.contains(p) ) { return true; }
+        if( RightItems.contains(p) ) { return true; }
+        if( BodyItems.contains(p) ) { return true; }
+        if( RearItems.contains(p) ) { return true; }
+        if( Turret1Items.contains(p) ) { return true; }
+        if( Turret2Items.contains(p) ) { return true; }
+        if( SponsonTurretLeftItems.contains(p) ) { return true; }
+        if( SponsonTurretRightItems.contains(p) ) { return true; }
+        if( RotorItems.contains(p) ) { return true; }
+        return false;
     }
 
     public int UnplacedItems() {
@@ -780,8 +762,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetRulesLevel( RulesLevel );
         clone.SetTechBase( TechBase );
         clone.SetEra( Era );
-        clone.SetYear( Year, false );
-        clone.SetClanCASE( UsingClanCASE );
+        clone.SetYear( Year, YearSpecified );
         try {
             clone.SetFCSArtemisIV( UseAIVFCS );
             clone.SetFCSArtemisV( UseAVFCS );
@@ -796,19 +777,28 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetRightItems( (ArrayList<abPlaceable>)RightItems.clone() );
         clone.SetBodyItems( (ArrayList<abPlaceable>)BodyItems.clone() );
         clone.SetRearItems( (ArrayList<abPlaceable>)RearItems.clone() );
-        clone.SetTurret1( (ArrayList<abPlaceable>)Turret1Items.clone() );
-        clone.SetTurret2( (ArrayList<abPlaceable>)Turret2Items.clone() );
+        clone.SetTurret1Items( (ArrayList<abPlaceable>)Turret1Items.clone() );
+        clone.SetTurret2Items( (ArrayList<abPlaceable>)Turret2Items.clone() );
         clone.SetSponsonTurretLeftItems((ArrayList<abPlaceable>) SponsonTurretLeftItems.clone());
         clone.SetSponsonTurretRightItems((ArrayList<abPlaceable>) SponsonTurretRightItems.clone());
-        
+
         if( TCList.size() > 0 ) {
             clone.SetTCList( (ArrayList) TCList.clone() );
         }
         if( Equipment.size() > 0 ) {
             clone.SetEquipment( (ArrayList) Equipment.clone() );
         }
+        if (HasCase()) {
+            clone.SetCase( Case );
+        }
         if( HasSupercharger() ) {
             clone.SetSupercharger( SCharger );
+        }
+        if (HasVTOLBooster()) {
+            clone.SetVTOLBooster( VBooster );
+        }
+        if (HasArmoredMotiveSystem()) {
+            clone.SetArmoredMotiveSystem(true, IsArmoredMotiveSystemClan());
         }
         if( Owner.IsOmni() ) {
             clone.SetBaseLoadout( this );
@@ -816,6 +806,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetTurret(Turret1);
         clone.SetRearTurret(Turret2);
         clone.SetSponsonTurretLeft(SponsonTurretLeft);
+        clone.SetSponsonTurretRight(SponsonTurretRight);
 
         return clone;
     }
@@ -849,11 +840,11 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         BodyItems = c;
     }
 
-    public void SetTurret1(ArrayList<abPlaceable> c) {
+    public void SetTurret1Items(ArrayList<abPlaceable> c) {
         Turret1Items = c;
     }
 
-    public void SetTurret2(ArrayList<abPlaceable> c) {
+    public void SetTurret2Items(ArrayList<abPlaceable> c) {
         Turret2Items =  c;
     }
 
@@ -878,40 +869,42 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean IsUsingClanCASE() {
-        return UsingClanCASE;
+        return Case.IsClan();
     }
 
-    public void SetClanCASE(boolean b) {
-        UsingClanCASE = b;
-        Case.SetClan(b);
-        Owner.SetChanged( true );
-    }
+    public void AddCase(boolean isClan) {
+        Case.SetClan(isClan);
 
-    public void RemoveISCase() {
-        UsingCASE = false;
-        Remove(Case);
-    }
-    
-    public void SetISCASE() {
-        UsingCASE = true;
-        Remove(Case);
+        if (HasCase()) { return; }
         try {
             AddTo(Case, LocationIndex.CV_LOC_BODY);
+            Owner.SetChanged( true );
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
     }
 
-    public boolean HasISCASE() {
-        if ( UsingCASE ) return true;        
-        if ( Owner.IsOmni() && this != Owner.GetBaseLoadout() ) return Owner.GetBaseLoadout().HasISCASE();
-        return false;
+    public void RemoveCase() {
+        Case.SetClan(false);
+        Remove(Case);
+        Owner.SetChanged( true );
     }
 
-    public CASE GetISCase() {
+    public boolean HasCase() {
+        return IsAllocated(Case);
+    }
+
+    public void SetCase( CASE c ) {
+        Case = c;
+    }
+    public void SetClanCASE(boolean b) {
+        Case.SetClan(b);
+        Owner.SetChanged( true );
+    }
+
+    public CASE GetCase() {
         return Case;
     }
-
 
     // handlers for Artemis IV operations.
     public void SetFCSArtemisIV( boolean b ) throws Exception {
@@ -1025,21 +1018,88 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void SetSupercharger(boolean b) throws Exception {
-        UsingSupercharger = b;
+        if( b == false ) {
+            Remove( SCharger );
+            RemoveMechMod(SCharger.GetMechModifier());
+            return;
+        }
+
+        try {
+            AddTo(SCharger, LocationIndex.CV_LOC_BODY);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        AddMechModifier(SCharger.GetMechModifier());
         Owner.SetChanged( true );
     }
 
     public void SetSupercharger(Supercharger s) {
+        // this sets the loadout's supercharger to a different one.
+        // Used for cloning purposes only!
         SCharger = s;
+        AddMechModifier(SCharger.GetMechModifier());
         Owner.SetChanged( true );
     }
 
     public boolean HasSupercharger() {
-        return UsingSupercharger;
+        return IsAllocated( SCharger );
     }
 
     public Supercharger GetSupercharger() {
         return SCharger;
+    }
+
+    public void SetVTOLBooster(boolean b) throws Exception {
+        if (!b) {
+            Remove(VBooster);
+            RemoveMechMod(VBooster.GetMechModifier());
+            return;
+        }
+
+        try {
+            AddToBody(VBooster);
+            AddMechModifier(VBooster.GetMechModifier());
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        Owner.setChanged(true);
+    }
+
+    public void SetVTOLBooster(VTOLBooster s) {
+        // this sets the loadout's booster to a different one.
+        // Used for cloning purposes only!
+        VBooster = s;
+        AddMechModifier(VBooster.GetMechModifier());
+        Owner.SetChanged( true );
+    }
+
+    public boolean HasVTOLBooster() { return IsAllocated(VBooster); }
+
+    public VTOLBooster GetVTOLBooster() {
+        return VBooster;
+    }
+
+    public boolean HasArmoredMotiveSystem() { return IsAllocated( AMotiveS ); }
+
+    public boolean IsArmoredMotiveSystemClan() { return AMotiveS.IsClan(); }
+
+    public void SetArmoredMotiveSystem(boolean b, boolean isClan) {
+        if (!b) {
+            Remove(AMotiveS);
+            return;
+        }
+
+        try {
+            AMotiveS.SetClan(isClan);
+            AddToBody(AMotiveS);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        Owner.setChanged(true);
+    }
+
+    public ArmoredMotiveSystem GetArmoredMotiveSystem() {
+        return AMotiveS;
     }
 
     public CVPowerAmplifier GetPowerAmplifier() {
