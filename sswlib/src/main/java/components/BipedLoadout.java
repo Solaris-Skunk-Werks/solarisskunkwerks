@@ -267,7 +267,7 @@ public boolean IsTripod(){
                 }
             } else {
                 if( p == Queue.get( i ) ) { return; }
-                if( p.LookupName().equals( ((abPlaceable) Queue.get( i )).LookupName() ) ) {
+                if( p.equals(Queue.get( i )) ) {
                     // create a new equipment collection for these items.
                     EquipmentCollection e = new EquipmentCollection( this );
                     e.Add( p );
@@ -286,23 +286,17 @@ public boolean IsTripod(){
         // check to see if this is a core component
         if( ! p.CoreComponent() ) {
             // add it to the non core list
-            if( ! NonCore.contains( p ) ) {
-                NonCore.add( p );
-            }
+            NonCore.add( p );
 
             // add it to the equipment list if appropriate
             if( ! ( p instanceof Ammunition ) ) {
-                if( ! Equipment.contains( p ) ) {
-                    Equipment.add( p );
-                }
+                Equipment.add( p );
             }
 
             // add it to the TC list if appropriate.
             if( p instanceof ifWeapon ) {
-                if( ! TCList.contains( p ) ) {
-                    if( ((ifWeapon) p).IsTCCapable() ) {
-                        TCList.add( p );
-                    }
+                if( ((ifWeapon) p).IsTCCapable() ) {
+                    TCList.add( p );
                 }
             }
 

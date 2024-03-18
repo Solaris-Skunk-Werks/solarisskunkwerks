@@ -45,7 +45,7 @@ public class EquipmentCollection {
     }
 
     public boolean SameType( abPlaceable p ) {
-        if( ((abPlaceable) equips.get( 0 )).LookupName().equals( p.LookupName() ) ) {
+        if( p.equals(equips.get( 0 ))) {
             return true;
         } else {
             return false;
@@ -59,9 +59,7 @@ public class EquipmentCollection {
             return true;
         } else {
             if( SameType( p ) ) {
-                if( ! equips.contains( p ) ) {
-                    equips.add( p );
-                }
+                equips.add( p );
                 return true;
             } else {
                 return false;

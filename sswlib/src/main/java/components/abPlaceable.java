@@ -502,6 +502,18 @@ public abstract class abPlaceable implements Comparable<abPlaceable> {
     public int compareTo(abPlaceable o ) {
         return ActualName().compareTo(o.ActualName());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof abPlaceable))
+            return false;
+
+        if (((abPlaceable) obj).ActualName() == ActualName()) {
+            return true;
+        }
+
+        return false;
+    }
     
     @Override
     public String toString() {
