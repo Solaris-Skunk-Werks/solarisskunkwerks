@@ -1796,6 +1796,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         SetPatchworkArmor();
+        // Included to update run speed if hardened armor is added/removed.
+        FixWalkMPSpinner();
     }
 
     private void SetPatchworkArmor() {

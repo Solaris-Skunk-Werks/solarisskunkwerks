@@ -1790,6 +1790,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
         SetPatchworkArmor();
+        // Included to update run speed if hardened armor is added/removed.
+        FixWalkMPSpinner();
     }
 
     private void SetPatchworkArmor() {
