@@ -852,11 +852,11 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         if( CurMech.GetJumpJets().IsImproved() ) {
-            if( CurMech.GetArmor().IsHardened() && !CurMech.GetJumpJets().IsImproved()  ) {
-                max = CurMech.GetRunningMP() - 1;
-            } else {
+            // if( CurMech.GetArmor().IsHardened() && !CurMech.GetJumpJets().IsImproved()  ) {
+            //     max = CurMech.GetRunningMP() - 1;
+            // } else {
                 max = CurMech.GetRunningMP();
-            }
+            // }
         } else {
             max = CurMech.GetWalkingMP();
         }
@@ -1790,6 +1790,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
         SetPatchworkArmor();
+        // Included to update run speed if hardened armor is added/removed.
+        FixWalkMPSpinner();
     }
 
     private void SetPatchworkArmor() {
@@ -2157,7 +2159,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             txtInfoTonnage.setText( "Tons: " + CurMech.GetCurrentTons() );
             txtInfoFreeTons.setText( "Free Tons: " + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
         }
-        txtInfoMaxHeat.setText( "Max Heat: " + String.format( "%1$,.1f", CurMech.GetMaxHeat() ) );
+        // Change to make string format reactive.
+        if(CurMech.GetMaxHeat() % 2 == 0) {
+            txtInfoMaxHeat.setText( "Max Heat: " + String.format( "%1$,.0f", CurMech.GetMaxHeat() ) );
+        } else {
+            txtInfoMaxHeat.setText( "Max Heat: " + String.format( "%1$,.1f", CurMech.GetMaxHeat() ) );
+        }
         txtInfoHeatDiss.setText( "Heat Dissipation: " + CurMech.GetHeatSinks().TotalDissipation() );
         txtInfoFreeCrits.setText( "Free Crits: " + CurMech.GetLoadout().FreeCrits() );
         txtInfoUnplaced.setText( "Unplaced Crits: " + CurMech.GetLoadout().UnplacedCrits() );

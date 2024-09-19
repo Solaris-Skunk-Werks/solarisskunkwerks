@@ -553,7 +553,12 @@ public class PrintMech implements Printable {
                 graphics.drawString( String.format( "%1$,d", CurMech.GetCurrentBV() ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
             else
                 graphics.drawString( String.format( "%1$,.0f (Base: %2$,d)", BV, CurMech.GetCurrentBV() ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
-            graphics.drawString( String.format( "Weapon Heat (%1$,.1f)", CurMech.GetWeaponHeat() ), p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y-7 );
+            // Change to make string format reactive.
+            if (CurMech.GetWeaponHeat() % 2 == 0) {
+                graphics.drawString( String.format( "Weapon Heat (%1$,.0f)", CurMech.GetWeaponHeat() ), p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y-7 );
+            } else {
+                graphics.drawString( String.format( "Weapon Heat (%1$,.1f)", CurMech.GetWeaponHeat() ), p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y-7 );
+            }
             graphics.drawString( "Dissipation (" + CurMech.GetHeatSinks().TotalDissipation() + ")", p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y+1 );
             //graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat(false, false, true, false) + ")", p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y );
             graphics.setFont( PrintConsts.SmallFont );

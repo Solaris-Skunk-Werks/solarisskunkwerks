@@ -1982,11 +1982,19 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public int GetRunningMP() {
-        return (int) Math.floor( GetWalkingMP() * 1.5 + 0.5 );
+        if(CurArmor.IsHardened()) {
+            return (int) Math.floor( GetWalkingMP() * 1.5 - 0.5 );
+        } else {
+            return (int) Math.floor( GetWalkingMP() * 1.5 + 0.5 );
+        }
     }
 
     public int GetRunningMP( int MiniMult ) {
-        return (int) Math.floor( ( GetWalkingMP() * MiniMult ) * 1.5 + 0.5 );
+        if(CurArmor.IsHardened()) {
+            return (int) Math.floor( ( GetWalkingMP() * MiniMult ) * 1.5 - 0.5 );
+        } else {
+            return (int) Math.floor( ( GetWalkingMP() * MiniMult ) * 1.5 + 0.5 );
+        }
     }
 
     public int GetAdjustedRunningMP( boolean BV, boolean MASCTSM ) {
