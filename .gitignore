@@ -98,3 +98,5 @@ gradle-app.setting
 */Data/
 # End of https://www.gitignore.io/api/gradle,intellij
 Logs/
+.vscode/launch.json
+.vscode/settings.json

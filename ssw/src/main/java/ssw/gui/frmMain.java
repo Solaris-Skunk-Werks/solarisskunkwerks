@@ -856,11 +856,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         if( CurMech.GetJumpJets().IsImproved() ) {
-            // if( CurMech.GetArmor().IsHardened() && !CurMech.GetJumpJets().IsImproved() ) {
-            //     max = CurMech.GetRunningMP() - 1;
-            // } else {
+            if( CurMech.GetArmor().IsHardened() ) {
+                max = CurMech.GetRunningMP() + 1;
+            } else {
                 max = CurMech.GetRunningMP();
-            // }
+            }
         } else {
             max = CurMech.GetWalkingMP();
         }
