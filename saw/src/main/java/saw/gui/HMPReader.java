@@ -46,7 +46,7 @@ public class HMPReader {
     private Hashtable<Long, String> Sphere = new Hashtable<Long, String>();
     private Hashtable<Long, String> Clan = new Hashtable<Long, String>();
     private Hashtable<Long, String> Unused = new Hashtable<Long, String>();
-    private Vector Errors = new Vector();
+    private Vector<ErrorReport> Errors = new Vector<ErrorReport>();
 
     public HMPReader() {
         BuildHash();
@@ -55,7 +55,7 @@ public class HMPReader {
     public String GetErrors() {
         String retval = "";
         for( int i = 0; i < Errors.size(); i++ ) {
-            retval += ((ErrorReport) Errors.get( i )).GetErrorReport() + "\n\n";
+            retval += Errors.get( i ).GetErrorReport() + "\n\n";
         }
         return retval;
     }
@@ -570,7 +570,7 @@ public class HMPReader {
         LocationIndex[] Stealth = null;
         if( ArmorLookup.equals( "Stealth Armor" ) ) {
             long test = 0x23;
-            Vector STLocs = new Vector();
+            Vector<LocationIndex> STLocs = new Vector<LocationIndex>();
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
                     // for every instance of Stealth Armor, mark the location
@@ -583,7 +583,7 @@ public class HMPReader {
             // Convert to an array so we can load it into the visitor later
             Stealth = new LocationIndex[STLocs.size()];
             for( int i = 0; i < STLocs.size(); i++ ) {
-                Stealth[i] = (LocationIndex) STLocs.get( i );
+                Stealth[i] = STLocs.get( i );
             }
         }
 
@@ -658,7 +658,7 @@ public class HMPReader {
             // since the only structure that HMP has with more than 1 crit is
             // Endo-Steel, we'll look for it directly.
             long test = 0x14;
-            Vector ISLocs = new Vector();
+            Vector<LocationIndex> ISLocs = new Vector<LocationIndex>();
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
                     // for every instance of Endo-Steel, mark the location
@@ -670,7 +670,7 @@ public class HMPReader {
             }
             // now allocate the endo-steel
             for( int i = 0; i < ISLocs.size(); i++ ) {
-                LocationIndex l = (LocationIndex) ISLocs.get( i );
+                LocationIndex l = ISLocs.get( i );
                 m.GetLoadout().AddTo( m.GetIntStruc(), l.Location, l.Index );
             }
         }
@@ -692,7 +692,7 @@ public class HMPReader {
                 ArmorNum = 0x23;
             }
             if( ArmorNum == 0 ) { throw new Exception( "An armor type with critical spaces was specified but we can't find where to put them.\nLoading aborted." ); }
-            Vector ARLocs = new Vector();
+            Vector<LocationIndex> ARLocs = new Vector<LocationIndex>();
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
                     // for every instance of Endo-Steel, mark the location
@@ -704,7 +704,7 @@ public class HMPReader {
             }
             // now allocate the armor
             for( int i = 0; i < ARLocs.size(); i++ ) {
-                LocationIndex l = (LocationIndex) ARLocs.get( i );
+                LocationIndex l = ARLocs.get( i );
                 m.GetLoadout().AddTo( m.GetArmor(), l.Location, l.Index );
             }
         }
@@ -712,7 +712,7 @@ public class HMPReader {
         // on to jump jets
         if( m.GetJumpJets().GetNumJJ() > 0 ) {
             long test = 0x0B;
-            Vector JJLocs = new Vector();
+            Vector<LocationIndex> JJLocs = new Vector<LocationIndex>();
             boolean improved = m.GetJumpJets().IsImproved();
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
@@ -730,7 +730,7 @@ public class HMPReader {
             // now allocate the jump jets
             for( int i = 0; i < JJLocs.size(); i++ ) {
                     // place each jump jet
-                LocationIndex l = (LocationIndex) JJLocs.get( i );
+                LocationIndex l = JJLocs.get( i );
                 m.GetLoadout().AddTo( jjList[i], l.Location, l.Index );
             }
         }
@@ -749,7 +749,7 @@ public class HMPReader {
             } else {
                 test = 0x09;
             }
-            Vector HSLocs = new Vector();
+            Vector<LocationIndex> HSLocs = new Vector<LocationIndex>();
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
                     if( Criticals[i][j] == test ) {
@@ -775,7 +775,7 @@ public class HMPReader {
             }
             // now allocate them
             for( int i = 0; i < HSLocs.size(); i++ ) {
-                LocationIndex l = (LocationIndex) HSLocs.get( i );
+                LocationIndex l = HSLocs.get( i );
                 m.GetLoadout().AddTo( HSList[i], l.Location, l.Index );
             }
         }
@@ -801,7 +801,7 @@ public class HMPReader {
                 }
             } else {
                 test = 0x16; // TSM (of either sort, apparently)
-                Vector TSMLocs = new Vector();
+                Vector<LocationIndex> TSMLocs = new Vector<LocationIndex>();
                 for( int i = 0; i < 8; i++ ) {
                     for( int j = 0; j < 12; j++ ) {
                         if( Criticals[i][j] == test ) {
@@ -814,7 +814,7 @@ public class HMPReader {
                     throw new Exception( "The number of TSM crits specified does not match the number allocated.\nLoading aborted." );
                 }
                 for( int i = 0; i < TSMLocs.size(); i++ ) {
-                    LocationIndex l = (LocationIndex) TSMLocs.get( i );
+                    LocationIndex l = TSMLocs.get( i );
                     m.GetLoadout().AddTo( m.GetPhysEnhance(), l.Location, l.Index );
                 }
             }
