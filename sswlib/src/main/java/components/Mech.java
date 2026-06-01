@@ -2132,9 +2132,9 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetDefensiveExcessiveAmmoPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
-        ArrayList Ammo = new ArrayList(),
-               Wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
+        ArrayList<Ammunition> Ammo = new ArrayList<>();
+        ArrayList<Equipment> Wep = new ArrayList<>();
 
         // do we even need to do this?
         if( v.size() <= 0 ) { return result; }
@@ -2142,11 +2142,11 @@ public class Mech implements ifUnit, ifBattleforce {
         // seperate out the ammo-using weapons and their ammunition
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                Ammo.add( v.get( i ) );
+                Ammo.add( (Ammunition) v.get( i ) );
             }
             if( v.get(i) instanceof Equipment ) {
                 if( ((Equipment) v.get( i )).HasAmmo() ) {
-                    Wep.add( v.get( i ) );
+                    Wep.add( (Equipment) v.get( i ) );
                 }
             }
         }
@@ -2158,13 +2158,13 @@ public class Mech implements ifUnit, ifBattleforce {
         // not excessive.  Add the BV to the running total.
         while( Wep.size() > 0 ) {
             // get the first item and check if anything else uses the same ammo
-            Equipment test = (Equipment) Wep.get( 0 );
+            Equipment test = Wep.get( 0 );
             Wep.remove( test );
             Ammunition ammo = null;
             int NumWeps = 1;
             int NumAmmos = 0;
             for( int i = Wep.size() - 1; i >= 0; i-- ) {
-                if( ((Equipment) Wep.get( i )).GetAmmoIndex() == test.GetAmmoIndex() ) {
+                if( Wep.get( i ).GetAmmoIndex() == test.GetAmmoIndex() ) {
                     NumWeps++;
                     Wep.remove( i );
                 }
@@ -2172,8 +2172,8 @@ public class Mech implements ifUnit, ifBattleforce {
 
             // now check the number of ammunitions that this weapon uses
             for( int i = 0; i < Ammo.size(); i++ ) {
-                if( ((Ammunition) Ammo.get(i)).GetAmmoIndex() == test.GetAmmoIndex() ) {
-                    ammo = (Ammunition) Ammo.get( i );
+                if( Ammo.get(i).GetAmmoIndex() == test.GetAmmoIndex() ) {
+                    ammo = Ammo.get( i );
                     NumAmmos++;
                 }
             }
@@ -2609,7 +2609,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public double GetHeatAdjustedWeaponBV() {
-        ArrayList v = CurLoadout.GetNonCore(), wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore(), wep = new ArrayList<>();
         double result = 0.0, foreBV = 0.0, rearBV = 0.0;
         boolean UseRear = false, TC = UsingTC(), UseAESMod = false, UseRobotic = CurCockpit.IsRobotic();
         abPlaceable a;
@@ -2762,9 +2762,9 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetExcessiveAmmoPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
-        ArrayList Ammo = new ArrayList(),
-               Wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
+        ArrayList<Ammunition> Ammo = new ArrayList<>();
+        ArrayList<ifWeapon> Wep = new ArrayList<>();
 
         // do we even need to do this?
         if( v.size() <= 0 ) { return result; }
@@ -2772,11 +2772,11 @@ public class Mech implements ifUnit, ifBattleforce {
         // seperate out the ammo-using weapons and their ammunition
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                Ammo.add( v.get( i ) );
+                Ammo.add( (Ammunition) v.get( i ) );
             }
             if( v.get(i) instanceof ifWeapon ) {
                 if( ((ifWeapon) v.get( i )).HasAmmo() ) {
-                    Wep.add( v.get( i ) );
+                    Wep.add( (ifWeapon) v.get( i ) );
                 }
             }
         }
@@ -2788,13 +2788,13 @@ public class Mech implements ifUnit, ifBattleforce {
         // not excessive.  Add the BV to the running total.
         while( Wep.size() > 0 ) {
             // get the first item and check if anything else uses the same ammo
-            ifWeapon test = (ifWeapon) Wep.get( 0 );
+            ifWeapon test = Wep.get( 0 );
             Wep.remove( test );
             Ammunition ammo = null;
             int NumWeps = 1;
             int NumAmmos = 0;
             for( int i = Wep.size() - 1; i >= 0; i-- ) {
-                if( ((ifWeapon) Wep.get( i )).GetAmmoIndex() == test.GetAmmoIndex() ) {
+                if( Wep.get( i ).GetAmmoIndex() == test.GetAmmoIndex() ) {
                     NumWeps++;
                     Wep.remove( i );
                 }
@@ -2802,8 +2802,8 @@ public class Mech implements ifUnit, ifBattleforce {
 
             // now check the number of ammunitions that this weapon uses
             for( int i = 0; i < Ammo.size(); i++ ) {
-                if( ((Ammunition) Ammo.get(i)).GetAmmoIndex() == test.GetAmmoIndex() ) {
-                    ammo = (Ammunition) Ammo.get( i );
+                if( Ammo.get(i).GetAmmoIndex() == test.GetAmmoIndex() ) {
+                    ammo = Ammo.get( i );
                     NumAmmos++;
                 }
             }
@@ -3964,33 +3964,33 @@ public class Mech implements ifUnit, ifBattleforce {
         }
     }
 
-    public ArrayList SortLoadout( ArrayList v ) {
+    public ArrayList<abPlaceable> SortLoadout( ArrayList<abPlaceable> v ) {
         return SortWeapons(v, false, false);
     }
 
-    public abPlaceable[] SortWeapons( ArrayList v, boolean rear ) {
+    public abPlaceable[] SortWeapons( ArrayList<abPlaceable> v, boolean rear ) {
         // convert the results
-        ArrayList r = SortWeapons(v, rear, true);
+        ArrayList<abPlaceable> r = SortWeapons(v, rear, true);
         abPlaceable[] result = new abPlaceable[r.size()];
         for( int i = 0; i < r.size(); i++ ) {
-            result[i] = (abPlaceable) r.get( i );
+            result[i] = r.get( i );
         }
         return result;
     }
 
     // sorting routine for weapon BV calculation. this is undoubtedly slow
-    public ArrayList SortWeapons( ArrayList v, boolean rear, boolean DoRearHeatCheck ) {
+    public ArrayList<abPlaceable> SortWeapons( ArrayList<abPlaceable> v, boolean rear, boolean DoRearHeatCheck ) {
         // sort by BV first (using gnomesort for less code.  may have to change 
         // this depending on the slowness of the program.  I figure lower overhead
         // will have better results at this time, and mechs typically don't
         // carry more than twelve to fifteen weapons.  I'll have to test this.
         int i = 1, j = 2;
         boolean TC = UsingTC();
-        Object swap;
+        abPlaceable swap;
         while( i < v.size() ) {
             // get the two items we'll be comparing
-            boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
-            boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+            boolean AES1 = UseAESModifier( v.get( i - 1 ) );
+            boolean AES2 = UseAESModifier( v.get( i ) );
             /***
              * 2020-10-06:
              * This should be improved but the problem is it needs to be sorted by BV,
@@ -3998,8 +3998,8 @@ public class Mech implements ifUnit, ifBattleforce {
              * compare them as a second step if the BV is the same.  If the BV is higher
              * then we don't need to look.
              */
-            double offensiveBV1 = ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 );
-            double offensiveBV2 = ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 );
+            double offensiveBV1 = v.get( i - 1 ).GetCurOffensiveBV( rear, TC, AES1 );
+            double offensiveBV2 = v.get( i ).GetCurOffensiveBV( rear, TC, AES2 );
             double heat1 = ((ifWeapon) v.get( i - 1 )).GetHeat();
             double heat2 = ((ifWeapon) v.get( i )).GetHeat();
             if( offensiveBV1 > offensiveBV2 || ( offensiveBV1 == offensiveBV2 && heat1 <= heat2 ) ) {
@@ -4021,13 +4021,13 @@ public class Mech implements ifUnit, ifBattleforce {
         if ( DoRearHeatCheck ) {
             i = 1;
             while( i < v.size() ) {
-                boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
-                boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+                boolean AES1 = UseAESModifier( v.get( i - 1 ) );
+                boolean AES2 = UseAESModifier( v.get( i ) );
                 double heat1 = ((ifWeapon) v.get( i - 1 )).GetHeat();
                 double heat2 = ((ifWeapon) v.get( i )).GetHeat();
-                if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 ) == ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 ) ) {
+                if( v.get( i - 1 ).GetCurOffensiveBV( rear, TC, AES1 ) == v.get( i ).GetCurOffensiveBV( rear, TC, AES2 ) ) {
                     if( rear ) {
-                        if( ((abPlaceable) v.get( i - 1 )).IsMountedRear() &! ((abPlaceable) v.get( i )).IsMountedRear() ) {
+                        if( v.get( i - 1 ).IsMountedRear() &! v.get( i ).IsMountedRear() ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
@@ -4037,7 +4037,7 @@ public class Mech implements ifUnit, ifBattleforce {
                             v.set( i, swap );
                         }
                     } else {
-                        if( ! ((abPlaceable) v.get( i - 1 )).IsMountedRear() && ((abPlaceable) v.get( i )).IsMountedRear() ) {
+                        if( ! v.get( i - 1 ).IsMountedRear() && v.get( i ).IsMountedRear() ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
@@ -4061,7 +4061,7 @@ public class Mech implements ifUnit, ifBattleforce {
      * @return 
      */
     
-    public ArrayList SortWeaponsToPrint( ArrayList v ) {
+    public ArrayList<abPlaceable> SortWeaponsToPrint( ArrayList<abPlaceable> v ) {
         /***
         * 2020-10-10:
         * When we fixed the BV calculations sort (see 10-06 note above) it broke
@@ -4073,14 +4073,14 @@ public class Mech implements ifUnit, ifBattleforce {
         
         int i = 1, j = 2;
         boolean TC = UsingTC();
-        Object swap;
+        abPlaceable swap;
         while( i < v.size() ) {
             // get the two items we'll be comparing
-            boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
-            boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+            boolean AES1 = UseAESModifier( v.get( i - 1 ) );
+            boolean AES2 = UseAESModifier( v.get( i ) );
 
-            double offensiveBV1 = ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( false, TC, AES1 );
-            double offensiveBV2 = ((abPlaceable) v.get( i )).GetCurOffensiveBV( false, TC, AES2 );
+            double offensiveBV1 = v.get( i - 1 ).GetCurOffensiveBV( false, TC, AES1 );
+            double offensiveBV2 = v.get( i ).GetCurOffensiveBV( false, TC, AES2 );
             if( offensiveBV1 >= offensiveBV2 ) {
                 i = j;
                 j += 1;
@@ -4712,10 +4712,10 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public ArrayList<String> GetBFAbilities() {
-        ArrayList<String> retval = new ArrayList();
+        ArrayList<String> retval = new ArrayList<>();
 
         // First search all equipment for BF Abilities
-        ArrayList nc = GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> nc = GetLoadout().GetNonCore();
         boolean isENE = true,
                 hasExplodable = false;
         int Taser = 0,
@@ -4755,7 +4755,7 @@ public class Mech implements ifUnit, ifBattleforce {
             MHQTons += 1.0d;
 
         for ( int i = 0; i < nc.size(); i++ ) {
-            abPlaceable item = (abPlaceable)nc.get(i);
+            abPlaceable item = nc.get(i);
 
             // Get the list of abilities from the equipment itself
             // handle special cases like C3

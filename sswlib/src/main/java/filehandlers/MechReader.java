@@ -331,13 +331,13 @@ public class MechReader {
 
         NamedNodeMap map = n.item( 0 ).getAttributes();
         LocationIndex l;
-        ArrayList isLoc = new ArrayList();
-        ArrayList armLoc = new ArrayList();
-        ArrayList<ArmorType> armTypes = new ArrayList<ArmorType>();
-        ArrayList hsLoc = new ArrayList();
-        ArrayList jjLoc = new ArrayList();
-        ArrayList enhLoc = new ArrayList();
-        ArrayList acLoc = new ArrayList();
+        ArrayList<LocationIndex> isLoc = new ArrayList<>();
+        ArrayList<LocationIndex> armLoc = new ArrayList<>();
+        ArrayList<ArmorType> armTypes = new ArrayList<>();
+        ArrayList<LocationIndex> hsLoc = new ArrayList<>();
+        ArrayList<LocationIndex> jjLoc = new ArrayList<>();
+        ArrayList<LocationIndex> enhLoc = new ArrayList<>();
+        ArrayList<LocationIndex> acLoc = new ArrayList<>();
         String Source = "";
 
         VMechFullRecalc Recalc = new VMechFullRecalc();
@@ -658,7 +658,7 @@ public class MechReader {
                     HeatSink[] hsList = m.GetHeatSinks().GetPlacedHeatSinks();
                     for( int j = 0; j < hsLoc.size(); j++ ) {
                         // place each heat sink
-                        LocationIndex li = (LocationIndex) hsLoc.get( j );
+                        LocationIndex li = hsLoc.get( j );
                         loadout.AddTo( hsList[j], li.Location, li.Index );
                     }
                 }
@@ -697,7 +697,7 @@ public class MechReader {
                     JumpJet[] jjList = m.GetJumpJets().GetPlacedJumps();
                     for( int j = 0; j < jjLoc.size(); j++ ) {
                         // place each heat sink
-                        LocationIndex li = (LocationIndex) jjLoc.get( j );
+                        LocationIndex li = jjLoc.get( j );
                         loadout.AddTo( jjList[j], li.Location, li.Index );
                     }
                 }
@@ -718,7 +718,7 @@ public class MechReader {
                 m.GetLoadout().SetBoobyTrap( true );
             } else if( n.item( i ).getNodeName().equals( "equipment" ) ) {
                 NodeList nl = n.item( i ).getChildNodes();
-                ArrayList splitLoc = new ArrayList();
+                ArrayList<LocationIndex> splitLoc = new ArrayList<>();
                 String eMan = "";
                 String eType = "";
                 String eName = "";
@@ -840,7 +840,7 @@ public class MechReader {
                                 // allocation methods.
                                 m.GetLoadout().RemoveFromQueue( p );
                                 for( int j = 0; j < splitLoc.size(); j++ ) {
-                                    LocationIndex li = (LocationIndex) splitLoc.get( j );
+                                    LocationIndex li = splitLoc.get( j );
                                     m.GetLoadout().AddTo( m.GetLoadout().GetCrits( li.Location ), p, li.Index, li.Number );
                                 }
                             } else {
@@ -898,7 +898,7 @@ public class MechReader {
                 }
             } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                 NodeList nl = n.item( i ).getChildNodes();
-                acLoc = new ArrayList();
+                acLoc = new ArrayList<>();
                 l = new LocationIndex();
                 for( int j = 0; j < nl.getLength(); j++ ) {
                     if( nl.item( j ).getNodeName().equals( "location" ) ) {
@@ -909,7 +909,7 @@ public class MechReader {
             } else if( n.item( i ).getNodeName().equals( "multislot" ) ) {
                 map = n.item( i ).getAttributes();
                 String type = map.getNamedItem( "name" ).getTextContent();
-                ArrayList msLoc = new ArrayList();
+                ArrayList<LocationIndex> msLoc = new ArrayList<>();
                 NodeList nl = n.item( i ).getChildNodes();
                 l = new LocationIndex();
                 for( int j = 0; j < nl.getLength(); j++ ) {
@@ -922,7 +922,7 @@ public class MechReader {
                 // turn the ArrayList into an array
                 LocationIndex[] Locs = new LocationIndex[msLoc.size()];
                 for( int j = 0; j < msLoc.size(); j++ ) {
-                    Locs[j] = (LocationIndex) msLoc.get( j );
+                    Locs[j] = msLoc.get( j );
                 }
 
                 // now add the system in
@@ -974,7 +974,7 @@ public class MechReader {
                     m.SetRAAES( true, Index );
                 }
             } else if( n.item( i ).getNodeName().equals( "leg_aes" ) ) {
-                ArrayList Loc = new ArrayList();
+                ArrayList<LocationIndex> Loc = new ArrayList<>();
                 NodeList nl = n.item( i ).getChildNodes();
                 l = new LocationIndex();
                 for( int j = 0; j < nl.getLength(); j++ ) {
@@ -998,7 +998,7 @@ public class MechReader {
                 // turn the ArrayList into an array
                 LocationIndex[] Locs = new LocationIndex[Loc.size()];
                 for( int j = 0; j < Loc.size(); j++ ) {
-                    Locs[j] = (LocationIndex) Loc.get( j );
+                    Locs[j] = Loc.get( j );
                 }
 
                 m.SetLegAES( true, Locs );
@@ -1019,7 +1019,7 @@ public class MechReader {
         if( isLoc.size() > 0 ) {
             InternalStructure is = m.GetIntStruc();
             for( int i = 0; i < isLoc.size(); i++ ) {
-                l = (LocationIndex) isLoc.get( i );
+                l = isLoc.get( i );
                 loadout.AddTo( is, l.Location, l.Index );
             }
         }
@@ -1162,7 +1162,7 @@ public class MechReader {
             } else {
                 LocationIndex[] Locs = new LocationIndex[armLoc.size()];
                 for( int j = 0; j < armLoc.size(); j++ ) {
-                    Locs[j] = (LocationIndex) armLoc.get( j );
+                    Locs[j] = armLoc.get( j );
                 }
                 if( oldfile ) {
                     // old style save file, set the armor based on the 'Mech's techbase
@@ -1210,7 +1210,7 @@ public class MechReader {
             if( armLoc.size() > 0 ) {
                 MechArmor a = m.GetArmor();
                 for( int i = 0; i < armLoc.size(); i++ ) {
-                    l = (LocationIndex) armLoc.get( i );
+                    l = armLoc.get( i );
                     loadout.AddTo( a, l.Location, l.Index );
                 }
             }
@@ -1250,7 +1250,7 @@ public class MechReader {
                     m.Visit( v );
                     if( enhLoc.size() > 0 ) {
                         for( int j = 0; j < enhLoc.size(); j++ ) {
-                            LocationIndex li = (LocationIndex) enhLoc.get( j );
+                            LocationIndex li = enhLoc.get( j );
                             m.GetLoadout().AddTo( m.GetPhysEnhance(), li.Location, li.Index );
                         }
                     }
@@ -1261,7 +1261,7 @@ public class MechReader {
         // check for armored components
         if( acLoc.size() > 0 ) {
             for( int i = 0; i < acLoc.size(); i++ ) {
-                l = (LocationIndex) acLoc.get( i );
+                l = acLoc.get( i );
                 abPlaceable a = m.GetLoadout().GetCrits( l.Location )[l.Index];
                 a.ArmorComponent( true );
             }
@@ -1320,7 +1320,7 @@ public class MechReader {
                 }
                 n = OmniLoads.item( k ).getChildNodes();
                 ltc = new LocationIndex();
-                acLoc = new ArrayList();
+                acLoc = new ArrayList<>();
                 for( int i = 0; i < n.getLength(); i++ ) {
                     // the main loadout routine
                     if( n.item( i ).getNodeName().equals( "source" ) ) {
@@ -1405,7 +1405,7 @@ public class MechReader {
                         } else {
                             loadout = m.GetLoadout();
                             HeatSink[] hsList = m.GetHeatSinks().GetPlacedHeatSinks();
-                            ArrayList temp = new ArrayList();
+                            ArrayList<HeatSink> temp = new ArrayList<>();
                             for( int j = 0; j < hsList.length; j++ ) {
                                 if( ! loadout.IsAllocated( hsList[j] ) ) {
                                     temp.add( hsList[j] );
@@ -1413,8 +1413,8 @@ public class MechReader {
                             }
                             for( int j = 0; j < hsLoc.size(); j++ ) {
                                 // place each heat sink
-                                LocationIndex li = (LocationIndex) hsLoc.get( j );
-                                loadout.AddTo( (HeatSink) temp.get( j ), li.Location, li.Index );
+                                LocationIndex li = hsLoc.get( j );
+                                loadout.AddTo( temp.get( j ), li.Location, li.Index );
                             }
                         }
                     } else if( n.item( i ).getNodeName().equals( "jumpjets" ) ) {
@@ -1451,7 +1451,7 @@ public class MechReader {
                         } else {
                             loadout = m.GetLoadout();
                             JumpJet[] jjList = m.GetJumpJets().GetPlacedJumps();
-                            ArrayList temp = new ArrayList();
+                            ArrayList<JumpJet> temp = new ArrayList<>();
                             for( int j = 0; j < jjList.length; j++ ) {
                                 if( ! loadout.IsAllocated( jjList[j] ) ) {
                                     temp.add( jjList[j] );
@@ -1459,8 +1459,8 @@ public class MechReader {
                             }
                             for( int j = 0; j < jjLoc.size(); j++ ) {
                                 // place each heat sink
-                                LocationIndex li = (LocationIndex) jjLoc.get( j );
-                                loadout.AddTo( (JumpJet) temp.get( j ), li.Location, li.Index );
+                                LocationIndex li = jjLoc.get( j );
+                                loadout.AddTo( temp.get( j ), li.Location, li.Index );
                             }
                         }
                     } else if( n.item( i ).getNodeName().equals( "turret" ) ) {
@@ -1480,7 +1480,7 @@ public class MechReader {
                         m.GetLoadout().SetBoobyTrap( true );
                     } else if( n.item( i ).getNodeName().equals( "equipment" ) ) {
                         NodeList nl = n.item( i ).getChildNodes();
-                        ArrayList splitLoc = new ArrayList();
+                        ArrayList<LocationIndex> splitLoc = new ArrayList<>();
                         String eMan = "";
                         String eType = "";
                         String eName = "";
@@ -1599,7 +1599,7 @@ public class MechReader {
                                         // allocation methods.
                                         m.GetLoadout().RemoveFromQueue( p );
                                         for( int j = 0; j < splitLoc.size(); j++ ) {
-                                            LocationIndex li = (LocationIndex) splitLoc.get( j );
+                                            LocationIndex li = splitLoc.get( j );
                                             m.GetLoadout().AddTo( m.GetLoadout().GetCrits( li.Location ), p, li.Index, li.Number );
                                         }
                                     } else {
@@ -1657,7 +1657,7 @@ public class MechReader {
                         }
                     } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                         NodeList nl = n.item( i ).getChildNodes();
-                        acLoc = new ArrayList();
+                        acLoc = new ArrayList<>();
                         l = new LocationIndex();
                         for( int j = 0; j < nl.getLength(); j++ ) {
                             if( nl.item( j ).getNodeName().equals( "location" ) ) {
@@ -1678,7 +1678,7 @@ public class MechReader {
                 // check for armored components
                 if( acLoc.size() > 0 ) {
                     for( int i = 0; i < acLoc.size(); i++ ) {
-                        l = (LocationIndex) acLoc.get( i );
+                        l = acLoc.get( i );
                         m.GetLoadout().GetCrits( l.Location )[l.Index].ArmorComponent( true );
                     }
                 }

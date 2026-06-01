@@ -107,7 +107,7 @@ public class UnitList extends AbstractTableModel {
             UnitListData mData = new UnitListData( f.getCanonicalPath(), getDirectory());
             if (mData.isOmni()) {
                 for ( int d=0; d < mData.Configurations.size(); d++ ) {
-                    List.add((UnitListData) mData.Configurations.get(d));
+                    List.add(mData.Configurations.get(d));
                 }
             } else {
                 List.add(mData);

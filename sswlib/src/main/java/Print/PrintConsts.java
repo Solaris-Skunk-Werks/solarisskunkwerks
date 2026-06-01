@@ -257,12 +257,12 @@ public class PrintConsts {
     public static ArrayList<PlaceableInfo> SortEquipmentByLocation( Mech CurMech, int MiniConvRate ) {
         boolean HasAmmoData = false;
 
-        ArrayList v = (ArrayList) CurMech.GetLoadout().GetNonCore().clone();
+        ArrayList<abPlaceable> v = new ArrayList<>( CurMech.GetLoadout().GetNonCore() );
         
         // Remove Proto Double Heatsinks, so they don't clog up the equipment list
-        ListIterator listIterator = v.listIterator();
+        ListIterator<abPlaceable> listIterator = v.listIterator();
         while (listIterator.hasNext()){
-            Object temp = listIterator.next();
+            abPlaceable temp = listIterator.next();
              if (temp instanceof EquipmentProtoSuccWarsDoubleHeatSink){
                  listIterator.remove();
              } else if(temp instanceof EquipmentProtoStarLeagueDoubleHeatSink) {
@@ -290,7 +290,7 @@ public class PrintConsts {
                 v.add( CurMech.GetLLAES() );
             }
         }
-        ArrayList Equip = CurMech.SortWeaponsToPrint(v);
+        ArrayList<abPlaceable> Equip = CurMech.SortWeaponsToPrint(v);
         ArrayList<abPlaceable> sorted = FileCommon.SortEquipmentForStats(CurMech, Equip, true, false);
 
         abPlaceable[] a = new abPlaceable[sorted.size()];

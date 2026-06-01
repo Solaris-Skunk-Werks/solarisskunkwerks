@@ -232,13 +232,13 @@ public class CVReader {
 
         NamedNodeMap map = n.item( 0 ).getAttributes();
         LocationIndex l;
-        ArrayList isLoc = new ArrayList();
-        ArrayList armLoc = new ArrayList();
-        ArrayList<ArmorType> armTypes = new ArrayList<ArmorType>();
-        ArrayList hsLoc = new ArrayList();
-        ArrayList jjLoc = new ArrayList();
-        ArrayList enhLoc = new ArrayList();
-        ArrayList acLoc = new ArrayList();
+        ArrayList<LocationIndex> isLoc = new ArrayList<>();
+        ArrayList<LocationIndex> armLoc = new ArrayList<>();
+        ArrayList<ArmorType> armTypes = new ArrayList<>();
+        ArrayList<LocationIndex> hsLoc = new ArrayList<>();
+        ArrayList<LocationIndex> jjLoc = new ArrayList<>();
+        ArrayList<LocationIndex> enhLoc = new ArrayList<>();
+        ArrayList<LocationIndex> acLoc = new ArrayList<>();
         String Source = "";
 
         VMechFullRecalc Recalc = new VMechFullRecalc();
@@ -495,13 +495,13 @@ public class CVReader {
                     JumpJet[] jjList = m.GetJumpJets().GetPlacedJumps();
                     for( int j = 0; j < jjLoc.size(); j++ ) {
                         // place each heat sink
-                        LocationIndex li = (LocationIndex) jjLoc.get( j );
+                        LocationIndex li = jjLoc.get( j );
                         loadout.AddTo( jjList[j], li.Location );
                     }
                 }
             } else if( n.item( i ).getNodeName().equals( "equipment" ) ) {
                 NodeList nl = n.item( i ).getChildNodes();
-                ArrayList splitLoc = new ArrayList();
+                ArrayList<LocationIndex> splitLoc = new ArrayList<>();
                 String eMan = "";
                 String eType = "";
                 String eName = "";
@@ -587,7 +587,7 @@ public class CVReader {
                 }
             } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                 NodeList nl = n.item( i ).getChildNodes();
-                acLoc = new ArrayList();
+                acLoc = new ArrayList<>();
                 l = new LocationIndex();
                 for( int j = 0; j < nl.getLength(); j++ ) {
                     if( nl.item( j ).getNodeName().equals( "location" ) ) {
@@ -598,7 +598,7 @@ public class CVReader {
             } else if( n.item( i ).getNodeName().equals( "multislot" ) ) {
                 map = n.item( i ).getAttributes();
                 String type = map.getNamedItem( "name" ).getTextContent();
-                ArrayList msLoc = new ArrayList();
+                ArrayList<LocationIndex> msLoc = new ArrayList<>();
                 NodeList nl = n.item( i ).getChildNodes();
                 l = new LocationIndex();
                 for( int j = 0; j < nl.getLength(); j++ ) {
@@ -611,7 +611,7 @@ public class CVReader {
                 // turn the ArrayList into an array
                 LocationIndex[] Locs = new LocationIndex[msLoc.size()];
                 for( int j = 0; j < msLoc.size(); j++ ) {
-                    Locs[j] = (LocationIndex) msLoc.get( j );
+                    Locs[j] = msLoc.get( j );
                 }
             }
         }
@@ -622,7 +622,7 @@ public class CVReader {
         if( isLoc.size() > 0 ) {
             InternalStructure is = m.GetIntStruc();
             for( int i = 0; i < isLoc.size(); i++ ) {
-                l = (LocationIndex) isLoc.get( i );
+                l = isLoc.get( i );
                 loadout.AddTo( is, l.Location );
             }
         }
@@ -747,7 +747,7 @@ public class CVReader {
             } else {
                 LocationIndex[] Locs = new LocationIndex[armLoc.size()];
                 for( int j = 0; j < armLoc.size(); j++ ) {
-                    Locs[j] = (LocationIndex) armLoc.get( j );
+                    Locs[j] = armLoc.get( j );
                 }
                 if( oldfile ) {
                     // old style save file, set the armor based on the 'CombatVehicle's techbase
@@ -791,7 +791,7 @@ public class CVReader {
             if( armLoc.size() > 0 ) {
                 CVArmor a = m.GetArmor();
                 for( int i = 0; i < armLoc.size(); i++ ) {
-                    l = (LocationIndex) armLoc.get( i );
+                    l = armLoc.get( i );
                     loadout.AddTo( a, l.Location );
                 }
             }
@@ -831,7 +831,7 @@ public class CVReader {
                     m.Visit( v );
                     if( enhLoc.size() > 0 ) {
                         for( int j = 0; j < enhLoc.size(); j++ ) {
-                            LocationIndex li = (LocationIndex) enhLoc.get( j );
+                            LocationIndex li = enhLoc.get( j );
                             m.GetLoadout().AddTo( m.GetPhysEnhance(), li.Location );
                         }
                     }
@@ -961,7 +961,7 @@ public class CVReader {
                         } else {
                             loadout = m.GetLoadout();
                             JumpJet[] jjList = m.GetJumpJets().GetPlacedJumps();
-                            ArrayList temp = new ArrayList();
+                            ArrayList<JumpJet> temp = new ArrayList<>();
                             for( int j = 0; j < jjList.length; j++ ) {
                                 if( ! loadout.IsAllocated( jjList[j] ) ) {
                                     temp.add( jjList[j] );
@@ -969,13 +969,13 @@ public class CVReader {
                             }
                             for( int j = 0; j < jjLoc.size(); j++ ) {
                                 // place each heat sink
-                                LocationIndex li = (LocationIndex) jjLoc.get( j );
-                                loadout.AddTo( (JumpJet) temp.get( j ), li.Location );
+                                LocationIndex li = jjLoc.get( j );
+                                loadout.AddTo( temp.get( j ), li.Location );
                             }
                         }
                     } else if( n.item( i ).getNodeName().equals( "equipment" ) ) {
                         NodeList nl = n.item( i ).getChildNodes();
-                        ArrayList splitLoc = new ArrayList();
+                        ArrayList<LocationIndex> splitLoc = new ArrayList<>();
                         String eMan = "";
                         String eType = "";
                         String eName = "";
@@ -1058,7 +1058,7 @@ public class CVReader {
                         }
                     } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                         NodeList nl = n.item( i ).getChildNodes();
-                        acLoc = new ArrayList();
+                        acLoc = new ArrayList<>();
                         l = new LocationIndex();
                         for( int j = 0; j < nl.getLength(); j++ ) {
                             if( nl.item( j ).getNodeName().equals( "location" ) ) {
