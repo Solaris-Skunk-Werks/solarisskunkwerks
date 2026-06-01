@@ -4,11 +4,8 @@ import components.Mech;
 import filehandlers.ImageTracker;
 import filehandlers.MechReader;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
-import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -23,9 +20,6 @@ import static org.junit.Assert.assertTrue;
 
 public class PrintMechImageSmokeTest {
 
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-
     @BeforeClass
     public static void useHeadlessAwt() {
         System.setProperty("java.awt.headless", "true");
@@ -33,33 +27,22 @@ public class PrintMechImageSmokeTest {
 
     @Test
     public void rendersMechImageFromSavedImagePathWhenEnabled() throws Exception {
-        File imageFile = folder.newFile("mech-image.png");
-        writeSolidImage(imageFile, new Color(255, 0, 255));
-
         Mech mech = new MechReader().ReadMech(resourceFile("mechs/Balgaire.ssw").getAbsolutePath());
-        mech.SetSSWImage(imageFile.getAbsolutePath());
+        mech.SetSSWImage(resourceFile("images/Balgaire.png").getAbsolutePath());
 
         ImageTracker images = new ImageTracker();
         images.preLoadMechImages();
-        PrintMech printable = new PrintMech(mech, images);
-        printable.setPrintMech(true);
+        PrintMech withoutImage = new PrintMech(mech, images);
+        PrintMech withImage = new PrintMech(mech, images);
+        withImage.setPrintMech(true);
 
-        RenderedPage renderedPage = renderPage(printable);
+        RenderedPage baselinePage = renderPage(withoutImage);
+        RenderedPage imagePage = renderPage(withImage);
 
-        assertEquals(Printable.PAGE_EXISTS, renderedPage.printResult);
-        assertTrue("Mech image should be painted onto the record sheet", renderedPage.hasMagentaImagePixels);
-    }
-
-    private void writeSolidImage(File imageFile, Color color) throws Exception {
-        BufferedImage image = new BufferedImage(80, 80, BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics = image.createGraphics();
-        try {
-            graphics.setColor(color);
-            graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-        } finally {
-            graphics.dispose();
-        }
-        ImageIO.write(image, "png", imageFile);
+        assertEquals(Printable.PAGE_EXISTS, baselinePage.printResult);
+        assertEquals(Printable.PAGE_EXISTS, imagePage.printResult);
+        assertTrue("Balgaire image should change the rendered record sheet",
+                countPixelDifferences(baselinePage.page, imagePage.page) > 1000);
     }
 
     private RenderedPage renderPage(Printable printable) throws Exception {
@@ -78,22 +61,26 @@ public class PrintMechImageSmokeTest {
             graphics.setColor(Color.WHITE);
             graphics.fillRect(0, 0, page.getWidth(), page.getHeight());
             int printResult = printable.print(graphics, format, 0);
-            return new RenderedPage(printResult, hasMagentaPixels(page));
+            return new RenderedPage(printResult, page);
         } finally {
             graphics.dispose();
         }
     }
 
-    private boolean hasMagentaPixels(BufferedImage page) {
-        for (int y = 0; y < page.getHeight(); y++) {
-            for (int x = 0; x < page.getWidth(); x++) {
-                Color color = new Color(page.getRGB(x, y), true);
-                if (color.getRed() > 220 && color.getBlue() > 220 && color.getGreen() < 40) {
-                    return true;
+    private int countPixelDifferences(BufferedImage baseline, BufferedImage candidate) {
+        int differences = 0;
+        for (int y = 0; y < baseline.getHeight(); y++) {
+            for (int x = 0; x < baseline.getWidth(); x++) {
+                Color baselineColor = new Color(baseline.getRGB(x, y), true);
+                Color candidateColor = new Color(candidate.getRGB(x, y), true);
+                if (Math.abs(baselineColor.getRed() - candidateColor.getRed()) > 20
+                        || Math.abs(baselineColor.getGreen() - candidateColor.getGreen()) > 20
+                        || Math.abs(baselineColor.getBlue() - candidateColor.getBlue()) > 20) {
+                    differences++;
                 }
             }
         }
-        return false;
+        return differences;
     }
 
     private File resourceFile(String path) throws Exception {
@@ -106,11 +93,11 @@ public class PrintMechImageSmokeTest {
 
     private static class RenderedPage {
         private final int printResult;
-        private final boolean hasMagentaImagePixels;
+        private final BufferedImage page;
 
-        private RenderedPage(int printResult, boolean hasMagentaImagePixels) {
+        private RenderedPage(int printResult, BufferedImage page) {
             this.printResult = printResult;
-            this.hasMagentaImagePixels = hasMagentaImagePixels;
+            this.page = page;
         }
     }
 }
