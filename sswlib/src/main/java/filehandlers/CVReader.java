@@ -119,17 +119,17 @@ public class CVReader {
     }
 
     private UnitListData BuildData( UnitListData Data, Document d ) {
-        NodeList n = d.getElementsByTagName( "CombatVehicle" );
-        NamedNodeMap map = n.item( 0 ).getAttributes();
+        Node vehicle = FirstElement( d, "combatvehicle", "CombatVehicle" );
+        NamedNodeMap map = vehicle.getAttributes();
 
-        boolean isOmni = ParseBoolean( map.getNamedItem( "omniCombatVehicle" ).getTextContent() );
+        boolean isOmni = ParseBoolean( GetAttribute( map, "omni", "omniCombatVehicle", "omnivehicle" ) );
         Data.setOmni( isOmni );
 
         Data.setName( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
         Data.setModel( FileCommon.DecodeFluff( map.getNamedItem( "model" ).getTextContent() ) );
         Data.setTonnage( Integer.parseInt( map.getNamedItem( "tons" ).getTextContent() ) );
 
-        n = d.getElementsByTagName( "rules_level" );
+        NodeList n = d.getElementsByTagName( "rules_level" );
         Data.setLevel( CommonTools.GetRulesLevelString( Integer.parseInt( n.item( 0 ).getTextContent() ) ) );
 
         n = d.getElementsByTagName( "era" );
@@ -145,10 +145,19 @@ public class CVReader {
         if( n.getLength() > 0 ) {Data.setSource( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );}
 
         n = d.getElementsByTagName( "CombatVehicle_type" );
-        Data.setType( n.item( 0 ).getTextContent() );
+        if( n.getLength() > 0 ) {
+            Data.setType( n.item( 0 ).getTextContent() );
+        } else {
+            Data.setType( "Combat Vehicle" );
+        }
 
         n = d.getElementsByTagName( "motive_type" );
-        Data.setMotive( n.item( 0 ).getTextContent() );
+        if( n.getLength() > 0 ) {
+            Data.setMotive( n.item( 0 ).getTextContent() );
+        } else {
+            Node motive = FirstElement( d, "motive" );
+            Data.setMotive( GetAttribute( motive.getAttributes(), "type" ) );
+        }
 
         n = d.getElementsByTagName( "info" );
         if ( n.getLength() > 0 ) { Data.setInfo( n.item( 0 ).getTextContent() ); }
@@ -205,6 +214,26 @@ public class CVReader {
             }
         }        
         return Data;
+    }
+
+    private Node FirstElement( Document d, String... names ) {
+        for( String name : names ) {
+            NodeList nodes = d.getElementsByTagName( name );
+            if( nodes.getLength() > 0 ) {
+                return nodes.item( 0 );
+            }
+        }
+        throw new IllegalArgumentException( "Missing XML element: " + String.join( " or ", names ) );
+    }
+
+    private String GetAttribute( NamedNodeMap map, String... names ) {
+        for( String name : names ) {
+            Node node = map.getNamedItem( name );
+            if( node != null ) {
+                return node.getTextContent();
+            }
+        }
+        return "";
     }
 
     public CombatVehicle ReadUnit( Node n ) throws Exception {

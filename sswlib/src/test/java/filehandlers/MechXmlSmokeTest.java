@@ -93,6 +93,32 @@ public class MechXmlSmokeTest {
         assertEquals(source.getCruiseMP(), loaded.getCruiseMP());
     }
 
+    @Test
+    public void readsMusketeerHoverTankFixture() throws Exception {
+        File file = resourceFile("vehicles/Musketeer Hover Tank.saw");
+
+        CombatVehicle loaded = new CVReader().ReadUnit(file.getAbsolutePath());
+        UnitListData summary = new CVReader().ReadUnitData(file.getAbsolutePath(), file.getParent());
+
+        assertEquals("Musketeer Hover Tank", loaded.GetName());
+        assertEquals("", loaded.GetModel());
+        assertEquals(50, loaded.GetTonnage());
+        assertEquals(3070, loaded.GetBaseYear());
+        assertEquals(AvailableCode.RULES_EXPERIMENTAL, loaded.GetBaseRulesLevel());
+        assertEquals(AvailableCode.TECH_INNER_SPHERE, loaded.GetBaseTechbase());
+        assertEquals(7, loaded.getCruiseMP());
+        assertEquals(7, loaded.GetLoadout().GetNonCore().size());
+        assertTrue(loaded.GetChatInfo().contains("1 RAC5"));
+        assertTrue(loaded.GetChatInfo().contains("2 SSRM2"));
+
+        assertEquals("Musketeer Hover Tank", summary.getName());
+        assertEquals(50, summary.getTonnage());
+        assertEquals(3070, summary.getYear());
+        assertEquals(1120, summary.getBV());
+        assertEquals("Hovercraft", summary.getMotive());
+        assertEquals("Musketeer Hover Tank 50t, 7/11, ICE, 8.5T/62% Armor; 0 SHS; 2 SSRM2, 1 RAC5", summary.getInfo());
+    }
+
     private File resourceFile(String path) throws Exception {
         URL resource = getClass().getClassLoader().getResource(path);
         if (resource == null) {
