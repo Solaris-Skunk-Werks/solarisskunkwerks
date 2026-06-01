@@ -1529,6 +1529,7 @@ public class dlgPrefs extends javax.swing.JDialog {
                         } else {
                             cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
                         }
+                        break;
                     default:
                         cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inner Sphere", "Clan" }));
                         cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
@@ -1552,6 +1553,7 @@ public class dlgPrefs extends javax.swing.JDialog {
                         } else {
                             cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "Single Heat Sink", "Double Heat Sink", "Compact Heat Sink", "Laser Heat Sink" } ) );
                         }
+                        break;
                     default:
                         cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inner Sphere", "Clan" }));
                         cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
@@ -1639,7 +1641,7 @@ public class dlgPrefs extends javax.swing.JDialog {
             File prefPath = media.SelectFile("prefs.xml", "xml", "Select Preferences File");
             fis = new FileInputStream(prefPath);
             try {
-                Prefs.importPreferences(fis);
+                Preferences.importPreferences(fis);
                 SetState();
                 Media.Messager(this, "Preferences Imported.");
             } catch (IOException ex) {

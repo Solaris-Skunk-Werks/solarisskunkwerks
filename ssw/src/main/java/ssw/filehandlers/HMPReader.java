@@ -535,6 +535,7 @@ public class HMPReader {
                     CockpitLookup = "Standard Cockpit";
                     CommandConsole = true;
                     Errors.add( new ErrorReport( "A Dual Cockpit was specified, which is not supported in SSW.\nThe 'Mech has been set to use a Command Console instead." ) );
+                    break;
                 case 5:
                     CockpitLookup = "Industrial Cockpit";
                     break;
@@ -924,7 +925,7 @@ public class HMPReader {
 
         // now for equipment.
         // get the secondary hash table for lookups
-        Hashtable Other = null;
+        Hashtable<Long, String> Other = null;
         if( IntStrucTechBase == AvailableCode.TECH_CLAN ) {
             Other = Clan;
         } else {
@@ -945,7 +946,7 @@ public class HMPReader {
                     // if we can't find it, create an error to let the user know
                     String Name = Common.get( lookup );
                     if( Name == null ) {
-                        Name = (String) Other.get( lookup );
+                        Name = Other.get( lookup );
                         if( Name == null ) {
                             found = false;
                         }
