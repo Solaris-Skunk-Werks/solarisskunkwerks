@@ -43,6 +43,8 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class dlgImageMgr extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     public ArrayList<Force> forces = new ArrayList<Force>();
     public boolean hasWork = false;
 
