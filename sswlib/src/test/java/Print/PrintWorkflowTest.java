@@ -48,6 +48,19 @@ public class PrintWorkflowTest {
         assertTrue(gateway.printCalled);
     }
 
+    @Test
+    public void directPrintSkipsDialog() throws PrinterException {
+        TestPrinterJobGateway gateway = new TestPrinterJobGateway(false);
+        PrintWorkflow workflow = new PrintWorkflow(gateway);
+
+        workflow.printDirect(request("Direct Job"));
+
+        assertEquals("Direct Job", gateway.jobName);
+        assertTrue(gateway.pageableSet);
+        assertFalse(gateway.dialogShown);
+        assertTrue(gateway.printCalled);
+    }
+
     private static PrintRequest request(String jobName) {
         return PrintRequest.builder(jobName)
                 .addPage(new PageFormat(), new NoOpPrintable())
@@ -59,6 +72,7 @@ public class PrintWorkflowTest {
         private String jobName;
         private boolean pageableSet;
         private boolean printCalled;
+        private boolean dialogShown;
 
         private TestPrinterJobGateway(boolean dialogResult) {
             this.dialogResult = dialogResult;
@@ -71,6 +85,7 @@ public class PrintWorkflowTest {
 
         @Override
         public boolean showPrintDialog() {
+            dialogShown = true;
             return dialogResult;
         }
 

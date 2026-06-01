@@ -222,10 +222,11 @@ public class Printer {
         }
         
         for (PrintMech pm : Mechs) {
-            job.setJobName( pm.CurMech.GetFullName().trim() );
-            job.setPrintable(pm);
+            PrintRequest request = PrintRequest.builder(pm.CurMech.GetFullName().trim())
+                    .addPage(page, pm)
+                    .build();
             try {
-                job.print();
+                workflow.printDirect(request);
             } catch (PrinterException ex) {
                 Logger.getLogger(Printer.class.getName()).log(Level.SEVERE, null, ex);
             }

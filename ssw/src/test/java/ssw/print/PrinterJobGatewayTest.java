@@ -60,7 +60,8 @@ public class PrinterJobGatewayTest {
 
         printer.PrintSingles(false);
 
-        assertEquals(1, gateway.printableCalls);
+        assertEquals(1, gateway.pageableCalls);
+        assertEquals(0, gateway.printableCalls);
         assertTrue(gateway.printCalled);
     }
 

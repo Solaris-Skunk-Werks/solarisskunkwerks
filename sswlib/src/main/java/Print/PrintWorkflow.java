@@ -29,4 +29,10 @@ public class PrintWorkflow {
 
         return shouldPrint;
     }
+
+    public void printDirect(PrintRequest request) throws PrinterException {
+        job.setJobName(request.getJobName());
+        job.setPageable(request.toBook());
+        job.print();
+    }
 }

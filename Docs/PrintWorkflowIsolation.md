@@ -8,7 +8,7 @@ This document tracks the print workflow exploration branch. The goal is to isola
   - Owns `Paper` and `PageFormat`.
   - Builds `PrintRequest` objects directly instead of maintaining a mutable `Book`.
   - Uses `PrinterJobGateway` for OS-facing print dialog and print calls.
-  - Direct record-sheet and BattleForce print paths now execute through `PrintWorkflow`.
+  - Direct record-sheet, print-singles, and BattleForce print paths now execute through `PrintWorkflow`.
   - Builds `PrintMech` instances.
   - Opens SSW-specific print options dialogs.
   - Handles direct printing and preview page generation.
@@ -53,6 +53,7 @@ Initial concepts:
   - Creates a `Book`
   - Shows preview when requested
   - Invokes direct print when requested
+  - Supports direct print without an OS dialog for existing one-job-per-mech batch behavior.
   - Shared `PagePrinter` now delegates preview and direct print execution to this workflow.
 - `PrinterJobGateway`
   - Small wrapper around `PrinterJob`
