@@ -5,7 +5,8 @@ This document tracks the print workflow exploration branch. The goal is to isola
 ## Current Shape
 
 - SSW uses `ssw.print.Printer` as its main print coordinator.
-  - Owns `PrinterJob`, `Book`, `Paper`, and `PageFormat`.
+  - Owns `Book`, `Paper`, and `PageFormat`.
+  - Uses `PrinterJobGateway` for OS-facing print dialog and print calls.
   - Builds `PrintMech` instances.
   - Opens SSW-specific print options dialogs.
   - Handles direct printing and preview page generation.
@@ -15,6 +16,7 @@ This document tracks the print workflow exploration branch. The goal is to isola
   - Preview is handled by `Print.preview.dlgPreview`.
 - BFB uses two paths.
   - `Print.BFBPrinter` owns force-list/declaration print jobs.
+  - `Print.BFBPrinter` uses `PrinterJobGateway` for OS-facing print dialog and print calls.
   - Some force/unit previews also assemble `PagePrinter` manually.
 - Shared renderers live in `sswlib/src/main/java/Print`.
   - `PrintMech`, `PrintVehicle`, force list, BattleForce, QuickStrike, and Alpha Strike card printers are `Printable` renderers.
@@ -26,7 +28,7 @@ This document tracks the print workflow exploration branch. The goal is to isola
 ## Pain Points
 
 - UI actions directly construct print coordinators and preview dialogs.
-- Print coordinators directly own `PrinterJob.printDialog()` and `PrinterJob.print()`.
+- Print coordinators historically owned `PrinterJob.printDialog()` and `PrinterJob.print()` directly. These calls are now routed through `PrinterJobGateway` for SSW `Printer`, shared `PagePrinter`, and `BFBPrinter`.
 - SSW, SAW, and BFB duplicate print job setup patterns.
 - Image selection and image inclusion are partly UI-dialog behavior and partly renderer behavior.
 - Windows print-spooler behavior is difficult to isolate because OS calls are embedded in app workflows.
@@ -59,8 +61,9 @@ The first implementation should preserve Swing behavior and existing dialogs. Th
 2. Refactor `Print.PagePrinter` to use the gateway internally without changing its public API. Done.
 3. Add tests around `PagePrinter` preview/book generation and direct-print cancellation behavior using a test gateway. Done.
 4. Refactor SSW `Printer` to use the gateway behind the current API. Done.
-5. Once SSW/SAW/BFB still pass, introduce request objects for new print features.
-6. Add Alpha Strike card generation as a print target after the request boundary exists.
+5. Refactor `BFBPrinter` to use the gateway behind the current API. Done.
+6. Once SSW/SAW/BFB still pass, introduce request objects for new print features.
+7. Add Alpha Strike card generation as a print target after the request boundary exists.
 
 ## Guardrails
 

@@ -33,7 +33,6 @@ import Force.*;
 import filehandlers.ImageTracker;
 import java.awt.print.*;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public final class BFBPrinter {
     private String jobName = "Battletech Force Balancer",
@@ -48,7 +47,7 @@ public final class BFBPrinter {
     private Book pages = new Book();
     private Paper paper = new Paper();
     private PageFormat page = new PageFormat();
-    private PrinterJob job = PrinterJob.getPrinterJob();
+    private PrinterJobGateway job;
 
     //To convert paper size to pixels is inches / 0.0139 rounded down
     public final static PaperSize Letter = new PaperSize(8.5d, 11d);
@@ -58,7 +57,12 @@ public final class BFBPrinter {
     public final static PaperSize FullLetter = new PaperSize(612, 791, 10, 10, 592, 771);
 
     public BFBPrinter( ImageTracker imageTracker) {
+        this(imageTracker, new PrinterJobGateway());
+    }
+
+    BFBPrinter( ImageTracker imageTracker, PrinterJobGateway job ) {
         this.imageTracker = imageTracker;
+        this.job = job;
         setPaperSize(Letter);
         sheet = new ForceListPrinter(imageTracker);
         chits = new PrintDeclaration(imageTracker);
@@ -91,7 +95,7 @@ public final class BFBPrinter {
     }
 
     public PrinterJob getJob() {
-        return job;
+        return job.getPrinterJob();
     }
 
     public void setPaperSize( PaperSize s ) {
@@ -111,7 +115,7 @@ public final class BFBPrinter {
         GeneratePrints();
 
         job.setPageable(pages);
-        boolean DoPrint = job.printDialog();
+        boolean DoPrint = job.showPrintDialog();
         if( DoPrint ) {
             try {
                 job.print();
