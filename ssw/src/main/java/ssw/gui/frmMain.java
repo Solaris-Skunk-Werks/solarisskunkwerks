@@ -15041,9 +15041,8 @@ private void setViewToolbar(boolean Visible)
         return imageTracker;
     }
     
-    @SuppressWarnings("rawtypes")
-    public void setUnit( ArrayList v ) {
-        this.setMech( (Mech) v.get(0) );
+    public void setUnit( ArrayList<Mech> v ) {
+        this.setMech( v.get(0) );
     }
 
     public void loadUnitIntoGUI() {

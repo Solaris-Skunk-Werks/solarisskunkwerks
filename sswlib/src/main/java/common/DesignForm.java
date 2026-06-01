@@ -28,13 +28,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package common;
 
 import components.abPlaceable;
+import components.Mech;
 import dialog.frmForce;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 import states.ifState;
 
 public interface DesignForm {
-    public void setUnit( ArrayList v );
+    public void setUnit( ArrayList<Mech> v );
     public void loadUnitIntoGUI();
     public void showOpenDialog();
     
