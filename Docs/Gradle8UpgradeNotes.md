@@ -33,6 +33,7 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - SAW `frmVee` and `frmVeeWide` no longer emit checked compile warnings after typing their primary Swing list/combo models and local equipment selector collections.
 - SSW print options now explicitly pass the "Print Mech" image choice through to `PrintMech`, restoring saved mech-image rendering when the user does not choose a separate image file.
 - `DesignForm#setUnit` now accepts lists of shared `ifUnit` implementations, removing the raw SAW vehicle handoff while preserving SSW mech loading.
+- SAW design forms now match the shared wildcard `JList<?>` location lookup contract.
 
 ## Follow-Up Candidates
 

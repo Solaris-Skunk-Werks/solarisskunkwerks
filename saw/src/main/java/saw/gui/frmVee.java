@@ -9107,7 +9107,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         return Prefs;
     }
 
-    public int GetLocation(JList list) {
+    public int GetLocation(JList<?> list) {
         //do nothing
         return 0;
     }
