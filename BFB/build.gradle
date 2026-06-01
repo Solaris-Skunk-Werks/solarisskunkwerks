@@ -12,6 +12,12 @@ dependencies {
     implementation project(':sswlib')
 }
 
+sourceSets {
+    main {
+        resources.srcDir "${buildDir}/generated/resources"
+    }
+}
+
 application {
     mainClass = 'BFB.Main'
 }
@@ -49,12 +55,11 @@ task copyDependencies {
 }
 
 task writeProperties(type: WriteProperties) {
-    outputFile "${buildDir}/resources/main/BFB/build.properties"
+    outputFile "${buildDir}/generated/resources/BFB/build.properties"
     property 'version', version
     property 'release', release
     property 'rev', rev
 }
 
+processResources.dependsOn(writeProperties)
 jar.dependsOn(writeProperties)
-
-compileJava.finalizedBy(writeProperties)
