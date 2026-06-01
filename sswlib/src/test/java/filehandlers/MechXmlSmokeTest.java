@@ -1,6 +1,7 @@
 package filehandlers;
 
 import components.AvailableCode;
+import components.CombatVehicle;
 import components.Mech;
 import list.UnitListData;
 
@@ -65,6 +66,31 @@ public class MechXmlSmokeTest {
         assertEquals(3060, summary.getYear());
         assertTrue(summary.isOmni());
         assertFalse(summary.Configurations.isEmpty());
+    }
+
+    @Test
+    public void writesAndReadsBasicCombatVehicleXml() throws Exception {
+        CombatVehicle source = new CombatVehicle();
+        source.setName("Synthetic Carrier");
+        source.setModel("CV-17");
+        source.SetTechBase(AvailableCode.TECH_INNER_SPHERE);
+        source.SetRulesLevel(AvailableCode.RULES_TOURNAMENT);
+        source.SetYear(3050, true);
+        source.setTonnage(35);
+        source.setCruiseMP(4);
+
+        File file = temporaryFolder.newFile("synthetic-vehicle.ssw");
+
+        new CVWriter(source).WriteXML(file.getAbsolutePath());
+        CombatVehicle loaded = new CVReader().ReadUnit(file.getAbsolutePath());
+
+        assertEquals(source.GetName(), loaded.GetName());
+        assertEquals(source.GetModel(), loaded.GetModel());
+        assertEquals(source.GetTonnage(), loaded.GetTonnage());
+        assertEquals(source.GetBaseYear(), loaded.GetBaseYear());
+        assertEquals(source.GetBaseRulesLevel(), loaded.GetBaseRulesLevel());
+        assertEquals(source.GetBaseTechbase(), loaded.GetBaseTechbase());
+        assertEquals(source.getCruiseMP(), loaded.getCruiseMP());
     }
 
     private File resourceFile(String path) throws Exception {
