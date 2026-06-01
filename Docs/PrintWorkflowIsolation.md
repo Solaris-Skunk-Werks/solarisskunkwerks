@@ -58,7 +58,7 @@ The first implementation should preserve Swing behavior and existing dialogs. Th
 1. Add a tiny `PrinterJobGateway` wrapper in `sswlib`. Done.
 2. Refactor `Print.PagePrinter` to use the gateway internally without changing its public API. Done.
 3. Add tests around `PagePrinter` preview/book generation and direct-print cancellation behavior using a test gateway. Done.
-4. Refactor SSW `Printer` to use the gateway behind the current API.
+4. Refactor SSW `Printer` to use the gateway behind the current API. Done.
 5. Once SSW/SAW/BFB still pass, introduce request objects for new print features.
 6. Add Alpha Strike card generation as a print target after the request boundary exists.
 

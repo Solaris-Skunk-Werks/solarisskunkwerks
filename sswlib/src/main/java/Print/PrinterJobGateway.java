@@ -1,6 +1,7 @@
 package Print;
 
 import java.awt.print.Pageable;
+import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
@@ -25,6 +26,10 @@ public class PrinterJobGateway {
 
     public void setPageable(Pageable pageable) {
         job.setPageable(pageable);
+    }
+
+    public void setPrintable(Printable printable) {
+        job.setPrintable(printable);
     }
 
     public void print() throws PrinterException {

@@ -64,7 +64,7 @@ public class Printer {
     private Book pages = new Book();
     private Paper paper = new Paper();
     private PageFormat page = new PageFormat();
-    private PrinterJob job = PrinterJob.getPrinterJob();
+    private PrinterJobGateway job;
 
     //To convert paper size to pixels is inches / 0.0139 rounded down
     public final static PaperSize Letter = new PaperSize(8.5d, 11d);
@@ -76,7 +76,12 @@ public class Printer {
     }
     
     public Printer(ifMechForm p) {
+        this(p, new PrinterJobGateway());
+    }
+
+    Printer(ifMechForm p, PrinterJobGateway job) {
         Parent = p;
+        this.job = job;
         setPaperSize(Letter);
         images.preLoadMechImages();
     }
@@ -90,7 +95,7 @@ public class Printer {
     }
 
     public PrinterJob getJob() {
-        return job;
+        return job.getPrinterJob();
     }
 
     public void setPaperSize(PaperSize s) {
@@ -226,6 +231,11 @@ public class Printer {
         }
     }
 
+    public void PrintSingles( boolean useDialog ) {
+        this.useDialog = useDialog;
+        PrintSingles();
+    }
+
     public void Print( boolean useDialog ) {
         this.useDialog = useDialog;
         Print();
@@ -250,7 +260,7 @@ public class Printer {
         GeneratePrints();
 
         job.setPageable(pages);
-        boolean DoPrint = job.printDialog();
+        boolean DoPrint = job.showPrintDialog();
         if( DoPrint ) {
             try {
                 job.print();
@@ -428,7 +438,7 @@ public class Printer {
         }
 
         job.setPageable(pages);
-        boolean DoPrint = job.printDialog();
+        boolean DoPrint = job.showPrintDialog();
         if( DoPrint ) {
             try {
                 job.print();
