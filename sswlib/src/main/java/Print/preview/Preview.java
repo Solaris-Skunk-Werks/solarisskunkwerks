@@ -24,7 +24,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
@@ -32,7 +31,6 @@ import java.awt.print.PrinterException;
 import javax.swing.JComponent;
 
 class Preview extends JComponent {
-    private final static int DEFAULT_PREVIEW_SIZE = 1024;
     private final static double MINIMUM_ZOOM_FACTOR = 0.1;
     private Dimension viewportSize;
 
@@ -52,7 +50,9 @@ class Preview extends JComponent {
         g.drawRect(0, 0, (int)format.getWidth() - 1, (int)format.getHeight() - 1);        
     }
     
-    public void paint(Graphics g) {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;
         g2d.scale(zoom, zoom);
         try {
@@ -75,14 +75,14 @@ class Preview extends JComponent {
             this.zoom = viewportSize.width / format.getWidth();
         } else
             this.zoom = zoom;
-        resize();
+        updatePreviewSize();
     }
 
     public void moveIndex(int indexStep) {
         int newIndex = index + indexStep;
         try {
-            Printable printable = pageable.getPrintable(newIndex);
-            resize();
+            pageable.getPrintable(newIndex);
+            updatePreviewSize();
             index = newIndex;
         } catch (IndexOutOfBoundsException ignored) {
         }
@@ -90,12 +90,12 @@ class Preview extends JComponent {
     
     public void changeZoom(double zoom) {
         this.zoom = Math.max(MINIMUM_ZOOM_FACTOR, this.zoom + zoom);
-        resize();
+        updatePreviewSize();
     }
 
     public void setZoom(double zoom) {
         this.zoom = Math.max(MINIMUM_ZOOM_FACTOR, zoom);
-        resize();
+        updatePreviewSize();
     }
 
     public String getZoom() {
@@ -112,7 +112,7 @@ class Preview extends JComponent {
         return viewportSize.height / format.getHeight();
     }
     
-    public void resize() {
+    public void updatePreviewSize() {
         PageFormat format = pageable.getPageFormat(index);
         int size = (int)Math.max(format.getWidth() * zoom, format.getHeight() * zoom);
         setPreferredSize(new Dimension(size, size));
