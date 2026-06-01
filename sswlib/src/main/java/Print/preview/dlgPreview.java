@@ -26,6 +26,7 @@ import java.util.prefs.Preferences;
 
 public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
+    private static final String COMPATIBILITY_PRINT_MODE = "CompatibilityPrintMode";
 
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
     protected Pageable pageable;
@@ -151,6 +152,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         chkBFOnePerPage.setSelected(bfbPrefs.getBoolean(Constants.Format_OneForcePerPage, false));
         chkBFBacks.setSelected(bfbPrefs.getBoolean("BF_Backs", false));
         chkUseColor.setSelected(bfbPrefs.getBoolean("BF_Color", false));
+        chkCompatibilityPrint.setSelected(bfbPrefs.getBoolean(COMPATIBILITY_PRINT_MODE, false));
 
         cmbBFSheetType.setSelectedIndex(bfbPrefs.getInt(Constants.Format_BattleForceSheetChoice, 0));
         cmbRSType.setSelectedIndex(bfbPrefs.getInt(Constants.Format_RecordsheetChoice, 0));
@@ -516,6 +518,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         
         bfbPrefs.putBoolean("BF_Backs", chkBFBacks.isSelected());
         bfbPrefs.putBoolean("BF_Color", chkUseColor.isSelected());
+        bfbPrefs.putBoolean(COMPATIBILITY_PRINT_MODE, chkCompatibilityPrint.isSelected());
 
         bfbPrefs.putInt(Constants.Format_BattleForceSheetChoice, cmbBFSheetType.getSelectedIndex());
         bfbPrefs.putInt(Constants.Format_RecordsheetChoice, cmbRSType.getSelectedIndex());
@@ -580,6 +583,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         btnImageDefault = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnSaveOptions = new javax.swing.JButton();
+        chkCompatibilityPrint = new javax.swing.JCheckBox();
         btnPrint = new javax.swing.JButton();
         btnCloseDialog = new javax.swing.JButton();
         spnPreview = new javax.swing.JScrollPane();
@@ -1069,6 +1073,13 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         });
         jToolBar1.add(btnSaveOptions);
 
+        chkCompatibilityPrint.setText("Compat");
+        chkCompatibilityPrint.setToolTipText("Print each page as a separate job for printers that reject multi-page jobs.");
+        chkCompatibilityPrint.setFocusable(false);
+        chkCompatibilityPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        chkCompatibilityPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(chkCompatibilityPrint);
+
         btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/printer.png"))); // NOI18N
         btnPrint.setText("Print");
         btnPrint.setFocusable(false);
@@ -1127,7 +1138,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         setPreferences();
         if ( hasChanges ) { PrinterSetup(); }
-        printer.PrintPagesSeparately();
+        printer.setSplitPrintJobs(chkCompatibilityPrint.isSelected());
+        printer.Print();
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseHexConversionActionPerformed
@@ -1257,6 +1269,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JCheckBox chkBFOnePerPage;
     private javax.swing.JCheckBox chkBFTerrainMV;
     private javax.swing.JCheckBox chkCanon;
+    private javax.swing.JCheckBox chkCompatibilityPrint;
     private javax.swing.JCheckBox chkGenericAmmo;
     private javax.swing.JCheckBox chkImage;
     private javax.swing.JCheckBox chkLogo;

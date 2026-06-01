@@ -38,6 +38,7 @@ import javax.print.PrintServiceLookup;
 public class PagePrinter {
     private String jobName = "Skunkwerks Print";
     private boolean DoPrint = true;
+    private boolean splitPrintJobs = false;
 
     private List<PageEntry> pages = new ArrayList<PageEntry>();
     private PrintService service;
@@ -97,7 +98,11 @@ public class PagePrinter {
         }
         */
         try {
-            DoPrint = workflow.print(request);
+            if (splitPrintJobs) {
+                DoPrint = workflow.printPagesSeparately(request);
+            } else {
+                DoPrint = workflow.print(request);
+            }
         } catch( PrinterException e ) {
             Media.Messager( e.getMessage() );
         }
@@ -109,6 +114,14 @@ public class PagePrinter {
         } catch( PrinterException e ) {
             Media.Messager( e.getMessage() );
         }
+    }
+
+    public void setSplitPrintJobs(boolean splitPrintJobs) {
+        this.splitPrintJobs = splitPrintJobs;
+    }
+
+    public boolean getSplitPrintJobs() {
+        return splitPrintJobs;
     }
 
     public void setJobName(String jobName) {

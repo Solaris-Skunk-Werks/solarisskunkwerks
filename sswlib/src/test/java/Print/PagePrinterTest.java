@@ -68,6 +68,20 @@ public class PagePrinterTest {
         assertTrue(gateway.printCalled);
     }
 
+    @Test
+    public void printUsesSplitModeWhenEnabled() {
+        TestPrinterJobGateway gateway = new TestPrinterJobGateway(true);
+        PagePrinter printer = new PagePrinter(gateway);
+        printer.setSplitPrintJobs(true);
+        printer.Append(new PageFormat(), new NoOpPrintable());
+        printer.Append(new PageFormat(), new NoOpPrintable());
+
+        printer.Print();
+
+        assertTrue(printer.getSplitPrintJobs());
+        assertEquals(2, gateway.printCalls);
+    }
+
     private static class TestPrinterJobGateway extends PrinterJobGateway {
         private final boolean dialogResult;
         private boolean printCalled;
