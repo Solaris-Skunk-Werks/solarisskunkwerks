@@ -27,13 +27,14 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - BFB `dlgOpen`, `dlgGroup`, `dlgManeiDomini`, and `dlgOmnis` no longer emit checked compile warnings after typing their Swing models and small helper collections.
 - BFB `frmBase` no longer emits checked compile warnings after typing its directory, Warchest, and random assignment list models.
 - SAW `frmVee` no longer uses deprecated `setNextFocusableComponent(...)`; explicit traversal rules now live behind a `LayoutFocusTraversalPolicy`.
-- SAW `dlgOpen` no longer emits checked compile warnings after typing its Swing combo models. The vehicle handoff still uses a narrow suppression because `DesignForm#setUnit` is typed for `Mech` while SAW passes a `CombatVehicle`.
+- SAW `dlgOpen` no longer emits checked compile warnings after typing its Swing combo models and vehicle handoff.
 - SAW `HMPReader` no longer emits checked compile warnings after typing the HMP compatibility error and critical-location collections.
 - SAW equipment renderers no longer use raw `JList` renderer signatures.
 - SAW `frmVee` and `frmVeeWide` no longer emit checked compile warnings after typing their primary Swing list/combo models and local equipment selector collections.
 - SSW print options now explicitly pass the "Print Mech" image choice through to `PrintMech`, restoring saved mech-image rendering when the user does not choose a separate image file.
 - `DesignForm#setUnit` now accepts lists of shared `ifUnit` implementations, removing the raw SAW vehicle handoff while preserving SSW mech loading.
 - SAW design forms now match the shared wildcard `JList<?>` location lookup contract.
+- SSW and SAW preference import handlers no longer need static-access suppression; both call `Preferences.importPreferences(...)` directly.
 
 ## Follow-Up Candidates
 

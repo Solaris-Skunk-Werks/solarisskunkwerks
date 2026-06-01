@@ -1633,7 +1633,6 @@ public class dlgPrefs extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnExportActionPerformed
 
-    @SuppressWarnings("static-access")
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
         FileInputStream fis = null;
         Media media = new Media();

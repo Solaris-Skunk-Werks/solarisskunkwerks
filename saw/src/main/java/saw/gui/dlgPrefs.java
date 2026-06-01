@@ -1648,7 +1648,6 @@ public class dlgPrefs extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnExportActionPerformed
 
-    @SuppressWarnings("static-access")
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
         FileInputStream fis = null;
         Media media = new Media();
@@ -1656,7 +1655,7 @@ public class dlgPrefs extends javax.swing.JDialog {
             File prefPath = media.SelectFile("prefs.xml", "xml", "Select Preferences File");
             fis = new FileInputStream(prefPath);
             try {
-                Prefs.importPreferences(fis);
+                Preferences.importPreferences(fis);
                 SetState();
                 Media.Messager(this, "Preferences Imported.");
             } catch (IOException ex) {
