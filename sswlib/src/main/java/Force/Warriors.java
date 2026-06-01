@@ -46,6 +46,8 @@ import org.w3c.dom.*;
  * @author George Blouin
  */
 public class Warriors extends AbstractTableModel {
+    private static final long serialVersionUID = 1L;
+
     private ArrayList<Warrior> list = new ArrayList<Warrior>();
     private String defaultPath = "data/Personnel/WarriorList.psn",
                     Title = "",
@@ -105,7 +107,7 @@ public class Warriors extends AbstractTableModel {
     }
 
     public Warrior Get( int index ) {
-        return (Warrior) list.get(index);
+        return list.get(index);
     }
 
     public void Remove( Warrior warrior ) {
@@ -175,7 +177,7 @@ public class Warriors extends AbstractTableModel {
     public int getRowCount() { return list.size(); }
     public int getColumnCount() { return 4; }
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (list.size() > 0) {
             return getClassOf(0, c).getClass();
         } else {

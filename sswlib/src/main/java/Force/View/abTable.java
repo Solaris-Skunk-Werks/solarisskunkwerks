@@ -37,6 +37,8 @@ import javax.swing.table.TableRowSorter;
 import list.view.Column;
 
 public abstract class abTable extends AbstractTableModel {
+    private static final long serialVersionUID = 1L;
+
     public ArrayList<Column> Columns = new ArrayList<Column>();
     public ArrayList<Column> SortFields = new ArrayList<Column>();
     public Force force;
@@ -82,7 +84,7 @@ public abstract class abTable extends AbstractTableModel {
     public int getColumnCount() { return Columns.size(); }
     public int getRowCount() { return force.getUnits().size(); }
     @Override
-    public Class getColumnClass(int c) { return Columns.get(c).classType; }
+    public Class<?> getColumnClass(int c) { return Columns.get(c).classType; }
     public Object getClassOf( int row, int col ) { return Columns.get(col).classType; }
     @Override
     public boolean isCellEditable( int row, int col ) { return Columns.get(col).isEditable; }

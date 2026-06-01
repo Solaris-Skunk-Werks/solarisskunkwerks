@@ -151,7 +151,7 @@ public class Unit implements ifSerializable {
         Speed = m.GetAdjustedRunningMP(false, true);
         if ( m.UsingTC() ) TC = 1;
 
-        ArrayList v = (ArrayList) m.GetLoadout().GetNonCore().clone();
+        ArrayList<abPlaceable> v = new ArrayList<>( m.GetLoadout().GetNonCore() );
         for (int i=0; i < v.size(); i++)
         {
             if ( v.get(i) instanceof PhysicalWeapon ) {
@@ -210,7 +210,7 @@ public class Unit implements ifSerializable {
         Speed = vee.getFlankMP();
         if ( vee.UsingTC() ) TC = 1;
 
-        ArrayList v = (ArrayList) vee.GetLoadout().GetNonCore().clone();
+        ArrayList<abPlaceable> v = new ArrayList<>( vee.GetLoadout().GetNonCore() );
         for (int i=0; i < v.size(); i++)
         {
             if ( v.get(i) instanceof PhysicalWeapon ) {
@@ -420,7 +420,7 @@ public class Unit implements ifSerializable {
             Speed = v.getFlankMP();
             if ( v.UsingTC() ) TC = 1;
 
-            ArrayList w = (ArrayList) v.GetLoadout().GetNonCore().clone();
+            ArrayList<abPlaceable> w = new ArrayList<>( v.GetLoadout().GetNonCore() );
             for (int i=0; i < w.size(); i++)
             {
                 if ( w.get(i) instanceof PhysicalWeapon ) {
@@ -468,7 +468,7 @@ public class Unit implements ifSerializable {
             Speed = m.GetAdjustedRunningMP(false, true);
             if ( m.UsingTC() ) TC = 1;
 
-            ArrayList v = (ArrayList) m.GetLoadout().GetNonCore().clone();
+            ArrayList<abPlaceable> v = new ArrayList<>( m.GetLoadout().GetNonCore() );
             for (int i=0; i < v.size(); i++)
             {
                 if ( v.get(i) instanceof PhysicalWeapon ) {
@@ -676,7 +676,7 @@ public class Unit implements ifSerializable {
             Speed = m.GetAdjustedRunningMP(false, true);
             if ( m.UsingTC() ) TC = 1;
 
-            ArrayList v = (ArrayList) m.GetLoadout().GetNonCore().clone();
+            ArrayList<abPlaceable> v = new ArrayList<>( m.GetLoadout().GetNonCore() );
             for (int i=0; i < v.size(); i++)
             {
                 if ( v.get(i) instanceof PhysicalWeapon ) {
@@ -738,7 +738,7 @@ public class Unit implements ifSerializable {
             Speed = v.getFlankMP();
             if ( v.UsingTC() ) TC = 1;
 
-            ArrayList d = (ArrayList) m.GetLoadout().GetNonCore().clone();
+            ArrayList<abPlaceable> d = new ArrayList<>( v.GetLoadout().GetNonCore() );
             for (int i=0; i < d.size(); i++)
             {
                 if ( d.get(i) instanceof PhysicalWeapon ) {

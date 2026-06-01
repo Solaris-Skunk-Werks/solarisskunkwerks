@@ -40,13 +40,14 @@ import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import list.view.Column;
 import org.w3c.dom.Node;
 
 public class Force extends AbstractTableModel implements ifSerializable {
+    private static final long serialVersionUID = 1L;
+
     public ArrayList<Unit> Units = new ArrayList<Unit>();
     public ArrayList<Group> Groups = new ArrayList<Group>();
     public String ForceName = "",
@@ -584,7 +585,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         bf.ForceName = ForceName;
         bf.LogoPath = this.LogoPath;
         for ( int i=0; i < Units.size(); i++ ) {
-            Unit u = (Unit) Units.get(i);
+            Unit u = Units.get(i);
             if ( u.getBFStats() != null ) {
                 bf.BattleForceStats.add(u.getBFStats());
             } else {
@@ -676,7 +677,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     public int getRowCount() { return Units.size(); }
     public int getColumnCount() { return 11; }
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (Units.size() > 0) {
             return getClassOf(0, c).getClass();
         } else {
@@ -684,7 +685,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         }
     }
     public Object getClassOf( int row, int col ) {
-        Unit u = (Unit) Units.get( row );
+        Unit u = Units.get( row );
         switch( col ) {
             case 0:
                 return u.TypeModel;
@@ -712,7 +713,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         return "";
     }
     public Object getValueAt( int row, int col ) {
-        Unit u = (Unit) Units.get( row );
+        Unit u = Units.get( row );
         switch( col ) {
             case 0:
                 return u.TypeModel;
@@ -761,7 +762,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     }
     @Override
     public void setValueAt( Object value, int row, int col ) {
-        Unit u = (Unit) Units.get( row );
+        Unit u = Units.get( row );
         switch( col ) {
             case 2:
                 u.setMechwarrior(value.toString());
