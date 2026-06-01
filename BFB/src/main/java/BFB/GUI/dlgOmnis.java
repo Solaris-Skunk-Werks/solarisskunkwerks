@@ -61,7 +61,7 @@ public class dlgOmnis extends javax.swing.JDialog {
     private void initComponents() {
 
         btgOptions = new javax.swing.ButtonGroup();
-        cboVariants = new javax.swing.JComboBox();
+        cboVariants = new javax.swing.JComboBox<String>();
         lblUnitName = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -130,7 +130,7 @@ public class dlgOmnis extends javax.swing.JDialog {
     private javax.swing.ButtonGroup btgOptions;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
-    private javax.swing.JComboBox cboVariants;
+    private javax.swing.JComboBox<String> cboVariants;
     private javax.swing.JLabel lblUnitName;
     // End of variables declaration//GEN-END:variables
 
