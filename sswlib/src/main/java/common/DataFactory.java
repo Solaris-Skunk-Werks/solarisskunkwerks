@@ -44,12 +44,11 @@ public class DataFactory {
     // Class file to make data lookups easier and disconnected from the BFB.GUI
     Object[][] Equipment = { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
     EquipmentFactory Equips;
-    ArrayList quirks;
-    ArrayList ammo,
-            weapons,
-            physicals,
-            equips,
-            customs;
+    ArrayList<Quirk> quirks;
+    ArrayList<Ammunition> ammo;
+    ArrayList<RangedWeapon> weapons;
+    ArrayList<PhysicalWeapon> physicals;
+    ArrayList<Equipment> equips;
 
     public DataFactory() throws Exception {
         JsonReader jr = new JsonReader();
@@ -63,35 +62,35 @@ public class DataFactory {
         // Load custom equipment
         Path file = basePath.resolve("custom_ammunition.json");
         if (Files.exists(file)) {
-            customs = jr.ReadAllAmmo(file);
+            ArrayList<Ammunition> customs = jr.ReadAllAmmo(file);
             if (!customs.isEmpty()) {
                 ammo.addAll(customs);
             }
         }
         file = basePath.resolve("custom_weapons.json");
         if (Files.exists(file)) {
-            customs = jr.ReadAllRangedWeapons(file);
+            ArrayList<RangedWeapon> customs = jr.ReadAllRangedWeapons(file);
             if (!customs.isEmpty()) {
                 weapons.addAll(customs);
             }
         }
         file = basePath.resolve("custom_physicals.json");
         if (Files.exists(file)) {
-            customs = jr.ReadAllPhysicalWeapons(file);
+            ArrayList<PhysicalWeapon> customs = jr.ReadAllPhysicalWeapons(file);
             if (!customs.isEmpty()) {
                 physicals.addAll(customs);
             }
         }
         file = basePath.resolve("custom_equipment.json");
         if (Files.exists(file)) {
-            customs = jr.ReadAllEquipment(file);
+            ArrayList<Equipment> customs = jr.ReadAllEquipment(file);
             if (!customs.isEmpty()) {
                 equips.addAll(customs);
             }
         }
         file = basePath.resolve("customs_quirks.json");
         if (Files.exists(file)) {
-            customs = jr.ReadAllQuirks(file);
+            ArrayList<Quirk> customs = jr.ReadAllQuirks(file);
             if (!customs.isEmpty()) {
                 quirks.addAll(customs);
             }
@@ -113,25 +112,25 @@ public class DataFactory {
         {
             dataFile = new File( Constants.CUSTOMWEAPONSFILE );
             if (dataFile.exists()) {
-                customs = b.ReadWeapons( Constants.CUSTOMWEAPONSFILE );
+                ArrayList<RangedWeapon> customs = b.ReadWeapons( Constants.CUSTOMWEAPONSFILE );
                 if ( customs.size() > 0 ) weapons.addAll(customs);
             }
 
             dataFile = new File( Constants.CUSTOMAMMOFILE );
             if ( dataFile.exists() ) {
-                customs = b.ReadAmmo( Constants.CUSTOMAMMOFILE );
+                ArrayList<Ammunition> customs = b.ReadAmmo( Constants.CUSTOMAMMOFILE );
                 if ( customs.size() > 0 ) ammo.addAll(customs);
             }
 
             dataFile = new File( Constants.CUSTOMEQUIPMENTFILE );
             if ( dataFile.exists() ) {
-                customs = b.ReadEquipment( Constants.CUSTOMEQUIPMENTFILE );
+                ArrayList<Equipment> customs = b.ReadEquipment( Constants.CUSTOMEQUIPMENTFILE );
                 if ( customs.size() > 0 ) equips.addAll(customs);
             }
 
             dataFile = new File( Constants.CUSTOMPHYSICALSFILE );
             if ( dataFile.exists() ) {
-                customs = b.ReadPhysicals( Constants.CUSTOMPHYSICALSFILE );
+                ArrayList<PhysicalWeapon> customs = b.ReadPhysicals( Constants.CUSTOMPHYSICALSFILE );
                 if ( customs.size() > 0 ) physicals.addAll(customs);
             }
 

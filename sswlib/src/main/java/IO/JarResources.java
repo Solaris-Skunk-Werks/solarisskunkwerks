@@ -61,7 +61,7 @@ public final class JarResources {
               if (debugOn) {
                  System.out.println(dumpZipEntry(ze));
               }
-              htSizes.put(ze.getName(),new Integer((int)ze.getSize()));
+              htSizes.put(ze.getName(),Integer.valueOf((int)ze.getSize()));
           }
           zf.close();
 

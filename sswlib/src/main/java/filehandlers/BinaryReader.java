@@ -35,8 +35,8 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class BinaryReader {
-    public ArrayList ReadWeapons( String inputfile ) throws Exception {
-        ArrayList finished = new ArrayList();
+    public ArrayList<RangedWeapon> ReadWeapons( String inputfile ) throws Exception {
+        ArrayList<RangedWeapon> finished = new ArrayList<RangedWeapon>();
         DataInputStream FR;
         try {
             FR = new DataInputStream( new FileInputStream( inputfile ) );
@@ -92,8 +92,8 @@ public class BinaryReader {
         return finished;
     }
 
-    public ArrayList ReadPhysicals( String inputfile ) throws Exception {
-        ArrayList finished = new ArrayList();
+    public ArrayList<PhysicalWeapon> ReadPhysicals( String inputfile ) throws Exception {
+        ArrayList<PhysicalWeapon> finished = new ArrayList<PhysicalWeapon>();
         DataInputStream FR;
         try {
             FR = new DataInputStream( new FileInputStream( inputfile ) );
@@ -149,8 +149,8 @@ public class BinaryReader {
         return finished;
     }
 
-    public ArrayList ReadEquipment( String inputfile ) throws Exception {
-        ArrayList finished = new ArrayList();
+    public ArrayList<Equipment> ReadEquipment( String inputfile ) throws Exception {
+        ArrayList<Equipment> finished = new ArrayList<Equipment>();
         DataInputStream FR;
         try {
             FR = new DataInputStream( new FileInputStream( inputfile ) );
@@ -209,8 +209,8 @@ public class BinaryReader {
         return finished;
     }
 
-    public ArrayList ReadAmmo( String inputfile ) throws Exception {
-        ArrayList finished = new ArrayList();
+    public ArrayList<Ammunition> ReadAmmo( String inputfile ) throws Exception {
+        ArrayList<Ammunition> finished = new ArrayList<Ammunition>();
         DataInputStream FR;
         try {
             FR = new DataInputStream( new FileInputStream( inputfile ) );
