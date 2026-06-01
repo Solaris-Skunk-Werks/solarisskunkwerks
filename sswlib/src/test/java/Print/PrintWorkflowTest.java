@@ -3,6 +3,7 @@ package Print;
 import org.junit.Test;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
@@ -48,6 +49,7 @@ public class PrintWorkflowTest {
         assertTrue(gateway.pageableSet);
         assertEquals("jobName,dialog,pageable,print", gateway.events);
         assertTrue(gateway.printCalled);
+        assertTrue(gateway.pageable.getPrintable(0) instanceof RasterizedPrintable);
     }
 
     @Test
@@ -62,6 +64,17 @@ public class PrintWorkflowTest {
         assertFalse(gateway.dialogShown);
         assertEquals("jobName,pageable,print", gateway.events);
         assertTrue(gateway.printCalled);
+        assertTrue(gateway.pageable.getPrintable(0) instanceof RasterizedPrintable);
+    }
+
+    @Test
+    public void rasterizedPrintableRendersSourcePage() throws PrinterException {
+        RasterizedPrintable printable = new RasterizedPrintable(new NoOpPrintable());
+        BufferedImage page = new BufferedImage(612, 792, BufferedImage.TYPE_INT_RGB);
+
+        int result = printable.print(page.createGraphics(), new PageFormat(), 0);
+
+        assertEquals(Printable.PAGE_EXISTS, result);
     }
 
     private static PrintRequest request(String jobName) {
@@ -77,6 +90,7 @@ public class PrintWorkflowTest {
         private boolean printCalled;
         private boolean dialogShown;
         private String events = "";
+        private Pageable pageable;
 
         private TestPrinterJobGateway(boolean dialogResult) {
             this.dialogResult = dialogResult;
@@ -97,6 +111,7 @@ public class PrintWorkflowTest {
 
         @Override
         public void setPageable(Pageable pageable) {
+            this.pageable = pageable;
             pageableSet = true;
             addEvent("pageable");
         }

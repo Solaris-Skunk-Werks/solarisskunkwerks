@@ -55,6 +55,7 @@ Initial concepts:
   - Invokes direct print when requested
   - Supports direct print without an OS dialog for existing one-job-per-mech batch behavior.
   - Preserves the original shared print order: show the OS print dialog, then attach the pageable before printing.
+  - Rasterizes printable pages before sending them to the OS printer to reduce driver-specific Java2D/spooler failures.
   - Shared `PagePrinter` now delegates preview and direct print execution to this workflow.
 - `PrinterJobGateway`
   - Small wrapper around `PrinterJob`
