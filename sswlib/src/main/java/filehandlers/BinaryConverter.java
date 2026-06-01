@@ -336,7 +336,7 @@ public class BinaryConverter {
     private int writeJsonEquipment(ArrayList<? extends abPlaceable> equipment, Path outfile) throws Exception {
         JsonWriter jw = new JsonWriter();
         int numWritten = equipment.size();
-        jw.WriteEquipment((ArrayList<abPlaceable>) equipment, outfile);
+        jw.WriteEquipment(new ArrayList<abPlaceable>(equipment), outfile);
         return numWritten;
     }
 

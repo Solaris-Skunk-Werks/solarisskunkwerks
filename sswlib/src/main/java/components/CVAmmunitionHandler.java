@@ -59,7 +59,7 @@ public class CVAmmunitionHandler {
     }
 
     public int AmmoSpace() {
-        Vector<Ammunition> check = (Vector<Ammunition>) Ammo.clone();
+        Vector<Ammunition> check = new Vector<>(Ammo);
         int curIDX = 0, retval = 0;
         while( check.size() > 0 ) {
             curIDX = check.lastElement().GetAmmoIndex();

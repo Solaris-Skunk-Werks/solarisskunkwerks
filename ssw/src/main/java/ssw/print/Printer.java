@@ -47,7 +47,7 @@ import filehandlers.ImageTracker;
 public class Printer {
     private ifMechForm Parent;
     private Vector<PrintMech> Mechs = new Vector<PrintMech>();
-    private Vector battleforces = new Vector();
+    private Vector<BattleforceCardPrinter> battleforces = new Vector<>();
     private BattleForce battleforce;
     private BattleforcePrinter printForce;
     private String jobName = "SSW Batch Print",
@@ -390,7 +390,7 @@ public class Printer {
 
     public void setBattleForceSheet( String Type ) {
         for ( int i=0; i < battleforces.size(); i++ ) {
-            ((BattleforcePrinter) battleforces.get(i)).setType(Type);
+            battleforces.get(i).setType(Type);
         }
     }
 
@@ -399,7 +399,7 @@ public class Printer {
         pages = new Book();
         page.setPaper( paper );
         for ( int i=0; i < battleforces.size(); i++ ) {
-            pages.append(((BattleforceCardPrinter) battleforces.get(i)), page);
+            pages.append(battleforces.get(i), page);
         }
         return pages;
     }
@@ -416,7 +416,7 @@ public class Printer {
 
         if ( jobName.isEmpty() ) { jobName = "BattleForce"; }
         if ( battleforces.size() == 1 ) {
-            BattleForce bf = ((BattleforcePrinter) battleforces.get(0)).getBattleforce();
+            BattleForce bf = battleforces.get(0).getBattleforce();
             if ( !bf.ForceName.isEmpty() ) { jobName = bf.ForceName.trim(); }
         }
 
@@ -424,7 +424,7 @@ public class Printer {
 
         if ( useDialog ) {
             for ( int i=0; i < battleforces.size(); i++ ) {
-                BattleforcePrinter bf = (BattleforcePrinter) battleforces.get(i);
+                BattleforceCardPrinter bf = battleforces.get(i);
                 dlgPrintBattleforce pForce = new dlgPrintBattleforce( (javax.swing.JFrame) Parent, true, bf.getBattleforce());
                 pForce.setLocationRelativeTo((javax.swing.JFrame) Parent);
                 pForce.setVisible(true);
@@ -437,7 +437,7 @@ public class Printer {
         }
 
         for ( int i=0; i < battleforces.size(); i++ ) {
-            pages.append((BattleforcePrinter) battleforces.get(i), page);
+            pages.append(battleforces.get(i), page);
         }
 
         job.setPageable(pages);

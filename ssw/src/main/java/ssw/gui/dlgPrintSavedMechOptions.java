@@ -49,11 +49,11 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             cmbPiloting.setSelectedIndex( Piloting );
 
             if( CurMech.IsOmnimech()){
-                ArrayList Loadouts = CurMech.GetLoadouts();
+                ArrayList<ifMechLoadout> Loadouts = CurMech.GetLoadouts();
                 ifMechLoadout tempLoadout;
                 cmbOmniVariant.setMaximumRowCount(Loadouts.size()+1);
                 for (int i = 0; i < Loadouts.size();  ++i){
-                    tempLoadout = (ifMechLoadout) Loadouts.get(i);
+                    tempLoadout = Loadouts.get(i);
                     cmbOmniVariant.addItem(tempLoadout.GetName());
                     if (CurMech.GetLoadout().GetName().equals(tempLoadout.GetName())) {cmbOmniVariant.setSelectedItem(tempLoadout.GetName());}
                 }
@@ -115,7 +115,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         pnlBattleMech = new javax.swing.JPanel();
-        cmbOmniVariant = new javax.swing.JComboBox();
+        cmbOmniVariant = new javax.swing.JComboBox<>();
         txtWarriorName = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblAdjustBVLabel = new javax.swing.JLabel();
@@ -123,19 +123,19 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         lblBaseBV = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmbGunnery = new javax.swing.JComboBox();
+        cmbGunnery = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cmbPiloting = new javax.swing.JComboBox();
+        cmbPiloting = new javax.swing.JComboBox<>();
         pnlPrintOptions = new javax.swing.JPanel();
         chkPrintCharts = new javax.swing.JCheckBox();
         chkUseHexConversion = new javax.swing.JCheckBox();
         lblOneHex = new javax.swing.JLabel();
-        cmbHexConvFactor = new javax.swing.JComboBox();
+        cmbHexConvFactor = new javax.swing.JComboBox<>();
         lblInches = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        cmbPaperSize = new javax.swing.JComboBox();
+        cmbPaperSize = new javax.swing.JComboBox<>();
         chkMWStats = new javax.swing.JCheckBox();
         chkPrintCanon = new javax.swing.JCheckBox();
         pnlImageOptions = new javax.swing.JPanel();
@@ -176,7 +176,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         pnlBattleMech.setBorder(javax.swing.BorderFactory.createTitledBorder("Battlemech Information"));
 
         cmbOmniVariant.setMaximumRowCount(1);
-        cmbOmniVariant.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Not an Omni-Mech" }));
+        cmbOmniVariant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Not an Omni-Mech" }));
         cmbOmniVariant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbOmniVariantActionPerformed(evt);
@@ -760,11 +760,11 @@ private void chkPrintChartsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JCheckBox chkPrintImage;
     private javax.swing.JCheckBox chkStats;
     private javax.swing.JCheckBox chkUseHexConversion;
-    private javax.swing.JComboBox cmbGunnery;
-    private javax.swing.JComboBox cmbHexConvFactor;
-    private javax.swing.JComboBox cmbOmniVariant;
-    private javax.swing.JComboBox cmbPaperSize;
-    private javax.swing.JComboBox cmbPiloting;
+    private javax.swing.JComboBox<String> cmbGunnery;
+    private javax.swing.JComboBox<String> cmbHexConvFactor;
+    private javax.swing.JComboBox<String> cmbOmniVariant;
+    private javax.swing.JComboBox<String> cmbPaperSize;
+    private javax.swing.JComboBox<String> cmbPiloting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

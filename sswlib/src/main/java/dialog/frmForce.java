@@ -91,7 +91,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
             Unit Data = (Unit) ((abTable) tblForce.getModel()).getForce().getUnits().get( tblForce.convertRowIndexToModel( tblForce.getSelectedRow() ) );
             Data.LoadUnit();
             if ( Data.m != null ) {
-                ArrayList u = new ArrayList();
+                ArrayList<Mech> u = new ArrayList<>();
                 u.add(Data.m);
                 parent.setUnit(u);
                 parent.loadUnitIntoGUI();

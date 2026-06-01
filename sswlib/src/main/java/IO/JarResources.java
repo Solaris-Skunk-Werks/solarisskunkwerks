@@ -24,7 +24,7 @@ public final class JarResources {
    public boolean debugOn = false;
 
    // jar resource mapping tables
-   private HashMap htSizes = new HashMap();
+   private HashMap<String, Integer> htSizes = new HashMap<>();
    private HashMap<String, byte[]> htJarContents=new HashMap<String, byte[]>();
 
    // a jar file
@@ -82,7 +82,7 @@ public final class JarResources {
              int size=(int)ze.getSize();
              // -1 means unknown size.
              if (size==-1) {
-                size=((Integer)htSizes.get(ze.getName())).intValue();
+                size=htSizes.get(ze.getName()).intValue();
              }
 
              byte[] b=new byte[(int)size];

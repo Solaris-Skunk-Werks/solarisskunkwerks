@@ -238,7 +238,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         return equip;
     }
 
-    public ArrayList GetTCList() {
+    public ArrayList<abPlaceable> GetTCList() {
         return TCList;
     }
 

@@ -37,7 +37,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
     private Mech CurMech;
     private ifMechForm Parent;
     private boolean Result = false;
-    private Vector printers;
+    private Vector<PrintService> printers = new Vector<>();
 
     /** Creates new form dlgPrintOptions */
     public dlgPrintOptions( java.awt.Frame parent, boolean modal, Mech m ) {
