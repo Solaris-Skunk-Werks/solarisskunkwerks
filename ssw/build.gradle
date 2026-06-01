@@ -13,6 +13,20 @@ dependencies {
     implementation 'org.netbeans.external:AbsoluteLayout:RELEASE110'
 }
 
+sourceSets {
+    main {
+        resources.srcDir "${buildDir}/generated/resources"
+    }
+
+    test {
+        resources.srcDir project(':sswlib').file('src/test/resources')
+    }
+}
+
+test {
+    workingDir = rootProject.projectDir
+}
+
 application {
     mainClass = 'ssw.Main'
 }
@@ -43,12 +57,13 @@ task copyAssets (dependsOn: deleteAssets) {
 }
 
 task writeProperties(type: WriteProperties) {
-    outputFile "${buildDir}/resources/main/ssw/build.properties"
+    outputFile "${buildDir}/generated/resources/ssw/build.properties"
     property 'version', version
     property 'release', release
     property 'rev', rev
 }
 
+processResources.dependsOn(writeProperties)
 jar.dependsOn(writeProperties)
 
 task copyDependencies {
@@ -57,5 +72,3 @@ task copyDependencies {
         from configurations.runtimeClasspath
     }
 }
-
-compileJava.finalizedBy(writeProperties)
