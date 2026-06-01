@@ -18,8 +18,9 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - Gradle 8 reported deprecated Groovy DSL space-assignment syntax and `WriteProperties.outputFile` usage. Build scripts now use assignment syntax and `WriteProperties.destinationFile`.
 - BFB no longer uses deprecated `JList.getSelectedValues()` or `InputEvent.*_MASK` constants in its GUI package.
 - SAW vehicle forms no longer use deprecated `InputEvent.*_MASK` constants for menu accelerators.
+- SAW `HTMLWriter` no longer emits the large raw collection warning cluster during the checked Java 17/Gradle 8 compile pass.
 
 ## Follow-Up Candidates
 
 - Replace SAW `frmVee` focus traversal calls with a modern focus traversal policy.
-- Continue unchecked generics cleanup in SAW `HTMLWriter` and BFB Swing forms.
+- Continue unchecked generics cleanup in SAW GUI/HMPReader code and BFB Swing forms.
