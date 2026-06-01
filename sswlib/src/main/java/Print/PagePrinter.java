@@ -39,10 +39,14 @@ public class PagePrinter {
 
     private Book pages = new Book();
     private PrintService service;
-    private PrinterJob job = PrinterJob.getPrinterJob();
+    private PrinterJobGateway job = new PrinterJobGateway();
 
     public PagePrinter() {
 
+    }
+
+    PagePrinter( PrinterJobGateway job ) {
+        this.job = job;
     }
 
     public PagePrinter( PageFormat page, Printable print ) {
@@ -90,7 +94,7 @@ public class PagePrinter {
             DoPrint = job.printDialog();
         }
         */
-        DoPrint = job.printDialog();
+        DoPrint = job.showPrintDialog();
 
         job.setPageable(Preview());
         
