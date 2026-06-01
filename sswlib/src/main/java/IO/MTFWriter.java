@@ -228,13 +228,13 @@ public class MTFWriter {
         // will make things much easier
         ifMechLoadout l = CurMech.GetLoadout();
         FR.newLine();
-        ArrayList v = l.GetNonCore();
+        ArrayList<abPlaceable> v = l.GetNonCore();
         // now we have to split up the ArrayList into equipment and ammo
-        ArrayList eq = new ArrayList();
-        ArrayList ammo = new ArrayList();
+        ArrayList<abPlaceable> eq = new ArrayList<>();
+        ArrayList<Ammunition> ammo = new ArrayList<>();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                ammo.add( v.get( i ) );
+                ammo.add( (Ammunition) v.get( i ) );
             } else {
                 eq.add( v.get( i ) );
             }
@@ -515,13 +515,13 @@ public class MTFWriter {
         // will make things much easier
         ifCVLoadout l = CurVee.GetLoadout();
         FR.newLine();
-        ArrayList v = l.GetNonCore();
+        ArrayList<abPlaceable> v = l.GetNonCore();
         // now we have to split up the ArrayList into equipment and ammo
-        ArrayList eq = new ArrayList();
-        ArrayList ammo = new ArrayList();
+        ArrayList<abPlaceable> eq = new ArrayList<>();
+        ArrayList<Ammunition> ammo = new ArrayList<>();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                ammo.add( v.get( i ) );
+                ammo.add( (Ammunition) v.get( i ) );
             } else {
                 eq.add( v.get( i ) );
             }

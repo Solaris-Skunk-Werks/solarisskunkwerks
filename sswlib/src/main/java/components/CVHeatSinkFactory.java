@@ -36,7 +36,7 @@ public class CVHeatSinkFactory {
     private int NumHS,
                 BaseLoadoutNumHS = 0;
     private ifCVLoadout Owner;
-    private LinkedList CurrentSinks = new LinkedList();
+    private LinkedList<HeatSink> CurrentSinks = new LinkedList<>();
     private static ifHeatSinkFactory SHS = new stHeatSinkSingle();
     private ifHeatSinkFactory CurConfig = SHS;
 

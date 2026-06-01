@@ -40,7 +40,7 @@ public abstract class abTable extends AbstractTableModel {
     public ArrayList<Column> Columns = new ArrayList<Column>();
     public ArrayList<Column> SortFields = new ArrayList<Column>();
     public Force force;
-    private TableRowSorter sorter;
+    private TableRowSorter<abTable> sorter;
 
     public abstract void setForce( Force f );
     public abstract abTable Create();
@@ -51,8 +51,8 @@ public abstract class abTable extends AbstractTableModel {
 
     public void setupTable( JTable tbl ) {
         //Create a sorting class and apply it to the list
-        sorter = new TableRowSorter<abTable>(this);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        sorter = new TableRowSorter<>(this);
+        List <RowSorter.SortKey> sortKeys = new ArrayList<>();
 
         if ( SortFields.size() > 0 ) {
             for ( Column col : SortFields ) {
@@ -87,11 +87,11 @@ public abstract class abTable extends AbstractTableModel {
     @Override
     public boolean isCellEditable( int row, int col ) { return Columns.get(col).isEditable; }
 
-    public TableRowSorter getSorter() {
+    public TableRowSorter<abTable> getSorter() {
         return sorter;
     }
 
-    public void setSorter(TableRowSorter sorter) {
+    public void setSorter(TableRowSorter<abTable> sorter) {
         this.sorter = sorter;
     }
 

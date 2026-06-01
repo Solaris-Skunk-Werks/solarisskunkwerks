@@ -44,8 +44,8 @@ public abstract class abView extends AbstractTableModel {
     public void setupTable( JTable tbl ) {
         tbl.setModel(this);
         //Create a sorting class and apply it to the list
-        TableRowSorter Leftsorter = new TableRowSorter<abView>(this);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        TableRowSorter<abView> Leftsorter = new TableRowSorter<>(this);
+        List <RowSorter.SortKey> sortKeys = new ArrayList<>();
 
         if ( SortFields.size() > 0 ) {
             for ( Column col : SortFields ) {

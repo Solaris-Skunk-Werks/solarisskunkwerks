@@ -37,7 +37,7 @@ public class HeatSinkFactory {
     private int NumHS,
                 BaseLoadoutNumHS = 0;
     private ifMechLoadout Owner;
-    private LinkedList CurrentSinks = new LinkedList();
+    private LinkedList<HeatSink> CurrentSinks = new LinkedList<>();
     private static ifHeatSinkFactory SHS = new stHeatSinkSingle(),
                                      ISDHS = new stHeatSinkISDHS(),
                                      CLDHS = new stHeatSinkCLDHS(),

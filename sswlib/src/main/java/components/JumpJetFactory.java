@@ -36,7 +36,7 @@ public class JumpJetFactory {
     private int NumJJ = 0,
                 BaseLoadoutNumJJ = 0;
     private ifMechLoadout Owner;
-    private LinkedList CurrentJumps = new LinkedList();
+    private LinkedList<JumpJet> CurrentJumps = new LinkedList<>();
     private static ifJumpJetFactory NJJ = new stJumpJetStandard(),
                                     IJJ = new stJumpJetImproved(),
                                     UMU = new stJumpJetUMU(),

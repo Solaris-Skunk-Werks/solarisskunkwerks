@@ -416,7 +416,7 @@ public class CostBVBreakdown {
     }
 
     public String PrintHeatAdjustedWeaponBV() {
-        ArrayList v = CurMech.GetLoadout().GetNonCore(), wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore(), wep = new ArrayList<>();
         double foreBV = 0.0, rearBV = 0.0;
         boolean UseRear = false, TC = CurMech.UsingTC(), UseAESMod = false, Robotic = CurMech.UsingRoboticCockpit();
         String retval = "";
@@ -445,7 +445,7 @@ public class CostBVBreakdown {
 
         // find out the total BV of rear and forward firing weapons
         for( int i = 0; i < wep.size(); i++ ) {
-            a = ((abPlaceable) wep.get( i ));
+            a = wep.get( i );
             // arm mounted weapons always count their full BV, so ignore them.
             int loc = CurMech.GetLoadout().Find( a );
             if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
@@ -463,9 +463,9 @@ public class CostBVBreakdown {
         if( heff - wheat >= 0 ) {
             // no need for extensive calculations, return the weapon BV
             for( int i = 0; i < wep.size(); i++ ) {
-                a = ((abPlaceable) wep.get( i ));
+                a = wep.get( i );
                 int loc = CurMech.GetLoadout().Find( a );
-                UseAESMod = CurMech.UseAESModifier( ((abPlaceable) wep.get( i )) );
+                UseAESMod = CurMech.UseAESModifier( wep.get( i ) );
                 if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
                     retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
                 } else {

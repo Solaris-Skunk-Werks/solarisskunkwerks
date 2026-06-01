@@ -40,7 +40,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.border.TitledBorder;
 import filehandlers.MechWriter;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.prefs.Preferences;
 
 public class dlgImageMgr extends javax.swing.JDialog {
@@ -50,7 +49,7 @@ public class dlgImageMgr extends javax.swing.JDialog {
     private Unit curUnit;
     private ImageTracker imageTracker;
     private Hashtable<String, Unit> units = new Hashtable<String, Unit>();
-    private DefaultListModel unitList = new DefaultListModel();
+    private DefaultListModel<String> unitList = new DefaultListModel<>();
     private Preferences bfbPrefs = Preferences.userRoot().node( Constants.BFBPrefs );
 
     /** Creates new form dlgMechImages */
@@ -126,7 +125,7 @@ public class dlgImageMgr extends javax.swing.JDialog {
 
         pnlList = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstUnits = new javax.swing.JList();
+        lstUnits = new javax.swing.JList<>();
         pnlMech = new javax.swing.JPanel();
         lblImage = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
@@ -136,10 +135,10 @@ public class dlgImageMgr extends javax.swing.JDialog {
 
         pnlList.setBorder(javax.swing.BorderFactory.createTitledBorder("Designs Missing BFB.Images"));
 
-        lstUnits.setModel(new javax.swing.AbstractListModel() {
+        lstUnits.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         lstUnits.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -221,7 +220,7 @@ public class dlgImageMgr extends javax.swing.JDialog {
         if ( lstUnits.getSelectedValue() != null ) {
             Media media = new Media();
             
-            curUnit = units.get( ( (Object) lstUnits.getSelectedValue() ).toString() );
+            curUnit = units.get( lstUnits.getSelectedValue() );
             pnlMech.setBorder(new TitledBorder(curUnit.TypeModel));
             lblStatus.setText(curUnit.TypeModel + " Loaded.");
             media.setLogo(lblImage, new File(curUnit.m.GetSSWImage()));
@@ -250,7 +249,7 @@ public class dlgImageMgr extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblStatus;
-    private javax.swing.JList lstUnits;
+    private javax.swing.JList<String> lstUnits;
     private javax.swing.JPanel pnlList;
     private javax.swing.JPanel pnlMech;
     // End of variables declaration//GEN-END:variables
