@@ -55,7 +55,7 @@ task copyDependencies {
 }
 
 task writeProperties(type: WriteProperties) {
-    outputFile "${buildDir}/generated/resources/BFB/build.properties"
+    destinationFile = file("${buildDir}/generated/resources/BFB/build.properties")
     property 'version', version
     property 'release', release
     property 'rev', rev

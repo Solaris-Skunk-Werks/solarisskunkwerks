@@ -53,7 +53,7 @@ task copyAssets (dependsOn: deleteAssets) {
 }
 
 task writeProperties(type: WriteProperties) {
-    outputFile "${buildDir}/generated/resources/saw/build.properties"
+    destinationFile = file("${buildDir}/generated/resources/saw/build.properties")
     property 'version', version
     property 'release', release
     property 'rev', rev

@@ -4,7 +4,7 @@ plugins {
 }
 
 allprojects {
-    version '0.7.6.1'
+    version = '0.7.6.1'
     ext {
         release='Stable'
         rev=versionDetails().gitHash
@@ -15,7 +15,7 @@ allprojects {
 }
 
 subprojects {
-    group 'com.solarisskunkwerks'
+    group = 'com.solarisskunkwerks'
     repositories {
         mavenCentral()
     }
