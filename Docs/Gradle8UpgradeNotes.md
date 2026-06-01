@@ -25,6 +25,7 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - SAW `frmVee` no longer uses deprecated `setNextFocusableComponent(...)`; explicit traversal rules now live behind a `LayoutFocusTraversalPolicy`.
 - SAW `dlgOpen` no longer emits checked compile warnings after typing its Swing combo models. The vehicle handoff still uses a narrow suppression because `DesignForm#setUnit` is typed for `Mech` while SAW passes a `CombatVehicle`.
 - SAW `HMPReader` no longer emits checked compile warnings after typing the HMP compatibility error and critical-location collections.
+- SAW equipment renderers no longer use raw `JList` renderer signatures.
 
 ## Follow-Up Candidates
 

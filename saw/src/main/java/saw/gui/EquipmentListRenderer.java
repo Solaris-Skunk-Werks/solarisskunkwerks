@@ -33,14 +33,12 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import components.AvailableCode;
-import components.CombatVehicle;
 import components.Equipment;
 import components.abPlaceable;
 import components.EquipmentCollection;
 
 public class EquipmentListRenderer extends DefaultListCellRenderer {
     private ifVeeForm Parent;
-    private CombatVehicle CurVee;
     private abPlaceable a = null;
 
     public EquipmentListRenderer( ifVeeForm v ) {
@@ -48,7 +46,7 @@ public class EquipmentListRenderer extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean hasFocus) {
         JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         String Text = "";
         if( value instanceof abPlaceable ) {

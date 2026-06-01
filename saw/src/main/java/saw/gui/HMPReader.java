@@ -918,7 +918,7 @@ public class HMPReader {
 
         // now for equipment.
         // get the secondary hash table for lookups
-        Hashtable Other = null;
+        Hashtable<Long, String> Other = null;
         if( IntStrucTechBase == AvailableCode.TECH_CLAN ) {
             Other = Clan;
         } else {
