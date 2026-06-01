@@ -201,7 +201,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 
         jLabel4.setText("Mechwarrior");
 
-        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
         cmbGunnery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGunneryActionPerformed(evt);
@@ -212,7 +212,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 
         jLabel2.setText("Piloting");
 
-        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
         cmbPiloting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPilotingActionPerformed(evt);
@@ -306,7 +306,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         lblOneHex.setText("One Hex equals");
         lblOneHex.setEnabled(false);
 
-        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         cmbHexConvFactor.setEnabled(false);
 
         lblInches.setText("Inches");
@@ -315,7 +315,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         jLabel5.setText("Paper Size:");
         jPanel3.add(jLabel5);
 
-        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "A4" }));
+        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Letter", "A4" }));
         jPanel3.add(cmbPaperSize);
 
         chkMWStats.setText("Do NOT print MechWarrior stats");

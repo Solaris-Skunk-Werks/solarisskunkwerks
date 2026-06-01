@@ -165,14 +165,14 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         chkPrintCharts = new javax.swing.JCheckBox();
         chkUseHexConversion = new javax.swing.JCheckBox();
         lblOneHex = new javax.swing.JLabel();
-        cmbHexConvFactor = new javax.swing.JComboBox();
+        cmbHexConvFactor = new javax.swing.JComboBox<>();
         lblInches = new javax.swing.JLabel();
         chkPrintCanon = new javax.swing.JCheckBox();
         chkRS = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        cmbPaperSize = new javax.swing.JComboBox();
-        cmbChartOption = new javax.swing.JComboBox();
+        cmbPaperSize = new javax.swing.JComboBox<>();
+        cmbChartOption = new javax.swing.JComboBox<>();
         pnlImageOptions = new javax.swing.JPanel();
         chkPrintImage = new javax.swing.JCheckBox();
         btnChooseImage = new javax.swing.JButton();
@@ -182,8 +182,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         chkPrintWarrior = new javax.swing.JCheckBox();
         txtGroupName = new javax.swing.JTextField();
         txtWarriorName = new javax.swing.JTextField();
-        cmbGunnery = new javax.swing.JComboBox();
-        cmbPiloting = new javax.swing.JComboBox();
+        cmbGunnery = new javax.swing.JComboBox<>();
+        cmbPiloting = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -295,7 +295,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         lblOneHex.setText("One Hex equals");
         lblOneHex.setEnabled(false);
 
-        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         cmbHexConvFactor.setEnabled(false);
         cmbHexConvFactor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,7 +323,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         jLabel5.setText("Paper Size:");
         jPanel3.add(jLabel5);
 
-        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "A4" }));
+        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Letter", "A4" }));
         cmbPaperSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPaperSizeActionPerformed(evt);
@@ -331,7 +331,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         });
         jPanel3.add(cmbPaperSize);
 
-        cmbChartOption.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Canon", "Minimal" }));
+        cmbChartOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Canon", "Minimal" }));
         cmbChartOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbChartOptionActionPerformed(evt);
@@ -473,7 +473,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
+        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
         cmbGunnery.setSelectedIndex(4);
         cmbGunnery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -481,7 +481,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
+        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
         cmbPiloting.setSelectedIndex(5);
         cmbPiloting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -816,11 +816,11 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JCheckBox chkPrintWarrior;
     private javax.swing.JCheckBox chkRS;
     private javax.swing.JCheckBox chkUseHexConversion;
-    private javax.swing.JComboBox cmbChartOption;
-    private javax.swing.JComboBox cmbGunnery;
-    private javax.swing.JComboBox cmbHexConvFactor;
-    private javax.swing.JComboBox cmbPaperSize;
-    private javax.swing.JComboBox cmbPiloting;
+    private javax.swing.JComboBox<String> cmbChartOption;
+    private javax.swing.JComboBox<String> cmbGunnery;
+    private javax.swing.JComboBox<String> cmbHexConvFactor;
+    private javax.swing.JComboBox<String> cmbPaperSize;
+    private javax.swing.JComboBox<String> cmbPiloting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

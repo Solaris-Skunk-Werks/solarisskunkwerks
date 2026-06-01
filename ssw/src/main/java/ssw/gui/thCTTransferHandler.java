@@ -174,7 +174,7 @@ public class thCTTransferHandler extends TransferHandler {
 
         // get the item
         abPlaceable a;
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<>();
         if( DropItem.Location == -1 ) {
             // from the queue
             a = CurMech.GetLoadout().GetFromQueueByIndex( DropItem.SourceIndex );

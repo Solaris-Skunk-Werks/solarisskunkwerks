@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableCellRenderer;
 import components.Ammunition;
 import components.Mech;
+import components.abPlaceable;
 import components.ifWeapon;
 import common.CommonTools;
 
@@ -51,7 +52,7 @@ public class dlgBracketCharts extends javax.swing.JDialog {
     }
 
     private void GetWeaponData() {
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
         ArrayList<ifWeapon> wep = new ArrayList<ifWeapon>();
         ArrayList<Ammunition> ammo = new ArrayList<Ammunition>();
         ArrayList<WeaponInfo> temp = new ArrayList<WeaponInfo>();
