@@ -362,7 +362,7 @@ public class PrintVehicle implements Printable {
                 offset += graphics.getFont().getSize();
             }
             for ( int index=0; index < AmmoList.size(); index++ ) {
-                AmmoData CurAmmo = (AmmoData) AmmoList.get(index);
+                AmmoData CurAmmo = AmmoList.get(index);
                 graphics.drawString( CurAmmo.Format(), p[0].x, p[0].y + offset);
                 graphics.drawString( CurAmmo.LotSize + "", p[3].x-30, p[3].y + offset);
                 
@@ -537,7 +537,7 @@ public class PrintVehicle implements Printable {
 
     private ArrayList<AmmoData> GetAmmo() {
         //Output the list of Ammunition
-        ArrayList all = CurVee.GetLoadout().GetNonCore();
+        ArrayList<components.abPlaceable> all = CurVee.GetLoadout().GetNonCore();
         ArrayList<AmmoData> AmmoLister = new ArrayList<AmmoData>();
         for ( int index=0; index < all.size(); index++ ) {
             if(  all.get( index ) instanceof Ammunition ) {
@@ -545,7 +545,7 @@ public class PrintVehicle implements Printable {
                 CurAmmo.makeGeneric = makeAmmoGeneric;
                 boolean found = false;
                 for ( int internal=0; internal < AmmoLister.size(); internal++ ) {
-                    AmmoData existAmmo = (AmmoData) AmmoLister.get(internal);
+                    AmmoData existAmmo = AmmoLister.get(internal);
                     if ( CurAmmo.Name().equals( existAmmo.Name() ) ) {
                         existAmmo.LotSize += CurAmmo.LotSize;
                         found = true;

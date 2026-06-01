@@ -134,11 +134,11 @@ public final class BFBPrinter {
 
         if ( unitSize > 24 ) {
             chits.clearForces();
-            chits.AddForce((Force) this.forces.get(0));
+            chits.AddForce(this.forces.get(0));
             pages.append(chits, page);
 
             PrintDeclaration chit2 = new PrintDeclaration(imageTracker);
-            chit2.AddForce((Force) this.forces.get(1));
+            chit2.AddForce(this.forces.get(1));
             pages.append(chit2, page);
         } else {
             pages.append(chits, page);

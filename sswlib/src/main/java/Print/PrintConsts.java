@@ -296,7 +296,7 @@ public class PrintConsts {
         abPlaceable[] a = new abPlaceable[sorted.size()];
         for( int i = 0; i < sorted.size(); i++ ) {
             if( ! ( sorted.get( i ) instanceof Ammunition ) ) {
-                a[i] = (abPlaceable) sorted.get( i );
+                a[i] = sorted.get( i );
             }
         }
 

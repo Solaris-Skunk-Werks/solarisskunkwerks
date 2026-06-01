@@ -51,8 +51,7 @@ public class PIPRow {
             }
         }
         
-        Point[] a = new Point[rows.size()];
-        return (Point[])points.toArray(a);
+        return points.toArray(new Point[0]);
     }
     
     public static Point[] RenderRows( ArrayList<PIPRow> rows ) {
@@ -63,8 +62,7 @@ public class PIPRow {
             }
         }
         
-        Point[] a = new Point[rows.size()];
-        return (Point[])points.toArray(a);  
+        return points.toArray(new Point[0]);
     }
     
     public static Point[] RenderColumns( ArrayList<PIPRow> cols ) {
@@ -75,7 +73,6 @@ public class PIPRow {
             }
         }
         
-        Point[] a = new Point[cols.size()];
-        return (Point[])points.toArray(a);
+        return points.toArray(new Point[0]);
     }
 }

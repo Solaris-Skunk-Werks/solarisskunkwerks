@@ -477,7 +477,7 @@ public class PrintMech implements Printable {
                 offset += graphics.getFont().getSize();
             }
             for ( int index=0; index < AmmoList.size(); index++ ) {
-                AmmoData CurAmmo = (AmmoData) AmmoList.get(index);
+                AmmoData CurAmmo = AmmoList.get(index);
                 graphics.drawString( CurAmmo.Format(), p[0].x, p[0].y + offset);
                 graphics.drawString( CurAmmo.LotSize + "", p[3].x, p[3].y + offset);
                 offset += graphics.getFont().getSize();
@@ -686,7 +686,7 @@ public class PrintMech implements Printable {
         String heatSinkType = CurMech.GetHeatSinks().LookupName().split( " " )[0];
         int extraDHS = 0;
         boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
-        ArrayList equipment = CurMech.GetLoadout().GetEquipment();
+        ArrayList<abPlaceable> equipment = CurMech.GetLoadout().GetEquipment();
 
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
@@ -877,7 +877,7 @@ public class PrintMech implements Printable {
 
     private ArrayList<AmmoData> GetAmmo() {
         //Output the list of Ammunition
-        ArrayList all = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> all = CurMech.GetLoadout().GetNonCore();
         ArrayList<AmmoData> AmmoLister = new ArrayList<AmmoData>();
         for ( int index=0; index < all.size(); index++ ) {
             if(  all.get( index ) instanceof Ammunition ) {
@@ -885,7 +885,7 @@ public class PrintMech implements Printable {
                 CurAmmo.makeGeneric = makeAmmoGeneric;
                 boolean found = false;
                 for ( int internal=0; internal < AmmoLister.size(); internal++ ) {
-                    AmmoData existAmmo = (AmmoData) AmmoLister.get(internal);
+                    AmmoData existAmmo = AmmoLister.get(internal);
                     if ( CurAmmo.Name().equals( existAmmo.Name() ) ) {
                         existAmmo.LotSize += CurAmmo.LotSize;
                         found = true;

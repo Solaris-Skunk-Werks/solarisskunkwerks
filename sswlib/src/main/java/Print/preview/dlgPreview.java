@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class dlgPreview extends javax.swing.JFrame implements ActionListener {
+    private static final long serialVersionUID = 1L;
+
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
     protected Pageable pageable;
     private Preview preview;
@@ -540,26 +542,26 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         chkImage = new javax.swing.JCheckBox();
         chkPrintGroup = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
-        cmbPaperSize = new javax.swing.JComboBox();
+        cmbPaperSize = new javax.swing.JComboBox<String>();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         chkUseHexConversion = new javax.swing.JCheckBox();
         chkCanon = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        cmbHexConvFactor = new javax.swing.JComboBox();
+        cmbHexConvFactor = new javax.swing.JComboBox<String>();
         lblInches = new javax.swing.JLabel();
         lblOneHex = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         chkGenericAmmo = new javax.swing.JCheckBox();
         chkTables = new javax.swing.JCheckBox();
-        cmbRSType = new javax.swing.JComboBox();
-        cmbChartImage = new javax.swing.JComboBox();
+        cmbRSType = new javax.swing.JComboBox<String>();
+        cmbChartImage = new javax.swing.JComboBox<String>();
         jPanel6 = new javax.swing.JPanel();
         chkUseColor = new javax.swing.JCheckBox();
         chkBFBacks = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         chkBFTerrainMV = new javax.swing.JCheckBox();
-        cmbBFSheetType = new javax.swing.JComboBox();
+        cmbBFSheetType = new javax.swing.JComboBox<String>();
         chkBFOnePerPage = new javax.swing.JCheckBox();
         jToolBar1 = new javax.swing.JToolBar();
         btnPreview = new javax.swing.JButton();
@@ -688,7 +690,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
         jLabel5.setText("Paper Size:");
 
-        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "Legal", "A4" }));
+        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Letter", "Legal", "A4" }));
         cmbPaperSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPaperSizeActionPerformed(evt);
@@ -743,7 +745,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "1", "2", "3", "4", "5" }));
         cmbHexConvFactor.setEnabled(false);
         cmbHexConvFactor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -794,14 +796,14 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        cmbRSType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Warfare", "Recordsheet", "Tactical Operations" }));
+        cmbRSType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Total Warfare", "Recordsheet", "Tactical Operations" }));
         cmbRSType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemChanged(evt);
             }
         });
 
-        cmbChartImage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Canon", "Minimal" }));
+        cmbChartImage.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Canon", "Minimal" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -880,7 +882,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        cmbBFSheetType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "*Strategic Ops", "*QuickStrike Cards", "*Alpha Strike Cards", "BattleForce Sheet", "Vertical Cards", "Alpha Strike Card Sheet" }));
+        cmbBFSheetType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "*Strategic Ops", "*QuickStrike Cards", "*Alpha Strike Cards", "BattleForce Sheet", "Vertical Cards", "Alpha Strike Card Sheet" }));
         cmbBFSheetType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemChanged(evt);
@@ -1267,11 +1269,11 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JCheckBox chkTables;
     private javax.swing.JCheckBox chkUseColor;
     private javax.swing.JCheckBox chkUseHexConversion;
-    private javax.swing.JComboBox cmbBFSheetType;
-    private javax.swing.JComboBox cmbChartImage;
-    private javax.swing.JComboBox cmbHexConvFactor;
-    private javax.swing.JComboBox cmbPaperSize;
-    private javax.swing.JComboBox cmbRSType;
+    private javax.swing.JComboBox<String> cmbBFSheetType;
+    private javax.swing.JComboBox<String> cmbChartImage;
+    private javax.swing.JComboBox<String> cmbHexConvFactor;
+    private javax.swing.JComboBox<String> cmbPaperSize;
+    private javax.swing.JComboBox<String> cmbRSType;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
