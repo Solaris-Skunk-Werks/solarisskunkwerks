@@ -103,6 +103,14 @@ public class PagePrinter {
         }
     }
 
+    public void PrintPagesSeparately() {
+        try {
+            DoPrint = workflow.printPagesSeparately(buildRequest());
+        } catch( PrinterException e ) {
+            Media.Messager( e.getMessage() );
+        }
+    }
+
     public void setJobName(String jobName) {
         this.jobName = jobName;
     }

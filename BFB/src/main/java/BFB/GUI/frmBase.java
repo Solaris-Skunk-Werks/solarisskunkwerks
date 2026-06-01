@@ -3583,7 +3583,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
                 printer.Append( BFBPrinter.Letter.toPage(), pm);
             }
         }
-        printer.Print();
+        printer.PrintPagesSeparately();
         DefaultCursor();
     }//GEN-LAST:event_mnuPrintUnitsActionPerformed
 
@@ -3863,7 +3863,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
                 printer.Append( BFBPrinter.Letter.toPage(), pm);
             }
         }
-        printer.Print();
+        printer.PrintPagesSeparately();
         DefaultCursor();
     }//GEN-LAST:event_mnuPrintRSActionPerformed
 

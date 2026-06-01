@@ -21,6 +21,7 @@ This document tracks the print workflow exploration branch. The goal is to isola
   - `Print.BFBPrinter` builds `PrintRequest` objects directly instead of maintaining a mutable `Book`.
   - `Print.BFBPrinter` uses `PrinterJobGateway` for OS-facing print dialog and print calls.
   - `Print.BFBPrinter` now executes its direct print path through `PrintWorkflow`.
+  - BFB force record-sheet menu actions now submit one record sheet per print job after a single dialog to avoid one large multi-page spool job.
   - Some force/unit previews also assemble `PagePrinter` manually.
 - Shared renderers live in `sswlib/src/main/java/Print`.
   - `PrintMech`, `PrintVehicle`, force list, BattleForce, QuickStrike, and Alpha Strike card printers are `Printable` renderers.
@@ -54,6 +55,7 @@ Initial concepts:
   - Shows preview when requested
   - Invokes direct print when requested
   - Supports direct print without an OS dialog for existing one-job-per-mech batch behavior.
+  - Supports one-dialog, one-spool-job-per-page printing for driver compatibility.
   - Preserves the original shared print order: show the OS print dialog, then attach the pageable before printing.
   - Rasterizes printable pages before sending them to the OS printer to reduce driver-specific Java2D/spooler failures.
   - Shared `PagePrinter` now delegates preview and direct print execution to this workflow.
