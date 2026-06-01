@@ -34,7 +34,7 @@ task copyData(dependsOn: subprojects.build, type: Copy) {
 }
 
 task copyDeps(dependsOn: subprojects.build, type: Copy) {
-    from subprojects.collect { it.configurations.runtime }
+    from subprojects.collect { it.configurations.runtimeClasspath }
     into "$buildDir/release/SSW_${version}/lib"
 }
 
@@ -50,8 +50,8 @@ task zipRelease(type: Zip, dependsOn: releaseBuild) {
     from "${buildDir}/release"
         include "**/"
     if ("$release" != "Stable") {
-        archiveName "SSW_${version}-${release}-${rev}.zip"
+        archiveFileName = "SSW_${project.version}-${release}-${rev}.zip"
     } else {
-        archiveName "SSW_${version}.zip"
+        archiveFileName = "SSW_${project.version}.zip"
     }
 }

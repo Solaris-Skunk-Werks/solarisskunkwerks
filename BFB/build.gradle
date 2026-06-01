@@ -8,12 +8,12 @@ java {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile project(':sswlib')
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation project(':sswlib')
 }
 
 application {
-    mainClassName = 'BFB.Main'
+    mainClass = 'BFB.Main'
 }
 
 jar {
@@ -23,7 +23,7 @@ jar {
                     .findAll { it.name.endsWith(".jar") }.collect { "lib/${it.name}" }.join(' '),
             'SplashScreen-Image' : 'Images/BFB_Load.png'
     )
-    archiveName = "BFB.jar"
+    archiveFileName = "BFB.jar"
 }
 
 task deleteAssets {
@@ -44,7 +44,7 @@ task copyAssets (dependsOn: deleteAssets) {
 task copyDependencies {
     copy {
         into "${buildDir}/deps"
-        from configurations.compile
+        from configurations.runtimeClasspath
     }
 }
 
@@ -54,5 +54,7 @@ task writeProperties(type: WriteProperties) {
     property 'release', release
     property 'rev', rev
 }
+
+jar.dependsOn(writeProperties)
 
 compileJava.finalizedBy(writeProperties)
