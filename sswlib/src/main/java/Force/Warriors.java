@@ -32,7 +32,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
@@ -119,11 +118,11 @@ public class Warriors extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public DefaultListModel getModel() {
-        DefaultListModel model = new DefaultListModel();
+    public DefaultListModel<Warrior> getModel() {
+        DefaultListModel<Warrior> model = new DefaultListModel<>();
 
         for (int i = 0; i < list.size(); i++) {
-            Warrior w = (Warrior) list.get(i);
+            Warrior w = list.get(i);
             model.addElement(w);
         }
 
@@ -146,8 +145,8 @@ public class Warriors extends AbstractTableModel {
         tbl.setModel(this);
 
         //Create a sorting class and apply it to the list
-        TableRowSorter Leftsorter = new TableRowSorter<Warriors>(this);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        TableRowSorter<Warriors> Leftsorter = new TableRowSorter<>(this);
+        List <RowSorter.SortKey> sortKeys = new ArrayList<>();
         sortKeys.add(new RowSorter.SortKey(2, SortOrder.ASCENDING));
         sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));

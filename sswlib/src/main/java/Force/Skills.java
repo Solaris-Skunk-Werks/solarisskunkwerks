@@ -140,12 +140,12 @@ public class Skills {
         return filtered;
     }
 
-    public DefaultListModel getListModel() {
-        DefaultListModel model = new DefaultListModel();
+    public DefaultListModel<String> getListModel() {
+        DefaultListModel<String> model = new DefaultListModel<>();
         Boolean Include = false;
 
         for (int i=0; i<List.size(); i++) {
-            Skill data = (Skill) List.get(i);
+            Skill data = List.get(i);
             if ( data.getSeperation() <= MaxSeperation && data.getBV() <= MaxBV ) {
                 if ( !MaxSkill.isEmpty() ) {
                     if ( MaxSkill.equals("Gunnery") ) {
@@ -156,7 +156,7 @@ public class Skills {
                 } else {
                     Include = true;
                 }
-                if ( Include ) { model.addElement(((Skill) List.get(i)).getDisplay()); }
+                if ( Include ) { model.addElement(List.get(i).getDisplay()); }
             }
             Include = false;
         }
