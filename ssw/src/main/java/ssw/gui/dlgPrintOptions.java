@@ -34,6 +34,8 @@ import components.Mech;
 import javax.print.*;
 
 public class dlgPrintOptions extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     private Mech CurMech;
     private ifMechForm Parent;
     private boolean Result = false;

@@ -34,6 +34,7 @@ import components.ifWeapon;
 import filehandlers.Media;
 
 public class dlgSplitCrits extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     abPlaceable ItemToPlace;
     ifMechForm Parent;

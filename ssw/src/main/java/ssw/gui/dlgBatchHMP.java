@@ -39,6 +39,7 @@ import components.Mech;
 import filehandlers.*;
 
 public class dlgBatchHMP extends javax.swing.JDialog implements PropertyChangeListener {
+    private static final long serialVersionUID = 1L;
 
     /** Creates new form dlgTextExport */
     public dlgBatchHMP(java.awt.Frame parent, boolean modal ) {

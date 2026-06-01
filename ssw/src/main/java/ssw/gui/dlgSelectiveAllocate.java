@@ -36,6 +36,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
 public class dlgSelectiveAllocate extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     ifMechForm Parent;
     abPlaceable Item = null;

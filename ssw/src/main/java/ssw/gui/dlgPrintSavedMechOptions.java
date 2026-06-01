@@ -15,6 +15,8 @@ import filehandlers.Media;
 import Print.PrintMech;
 
 public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     private Mech CurMech;
     private ifMechForm Parent;
     private boolean Result = false;

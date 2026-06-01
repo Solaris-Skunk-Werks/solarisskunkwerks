@@ -48,6 +48,8 @@ import ssw.filehandlers.MTFReader;
 import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
+    private static final long serialVersionUID = 1L;
+
     private ifMechForm parent;
     private UnitList list = new UnitList();
     private Media media = new Media();

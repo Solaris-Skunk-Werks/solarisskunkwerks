@@ -36,6 +36,7 @@ import components.ifWeapon;
 import common.CommonTools;
 
 public class dlgBracketCharts extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     private Mech CurMech;
     private String[][] data;
@@ -201,6 +202,8 @@ public class dlgBracketCharts extends javax.swing.JDialog {
     }
 
     private class BracketRenderer extends DefaultTableCellRenderer {
+        private static final long serialVersionUID = 1L;
+
         @Override
         public int getHorizontalAlignment() {
             return javax.swing.SwingConstants.CENTER;

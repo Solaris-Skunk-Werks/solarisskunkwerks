@@ -46,6 +46,7 @@ import filehandlers.Media;
 import ssw.constants.SSWConstants;
 
 public class dlgPrefs extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     private Preferences Prefs;
 
