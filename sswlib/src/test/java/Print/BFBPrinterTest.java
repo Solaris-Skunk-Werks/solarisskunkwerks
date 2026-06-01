@@ -27,6 +27,7 @@ public class BFBPrinterTest {
 
         assertEquals(1, gateway.pageableCalls);
         assertFalse(gateway.printCalled);
+        assertEquals("Battletech Force Balancer", gateway.jobName);
     }
 
     @Test
@@ -38,12 +39,14 @@ public class BFBPrinterTest {
 
         assertEquals(1, gateway.pageableCalls);
         assertTrue(gateway.printCalled);
+        assertEquals("Battletech Force Balancer", gateway.jobName);
     }
 
     private static class TestPrinterJobGateway extends PrinterJobGateway {
         private final boolean dialogResult;
         private int pageableCalls;
         private boolean printCalled;
+        private String jobName;
 
         private TestPrinterJobGateway(boolean dialogResult) {
             this.dialogResult = dialogResult;
@@ -51,6 +54,7 @@ public class BFBPrinterTest {
 
         @Override
         public void setJobName(String jobName) {
+            this.jobName = jobName;
         }
 
         @Override

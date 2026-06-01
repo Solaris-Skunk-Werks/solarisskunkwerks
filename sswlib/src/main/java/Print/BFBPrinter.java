@@ -48,6 +48,7 @@ public final class BFBPrinter {
     private Paper paper = new Paper();
     private PageFormat page = new PageFormat();
     private PrinterJobGateway job;
+    private PrintWorkflow workflow;
 
     //To convert paper size to pixels is inches / 0.0139 rounded down
     public final static PaperSize Letter = new PaperSize(8.5d, 11d);
@@ -63,6 +64,7 @@ public final class BFBPrinter {
     BFBPrinter( ImageTracker imageTracker, PrinterJobGateway job ) {
         this.imageTracker = imageTracker;
         this.job = job;
+        workflow = new PrintWorkflow(job);
         setPaperSize(Letter);
         sheet = new ForceListPrinter(imageTracker);
         chits = new PrintDeclaration(imageTracker);
@@ -109,20 +111,17 @@ public final class BFBPrinter {
     }
 
     public void Print() {
-        job.setJobName(jobName.trim());
-
         //start building the print objects necessary
         GeneratePrints();
+        PrintRequest request = PrintRequest.builder(jobName.trim())
+                .addBook(pages)
+                .build();
 
-        job.setPageable(pages);
-        boolean DoPrint = job.showPrintDialog();
-        if( DoPrint ) {
-            try {
-                job.print();
-            } catch( PrinterException e ) {
-                System.err.println( e.getMessage() );
-                System.out.println( e.getStackTrace() );
-            }
+        try {
+            workflow.print(request);
+        } catch( PrinterException e ) {
+            System.err.println( e.getMessage() );
+            System.out.println( e.getStackTrace() );
         }
     }
 
@@ -133,6 +132,7 @@ public final class BFBPrinter {
 
     private void GeneratePrints() {
         //start building the print objects necessary
+        pages = new Book();
         page.setPaper( paper );
         pages.append(sheet, page);
 

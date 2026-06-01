@@ -20,8 +20,8 @@ public class PrintWorkflow {
 
     public boolean print(PrintRequest request) throws PrinterException {
         job.setJobName(request.getJobName());
-        boolean shouldPrint = job.showPrintDialog();
         job.setPageable(request.toBook());
+        boolean shouldPrint = job.showPrintDialog();
 
         if (shouldPrint) {
             job.print();

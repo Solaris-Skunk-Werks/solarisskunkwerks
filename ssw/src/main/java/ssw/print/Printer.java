@@ -65,6 +65,7 @@ public class Printer {
     private Paper paper = new Paper();
     private PageFormat page = new PageFormat();
     private PrinterJobGateway job;
+    private PrintWorkflow workflow;
 
     //To convert paper size to pixels is inches / 0.0139 rounded down
     public final static PaperSize Letter = new PaperSize(8.5d, 11d);
@@ -82,6 +83,7 @@ public class Printer {
     Printer(ifMechForm p, PrinterJobGateway job) {
         Parent = p;
         this.job = job;
+        workflow = new PrintWorkflow(job);
         setPaperSize(Letter);
         images.preLoadMechImages();
     }
@@ -245,8 +247,6 @@ public class Printer {
         //If they didn't provide a mech exit
         if (Mechs.size() == 0) { return; }
 
-        job.setJobName(jobName.trim());
-
         //Here is where we will show the print dialog, determine if it's a single mech or multiples
         if ( useDialog ) {
             if (Mechs.size() == 1) {
@@ -259,17 +259,17 @@ public class Printer {
         //start building the print objects necessary
         GeneratePrints();
 
-        job.setPageable(pages);
-        boolean DoPrint = job.showPrintDialog();
-        if( DoPrint ) {
-            try {
-                job.print();
-            } catch( PrinterException e ) {
-                System.err.println( e.getMessage() );
-                System.out.println( e.getStackTrace() );
-            }
+        PrintRequest request = PrintRequest.builder(printJobName())
+                .addBook(pages)
+                .build();
 
-            Mechs.clear();
+        try {
+            if( workflow.print(request) ) {
+                Mechs.clear();
+            }
+        } catch( PrinterException e ) {
+            System.err.println( e.getMessage() );
+            System.out.println( e.getStackTrace() );
         }
     }
 
@@ -287,9 +287,15 @@ public class Printer {
 
         for (PrintMech pm : Mechs) {
             pages.append(pm, page);
-            if (Mechs.size() == 1) job.setJobName(pm.CurMech.GetFullName().trim());
         }
 
+    }
+
+    private String printJobName() {
+        if (Mechs.size() == 1) {
+            return Mechs.get(0).CurMech.GetFullName().trim();
+        }
+        return jobName.trim();
     }
 
     private Boolean PrintDialog(PrintMech pMech) {
@@ -418,8 +424,6 @@ public class Printer {
             if ( !bf.ForceName.isEmpty() ) { jobName = bf.ForceName.trim(); }
         }
 
-        job.setJobName(jobName);
-
         if ( useDialog ) {
             for (BattleforceCardPrinter bf : battleforces) {
                 dlgPrintBattleforce pForce = new dlgPrintBattleforce( (javax.swing.JFrame) Parent, true, bf.getBattleforce());
@@ -437,15 +441,15 @@ public class Printer {
             pages.append(battleforce, page);
         }
 
-        job.setPageable(pages);
-        boolean DoPrint = job.showPrintDialog();
-        if( DoPrint ) {
-            try {
-                job.print();
-            } catch( PrinterException e ) {
-                System.err.println( e.getMessage() );
-                System.out.println( e.getStackTrace() );
-            }
+        PrintRequest request = PrintRequest.builder(jobName)
+                .addBook(pages)
+                .build();
+
+        try {
+            workflow.print(request);
+        } catch( PrinterException e ) {
+            System.err.println( e.getMessage() );
+            System.out.println( e.getStackTrace() );
         }
     }
 }

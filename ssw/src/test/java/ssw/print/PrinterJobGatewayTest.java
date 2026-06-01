@@ -26,12 +26,14 @@ public class PrinterJobGatewayTest {
     public void printDialogCancellationDoesNotPrint() throws Exception {
         TestPrinterJobGateway gateway = new TestPrinterJobGateway(false);
         Printer printer = new Printer(null, gateway);
-        printer.AddMech(readBalgaire());
+        Mech mech = readBalgaire();
+        printer.AddMech(mech);
 
         printer.Print(false);
 
         assertEquals(1, gateway.pageableCalls);
         assertFalse(gateway.printCalled);
+        assertEquals(mech.GetFullName().trim(), gateway.jobName);
         assertEquals("Cancelled print should leave queued mechs intact", 1, printer.GetMechs().size());
     }
 
@@ -39,12 +41,14 @@ public class PrinterJobGatewayTest {
     public void printDialogApprovalPrintsAndClearsQueue() throws Exception {
         TestPrinterJobGateway gateway = new TestPrinterJobGateway(true);
         Printer printer = new Printer(null, gateway);
-        printer.AddMech(readBalgaire());
+        Mech mech = readBalgaire();
+        printer.AddMech(mech);
 
         printer.Print(false);
 
         assertEquals(1, gateway.pageableCalls);
         assertTrue(gateway.printCalled);
+        assertEquals(mech.GetFullName().trim(), gateway.jobName);
         assertEquals("Successful print should clear queued mechs", 0, printer.GetMechs().size());
     }
 
@@ -77,6 +81,7 @@ public class PrinterJobGatewayTest {
         private int pageableCalls;
         private int printableCalls;
         private boolean printCalled;
+        private String jobName;
 
         private TestPrinterJobGateway(boolean dialogResult) {
             this.dialogResult = dialogResult;
@@ -84,6 +89,7 @@ public class PrinterJobGatewayTest {
 
         @Override
         public void setJobName(String jobName) {
+            this.jobName = jobName;
         }
 
         @Override

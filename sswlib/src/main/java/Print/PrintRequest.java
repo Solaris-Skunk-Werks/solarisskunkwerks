@@ -49,6 +49,13 @@ public final class PrintRequest {
             return this;
         }
 
+        public Builder addBook(Book book) {
+            for (int i = 0; i < book.getNumberOfPages(); i++) {
+                addPage(book.getPageFormat(i), book.getPrintable(i));
+            }
+            return this;
+        }
+
         public PrintRequest build() {
             return new PrintRequest(jobName, pages);
         }
