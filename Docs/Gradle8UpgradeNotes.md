@@ -23,7 +23,9 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - BFB `dlgOpen`, `dlgGroup`, `dlgManeiDomini`, and `dlgOmnis` no longer emit checked compile warnings after typing their Swing models and small helper collections.
 - BFB `frmBase` no longer emits checked compile warnings after typing its directory, Warchest, and random assignment list models.
 - SAW `frmVee` no longer uses deprecated `setNextFocusableComponent(...)`; explicit traversal rules now live behind a `LayoutFocusTraversalPolicy`.
+- SAW `dlgOpen` no longer emits checked compile warnings after typing its Swing combo models. The vehicle handoff still uses a narrow suppression because `DesignForm#setUnit` is typed for `Mech` while SAW passes a `CombatVehicle`.
 
 ## Follow-Up Candidates
 
-- Continue unchecked generics cleanup in SAW `dlgOpen` and vehicle forms/HMPReader code.
+- Continue unchecked generics cleanup in SAW vehicle forms/HMPReader code.
+- Revisit the shared `DesignForm#setUnit` contract so SSW `Mech` and SAW `CombatVehicle` handoffs can share a type-safe unit interface.
