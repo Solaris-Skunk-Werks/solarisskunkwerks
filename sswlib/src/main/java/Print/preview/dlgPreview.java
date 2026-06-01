@@ -692,6 +692,9 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
+        chkCompatibilityPrint.setText("Printer Compatibility Mode");
+        chkCompatibilityPrint.setToolTipText("Print each page as a separate job for printers that reject multi-page jobs.");
+
         jLabel5.setText("Paper Size:");
 
         cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Letter", "Legal", "A4" }));
@@ -714,7 +717,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                         .addComponent(cmbPaperSize, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(chkLogo)
                     .addComponent(chkImage)
-                    .addComponent(chkPrintGroup))
+                    .addComponent(chkPrintGroup)
+                    .addComponent(chkCompatibilityPrint))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -725,6 +729,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                 .addComponent(chkLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkPrintGroup)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkCompatibilityPrint)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
@@ -1072,13 +1078,6 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
         jToolBar1.add(btnSaveOptions);
-
-        chkCompatibilityPrint.setText("Compat");
-        chkCompatibilityPrint.setToolTipText("Print each page as a separate job for printers that reject multi-page jobs.");
-        chkCompatibilityPrint.setFocusable(false);
-        chkCompatibilityPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        chkCompatibilityPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(chkCompatibilityPrint);
 
         btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/printer.png"))); // NOI18N
         btnPrint.setText("Print");
