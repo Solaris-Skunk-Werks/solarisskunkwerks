@@ -28,14 +28,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.ArrayList;
-
-public class CVPowerAmplifier {
-
-    private ifLoadout CurLoadout;
-    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+public class CVPowerAmplifier extends AbstractPowerAmplifier {
 
     public CVPowerAmplifier( ifLoadout l ) {
+        super( l );
         AC.SetISCodes( 'D', 'B', 'C', 'B', 'B' );
         AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetISFactions( "", "", "TA", "" );
@@ -45,49 +41,14 @@ public class CVPowerAmplifier {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        CurLoadout = l;
-    }
-
-    public AvailableCode GetAvailability() {
-        return AC;
-    }
-
-    public double GetTonnage() {
-        double tons = 0.0;
-        
-        //we only use the poweramp if the engine is ICE
-        if ( CurLoadout.GetEngine().IsNuclear())
-            return tons;
-        
-        ArrayList v = CurLoadout.GetNonCore();
-        for( int i = 0; i < v.size(); i++ ) {
-            if( v.get( i ) instanceof RangedWeapon ) {
-                if ( ((ifWeapon)v.get( i ) ).RequiresPowerAmps() )
-                    tons += ((abPlaceable) v.get( i )).GetTonnage();
-            } else if (v.get(i) instanceof Equipment) {
-                if (((Equipment)v.get(i)).RequiresPowerAmps())
-                    tons += ((Equipment) v.get( i )).GetTonnage();
-            }
-        }
-        if( tons <= 0.0 ) {
-            return 0.0;
-        } else {
-            double result = 0.0;
-            if( CurLoadout.GetUnit().UsingFractionalAccounting() ) {
-                result = Math.ceil( tons * 100 ) * 0.001;
-            } else {
-                result = (double) Math.ceil( tons * 0.2 ) * 0.5;
-            }
-            return result;
-        }
-    }
-
-    public double GetCost() {
-        return GetTonnage() * 20000.0;
     }
 
     @Override
-    public String toString() {
-        return "Power Amplifiers";
+    public double GetTonnage() {
+        //we only use the poweramp if the engine is ICE
+        if( CurLoadout.GetEngine().IsNuclear() ) {
+            return 0.0;
+        }
+        return super.GetTonnage();
     }
 }
