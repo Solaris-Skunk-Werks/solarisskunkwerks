@@ -30,6 +30,8 @@ package Print;
 
 import filehandlers.Media;
 import java.awt.print.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
@@ -37,7 +39,7 @@ public class PagePrinter {
     private String jobName = "Skunkwerks Print";
     private boolean DoPrint = true;
 
-    private Book pages = new Book();
+    private List<PageEntry> pages = new ArrayList<PageEntry>();
     private PrintService service;
     private PrinterJobGateway job = new PrinterJobGateway();
 
@@ -50,15 +52,15 @@ public class PagePrinter {
     }
 
     public PagePrinter( PageFormat page, Printable print ) {
-        pages.append(print, page);
+        Append(page, print);
     }
 
     public void Append( PageFormat page, Printable print ) {
-        pages.append(print, page);
+        pages.add(new PageEntry(page, print));
     }
 
     public void Clear() {
-        pages = new Book();
+        pages.clear();
     }
 
     public void selectService( String printerName ) {
@@ -75,11 +77,12 @@ public class PagePrinter {
     }
     
     public Book Preview() {
-        return pages;
+        return buildRequest().toBook();
     }
 
     public void Print() {
-        job.setJobName(jobName);
+        PrintRequest request = buildRequest();
+        job.setJobName(request.getJobName());
 
         //Setting to null so that it will ask the user for now...was having an error when I used the dropdown choice
         /*
@@ -96,7 +99,7 @@ public class PagePrinter {
         */
         DoPrint = job.showPrintDialog();
 
-        job.setPageable(Preview());
+        job.setPageable(request.toBook());
         
         if( DoPrint ) {
             try {
@@ -109,5 +112,23 @@ public class PagePrinter {
 
     public void setJobName(String jobName) {
         this.jobName = jobName;
+    }
+
+    PrintRequest buildRequest() {
+        PrintRequest.Builder request = PrintRequest.builder(jobName);
+        for (PageEntry page : pages) {
+            request.addPage(page.pageFormat, page.printable);
+        }
+        return request.build();
+    }
+
+    private static final class PageEntry {
+        private final PageFormat pageFormat;
+        private final Printable printable;
+
+        private PageEntry(PageFormat pageFormat, Printable printable) {
+            this.pageFormat = pageFormat;
+            this.printable = printable;
+        }
     }
 }

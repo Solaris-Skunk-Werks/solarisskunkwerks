@@ -44,6 +44,7 @@ Initial concepts:
   - Paper size
   - One or more `Printable` pages
   - Preview/direct-print intent
+  - Shared `PagePrinter` now builds a `PrintRequest` before preview or direct print.
 - `PrintWorkflow`
   - Creates a `Book`
   - Shows preview when requested
@@ -62,7 +63,9 @@ The first implementation should preserve Swing behavior and existing dialogs. Th
 3. Add tests around `PagePrinter` preview/book generation and direct-print cancellation behavior using a test gateway. Done.
 4. Refactor SSW `Printer` to use the gateway behind the current API. Done.
 5. Refactor `BFBPrinter` to use the gateway behind the current API. Done.
-6. Once SSW/SAW/BFB still pass, introduce request objects for new print features.
+6. Introduce request objects for new print features.
+   - Shared `PagePrinter` now builds `PrintRequest` objects before converting to `Book`.
+   - Next request-object pass should decide whether SSW and BFB print coordinators should consume the same request type directly or hand off to a small workflow class.
 7. Add Alpha Strike card generation as a print target after the request boundary exists.
 
 ## Guardrails

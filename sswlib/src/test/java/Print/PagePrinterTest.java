@@ -23,6 +23,18 @@ public class PagePrinterTest {
     }
 
     @Test
+    public void buildRequestUsesCurrentJobName() {
+        PagePrinter printer = new PagePrinter();
+        printer.setJobName("Vehicle Sheet");
+        printer.Append(new PageFormat(), new NoOpPrintable());
+
+        PrintRequest request = printer.buildRequest();
+
+        assertEquals("Vehicle Sheet", request.getJobName());
+        assertEquals(1, request.getPageCount());
+    }
+
+    @Test
     public void printDialogCancellationDoesNotPrint() {
         TestPrinterJobGateway gateway = new TestPrinterJobGateway(false);
         PagePrinter printer = new PagePrinter(gateway);
