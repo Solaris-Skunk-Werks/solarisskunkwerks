@@ -26,6 +26,8 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 
 class ZoomAction extends AbstractAction {
+    private static final long serialVersionUID = 1L;
+
     public ZoomAction(String name, String iconName, Preview preview, double zoomStep, boolean resetZoom) {
         super();
 
@@ -61,5 +63,4 @@ class ZoomAction extends AbstractAction {
     protected double zoomStep;
     protected boolean resetZoom;
 }
-
 
