@@ -32,6 +32,7 @@ public class PrintWorkflowTest {
         assertFalse(printed);
         assertEquals("Canceled Job", gateway.jobName);
         assertTrue(gateway.pageableSet);
+        assertEquals("jobName,dialog,pageable", gateway.events);
         assertFalse(gateway.printCalled);
     }
 
@@ -45,6 +46,7 @@ public class PrintWorkflowTest {
         assertTrue(printed);
         assertEquals("Approved Job", gateway.jobName);
         assertTrue(gateway.pageableSet);
+        assertEquals("jobName,dialog,pageable,print", gateway.events);
         assertTrue(gateway.printCalled);
     }
 
@@ -58,6 +60,7 @@ public class PrintWorkflowTest {
         assertEquals("Direct Job", gateway.jobName);
         assertTrue(gateway.pageableSet);
         assertFalse(gateway.dialogShown);
+        assertEquals("jobName,pageable,print", gateway.events);
         assertTrue(gateway.printCalled);
     }
 
@@ -73,6 +76,7 @@ public class PrintWorkflowTest {
         private boolean pageableSet;
         private boolean printCalled;
         private boolean dialogShown;
+        private String events = "";
 
         private TestPrinterJobGateway(boolean dialogResult) {
             this.dialogResult = dialogResult;
@@ -81,22 +85,33 @@ public class PrintWorkflowTest {
         @Override
         public void setJobName(String jobName) {
             this.jobName = jobName;
+            addEvent("jobName");
         }
 
         @Override
         public boolean showPrintDialog() {
             dialogShown = true;
+            addEvent("dialog");
             return dialogResult;
         }
 
         @Override
         public void setPageable(Pageable pageable) {
             pageableSet = true;
+            addEvent("pageable");
         }
 
         @Override
         public void print() {
             printCalled = true;
+            addEvent("print");
+        }
+
+        private void addEvent(String event) {
+            if (!events.isEmpty()) {
+                events += ",";
+            }
+            events += event;
         }
     }
 
