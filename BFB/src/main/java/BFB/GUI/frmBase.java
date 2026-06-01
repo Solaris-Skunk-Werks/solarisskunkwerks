@@ -210,15 +210,15 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         if (curTop != null) { // should only be null at root
             curTop.add(curDir);
         }
-        ArrayList ol = new ArrayList();
+        ArrayList<String> ol = new ArrayList<String>();
         String[] tmp = dir.list();
         ol.addAll(Arrays.asList(tmp));
         Collections.sort(ol, String.CASE_INSENSITIVE_ORDER);
         File f;
-        ArrayList files = new ArrayList();
+        ArrayList<String> files = new ArrayList<String>();
         // Make two passes, one for Dirs and one for Files. This is #1.
         for (int i = 0; i < ol.size(); i++) {
-            String thisObject = (String) ol.get(i);
+            String thisObject = ol.get(i);
             String newPath;
             if (curPath.equals(".")) {
                 newPath = thisObject;
@@ -283,7 +283,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
                     return (String.CASE_INSENSITIVE_ORDER).compare(o1.toString(), o2.toString());
                 }
             });
-            DefaultListModel listModel = new DefaultListModel();
+            DefaultListModel<DirectoryLeaf> listModel = new DefaultListModel<DirectoryLeaf>();
             for ( DirectoryLeaf leaf : v ) {
                 listModel.addElement(leaf);
             }
@@ -814,9 +814,9 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         txtReward = new javax.swing.JFormattedTextField();
         btnAddObjective = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        lstObjectives = new javax.swing.JList();
+        lstObjectives = new javax.swing.JList<Objective>();
         jScrollPane6 = new javax.swing.JScrollPane();
-        lstBonuses = new javax.swing.JList();
+        lstBonuses = new javax.swing.JList<Bonus>();
         jScrollPane7 = new javax.swing.JScrollPane();
         edtAttacker = new javax.swing.JTextPane();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -893,7 +893,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         treDirectories = new javax.swing.JTree();
         jPanel25 = new javax.swing.JPanel();
         jScrollPane12 = new javax.swing.JScrollPane();
-        lstFiles = new javax.swing.JList();
+        lstFiles = new javax.swing.JList<DirectoryLeaf>();
         jPanel26 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         btnRoll = new javax.swing.JButton();
@@ -903,10 +903,10 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         jLabel29 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        lstOptions = new javax.swing.JList();
+        lstOptions = new javax.swing.JList<String>();
         pnlRandomSelection = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
-        lstSelected = new javax.swing.JList();
+        lstSelected = new javax.swing.JList<String>();
         btnClearSelection = new javax.swing.JButton();
         btnClipboard1 = new javax.swing.JButton();
         lblRndStatus = new javax.swing.JLabel();
@@ -4010,8 +4010,8 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     private void lstObjectivesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstObjectivesKeyReleased
         if ( !lstObjectives.getSelectedValuesList().isEmpty() ) {
             if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
-                List<?> rows = lstObjectives.getSelectedValuesList();
-                for ( Object row : rows ) {
+                List<Objective> rows = lstObjectives.getSelectedValuesList();
+                for ( Objective row : rows ) {
                     scenario.getWarchest().getObjectives().remove(row);
                 }
                 lstObjectives.setModel(scenario.getWarchest().getObjectiveList());
@@ -4022,11 +4022,11 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     private void lstBonusesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstBonusesKeyReleased
         if ( !lstBonuses.getSelectedValuesList().isEmpty() ) {
             if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
-                List<?> rows = lstBonuses.getSelectedValuesList();
-                for ( Object row : rows ) {
+                List<Bonus> rows = lstBonuses.getSelectedValuesList();
+                for ( Bonus row : rows ) {
                     scenario.getWarchest().getBonuses().remove(row);
                 }
-                lstBonuses.setModel(scenario.getWarchest().getObjectiveList());
+                lstBonuses.setModel(scenario.getWarchest().getBonusList());
             }
         }
     }//GEN-LAST:event_lstBonusesKeyReleased
@@ -4673,7 +4673,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_spnMechTableMouseClicked
 
     private void lstFilesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstFilesValueChanged
-        DirectoryLeaf f = (DirectoryLeaf) lstFiles.getSelectedValue();
+        DirectoryLeaf f = lstFiles.getSelectedValue();
         //String filename = lstFiles.getSelectedValue().toString();
         RUSReader reader = new RUSReader();
         try {
@@ -4692,7 +4692,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void lstOptionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstOptionsMouseClicked
         if (evt.getClickCount() == 2) {
-            String Name = ((Object) lstOptions.getSelectedValue()).toString();
+            String Name = lstOptions.getSelectedValue();
             if (!Name.isEmpty()) {
                 Name = Name.split(",")[0];
             }
@@ -4729,7 +4729,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_jList1ValueChanged
 
     private void lstSelectedValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedValueChanged
-        List<?> selectedValues = lstSelected.getSelectedValuesList();
+        List<String> selectedValues = lstSelected.getSelectedValuesList();
         if (!selectedValues.isEmpty()) {
             String Item = selectedValues.get(0).toString();
             if (Item.contains(" ")) {
@@ -4757,10 +4757,10 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 }//GEN-LAST:event_lstSelectedValueChanged
 
     private void lstSelectedKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstSelectedKeyPressed
-        List<?> selectedValues = lstSelected.getSelectedValuesList();
+        List<String> selectedValues = lstSelected.getSelectedValuesList();
         if (!selectedValues.isEmpty()) {
             if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-                DefaultListModel model = (DefaultListModel) lstSelected.getModel();
+                DefaultListModel<String> model = (DefaultListModel<String>) lstSelected.getModel();
                 for (int i = selectedValues.size() - 1; i >= 0; i--) {
                     model.removeElement(selectedValues.get(i));
                 }
@@ -4825,14 +4825,14 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void lstObjectivesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstObjectivesValueChanged
-        Objective o = (Objective) lstObjectives.getSelectedValue();
+        Objective o = lstObjectives.getSelectedValue();
         scenario.getWarchest().getObjectives().remove(o);
         txtReward.setText(o.getValue()+"");
         txtObjective.setText(o.getDescription());
     }//GEN-LAST:event_lstObjectivesValueChanged
 
     private void lstBonusesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstBonusesValueChanged
-        Bonus b = (Bonus) lstBonuses.getSelectedValue();
+        Bonus b = lstBonuses.getSelectedValue();
         scenario.getWarchest().getBonuses().remove(b);
         txtAmount.setText(b.getValue()+"");
         txtBonus.setText(b.getDescription());
@@ -5091,11 +5091,11 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     private javax.swing.JLabel lblUnitNameTop;
     private javax.swing.JLabel lblUnitsBottom;
     private javax.swing.JLabel lblUnitsTop;
-    private javax.swing.JList lstBonuses;
-    private javax.swing.JList lstFiles;
-    private javax.swing.JList lstObjectives;
-    private javax.swing.JList lstOptions;
-    private javax.swing.JList lstSelected;
+    private javax.swing.JList<Bonus> lstBonuses;
+    private javax.swing.JList<DirectoryLeaf> lstFiles;
+    private javax.swing.JList<Objective> lstObjectives;
+    private javax.swing.JList<String> lstOptions;
+    private javax.swing.JList<String> lstSelected;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenuItem mnuBVList;
     private javax.swing.JMenuItem mnuCurrentList;
