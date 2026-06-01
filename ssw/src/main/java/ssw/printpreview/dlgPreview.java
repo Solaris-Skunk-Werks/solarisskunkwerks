@@ -606,7 +606,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
     private void chkPrintImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPrintImageActionPerformed
         btnChooseImage.setEnabled(chkPrintImage.isSelected());
-        ((PrintMech)printer.GetMechs().get(0)).setPrintMech(chkPrintImage.isSelected());
+        printer.GetMechs().get(0).setPrintMech(chkPrintImage.isSelected());
         refresh();
 }//GEN-LAST:event_chkPrintImageActionPerformed
 
@@ -634,7 +634,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
     private void chkLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLogoActionPerformed
         btnChooseLogo.setEnabled(chkLogo.isSelected());
-        ((PrintMech)printer.GetMechs().get(0)).setPrintLogo(chkLogo.isSelected());
+        printer.GetMechs().get(0).setPrintLogo(chkLogo.isSelected());
         if ( chkLogo.isSelected() ) {
             if ( LogoImage != null ) {
                 try {
@@ -706,7 +706,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnChangeAmmoActionPerformed
-        dlgAmmoChooser Ammo = new dlgAmmoChooser( (javax.swing.JFrame) Parent, true, ((PrintMech) printer.GetMechs().firstElement()).CurMech, Parent.GetData() );
+        dlgAmmoChooser Ammo = new dlgAmmoChooser( (javax.swing.JFrame) Parent, true, printer.GetMechs().firstElement().CurMech, Parent.GetData() );
         Ammo.setLocationRelativeTo( this );
         if( Ammo.HasAmmo() ) {
             Ammo.setVisible( true );
@@ -732,7 +732,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 }//GEN-LAST:event_chkRSActionPerformed
 
     private void btnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeAmmoActionPerformed
-        dlgAmmoChooser Ammo = new dlgAmmoChooser( (javax.swing.JFrame) Parent, true, ((PrintMech) printer.GetMechs().firstElement()).CurMech, Parent.GetData() );
+        dlgAmmoChooser Ammo = new dlgAmmoChooser( (javax.swing.JFrame) Parent, true, printer.GetMechs().firstElement().CurMech, Parent.GetData() );
         Ammo.setLocationRelativeTo( this );
         if( Ammo.HasAmmo() ) {
             Ammo.setVisible( true );
