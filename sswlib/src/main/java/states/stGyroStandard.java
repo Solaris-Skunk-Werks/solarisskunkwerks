@@ -52,7 +52,7 @@ public class stGyroStandard implements ifGyro, ifState {
     }
 
     public double GetTonnage( int rating ) {
-        return (double) ((int) ( rating * 0.01f + 0.99f ));
+        return ((int) ( rating * 0.01f + 0.99f ));
     }
 
     public int GetCrits() {
@@ -90,15 +90,15 @@ public class stGyroStandard implements ifGyro, ifState {
     public double GetBVMult() {
         return 0.5f;
     }
-    
+
     public double GetCostMult() {
         return 300000.0f;
     }
-    
+
     public AvailableCode GetAvailability() {
         return AC;
     }
-    
+
     public MechModifier GetMechModifier() {
         return null;
     }

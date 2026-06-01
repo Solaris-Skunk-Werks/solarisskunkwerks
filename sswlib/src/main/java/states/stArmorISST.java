@@ -206,7 +206,7 @@ public class stArmorISST implements ifArmor, ifState {
         LocationIndex li;
         try {
             for( int i = 0; i < Locs.length; i++ ) {
-                li = (LocationIndex) Locs[i];
+                li = Locs[i];
                 l.AddTo( a, li.Location, li.Index );
             }
         } catch( Exception e ) {

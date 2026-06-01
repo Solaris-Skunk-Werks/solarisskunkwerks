@@ -122,9 +122,9 @@ public class stEngineFuelCell implements ifEngine, ifState {
     }
 
     public double GetCost( int MechTonnage, int Rating ) {
-        return ( 3500.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
+        return ( 3500.0f * (MechTonnage) * (Rating )) / 75.0f;
     }
-    
+
     public AvailableCode GetAvailability() {
         return AC;
     }
@@ -136,7 +136,7 @@ public class stEngineFuelCell implements ifEngine, ifState {
     public double GetBVMult() {
         return 1.0f;
     }
-    
+
     public boolean IsFusion() {
         return false;
     }

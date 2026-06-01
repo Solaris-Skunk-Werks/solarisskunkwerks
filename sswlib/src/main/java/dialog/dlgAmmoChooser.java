@@ -36,6 +36,7 @@ import components.Mech;
 import filehandlers.Media;
 
 public class dlgAmmoChooser extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     private Mech CurMech;
     private ArrayList<Ammunition> Ammo = new ArrayList<>();

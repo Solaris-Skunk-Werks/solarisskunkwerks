@@ -53,7 +53,7 @@ public class stChassisCVIS implements ifChassis, ifState {
     public int GetCrits() {
         return 0;
     }
-    
+
     public String ActualName() {
         return "Combat Vehicle Structure";
     }
@@ -80,15 +80,15 @@ public class stChassisCVIS implements ifChassis, ifState {
 
     public double GetStrucTon( int Tonnage, boolean fractional ) {
         if ( !fractional )
-            return CommonTools.RoundHalfUp((double)Tonnage / 10.0);
+            return CommonTools.RoundHalfUp(Tonnage / 10.0);
         else
-            return (double)Tonnage / 10.0;
+            return Tonnage / 10.0;
     }
-    
+
     public boolean IsQuad() {
         return false;
     }
-    
+
     /**
      * Determines if this Chassis is a Tripod
      * @return True if this chassis is a Tripod
@@ -96,7 +96,7 @@ public class stChassisCVIS implements ifChassis, ifState {
     public boolean IsTripod() {
         return false;
     }
-    
+
     public int GetHeadPoints() {
         // All mech heads have 3 internal structure points
         return 0;
@@ -109,7 +109,7 @@ public class stChassisCVIS implements ifChassis, ifState {
     public int GetSidePoints( int Tonnage ) {
         return 0;
     }
-    
+
     public int GetArmPoints( int Tonnage ) {
         return 0;
     }
@@ -117,15 +117,15 @@ public class stChassisCVIS implements ifChassis, ifState {
     public int GetLegPoints( int Tonnage ) {
         return 0;
     }
-    
+
     public double GetCost( int Tonnage ) {
         return 10000 * GetStrucTon( Tonnage, false );
     }
-    
+
     public double GetBVMult() {
         return 1.0f;
     }
-    
+
     public boolean IncrementPlaced() {
         return false;
     }

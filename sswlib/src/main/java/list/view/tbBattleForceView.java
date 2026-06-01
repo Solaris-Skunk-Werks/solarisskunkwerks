@@ -32,6 +32,8 @@ import list.UnitList;
 import list.UnitListData;
 
 public class tbBattleForceView extends abView {
+    private static final long serialVersionUID = 1L;
+
     public tbBattleForceView() {
         Columns.add(new Column( 0, "Unit", "TypeModel", 200 ));
         Columns.add(new Column( 1, "MV", "MV", 20, Integer.class ));

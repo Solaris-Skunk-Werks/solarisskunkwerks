@@ -35,6 +35,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.AbstractTableModel;
 
 public class FSL extends AbstractTableModel {
+    private static final long serialVersionUID = 1L;
+
     private ArrayList<FSLItem> Items = new ArrayList<>();
 
     public void Add( FSLItem item ) {
@@ -149,7 +151,7 @@ public class FSL extends AbstractTableModel {
     public int getRowCount() { return Items.size(); }
     public int getColumnCount() { return 10; }
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (Items.size() > 0) {
             return getClassOf(0, c).getClass();
         } else {

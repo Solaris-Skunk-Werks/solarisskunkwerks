@@ -402,7 +402,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     
     private boolean HasHitch(ArrayList<abPlaceable> items) {
         for( int i = 0; i < items.size(); ++i ) {
-            abPlaceable currentItem = (abPlaceable) items.get( i );
+            abPlaceable currentItem = items.get( i );
             if (currentItem instanceof Hitch)
                 return true;
         }
@@ -619,7 +619,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         if( NonCore.isEmpty() ) { return; }
 
         for( int i = NonCore.size() - 1; i >= 0; i-- ) {
-            p = (abPlaceable) NonCore.get( i );
+            p = NonCore.get( i );
             AC = p.GetAvailability();
             try {
                 CheckExclusions( p );
@@ -1139,7 +1139,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             // queue first
             abPlaceable test;
             for( int j = 0; j < GetNonCore().size(); j++ ) {
-                test = (abPlaceable) GetNonCore().get( j );
+                test = GetNonCore().get( j );
                 if( test.CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A Vehicle may not mount an " + p.CritName() + " if it\nalready mounts an " + test.CritName() );
                 }

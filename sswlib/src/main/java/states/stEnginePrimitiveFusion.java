@@ -120,7 +120,7 @@ public class stEnginePrimitiveFusion implements ifEngine, ifState {
     }
 
     public double GetCost( int MechTonnage, int Rating ) {
-        return ( 5000.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
+        return ( 5000.0f * (MechTonnage) * (Rating )) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {
