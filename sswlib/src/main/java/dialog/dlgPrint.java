@@ -42,6 +42,8 @@ import java.util.Vector;
 import java.util.prefs.Preferences;
 
 public class dlgPrint extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     private ImageTracker imageTracker;
     private Scenario scenario;
     private Preferences bfbPrefs = Preferences.userRoot().node( Constants.BFBPrefs );
@@ -330,18 +332,18 @@ public class dlgPrint extends javax.swing.JDialog {
         btnClearImages = new javax.swing.JButton();
         pnlBattleForce = new javax.swing.JPanel();
         chkBFOnePerPage = new javax.swing.JCheckBox();
-        cmbBFSheetType = new javax.swing.JComboBox();
+        cmbBFSheetType = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         chkBFTerrainMV = new javax.swing.JCheckBox();
         chkUseColor = new javax.swing.JCheckBox();
         chkBFBacks = new javax.swing.JCheckBox();
         pnlRecordsheet = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        cmbHexConvFactor = new javax.swing.JComboBox();
+        cmbHexConvFactor = new javax.swing.JComboBox<String>();
         lblInches = new javax.swing.JLabel();
         lblOneHex = new javax.swing.JLabel();
         chkUseHexConversion = new javax.swing.JCheckBox();
-        cmbRSType = new javax.swing.JComboBox();
+        cmbRSType = new javax.swing.JComboBox<String>();
         jLabel4 = new javax.swing.JLabel();
         chkCanon = new javax.swing.JCheckBox();
         chkTables = new javax.swing.JCheckBox();
@@ -552,7 +554,7 @@ public class dlgPrint extends javax.swing.JDialog {
             }
         });
 
-        cmbBFSheetType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "*Strategic Ops", "*QuickStrike Cards", "BattleForce Sheet", "Vertical Cards" }));
+        cmbBFSheetType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "*Strategic Ops", "*QuickStrike Cards", "BattleForce Sheet", "Vertical Cards" }));
         cmbBFSheetType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemChanged(evt);
@@ -618,7 +620,7 @@ public class dlgPrint extends javax.swing.JDialog {
 
         pnlRecordsheet.setBorder(javax.swing.BorderFactory.createTitledBorder("Recordsheet Options"));
 
-        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "1", "2", "3", "4", "5" }));
         cmbHexConvFactor.setEnabled(false);
 
         lblInches.setText("Inches");
@@ -657,7 +659,7 @@ public class dlgPrint extends javax.swing.JDialog {
             }
         });
 
-        cmbRSType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Warfare", "Recordsheet", "Tactical Operations" }));
+        cmbRSType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Total Warfare", "Recordsheet", "Tactical Operations" }));
         cmbRSType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemChanged(evt);
@@ -913,9 +915,9 @@ public class dlgPrint extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkTables;
     private javax.swing.JCheckBox chkUseColor;
     private javax.swing.JCheckBox chkUseHexConversion;
-    private javax.swing.JComboBox cmbBFSheetType;
-    private javax.swing.JComboBox cmbHexConvFactor;
-    private javax.swing.JComboBox cmbRSType;
+    private javax.swing.JComboBox<String> cmbBFSheetType;
+    private javax.swing.JComboBox<String> cmbHexConvFactor;
+    private javax.swing.JComboBox<String> cmbRSType;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

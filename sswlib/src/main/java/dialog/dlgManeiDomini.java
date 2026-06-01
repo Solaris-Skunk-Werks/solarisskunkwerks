@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 
 public class dlgManeiDomini extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     public double Modifier = 1.0;
     public ArrayList<Enhancement> Enhancements = new ArrayList<Enhancement>();
 

@@ -49,6 +49,8 @@ import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
 
 public class dlgUnit extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     private Force force;
     private Unit unit;
     private boolean Default = true;
@@ -105,7 +107,7 @@ public class dlgUnit extends javax.swing.JDialog {
                         String curConfig = unit.m.GetLoadout().GetName();
                         int BV = unit.m.GetCurrentBV();
                         for (int i=0; i < unit.m.GetLoadouts().size(); i++) {
-                            ifMechLoadout config = (ifMechLoadout) unit.m.GetLoadouts().get(i);
+                            ifMechLoadout config = unit.m.GetLoadouts().get(i);
                             unit.m.SetCurLoadout(config.GetName());
                             cmbConfiguration.addItem(config.GetName() + " (" + unit.m.GetCurrentBV() + ")");
                         }
