@@ -29,6 +29,7 @@ This document tracks the print workflow exploration branch. The goal is to isola
 - Preview dialogs are Swing UI surfaces.
   - SSW has `ssw.printpreview`.
   - Shared/BFB/SAW flows use `Print.preview`.
+  - Shared preview print now uses one-dialog, one-spool-job-per-page printing for driver compatibility.
 
 ## Pain Points
 

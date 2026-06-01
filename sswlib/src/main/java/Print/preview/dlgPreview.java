@@ -1127,7 +1127,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         setPreferences();
         if ( hasChanges ) { PrinterSetup(); }
-        printer.Print();
+        printer.PrintPagesSeparately();
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseHexConversionActionPerformed

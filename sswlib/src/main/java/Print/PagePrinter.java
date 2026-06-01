@@ -116,11 +116,18 @@ public class PagePrinter {
     }
 
     PrintRequest buildRequest() {
-        PrintRequest.Builder request = PrintRequest.builder(jobName);
+        PrintRequest.Builder request = PrintRequest.builder(printJobName());
         for (PageEntry page : pages) {
             request.addPage(page.pageFormat, page.printable);
         }
         return request.build();
+    }
+
+    private String printJobName() {
+        if (jobName == null || jobName.trim().isEmpty()) {
+            return "Skunkwerks Print";
+        }
+        return jobName.trim();
     }
 
     private static final class PageEntry {

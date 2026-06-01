@@ -10,6 +10,7 @@ import java.awt.print.PrinterException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class PagePrinterTest {
 
@@ -45,9 +46,32 @@ public class PagePrinterTest {
         assertFalse(gateway.printCalled);
     }
 
+    @Test
+    public void emptyJobNameFallsBackToDefault() {
+        PagePrinter printer = new PagePrinter();
+        printer.setJobName("");
+        printer.Append(new PageFormat(), new NoOpPrintable());
+
+        assertEquals("Skunkwerks Print", printer.buildRequest().getJobName());
+    }
+
+    @Test
+    public void printPagesSeparatelyUsesGatewayPrint() {
+        TestPrinterJobGateway gateway = new TestPrinterJobGateway(true);
+        PagePrinter printer = new PagePrinter(gateway);
+        printer.Append(new PageFormat(), new NoOpPrintable());
+        printer.Append(new PageFormat(), new NoOpPrintable());
+
+        printer.PrintPagesSeparately();
+
+        assertEquals(2, gateway.printCalls);
+        assertTrue(gateway.printCalled);
+    }
+
     private static class TestPrinterJobGateway extends PrinterJobGateway {
         private final boolean dialogResult;
         private boolean printCalled;
+        private int printCalls;
 
         private TestPrinterJobGateway(boolean dialogResult) {
             this.dialogResult = dialogResult;
@@ -69,6 +93,7 @@ public class PagePrinterTest {
         @Override
         public void print() {
             printCalled = true;
+            printCalls++;
         }
     }
 
