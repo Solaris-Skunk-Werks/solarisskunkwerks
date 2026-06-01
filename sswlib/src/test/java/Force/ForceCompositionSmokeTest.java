@@ -1,5 +1,6 @@
 package Force;
 
+import IO.DataReader;
 import filehandlers.CVReader;
 import list.UnitListData;
 import org.junit.Test;
@@ -11,6 +12,28 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ForceCompositionSmokeTest {
+
+    @Test
+    public void loadsSavedSswForceRosterWithEmbeddedMechs() throws Exception {
+        Force force = new Force(new DataReader().ReadNode(
+                resourceFile("forces/ClanFox 1st Fox Dragoons roster.force").getAbsolutePath(),
+                "force"));
+
+        assertEquals(15, force.getUnits().size());
+        assertEquals(15, force.TotalUnits);
+        assertEquals(1, force.Groups.size());
+        assertEquals(1305.0f, force.TotalTonnage, 0.01f);
+        assertEquals(43043.0f, force.TotalBaseBV, 0.01f);
+        assertTrue(force.TotalAdjustedBV > force.TotalBaseBV);
+
+        Unit commander = force.getUnits().get(0);
+        assertEquals("Rabid Fox", commander.Name);
+        assertEquals("Primary", commander.Configuration);
+        assertEquals(2, commander.getGunnery());
+        assertEquals(3, commander.getPiloting());
+        assertTrue(commander.IsOmni());
+        assertEquals("Rabid Fox Primary", commander.getBFStats().getElement().replace("  ", " "));
+    }
 
     @Test
     public void addsRealUnitSummariesAndRefreshesForceTotals() throws Exception {
