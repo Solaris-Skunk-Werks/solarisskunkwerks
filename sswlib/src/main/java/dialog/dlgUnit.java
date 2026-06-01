@@ -36,6 +36,7 @@ import filehandlers.TXTWriter;
 import battleforce.BattleForceStats;
 import common.CommonTools;
 import common.Constants;
+import components.ifCVLoadout;
 import components.ifMechLoadout;
 
 import filehandlers.*;
@@ -131,7 +132,7 @@ public class dlgUnit extends javax.swing.JDialog {
                         String curConfig = unit.v.GetLoadout().GetName();
                         int BV = unit.v.GetCurrentBV();
                         for (int i=0; i < unit.v.GetLoadouts().size(); i++) {
-                            ifMechLoadout config = (ifMechLoadout) unit.v.GetLoadouts().get(i);
+                            ifCVLoadout config = unit.v.GetLoadouts().get(i);
                             unit.v.SetCurLoadout(config.GetName());
                             cmbConfiguration.addItem(config.GetName() + " (" + unit.v.GetCurrentBV() + ")");
                         }

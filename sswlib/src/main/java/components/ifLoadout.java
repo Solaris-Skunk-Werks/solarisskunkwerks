@@ -31,11 +31,11 @@ package components;
 import java.util.ArrayList;
 
 public interface ifLoadout {
-    public ArrayList GetTCList();
+    public ArrayList<abPlaceable> GetTCList();
     public Engine GetEngine();
     public boolean UsingFractionalAccounting();
     public int GetTechBase();
     public int Find( abPlaceable p );
-    public ArrayList GetNonCore();
+    public ArrayList<abPlaceable> GetNonCore();
     public ifUnit GetUnit();
 }

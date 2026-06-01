@@ -47,11 +47,11 @@ public class BipedLoadout implements ifMechLoadout, ifLoadout {
     private String Name,
                    Source = "";
     private final static EmptyItem NoItem = new EmptyItem();
-    private ArrayList Queue = new ArrayList(),
-                   NonCore = new ArrayList(),
-                   Equipment = new ArrayList(),
-                   TCList = new ArrayList(),
-                   MechMods = new ArrayList();
+    private ArrayList<Object> Queue = new ArrayList<>();
+    private ArrayList<abPlaceable> NonCore = new ArrayList<>();
+    private ArrayList<abPlaceable> Equipment = new ArrayList<>();
+    private ArrayList<abPlaceable> TCList = new ArrayList<>();
+    private ArrayList<MechModifier> MechMods = new ArrayList<>();
     private Mech Owner;
     private JumpJetFactory Jumps;
     private HeatSinkFactory HeatSinks;
@@ -378,20 +378,20 @@ public boolean IsTripod(){
         return null;
     }
 
-    public ArrayList GetQueue() {
+    public ArrayList<Object> GetQueue() {
         // returns the queue
         return Queue;
     }
 
-    public ArrayList GetNonCore() {
+    public ArrayList<abPlaceable> GetNonCore() {
         return NonCore;
     }
 
-    public ArrayList GetEquipment() {
+    public ArrayList<abPlaceable> GetEquipment() {
         return Equipment;
     }
 
-    public ArrayList GetTCList() {
+    public ArrayList<abPlaceable> GetTCList() {
         return TCList;
     }
 
@@ -1271,10 +1271,10 @@ public boolean IsTripod(){
         return l;
     }
 
-    public ArrayList FindSplitIndex( abPlaceable p ) {
+    public ArrayList<LocationIndex> FindSplitIndex( abPlaceable p ) {
         // finds the split location indexes of a contiguous item that can split.
         // the ArrayList should never be larger than two in size.
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<>();
         LocationIndex l;
         int NumHere = 0;
         boolean[] searched = { false, false, false, false, false, false, false, false };
@@ -1562,10 +1562,10 @@ public boolean IsTripod(){
         return retval;
     }
 
-    public ArrayList FindIndexes( abPlaceable p ) {
+    public ArrayList<LocationIndex> FindIndexes( abPlaceable p ) {
         // returns a ArrayList full of location indexes for the XML writer
         // this should only be used for non-contiguous items
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<>();
         LocationIndex l;
         for( int i = 0; i < 6; i++ ) {
             if( HDCrits[i] == p ) {
@@ -1713,7 +1713,7 @@ public boolean IsTripod(){
     }
 
     public boolean HasItem(String lookupName) {
-        for (abPlaceable item : (ArrayList<abPlaceable>)NonCore) {
+        for (abPlaceable item : NonCore) {
             if (item.LookupName().equals(lookupName)) {
                 return true;
             }
@@ -3717,13 +3717,13 @@ public boolean IsTripod(){
         }
         if( NonCore.size() > 0 ) {
             // have to move the none-core items
-            clone.SetNonCore( (ArrayList) NonCore.clone() );
+            clone.SetNonCore( new ArrayList<>( NonCore ) );
         }
         if( TCList.size() > 0 ) {
-            clone.SetTCList( (ArrayList) TCList.clone() );
+            clone.SetTCList( new ArrayList<>( TCList ) );
         }
         if( Equipment.size() > 0 ) {
-            clone.SetEquipment( (ArrayList) Equipment.clone() );
+            clone.SetEquipment( new ArrayList<>( Equipment ) );
         }
         if( HasSupercharger() ) {
             clone.SetSupercharger( SCharger );
@@ -3810,15 +3810,15 @@ public boolean IsTripod(){
         // SHOULD ONLY BE USED WHEN CLONING THE LOADOUT
     }
     
-    public void SetNonCore( ArrayList v ) {
+    public void SetNonCore( ArrayList<abPlaceable> v ) {
         NonCore = v;
     }
 
-    public void SetTCList( ArrayList v ) {
+    public void SetTCList( ArrayList<abPlaceable> v ) {
         TCList = v;
     }
 
-    public void SetEquipment( ArrayList v ) {
+    public void SetEquipment( ArrayList<abPlaceable> v ) {
         Equipment = v;
     }
 
@@ -5052,7 +5052,7 @@ public boolean IsTripod(){
         MechMods.remove( m );
     }
 
-    public ArrayList GetMechMods() {
+    public ArrayList<MechModifier> GetMechMods() {
         return MechMods;
     }
 

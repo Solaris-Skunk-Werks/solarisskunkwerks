@@ -64,7 +64,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                                 NonCore = new ArrayList<abPlaceable>(),
                                 TCList = new ArrayList<abPlaceable>();
 
-    private ArrayList MechMods = new ArrayList();
+    private ArrayList<MechModifier> MechMods = new ArrayList<>();
     private boolean UseAIVFCS = false,
                     UseAVFCS = false,
                     UseApollo = false,
@@ -209,12 +209,12 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public ArrayList GetQueue() {
+    public ArrayList<abPlaceable> GetQueue() {
         return Queue;
     }
 
-    public ArrayList GetNonCore() {
-        ArrayList all = new ArrayList();
+    public ArrayList<abPlaceable> GetNonCore() {
+        ArrayList<abPlaceable> all = new ArrayList<>();
         all.addAll(FrontItems);
         all.addAll(LeftItems);
         all.addAll(RightItems);
@@ -228,9 +228,9 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         return all;
     }
 
-    public ArrayList GetEquipment() {
-        ArrayList equip = new ArrayList();
-        for ( abPlaceable a : (ArrayList<abPlaceable>) GetNonCore() ) {
+    public ArrayList<abPlaceable> GetEquipment() {
+        ArrayList<abPlaceable> equip = new ArrayList<>();
+        for ( abPlaceable a : GetNonCore() ) {
             if ( !(a instanceof Ammunition) ) 
                 equip.add(a);
         }
@@ -428,7 +428,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     
     public int GetTotalHeat() {
         int total = 0;
-        for ( abPlaceable a : (ArrayList<abPlaceable>)GetNonCore() ) {
+        for ( abPlaceable a : GetNonCore() ) {
             if ( a instanceof RangedWeapon && ((RangedWeapon)a).RequiresPowerAmps() ) {
                 total += ((RangedWeapon)a).GetHeat();
             } else if (a instanceof Equipment && ((Equipment)a).RequiresPowerAmps()) {
@@ -598,8 +598,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public ArrayList FindIndexes(abPlaceable p) {
-        return new ArrayList();
+    public ArrayList<LocationIndex> FindIndexes(abPlaceable p) {
+        return new ArrayList<>();
     }
 
     public int[] FindModularArmor() {
@@ -772,21 +772,21 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             // will be empty.  Write an event to stderr
             System.err.println( "Could not set Artemis IV for an empty loadout." );
         }
-        clone.SetFrontItems( (ArrayList<abPlaceable>)FrontItems.clone() );
-        clone.SetLeftItems( (ArrayList<abPlaceable>)LeftItems.clone() );
-        clone.SetRightItems( (ArrayList<abPlaceable>)RightItems.clone() );
-        clone.SetBodyItems( (ArrayList<abPlaceable>)BodyItems.clone() );
-        clone.SetRearItems( (ArrayList<abPlaceable>)RearItems.clone() );
-        clone.SetTurret1Items( (ArrayList<abPlaceable>)Turret1Items.clone() );
-        clone.SetTurret2Items( (ArrayList<abPlaceable>)Turret2Items.clone() );
-        clone.SetSponsonTurretLeftItems((ArrayList<abPlaceable>) SponsonTurretLeftItems.clone());
-        clone.SetSponsonTurretRightItems((ArrayList<abPlaceable>) SponsonTurretRightItems.clone());
+        clone.SetFrontItems( new ArrayList<>( FrontItems ) );
+        clone.SetLeftItems( new ArrayList<>( LeftItems ) );
+        clone.SetRightItems( new ArrayList<>( RightItems ) );
+        clone.SetBodyItems( new ArrayList<>( BodyItems ) );
+        clone.SetRearItems( new ArrayList<>( RearItems ) );
+        clone.SetTurret1Items( new ArrayList<>( Turret1Items ) );
+        clone.SetTurret2Items( new ArrayList<>( Turret2Items ) );
+        clone.SetSponsonTurretLeftItems( new ArrayList<>( SponsonTurretLeftItems ) );
+        clone.SetSponsonTurretRightItems( new ArrayList<>( SponsonTurretRightItems ) );
 
         if( TCList.size() > 0 ) {
-            clone.SetTCList( (ArrayList) TCList.clone() );
+            clone.SetTCList( new ArrayList<>( TCList ) );
         }
         if( Equipment.size() > 0 ) {
-            clone.SetEquipment( (ArrayList) Equipment.clone() );
+            clone.SetEquipment( new ArrayList<>( Equipment ) );
         }
         if (HasCase()) {
             clone.SetCase( Case );
@@ -852,15 +852,15 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public void SetSponsonTurretRightItems(ArrayList<abPlaceable> c) { SponsonTurretRightItems = c; }
 
-    public void SetNonCore(ArrayList v) {
+    public void SetNonCore(ArrayList<abPlaceable> v) {
         NonCore = v;
     }
 
-    public void SetTCList(ArrayList v) {
+    public void SetTCList(ArrayList<abPlaceable> v) {
         TCList = v;
     }
 
-    public void SetEquipment(ArrayList v) {
+    public void SetEquipment(ArrayList<abPlaceable> v) {
         Equipment = v;
     }
 
@@ -1191,7 +1191,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         MechMods.remove( m );
     }
 
-    public ArrayList GetMechMods() {
+    public ArrayList<MechModifier> GetMechMods() {
         return MechMods;
     }
 
@@ -1282,7 +1282,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         // Different types of ammo for the same weapon (index) all count as 1 space, so we just need a unique count of
         // AmmoIndexes (https://bg.battletech.com/forums/techmanual/answered-ammunition-slots-on-combat-vehicles/)
         LinkedHashSet<Integer> indexes = new LinkedHashSet<>();
-        for (abPlaceable a: (ArrayList<abPlaceable>)GetNonCore()) {
+        for (abPlaceable a: GetNonCore()) {
             if (a instanceof Ammunition) {
                 indexes.add(((Ammunition) a).GetAmmoIndex());
             }
