@@ -1,9 +1,12 @@
 package Force;
 
 import IO.DataReader;
+import IO.ForceWriter;
 import filehandlers.CVReader;
+import org.junit.Rule;
 import list.UnitListData;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.net.URL;
@@ -13,11 +16,12 @@ import static org.junit.Assert.assertTrue;
 
 public class ForceCompositionSmokeTest {
 
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
     @Test
     public void loadsSavedSswForceRosterWithEmbeddedMechs() throws Exception {
-        Force force = new Force(new DataReader().ReadNode(
-                resourceFile("forces/ClanFox 1st Fox Dragoons roster.force").getAbsolutePath(),
-                "force"));
+        Force force = loadForce("forces/ClanFox 1st Fox Dragoons roster.force");
 
         assertEquals(15, force.getUnits().size());
         assertEquals(15, force.TotalUnits);
@@ -33,6 +37,24 @@ public class ForceCompositionSmokeTest {
         assertEquals(3, commander.getPiloting());
         assertTrue(commander.IsOmni());
         assertEquals("Rabid Fox Primary", commander.getBFStats().getElement().replace("  ", " "));
+    }
+
+    @Test
+    public void savedSswForceRosterRoundTripsThroughWriter() throws Exception {
+        Force original = loadForce("forces/ClanFox 1st Fox Dragoons roster.force");
+        File output = temporaryFolder.newFile("roundtrip.force");
+
+        new ForceWriter().SerializeForce(original, output.getAbsolutePath());
+        Force reloaded = new Force(new DataReader().ReadNode(output.getAbsolutePath(), "force"));
+
+        assertEquals(original.getUnits().size(), reloaded.getUnits().size());
+        assertEquals(original.TotalUnits, reloaded.TotalUnits);
+        assertEquals(original.Groups.size(), reloaded.Groups.size());
+        assertEquals(original.TotalTonnage, reloaded.TotalTonnage, 0.01f);
+        assertEquals(original.TotalBaseBV, reloaded.TotalBaseBV, 0.01f);
+        assertEquals(original.getUnits().get(0).TypeModel, reloaded.getUnits().get(0).TypeModel);
+        assertEquals(original.getUnits().get(0).getGunnery(), reloaded.getUnits().get(0).getGunnery());
+        assertEquals(original.getUnits().get(0).getPiloting(), reloaded.getUnits().get(0).getPiloting());
     }
 
     @Test
@@ -66,6 +88,10 @@ public class ForceCompositionSmokeTest {
     private UnitListData readVehicleSummary(String resourcePath) throws Exception {
         File file = resourceFile(resourcePath);
         return new CVReader().ReadUnitData(file.getAbsolutePath(), file.getParent());
+    }
+
+    private Force loadForce(String resourcePath) throws Exception {
+        return new Force(new DataReader().ReadNode(resourceFile(resourcePath).getAbsolutePath(), "force"));
     }
 
     private File resourceFile(String path) throws Exception {
