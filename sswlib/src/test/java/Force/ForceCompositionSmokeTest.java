@@ -58,6 +58,18 @@ public class ForceCompositionSmokeTest {
     }
 
     @Test
+    public void savedSswForceRosterExportsClipboardSummary() throws Exception {
+        Force force = loadForce("forces/ClanFox 1st Fox Dragoons roster.force");
+
+        String clipboard = force.SerializeClipboard();
+
+        assertTrue(clipboard.contains("Rabid Fox Primary"));
+        assertTrue(clipboard.contains("Balgaire H"));
+        assertTrue(clipboard.contains("2/3"));
+        assertTrue(clipboard.contains("2,695"));
+    }
+
+    @Test
     public void addsRealUnitSummariesAndRefreshesForceTotals() throws Exception {
         UnitListData redHunter = new UnitListData(
                 resourceFile("mechs/Red Hunter.ssw").getAbsolutePath(),
