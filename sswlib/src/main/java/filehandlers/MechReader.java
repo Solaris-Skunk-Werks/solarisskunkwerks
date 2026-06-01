@@ -1686,10 +1686,10 @@ public class MechReader {
 
             // Remove the temporary loadout if we created one and set the mech
             // to the first loadout
-            for (Object lo : m.GetLoadouts()) {
-                if (((ifMechLoadout)lo).GetName().equals("SSW_TEMP_LOADOUT_001")) {
+            for (ifMechLoadout lo : m.GetLoadouts()) {
+                if (lo.GetName().equals("SSW_TEMP_LOADOUT_001")) {
                     m.RemoveLoadout( "SSW_TEMP_LOADOUT_001" );
-                    m.SetCurLoadout( ((ifMechLoadout) m.GetLoadouts().get( 0 )).GetName() );
+                    m.SetCurLoadout( m.GetLoadouts().get( 0 ).GetName() );
                     break;
                 }
             }
@@ -1821,6 +1821,7 @@ public class MechReader {
         return l;
     }
 
+    @SuppressWarnings("fallthrough")
     private abPlaceable GetEquipmentByName( String name, String type, Mech m ) {
         boolean rear = false;
         abPlaceable retval = null;

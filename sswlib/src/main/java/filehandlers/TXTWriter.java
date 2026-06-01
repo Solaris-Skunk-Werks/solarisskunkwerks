@@ -684,7 +684,7 @@ public class TXTWriter {
         // turn the equipment into an array
         abPlaceable[] equips = new abPlaceable[v.size()];
         for( int i = 0; i < v.size(); i++ ) {
-            equips[i] = (abPlaceable) v.get( i );
+            equips[i] = v.get( i );
         }
 
         // we'll want to consolidate equipment within locations.
@@ -936,7 +936,7 @@ public class TXTWriter {
         // turn the equipment into an array
         abPlaceable[] equips = new abPlaceable[v.size()];
         for( int i = 0; i < v.size(); i++ ) {
-            equips[i] = (abPlaceable) v.get( i );
+            equips[i] = v.get( i );
         }
 
         // the basic equipment block header
@@ -1328,7 +1328,7 @@ public class TXTWriter {
 
         String datum = "", omniname = "";
         for (int i=0; i < list.Size(); i++) {
-            UnitListData data = (UnitListData) list.Get(i);
+            UnitListData data = list.Get(i);
             switch(data.getUnitType()) {
                 case CommonTools.BattleMech:
                     datum = "BattleMech";

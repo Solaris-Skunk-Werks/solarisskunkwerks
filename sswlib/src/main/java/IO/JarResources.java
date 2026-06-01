@@ -45,7 +45,7 @@ public final class JarResources {
     * @param name a resource name.
     */
    public byte[] getResource(String name) {
-      return (byte[])htJarContents.get(name);
+      return htJarContents.get(name);
    }
 
    /**
@@ -55,9 +55,9 @@ public final class JarResources {
       try {
           // extracts just sizes only.
           ZipFile zf=new ZipFile(getJarFileName());
-          Enumeration e=zf.entries();
+          Enumeration<? extends ZipEntry> e=zf.entries();
           while (e.hasMoreElements()) {
-              ZipEntry ze=(ZipEntry)e.nextElement();
+              ZipEntry ze=e.nextElement();
               if (debugOn) {
                  System.out.println(dumpZipEntry(ze));
               }
@@ -85,11 +85,11 @@ public final class JarResources {
                 size=htSizes.get(ze.getName()).intValue();
              }
 
-             byte[] b=new byte[(int)size];
+             byte[] b=new byte[size];
              int rb=0;
              int chunk=0;
-             while (((int)size - rb) > 0) {
-                 chunk=zis.read(b,rb,(int)size - rb);
+             while ((size - rb) > 0) {
+                 chunk=zis.read(b,rb,size - rb);
                  if (chunk==-1) {
                     break;
                  }

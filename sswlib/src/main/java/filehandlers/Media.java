@@ -209,11 +209,11 @@ public class Media {
 
         if ( imageSize.width > MaxWidth || imageSize.height > MaxHeight ) {
             if ( imageSize.width > imageSize.height ) {
-                imageSize = reScale(imageSize, (double)(MaxWidth / (double) imageSize.width));
-                if ( imageSize.height > MaxHeight ) { imageSize = reScale(imageSize, (double)(MaxHeight / (double) imageSize.height)); }
+                imageSize = reScale(imageSize, MaxWidth / imageSize.width);
+                if ( imageSize.height > MaxHeight ) { imageSize = reScale(imageSize, MaxHeight / imageSize.height); }
             } else {
-                imageSize = reScale(imageSize, (double)(MaxHeight / (double) imageSize.height));
-                if ( imageSize.width > MaxWidth ) { imageSize = reScale(imageSize, (double)(MaxWidth / (double) imageSize.width)); }
+                imageSize = reScale(imageSize, MaxHeight / imageSize.height);
+                if ( imageSize.width > MaxWidth ) { imageSize = reScale(imageSize, MaxWidth / imageSize.width); }
             }
         }
 

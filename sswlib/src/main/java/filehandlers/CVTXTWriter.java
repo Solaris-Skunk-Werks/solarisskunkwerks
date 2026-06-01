@@ -1017,7 +1017,7 @@ public class CVTXTWriter {
 
         String datum = "";
         for (int i=0; i < list.Size(); i++) {
-            UnitListData data = (UnitListData) list.Get(i);
+            UnitListData data = list.Get(i);
             FR.write( CSVFormat("Combat Vehicle") );
             datum = "Combat Vehicle";
             if ( data.isOmni() ) { datum = "OmniVehicle"; }
