@@ -683,6 +683,10 @@ private void chkPrintChartsActionPerformed(java.awt.event.ActionEvent evt) {//GE
         return chkPrintCharts.isSelected();
     }
 
+    public boolean PrintImage() {
+        return chkPrintImage.isSelected();
+    }
+
     public boolean UseA4Paper() {
         if( cmbPaperSize.getSelectedIndex() == 0 ) {
             return false;

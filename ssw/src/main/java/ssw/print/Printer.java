@@ -298,6 +298,7 @@ public class Printer {
         pMech.setGunnery(POptions.GetGunnery());
         pMech.setPiloting(POptions.GetPiloting());
         pMech.setMechwarrior(POptions.GetWarriorName());
+        pMech.setPrintMech(POptions.PrintImage());
         pMech.setMechImage(POptions.getImage());
         pMech.setLogoImage(POptions.getLogo());
         pMech.setCanon(POptions.getCanon());
@@ -326,6 +327,7 @@ public class Printer {
         for (PrintMech pMech : Mechs) {
             pMech.setPrintPilot(POptions.PrintPilot());
             pMech.setCharts(POptions.PrintCharts());
+            pMech.setPrintMech(POptions.PrintImage());
             pMech.setMechImage(POptions.getImage());
             pMech.setLogoImage(POptions.getLogo());
             pMech.setCanon(POptions.getCanon());

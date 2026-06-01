@@ -31,6 +31,7 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - SAW `HMPReader` no longer emits checked compile warnings after typing the HMP compatibility error and critical-location collections.
 - SAW equipment renderers no longer use raw `JList` renderer signatures.
 - SAW `frmVee` and `frmVeeWide` no longer emit checked compile warnings after typing their primary Swing list/combo models and local equipment selector collections.
+- SSW print options now explicitly pass the "Print Mech" image choice through to `PrintMech`, restoring saved mech-image rendering when the user does not choose a separate image file.
 
 ## Follow-Up Candidates
 
