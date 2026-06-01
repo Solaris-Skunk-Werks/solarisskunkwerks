@@ -2602,17 +2602,17 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         //region File
         mnuFile.addActionListener(this::mnuFileActionPerformed);
-        mnuFile.add(Utils.menuItem("New", this::mnuNewMechActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.ALT_MASK)));
-        mnuFile.add(Utils.menuItem("Load", this::mnuLoadActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.ALT_MASK)));
-        mnuFile.add(Utils.menuItem("Open", this::mnuOpenActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_MASK)));
+        mnuFile.add(Utils.menuItem("New", this::mnuNewMechActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.ALT_DOWN_MASK)));
+        mnuFile.add(Utils.menuItem("Load", this::mnuLoadActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.ALT_DOWN_MASK)));
+        mnuFile.add(Utils.menuItem("Open", this::mnuOpenActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_DOWN_MASK)));
 
         mnuImport.add(Utils.menuItem("from Heavy Metal Pro (HMP)", this::mnuImportHMPActionPerformed));
         mnuImport.add(Utils.menuItem("Batch Import HMP Files", this::mnuBatchHMPActionPerformed));
         mnuFile.add(mnuImport);
         mnuFile.add(Utils.etchedSeparator());
-        mnuFile.add(Utils.menuItem("Save", this::mnuSaveActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_MASK)));
+        mnuFile.add(Utils.menuItem("Save", this::mnuSaveActionPerformed, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_DOWN_MASK)));
 
-        mnuSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_MASK | InputEvent.CTRL_MASK));
+        mnuSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK));
         mnuSaveAs.addActionListener(this::mnuSaveAsActionPerformed);
         mnuFile.add(mnuSaveAs);
 
@@ -2623,9 +2623,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         mnuExport.add(Utils.menuItem("to TCG Format (Card)", this::mnuCreateTCGMechActionPerformed));
         mnuFile.add(mnuExport);
         mnuFile.add(Utils.etchedSeparator());
-        mnuFile.add(Utils.menuItem("Print Preview", this::mnuPrintPreviewActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK)));
+        mnuFile.add(Utils.menuItem("Print Preview", this::mnuPrintPreviewActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK)));
         mnuFile.add(Utils.etchedSeparator());
-        mnuFile.add(Utils.menuItem("Exit", this::mnuExitActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK)));
+        mnuFile.add(Utils.menuItem("Exit", this::mnuExitActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK)));
         jMenuBar1.add(mnuFile);
         //endregion
 
@@ -2636,9 +2636,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         mnuClearFluff.add(Utils.etchedSeparator());
         mnuClearFluff.add(Utils.menuItem("Load Force Balancer", this::mnuBFBActionPerformed));
         mnuClearFluff.add(Utils.etchedSeparator());
-        mnuClearFluff.add(Utils.menuItem("Preferences", this::mnuOptionsActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK)));
+        mnuClearFluff.add(Utils.menuItem("Preferences", this::mnuOptionsActionPerformed, KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK)));
 
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.addActionListener(this::mnuViewToolbarActionPerformed);
         mnuClearFluff.add(mnuViewToolbar);

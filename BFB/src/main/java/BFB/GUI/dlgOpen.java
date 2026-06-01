@@ -1445,11 +1445,12 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnClipboardActionPerformed
 
     private void lstSelectedKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstSelectedKeyPressed
-        if (lstSelected.getSelectedValues().length > 0) {
+        List<?> selectedValues = lstSelected.getSelectedValuesList();
+        if (!selectedValues.isEmpty()) {
             if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
                 DefaultListModel model = (DefaultListModel) lstSelected.getModel();
-                for (int i = lstSelected.getSelectedValues().length - 1; i >= 0; i--) {
-                    model.removeElement((Object) lstSelected.getSelectedValues()[i]);
+                for (int i = selectedValues.size() - 1; i >= 0; i--) {
+                    model.removeElement(selectedValues.get(i));
                 }
                 lstSelected.clearSelection();
             }
@@ -1457,8 +1458,9 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_lstSelectedKeyPressed
 
     private void lstSelectedValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedValueChanged
-        if ((lstSelected.getSelectedValues().length > 0)) {
-            String Item = ((Object) lstSelected.getSelectedValues()[0]).toString();
+        List<?> selectedValues = lstSelected.getSelectedValuesList();
+        if (!selectedValues.isEmpty()) {
+            String Item = selectedValues.get(0).toString();
             if (Item.contains(" ")) {
                 String Name = RUS.ParseDesignName(Item);
                 txtName.setText(Name);
@@ -1490,7 +1492,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
 }//GEN-LAST:event_lstChosenValueChanged
 
     private void lstChosenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstChosenKeyPressed
-        if (lstChosen.getSelectedValues().length > 0) {
+        if (!lstChosen.getSelectedValuesList().isEmpty()) {
             if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
                 btnDeleteUnitActionPerformed(null);
             }
@@ -1553,7 +1555,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_tblMechDataFocusGained
 
     private void btnDeleteUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUnitActionPerformed
-        Object[] remove = lstChosen.getSelectedValues();
+        List<?> remove = lstChosen.getSelectedValuesList();
         for (Object data : remove) {
             chosen.Remove((UnitListData) data);
         }
