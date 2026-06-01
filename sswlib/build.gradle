@@ -17,6 +17,10 @@ dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
+test {
+    workingDir = rootProject.projectDir
+}
+
 publishing {
     publications {
         sswlib(MavenPublication) {
