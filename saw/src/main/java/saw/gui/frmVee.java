@@ -9085,7 +9085,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         //do nothing
     }
 
-    public void setUnit(ArrayList v) {
+    public void setUnit(ArrayList<? extends ifUnit> v) {
         this.setVee( (CombatVehicle) v.get(0) );
     }
 

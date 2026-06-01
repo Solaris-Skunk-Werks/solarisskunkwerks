@@ -96,7 +96,6 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     private void LoadMechIntoSSW() {
         UnitListData Data = (UnitListData)((abView) tblMechData.getModel()).Get( tblMechData.convertRowIndexToModel( tblMechData.getSelectedRow() ) );
         try
@@ -106,7 +105,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             if (Data.isOmni()) {
                 m.SetCurLoadout( Data.getConfig() );
             }
-            ArrayList units = new ArrayList();
+            ArrayList<CombatVehicle> units = new ArrayList<>();
             units.add(m);
             parent.setUnit( units );
 

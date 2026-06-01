@@ -7485,7 +7485,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         //do nothing
     }
 
-    public void setUnit(ArrayList v) {
+    public void setUnit(ArrayList<? extends ifUnit> v) {
         this.setVee( (CombatVehicle) v.get(0) );
     }
     

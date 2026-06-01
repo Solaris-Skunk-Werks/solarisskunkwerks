@@ -14868,8 +14868,8 @@ private void setViewToolbar(boolean Visible)
         return imageTracker;
     }
     
-    public void setUnit( ArrayList<Mech> v ) {
-        this.setMech( v.get(0) );
+    public void setUnit( ArrayList<? extends ifUnit> v ) {
+        this.setMech( (Mech) v.get(0) );
     }
 
     public void loadUnitIntoGUI() {

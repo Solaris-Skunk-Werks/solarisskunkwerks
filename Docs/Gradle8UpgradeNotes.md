@@ -32,7 +32,8 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - SAW equipment renderers no longer use raw `JList` renderer signatures.
 - SAW `frmVee` and `frmVeeWide` no longer emit checked compile warnings after typing their primary Swing list/combo models and local equipment selector collections.
 - SSW print options now explicitly pass the "Print Mech" image choice through to `PrintMech`, restoring saved mech-image rendering when the user does not choose a separate image file.
+- `DesignForm#setUnit` now accepts lists of shared `ifUnit` implementations, removing the raw SAW vehicle handoff while preserving SSW mech loading.
 
 ## Follow-Up Candidates
 
-- Revisit the shared `DesignForm#setUnit` contract so SSW `Mech` and SAW `CombatVehicle` handoffs can share a type-safe unit interface.
+- Consider whether `ifUnit` should grow into a richer combat-unit-facing abstraction once broader SSW/SAW architecture work begins.
