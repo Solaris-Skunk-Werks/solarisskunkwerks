@@ -19,8 +19,9 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - BFB no longer uses deprecated `JList.getSelectedValues()` or `InputEvent.*_MASK` constants in its GUI package.
 - SAW vehicle forms no longer use deprecated `InputEvent.*_MASK` constants for menu accelerators.
 - SAW `HTMLWriter` no longer emits the large raw collection warning cluster during the checked Java 17/Gradle 8 compile pass.
+- SAW `dlgPrefs` now uses typed string combo boxes/model swaps and no longer appears in the checked compile warning list.
 
 ## Follow-Up Candidates
 
 - Replace SAW `frmVee` focus traversal calls with a modern focus traversal policy.
-- Continue unchecked generics cleanup in SAW GUI/HMPReader code and BFB Swing forms.
+- Continue unchecked generics cleanup in SAW `dlgOpen`, vehicle forms/HMPReader code, and BFB Swing forms.
