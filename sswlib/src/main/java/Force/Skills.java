@@ -33,7 +33,6 @@ import common.CommonTools;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class Skills {
@@ -74,7 +73,7 @@ public class Skills {
         Skill swap;
         while( i < List.size() ) {
             // get the two items we'll be comparing
-            if( ((Skill) List.get( i - 1 )).getBV() >= ((Skill) List.get( i )).getBV() ) {
+            if( List.get( i - 1 ).getBV() >= List.get( i ).getBV() ) {
                 i = j;
                 j += 1;
             } else {
@@ -92,7 +91,7 @@ public class Skills {
     public Skill getBestSkills() {
         ArrayList<Skill> oList = filter();
         if ( oList.size() > 0 ) {
-            return (Skill) oList.get(0);
+            return oList.get(0);
         } else {
             return new Skill(4, 5, 0);
         }
@@ -103,7 +102,7 @@ public class Skills {
         filtered.clear();
 
         for (int i=0; i<List.size(); i++) {
-            Skill data = (Skill) List.get(i);
+            Skill data = List.get(i);
             if ( data.getSeperation() <= MaxSeperation && data.getBV() <= MaxBV ) {
                 if ( !MaxSkill.isEmpty() ) {
                     if ( MaxSkill.equals("Gunnery") ) {
@@ -114,7 +113,7 @@ public class Skills {
                 } else {
                     Include = true;
                 }
-                if ( Include ) { filtered.add((Skill) List.get(i)); }
+                if ( Include ) { filtered.add(List.get(i)); }
             }
             Include = false;
         }
@@ -123,7 +122,7 @@ public class Skills {
         Skill swap;
         while( i < filtered.size() ) {
             // get the two items we'll be comparing
-            if( ((Skill) filtered.get( i - 1 )).getBV() >= ((Skill) filtered.get( i )).getBV() ) {
+            if( filtered.get( i - 1 ).getBV() >= filtered.get( i ).getBV() ) {
                 i = j;
                 j += 1;
             } else {
