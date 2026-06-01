@@ -37,6 +37,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 public class DamageChart extends JPanel {
+    private static final long serialVersionUID = 1L;
     private int GridX = 1;
     private int GridY = 1;
     private Vector<int[]> charts = new Vector<>();

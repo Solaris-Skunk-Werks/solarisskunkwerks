@@ -36,6 +36,7 @@ import javax.swing.TransferHandler;
 import components.*;
 
 public class thHDTransferHandler extends TransferHandler {
+    private static final long serialVersionUID = 1L;
     private ifMechForm Parent;
     private Mech CurMech;
 

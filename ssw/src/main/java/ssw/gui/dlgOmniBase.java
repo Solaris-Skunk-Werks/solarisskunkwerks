@@ -31,6 +31,7 @@ package ssw.gui;
 import filehandlers.Media;
 
 public class dlgOmniBase extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
     String input = "";
     boolean cancel = false;
 

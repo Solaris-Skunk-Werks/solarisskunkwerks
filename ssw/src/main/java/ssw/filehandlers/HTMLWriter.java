@@ -432,12 +432,12 @@ public class HTMLWriter {
     private String BuildOmniLines( ArrayList<String> lines ) throws IOException {
         // this routine will build each omnimech loadout and add it to retval.
         String retval = "";
-        ArrayList loadouts = CurMech.GetLoadouts();
+        ArrayList<ifMechLoadout> loadouts = CurMech.GetLoadouts();
         ArrayList<String> EQLines = new ArrayList<String>();
 
         for( int i = 0; i < loadouts.size(); i++ ) {
             // set the mech to the current loadout
-            CurMech.SetCurLoadout( ((ifMechLoadout) loadouts.get(i)).GetName() );
+            CurMech.SetCurLoadout( loadouts.get(i).GetName() );
             EQLines.clear();
 
             // now read each line in turn and fill in the blanks.
@@ -502,7 +502,7 @@ public class HTMLWriter {
                     if( ! test.equals( "<+-SSW_REMOVE_IF_BLANK-+>" ) ) {
                         // add it to the line
                         if( RemoveIfBlank ) {
-                            getval = (String) GetOmniValue( test );
+                            getval = GetOmniValue( test );
                             if( getval != null ) {
                                 if( getval.equals( "" ) ) {
                                     // remove the whole line
@@ -1148,7 +1148,7 @@ public class HTMLWriter {
 
     private abPlaceable[] GetEquips( boolean fluff ) {
         // returns an array of placeables that can be used to build equipment blocks
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
         ArrayList<abPlaceable> ret = new ArrayList<abPlaceable>();
         if( fluff ) {
             ArrayList<abPlaceable> EQ = new ArrayList<abPlaceable>();
@@ -1156,9 +1156,9 @@ public class HTMLWriter {
             // get the weapons for sort first.
             for( int i = 0; i < v.size(); i++ ) {
                 if( v.get( i ) instanceof ifWeapon ) {
-                    ret.add( (abPlaceable) v.get( i ) );
+                    ret.add( v.get( i ) );
                 } else {
-                    EQ.add( (abPlaceable) v.get( i ) );
+                    EQ.add( v.get( i ) );
                 }
             }
 
@@ -1286,10 +1286,10 @@ public class HTMLWriter {
         return retval;
     }
 
-    private ArrayList<abPlaceable> ToPlaceableList( ArrayList source ) {
+    private ArrayList<abPlaceable> ToPlaceableList( ArrayList<abPlaceable> source ) {
         ArrayList<abPlaceable> retval = new ArrayList<abPlaceable>();
         for( int i = 0; i < source.size(); i++ ) {
-            retval.add( (abPlaceable) source.get( i ) );
+            retval.add( source.get( i ) );
         }
         return retval;
     }
@@ -1622,7 +1622,7 @@ public class HTMLWriter {
                  
         int extraDHS = 0;
         boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
-        ArrayList equipment = CurMech.GetLoadout().GetEquipment();
+        ArrayList<abPlaceable> equipment = CurMech.GetLoadout().GetEquipment();
         
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){

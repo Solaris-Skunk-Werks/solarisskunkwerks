@@ -38,6 +38,7 @@ import javax.swing.TransferHandler;
 import components.*;
 
 public class thRTTransferHandler extends TransferHandler {
+    private static final long serialVersionUID = 1L;
     private ifMechForm Parent;
     private Mech CurMech;
 
@@ -197,7 +198,7 @@ public class thRTTransferHandler extends TransferHandler {
 
         // get the item
         abPlaceable a;
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<>();
         if( DropItem.Location == -1 ) {
             // from the queue
             a = CurMech.GetLoadout().GetFromQueueByIndex( DropItem.SourceIndex );
@@ -230,10 +231,10 @@ public class thRTTransferHandler extends TransferHandler {
                         LocationIndex loc1 = null;
                         LocationIndex loc2 = null;
                         for( int i = 0; i < v.size(); i++ ) {
-                            if( ((LocationIndex) v.get( i )).Location == LocationIndex.MECH_LOC_RT ) {
-                                loc1 = (LocationIndex) v.get( i );
+                            if( v.get( i ).Location == LocationIndex.MECH_LOC_RT ) {
+                                loc1 = v.get( i );
                             } else {
-                                loc2 = (LocationIndex) v.get( i );
+                                loc2 = v.get( i );
                             }
                         }
                         if( loc1 == null ) { return false; }
