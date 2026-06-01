@@ -41,14 +41,14 @@ public class PagePrinter {
 
     private List<PageEntry> pages = new ArrayList<PageEntry>();
     private PrintService service;
-    private PrinterJobGateway job = new PrinterJobGateway();
+    private PrintWorkflow workflow = new PrintWorkflow();
 
     public PagePrinter() {
 
     }
 
     PagePrinter( PrinterJobGateway job ) {
-        this.job = job;
+        this.workflow = new PrintWorkflow(job);
     }
 
     public PagePrinter( PageFormat page, Printable print ) {
@@ -77,12 +77,11 @@ public class PagePrinter {
     }
     
     public Book Preview() {
-        return buildRequest().toBook();
+        return workflow.preview(buildRequest());
     }
 
     public void Print() {
         PrintRequest request = buildRequest();
-        job.setJobName(request.getJobName());
 
         //Setting to null so that it will ask the user for now...was having an error when I used the dropdown choice
         /*
@@ -97,16 +96,10 @@ public class PagePrinter {
             DoPrint = job.printDialog();
         }
         */
-        DoPrint = job.showPrintDialog();
-
-        job.setPageable(request.toBook());
-        
-        if( DoPrint ) {
-            try {
-                job.print();
-            } catch( PrinterException e ) {
-                Media.Messager( e.getMessage() );
-            }
+        try {
+            DoPrint = workflow.print(request);
+        } catch( PrinterException e ) {
+            Media.Messager( e.getMessage() );
         }
     }
 

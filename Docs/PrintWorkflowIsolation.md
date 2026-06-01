@@ -49,6 +49,7 @@ Initial concepts:
   - Creates a `Book`
   - Shows preview when requested
   - Invokes direct print when requested
+  - Shared `PagePrinter` now delegates preview and direct print execution to this workflow.
 - `PrinterJobGateway`
   - Small wrapper around `PrinterJob`
   - Owns `printDialog()` and `print()`
@@ -65,7 +66,8 @@ The first implementation should preserve Swing behavior and existing dialogs. Th
 5. Refactor `BFBPrinter` to use the gateway behind the current API. Done.
 6. Introduce request objects for new print features.
    - Shared `PagePrinter` now builds `PrintRequest` objects before converting to `Book`.
-   - Next request-object pass should decide whether SSW and BFB print coordinators should consume the same request type directly or hand off to a small workflow class.
+   - Shared `PagePrinter` now delegates request execution to `PrintWorkflow`.
+   - Next request-object pass should decide whether SSW and BFB print coordinators should consume the same request/workflow types directly.
 7. Add Alpha Strike card generation as a print target after the request boundary exists.
 
 ## Guardrails
