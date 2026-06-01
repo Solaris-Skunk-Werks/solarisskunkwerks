@@ -8,8 +8,12 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 
 ## Known Warnings
 
+- `sswlib:compileJava` is clean in the checked Java 17/Gradle 8 compile pass.
+- `ssw:compileJava` is clean in the checked Java 17/Gradle 8 compile pass.
 - `saw:compileJava` is clean in the checked Java 17/Gradle 8 compile pass.
 - `BFB:compileJava` is clean in the checked Java 17/Gradle 8 compile pass.
+- `binconvert:compileJava` is clean in the checked Java 17/Gradle 8 compile pass.
+- `releaseBuild` completes successfully under Gradle 8.14.4.
 
 ## Resolved
 
