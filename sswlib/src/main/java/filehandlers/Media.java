@@ -31,9 +31,11 @@ package filehandlers;
 import common.Constants;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -132,6 +134,27 @@ public class Media {
             System.out.println(ie.getMessage());
         }
         return retval;
+    }
+
+    public Image toBufferedImage(Image image) {
+        if (image == null || image instanceof BufferedImage) {
+            return image;
+        }
+
+        int width = image.getWidth(null);
+        int height = image.getHeight(null);
+        if (width <= 0 || height <= 0) {
+            return image;
+        }
+
+        BufferedImage buffered = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = buffered.createGraphics();
+        try {
+            graphics.drawImage(image, 0, 0, null);
+        } finally {
+            graphics.dispose();
+        }
+        return buffered;
     }
 
     public void RemoveImage(Image image ) {

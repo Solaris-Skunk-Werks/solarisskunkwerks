@@ -36,6 +36,8 @@ public class PrintMechImageSmokeTest {
         PrintMech withImage = new PrintMech(mech, images);
         withImage.setPrintMech(true);
 
+        assertTrue("Mech image should be normalized for print rendering",
+                withImage.getMechImage() instanceof BufferedImage);
         RenderedPage baselinePage = renderPage(withoutImage);
         RenderedPage imagePage = renderPage(withImage);
 

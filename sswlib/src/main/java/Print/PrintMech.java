@@ -77,14 +77,14 @@ public class PrintMech implements Printable {
     public PrintMech( Mech m, Image i, boolean adv, boolean A4, ImageTracker images) {
         CurMech = m;
         imageTracker = images;
-        RecordSheet = images.getImage( PrintConsts.RS_TW_BP );
-        ChartImage = images.getImage(PrintConsts.BP_ChartImage );
+        RecordSheet = normalizePrintImage(images.getImage( PrintConsts.RS_TW_BP ));
+        ChartImage = normalizePrintImage(images.getImage(PrintConsts.BP_ChartImage ));
         if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  )
-            MechImage = imageTracker.getImage(m.GetSSWImage());
+            MechImage = normalizePrintImage(imageTracker.getImage(m.GetSSWImage()));
 
         //If we could not load the stored image, find it
         if (MechImage == null)
-            MechImage = images.getImage(imageTracker.media.DetermineMatchingImage(m.GetName(), m.GetModel(), ""));
+            MechImage = normalizePrintImage(images.getImage(imageTracker.media.DetermineMatchingImage(m.GetName(), m.GetModel(), "")));
 
         Advanced = adv;
         BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
@@ -149,7 +149,7 @@ public class PrintMech implements Printable {
 
     public void setMechImage(Image MechImage) {
         if ( MechImage != null) {
-            this.MechImage = MechImage;
+            this.MechImage = normalizePrintImage(MechImage);
             this.printMech = true;
         }
     }
@@ -160,7 +160,7 @@ public class PrintMech implements Printable {
 
     public void setLogoImage(Image LogoImage) {
         if ( LogoImage != null) {
-            this.LogoImage = LogoImage;
+            this.LogoImage = normalizePrintImage(LogoImage);
             this.printLogo = true;
         }
     }
@@ -214,6 +214,10 @@ public class PrintMech implements Printable {
         return TRO;
     }
     // </editor-fold>
+
+    private Image normalizePrintImage(Image image) {
+        return imageTracker.media.toBufferedImage(image);
+    }
 
     public int print( Graphics graphics, PageFormat pageFormat, int pageIndex ) throws PrinterException {
         ((Graphics2D) graphics).translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
@@ -280,7 +284,7 @@ public class PrintMech implements Printable {
         start.y -= 6;
         if ( printMech ) {
             if (MechImage == null) // fallback to fluff image if user didn't explicitly choose a TRO pic in the print dialog
-                MechImage = imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage()));
+                MechImage = normalizePrintImage(imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage())));
             if( MechImage != null) {
                 //graphics.drawRect(start.x, start.y, 150, 210);
                 Dimension d = imageTracker.media.reSize(getMechImage(), 150, 210);
@@ -951,20 +955,20 @@ public class PrintMech implements Printable {
         points = new TWBipedPoints();
 
         if ( ChartImageOption.equals("Minimal") )
-            ChartImage = images.getImage(PrintConsts.BP_ChartImage_Minimal);
+            ChartImage = normalizePrintImage(images.getImage(PrintConsts.BP_ChartImage_Minimal));
 
         if ( CurMech.IsQuad() ) {
-            RecordSheet = images.getImage( PrintConsts.RS_TW_QD );
+            RecordSheet = normalizePrintImage(images.getImage( PrintConsts.RS_TW_QD ));
             if ( !ChartImageOption.equals("Minimal"))
-                ChartImage = images.getImage(PrintConsts.QD_ChartImage);
+                ChartImage = normalizePrintImage(images.getImage(PrintConsts.QD_ChartImage));
             else
-                ChartImage = images.getImage(PrintConsts.QD_ChartImage_Minimal);
+                ChartImage = normalizePrintImage(images.getImage(PrintConsts.QD_ChartImage_Minimal));
 
             points = new TWQuadPoints();
         }
 
         if ( Advanced ) {
-            RecordSheet = images.getImage( PrintConsts.RS_TO_BP );
+            RecordSheet = normalizePrintImage(images.getImage( PrintConsts.RS_TO_BP ));
         }
     }
 
