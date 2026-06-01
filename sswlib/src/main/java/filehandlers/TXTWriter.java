@@ -35,6 +35,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import battleforce.BattleForceStats;
 import battleforce.BattleForceTools;
 import components.*;
@@ -396,13 +397,13 @@ public class TXTWriter {
             }
         }
         if( CurMech.IsOmnimech() ) {
-            ArrayList l = CurMech.GetLoadouts();
+            ArrayList<ifMechLoadout> l = CurMech.GetLoadouts();
             if ( !CurrentLoadoutOnly ) {
                 CurMech.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
                 retval += NL;
                 retval += BuildEquipmentBlock() + NL;
                 for( int i = 0; i < l.size(); i++ ) {
-                    CurMech.SetCurLoadout( ((ifMechLoadout) l.get( i )).GetName() );
+                    CurMech.SetCurLoadout( l.get( i ).GetName() );
                     retval += NL + "================================================================================" + NL;
                     retval += BuildOmniLoadout() + NL;
                 }
@@ -420,9 +421,9 @@ public class TXTWriter {
     }
 
     private String GetArmament() {
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
-        ArrayList w = new ArrayList();
-        ArrayList EQ = new ArrayList();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> w = new ArrayList<>();
+        ArrayList<abPlaceable> EQ = new ArrayList<>();
         String Armament = "";
 
         // find only the armaments
@@ -445,7 +446,7 @@ public class TXTWriter {
 
         // sort the weapons according to current BV, assuming front facing
         abPlaceable[] weapons = CurMech.SortWeapons( w, false );
-        ArrayList Temp = new ArrayList();
+        ArrayList<abPlaceable> Temp = new ArrayList<>();
 
         // add in the rest of the equipment
         for( int i = 0; i < weapons.length; i++ ) {
@@ -458,7 +459,7 @@ public class TXTWriter {
         }
         weapons = new abPlaceable[Temp.size()];
         for( int i = 0; i < Temp.size(); i++ ) {
-            weapons[i] = (abPlaceable) Temp.get( i );
+            weapons[i] = Temp.get( i );
         }
 
         // initialize the next loop
@@ -595,7 +596,7 @@ public class TXTWriter {
         // provides a formated heat sink dissipation string         
         int extraDHS = 0;
         boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
-        ArrayList equipment = CurMech.GetLoadout().GetEquipment();
+        ArrayList<abPlaceable> equipment = CurMech.GetLoadout().GetEquipment();
         
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
@@ -631,7 +632,7 @@ public class TXTWriter {
 //        String retval = "Equipment                                        Location     Critical    Mass  " + NL;
         String loc = "";
         String crits = "";
-        ArrayList v = (ArrayList) CurMech.GetLoadout().GetNonCore().clone();
+        ArrayList<abPlaceable> v = new ArrayList<>( CurMech.GetLoadout().GetNonCore() );
 
         // add in MASC and the targeting computer if needed.
         if( CurMech.GetPhysEnhance().IsMASC() ) {
@@ -849,7 +850,7 @@ public class TXTWriter {
         String retval = "";
         String loc = "";
         String crits = "";
-        ArrayList v = (ArrayList) CurMech.GetLoadout().GetNonCore().clone();
+        ArrayList<abPlaceable> v = new ArrayList<>( CurMech.GetLoadout().GetNonCore() );
 
         retval += String.format( "Loadout Name: %1$-46s Cost: %2$,.0f", CurMech.GetLoadout().GetName(), Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + NL;
         retval += String.format( "Tech Rating/Era Availability: %1$-31s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL;
@@ -1158,7 +1159,7 @@ public class TXTWriter {
         text = text.replace( "\t", "    " );
 
         char [] chars = text.toCharArray();
-        ArrayList lines = new ArrayList();
+        ArrayList<String> lines = new ArrayList<>();
         StringBuffer line = new StringBuffer();
         StringBuffer word = new StringBuffer();
 
@@ -1192,9 +1193,9 @@ public class TXTWriter {
 
         String [] ret = new String[lines.size()];
         int c = 0; // counter
-        Iterator itr = lines.iterator();
+        Iterator<String> itr = lines.iterator();
         while(itr.hasNext()) {
-            ret[c] = (String) itr.next();
+            ret[c] = itr.next();
             c++;
         }
 

@@ -88,57 +88,61 @@ public class dlgSplitCrits extends javax.swing.JDialog {
         switch( FirstLoc ) {
         case LocationIndex.MECH_LOC_CT:
             lblFirstLoc.setText( "Center Torso" );
-            cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Left Torso", "Right Torso" } ) );
+            setSecondLocationOptions( "Left Torso", "Right Torso" );
             break;
         case LocationIndex.MECH_LOC_LT:
             lblFirstLoc.setText( "Left Torso" );
             if( ! p.CanAllocArms() &! p.CanAllocLegs() ) {
-                cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso" } ) );
+                setSecondLocationOptions( "Center Torso" );
             } else {
                 if( p instanceof ifWeapon ) {
                     if( ((ifWeapon) p).OmniRestrictActuators() && Parent.GetMech().GetActuators().LeftLowerInstalled() && Parent.GetMech().IsOmnimech() ) {
-                        cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso", "Left Leg" } ) );
+                        setSecondLocationOptions( "Center Torso", "Left Leg" );
                     } else {
-                        cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso", "Left Leg", "Left Arm" } ) );
+                        setSecondLocationOptions( "Center Torso", "Left Leg", "Left Arm" );
                     }
                 } else {
-                    cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso", "Left Leg", "Left Arm" } ) );
+                    setSecondLocationOptions( "Center Torso", "Left Leg", "Left Arm" );
                 }
             }
             break;
         case LocationIndex.MECH_LOC_RT:
             lblFirstLoc.setText( "Right Torso" );
             if( ! p.CanAllocArms() &! p.CanAllocLegs() ) {
-                cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso" } ) );
+                setSecondLocationOptions( "Center Torso" );
             } else {
                 if( p instanceof ifWeapon ) {
                     if( ((ifWeapon) p).OmniRestrictActuators() && Parent.GetMech().GetActuators().RightLowerInstalled() && Parent.GetMech().IsOmnimech() ) {
-                        cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso", "Right Leg" } ) );
+                        setSecondLocationOptions( "Center Torso", "Right Leg" );
                     } else {
-                        cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso", "Right Leg", "Right Arm" } ) );
+                        setSecondLocationOptions( "Center Torso", "Right Leg", "Right Arm" );
                     }
                 } else {
-                    cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso", "Right Leg", "Right Arm" } ) );
+                    setSecondLocationOptions( "Center Torso", "Right Leg", "Right Arm" );
                 }
             }
             break;
         case LocationIndex.MECH_LOC_LA:
             lblFirstLoc.setText( "Left Arm" );
-            cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Left Torso" } ) );
+            setSecondLocationOptions( "Left Torso" );
             break;
         case LocationIndex.MECH_LOC_RA:
             lblFirstLoc.setText( "Right Arm" );
-            cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Right Torso" } ) );
+            setSecondLocationOptions( "Right Torso" );
             break;
         case LocationIndex.MECH_LOC_LL:
-            cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Left Torso" } ) );
+            setSecondLocationOptions( "Left Torso" );
             lblFirstLoc.setText( "Left Leg" );
             break;
         case LocationIndex.MECH_LOC_RL:
-            cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Right Torso" } ) );
+            setSecondLocationOptions( "Right Torso" );
             lblFirstLoc.setText( "Right Leg" );
             break;
         }
+    }
+
+    private void setSecondLocationOptions( String... options ) {
+        cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel<>( options ) );
     }
 
     public boolean GetResult() {
@@ -154,7 +158,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        cmbSecondLoc = new javax.swing.JComboBox();
+        cmbSecondLoc = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblFirstLoc = new javax.swing.JLabel();
@@ -167,7 +171,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        cmbSecondLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSecondLoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbSecondLoc.setMaximumSize(new java.awt.Dimension(100, 20));
         cmbSecondLoc.setMinimumSize(new java.awt.Dimension(100, 20));
         cmbSecondLoc.setPreferredSize(new java.awt.Dimension(100, 20));
@@ -257,143 +261,68 @@ public class dlgSplitCrits extends javax.swing.JDialog {
         case LocationIndex.MECH_LOC_CT:
             switch( cmbSecondLoc.getSelectedIndex() ) {
             case 0:
-                try {
-                    Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
-                } catch( Exception e ) {
-                    Media.Messager( this, e.getMessage() );
-                    result = false;
-                    setVisible( false );
-                    return;
-                }
+                splitAllocate( LocationIndex.MECH_LOC_LT );
                 break;
             case 1:
-                try {
-                    Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
-                } catch( Exception e ) {
-                    Media.Messager( this, e.getMessage() );
-                    result = false;
-                    setVisible( false );
-                    return;
-                }
+                splitAllocate( LocationIndex.MECH_LOC_RT );
                 break;
             }
             break;
         case LocationIndex.MECH_LOC_LT:
             switch( cmbSecondLoc.getSelectedIndex() ) {
             case 0:
-                try {
-                    Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_CT );
-                } catch( Exception e ) {
-                    Media.Messager( this, e.getMessage() );
-                    result = false;
-                    setVisible( false );
-                    return;
-                }
+                splitAllocate( LocationIndex.MECH_LOC_CT );
                 break;
             case 1:
-                try {
-                    Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LL );
-                } catch( Exception e ) {
-                    Media.Messager( this, e.getMessage() );
-                    result = false;
-                    setVisible( false );
-                    return;
-                }
+                splitAllocate( LocationIndex.MECH_LOC_LL );
                 break;
             case 2:
-                try {
-                    Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LA );
-                } catch( Exception e ) {
-                    Media.Messager( this, e.getMessage() );
-                    result = false;
-                    setVisible( false );
-                    return;
-                }
+                splitAllocate( LocationIndex.MECH_LOC_LA );
                 break;
             }
             break;
         case LocationIndex.MECH_LOC_RT:
             switch( cmbSecondLoc.getSelectedIndex() ) {
             case 0:
-                try {
-                    Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_CT );
-                } catch( Exception e ) {
-                    Media.Messager( this, e.getMessage() );
-                    result = false;
-                    setVisible( false );
-                    return;
-                }
+                splitAllocate( LocationIndex.MECH_LOC_CT );
                 break;
             case 1:
-                try {
-                    Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RL );
-                } catch( Exception e ) {
-                    Media.Messager( this, e.getMessage() );
-                    result = false;
-                    setVisible( false );
-                    return;
-                }
+                splitAllocate( LocationIndex.MECH_LOC_RL );
                 break;
             case 2:
-                try {
-                    Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RA );
-                } catch( Exception e ) {
-                    Media.Messager( this, e.getMessage() );
-                    result = false;
-                    setVisible( false );
-                    return;
-                }
+                splitAllocate( LocationIndex.MECH_LOC_RA );
                 break;
             }
             break;
         case LocationIndex.MECH_LOC_LA:
             // there's only one location we can split to.
-            try {
-                Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                result = false;
-                setVisible( false );
-                return;
-            }
+            splitAllocate( LocationIndex.MECH_LOC_LT );
             break;
         case LocationIndex.MECH_LOC_RA:
             // there's only one location we can split to.
-            try {
-                Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                result = false;
-                setVisible( false );
-                return;
-            }
+            splitAllocate( LocationIndex.MECH_LOC_RT );
             break;
         case LocationIndex.MECH_LOC_LL:
             // there's only one location we can split to.
-            try {
-                Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                result = false;
-                setVisible( false );
-                return;
-            }
+            splitAllocate( LocationIndex.MECH_LOC_LT );
             break;
         case LocationIndex.MECH_LOC_RL:
             // there's only one location we can split to.
-            try {
-                Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                result = false;
-                setVisible( false );
-                return;
-            }
+            splitAllocate( LocationIndex.MECH_LOC_RT );
             break;
         }
-        result = true;
-        setVisible( false );
     }//GEN-LAST:event_btnOkayActionPerformed
+
+    private void splitAllocate( int secondLoc ) {
+        try {
+            Parent.GetMech().GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, secondLoc );
+            result = true;
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            result = false;
+        }
+        setVisible( false );
+    }
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // fix for items disappearing from the queue
@@ -404,7 +333,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOkay;
-    private javax.swing.JComboBox cmbSecondLoc;
+    private javax.swing.JComboBox<String> cmbSecondLoc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

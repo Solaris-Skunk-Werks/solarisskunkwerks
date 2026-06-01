@@ -28,13 +28,11 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import java.awt.Font;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.prefs.Preferences;
-import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -79,23 +77,8 @@ public class Main {
         SetupLogFile( SSWConstants.LogDirectoryName, SSWConstants.LogFileName );
 
         try {
-            // added code to turn off the boldface of Metal L&F.
-            // Set System L&F
-            if( ! UIManager.getSystemLookAndFeelClassName().equals( "com.sun.java.swing.plaf.windows.WindowsLookAndFeel" ) ) {
-                UIManager.put( "swing.boldMetal", Boolean.FALSE );
-                UIDefaults uiDefaults = UIManager.getDefaults();
-                Font f = uiDefaults.getFont( "Label.font" );
-                uiDefaults.put( "Label.font", f.deriveFont( f.getStyle(), 10.0f ));
-                f = uiDefaults.getFont( "ComboBox.font" );
-                uiDefaults.put( "ComboBox.font", f.deriveFont( f.getStyle(), 10.0f ));
-                f = uiDefaults.getFont( "Button.font" );
-                uiDefaults.put( "Button.font", f.deriveFont( f.getStyle(), 10.0f ));
-                f = uiDefaults.getFont( "CheckBox.font" );
-                uiDefaults.put( "CheckBox.font", f.deriveFont( f.getStyle(), 10.0f ));
-                UIManager.setLookAndFeel( "javax.swing.plaf.metal.MetalLookAndFeel" );
-            } else {
-                UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-            }
+            UIManager.put( "swing.boldMetal", Boolean.FALSE );
+            UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
             System.err.flush();
