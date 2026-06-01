@@ -175,8 +175,9 @@ public class Force extends AbstractTableModel implements ifSerializable {
     }
 
     public void RefreshBV() {
+        ArrayList<Unit> currentUnits = getUnits();
         NumC3 = 0;
-        TotalUnits = Units.size();
+        TotalUnits = currentUnits.size();
         TotalBaseBV = 0.0f;
         TotalBasePV = 0.0f;
         TotalModifier = 0.0f;
@@ -202,7 +203,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         Damage = 0;
 
         //First pass to determine C3 totals
-        for ( Unit u : getUnits() ) {
+        for ( Unit u : currentUnits ) {
              if (u.UsingC3) {
                 NumC3++;
                 TotalC3BV += u.BaseBV;
@@ -211,7 +212,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
 
         if (TotalC3BV > 1) TotalC3BV *= .05;
 
-        for ( Unit u : getUnits() ) {
+        for ( Unit u : currentUnits ) {
             if ( u.UsingC3 )
                 u.setForceC3BV(TotalC3BV);
 
