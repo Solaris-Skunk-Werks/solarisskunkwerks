@@ -169,14 +169,14 @@ public class TargetingComputer extends abPlaceable {
 
     private int GetSize() {
         double Build = 0.0;
-        ArrayList V = Owner.GetTCList();
+        ArrayList<abPlaceable> V = Owner.GetTCList();
 
         if( V.size() == 0 ) {
             return 0;
         }
 
         for( int i = 0; i < V.size(); i++ ) {
-            abPlaceable a = (abPlaceable) V.get( i );
+            abPlaceable a = V.get( i );
             if( a instanceof RangedWeapon ) {
                 if( ((RangedWeapon) a).IsUsingCapacitor() ) {
                     Build += a.GetTonnage() - ((RangedWeapon) a).GetCapacitor().GetTonnage();

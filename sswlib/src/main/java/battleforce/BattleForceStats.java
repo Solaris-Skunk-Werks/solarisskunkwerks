@@ -298,7 +298,7 @@ public class BattleForceStats {
     }
 
     private void updatePointValue() {
-        PV = (int)((int) BasePV * Mods[Skill]);
+        PV = (int)(BasePV * Mods[Skill]);
     }
 
     public void SerializeXML( BufferedWriter file, int Tabs ) throws IOException {

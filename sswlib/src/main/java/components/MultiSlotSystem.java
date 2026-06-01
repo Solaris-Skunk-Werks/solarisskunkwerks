@@ -353,7 +353,7 @@ public class MultiSlotSystem extends abPlaceable {
         LocationIndex li;
         try {
             for( int i = 0; i < Locs.length; i++ ) {
-                li = (LocationIndex) Locs[i];
+                li = Locs[i];
                 l.AddTo( this, li.Location, li.Index );
             }
         } catch( Exception e ) {

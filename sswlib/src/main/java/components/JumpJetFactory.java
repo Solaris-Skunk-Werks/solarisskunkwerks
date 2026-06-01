@@ -149,7 +149,7 @@ public class JumpJetFactory {
     }
 
     public boolean DecrementNumJJ() {
-        JumpJet j = (JumpJet) CurrentJumps.getLast();
+        JumpJet j = CurrentJumps.getLast();
         Owner.GetMech().SetChanged( true );
         return RemoveJJ( j );
     }
@@ -158,7 +158,7 @@ public class JumpJetFactory {
         // returns the total tonnage of jump jets we have installed
         double result = ( NumJJ * Owner.GetMech().GetJJMult() * CurConfig.GetTonnage() );
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetTonnage();
+            result += CurrentJumps.get( i ).GetTonnage();
         }
         return result;
     }
@@ -173,7 +173,7 @@ public class JumpJetFactory {
         if( NumJJ <= 0 ) { return 0.0; }
         double result = ( CurConfig.GetCost() * ( NumJJ * NumJJ ) * Owner.GetMech().GetTonnage() );
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetCost();
+            result += CurrentJumps.get( i ).GetCost();
         }
         return result;
     }
@@ -214,7 +214,7 @@ public class JumpJetFactory {
         // this routine removes all jump jets and sets the number to 0.
         JumpJet j;
         for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
-            j = (JumpJet) CurrentJumps.get(i);
+            j = CurrentJumps.get(i);
             CurrentJumps.remove(j);
             j.Remove( Owner );
         }
@@ -226,7 +226,7 @@ public class JumpJetFactory {
         // clear the loadout of JumpJets
         JumpJet j;
         for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
-            j = (JumpJet) CurrentJumps.get(i);
+            j = CurrentJumps.get(i);
             CurrentJumps.remove(j);
             j.Remove( Owner );
         }
@@ -262,7 +262,7 @@ public class JumpJetFactory {
         // returns the currently placed jumpjets in array form
         JumpJet[] retval = new JumpJet[CurrentJumps.size()];
         for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
-            retval[i] = (JumpJet) CurrentJumps.get( i );
+            retval[i] = CurrentJumps.get( i );
         }
         return retval;
     }
@@ -270,7 +270,7 @@ public class JumpJetFactory {
     public double GetOffensiveBV() {
         double result = 0.0;
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetOffensiveBV();
+            result += CurrentJumps.get( i ).GetOffensiveBV();
         }
         return result;
     }
@@ -278,7 +278,7 @@ public class JumpJetFactory {
     public double GetDefensiveBV() {
         double result = 0.0;
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetDefensiveBV();
+            result += CurrentJumps.get( i ).GetDefensiveBV();
         }
         return result;
     }

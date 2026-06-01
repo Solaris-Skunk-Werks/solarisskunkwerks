@@ -57,7 +57,7 @@ public class HeatSinkFactory {
         int i = NumHS - InternalHeatSinks();
         if( i > 0 ) {
             for( ; i > 0; i-- ) {
-                HeatSink h = (HeatSink) GetHeatSink();
+                HeatSink h = GetHeatSink();
                 h.Place( l );
             }
         }
@@ -168,7 +168,7 @@ public class HeatSinkFactory {
     public void IncrementNumHS() {
         // do we need a new heat sink?
         if( NeedNewHS() ) {
-            HeatSink h = (HeatSink) GetHeatSink();
+            HeatSink h = GetHeatSink();
             h.Place( Owner );
         } else {
             if( IsCompact() ) {
@@ -197,13 +197,13 @@ public class HeatSinkFactory {
                 h = FindOpenCompact();
                 if( h == null ) {
                     // reduce the last Current Sink
-                    ((HeatSink) CurrentSinks.getLast()).SetNumHS( 1 );
+                    CurrentSinks.getLast().SetNumHS( 1 );
                 } else {
                     h.Remove( Owner );
                     CurrentSinks.remove( h );
                 }
             } else {
-                h = (HeatSink) CurrentSinks.getLast();
+                h = CurrentSinks.getLast();
                 h.Remove( Owner );
                 CurrentSinks.remove( h );
             }
@@ -240,7 +240,7 @@ public class HeatSinkFactory {
         int extraDHSBonus = 0;
         int radicalHeatSinkBonus = 0;
         
-        ArrayList equipment = Owner.GetMech().GetLoadout().GetEquipment();
+        ArrayList<abPlaceable> equipment = Owner.GetMech().GetLoadout().GetEquipment();
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
                 extraDHSBonus += 2;
@@ -277,7 +277,7 @@ public class HeatSinkFactory {
         }
         // now check for armored sinks and add that to the result
         for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            tons += ((HeatSink) CurrentSinks.get( i )).GetTonnage();
+            tons += CurrentSinks.get( i ).GetTonnage();
         }
         return tons;
     }
@@ -291,7 +291,7 @@ public class HeatSinkFactory {
         }
         // now check for armored sinks and add that to the result
         for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            tons += ((HeatSink) CurrentSinks.get( i )).GetTonnage();
+            tons += CurrentSinks.get( i ).GetTonnage();
         }
         return tons;
     }
@@ -324,12 +324,12 @@ public class HeatSinkFactory {
         }
         // now check for armored sinks and add that to the result
         for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            CostHS += ((HeatSink) CurrentSinks.get( i )).GetCost();
+            CostHS += CurrentSinks.get( i ).GetCost();
         }
         return CostHS;
     }
 
-    public abPlaceable GetHeatSink() {
+    public HeatSink GetHeatSink() {
         HeatSink h = CurConfig.GetHeatSink();
         CurrentSinks.add(h);
         return h;
@@ -375,8 +375,8 @@ public class HeatSinkFactory {
         // this routine finds the next available single Compact Heat Sink
         // if it cannot find a single compact, it returns null
         for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            if( ((HeatSink) CurrentSinks.get( i )).NumHeatSinks() == 1 ) {
-                return (HeatSink) CurrentSinks.get( i );
+            if( CurrentSinks.get( i ).NumHeatSinks() == 1 ) {
+                return CurrentSinks.get( i );
             }
         }
         return null;
@@ -406,7 +406,7 @@ public class HeatSinkFactory {
         // blow out all the sinks
         abPlaceable h;
         for( int i = CurrentSinks.size(); i > 0; i-- ) {
-            h = (abPlaceable) CurrentSinks.getLast();
+            h = CurrentSinks.getLast();
             h.Remove( Owner );
             CurrentSinks.remove(h);
         }
@@ -422,7 +422,7 @@ public class HeatSinkFactory {
         // returns the currently placed heat sinks in array form
         HeatSink[] retval = new HeatSink[CurrentSinks.size()];
         for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            retval[i] = (HeatSink) CurrentSinks.get( i );
+            retval[i] = CurrentSinks.get( i );
         }
         return retval;
     }
@@ -436,7 +436,7 @@ public class HeatSinkFactory {
         // convenience method
         double result = 0.0;
         for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            result += ((HeatSink) CurrentSinks.get( i )).GetOffensiveBV();
+            result += CurrentSinks.get( i ).GetOffensiveBV();
         }
         return result;
     }
@@ -445,7 +445,7 @@ public class HeatSinkFactory {
         // convenience method
         double result = 0.0;
         for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            result += ((HeatSink) CurrentSinks.get( i )).GetDefensiveBV();
+            result += CurrentSinks.get( i ).GetDefensiveBV();
         }
         return result;
     }
