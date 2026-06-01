@@ -1719,7 +1719,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtProdYear.addMouseListener( mlProdYear );
 
         pnlChassis.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Chassis"));
-        pnlChassis.setNextFocusableComponent(spnCruiseMP);
 
         cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hovercraft", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "VTOL", "Wheeled", "WiGE", "Hovercraft (Super Heavy)", "Displacement (Super Heavy)" }));
         cmbMotiveType.setMinimumSize(new Dimension(150, 20));
@@ -1775,7 +1774,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         spnHeatSinks.setModel(new javax.swing.SpinnerNumberModel(10, 1, null, 1));
         spnHeatSinks.setMinimumSize(new Dimension(45, 20));
-        spnHeatSinks.setNextFocusableComponent(spnCruiseMP);
         spnHeatSinks.setPreferredSize(new Dimension(45, 20));
         spnHeatSinks.addChangeListener(this::spnHeatSinksStateChanged);
         spnHeatSinks.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1887,7 +1885,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         );
 
         pnlMovement.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Movement"));
-        pnlMovement.setNextFocusableComponent(pnlChassisMods);
 
         jLabel10.setText("Cruise MP:");
 
@@ -1913,7 +1910,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         spnJumpMP.setEnabled(false);
         spnJumpMP.setMinimumSize(new Dimension(45, 20));
-        spnJumpMP.setNextFocusableComponent(chkFlotationHull);
         spnJumpMP.setPreferredSize(new Dimension(45, 20));
 
         javax.swing.GroupLayout pnlMovementLayout = new javax.swing.GroupLayout(pnlMovement);
@@ -1997,7 +1993,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkEnviroSealing.setText("Enviro (Vacuum) Sealing");
         chkEnviroSealing.setEnabled(false);
-        chkEnviroSealing.setNextFocusableComponent(chkArmoredMotive);
         chkEnviroSealing.addActionListener(this::chkEnviroSealingActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -2015,7 +2010,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkEscapePod.setText("Combat Vehicle Escape Pod");
         chkEscapePod.setEnabled(false);
-        chkEscapePod.setNextFocusableComponent(chkFractional);
         chkEscapePod.addActionListener(this::chkEscapePodActionPerformed);
 
         chkMinesweeper.setText("Minesweeper");
@@ -2031,7 +2025,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkSponsonTurret.setText("Sponson Turret");
         chkSponsonTurret.setEnabled(false);
-        chkSponsonTurret.setNextFocusableComponent(chkFractional);
         chkSponsonTurret.addActionListener(this::chkSponsonTurretActionPerformed);
 
         javax.swing.GroupLayout pnlExperimentalLayout = new javax.swing.GroupLayout(pnlExperimental);
@@ -2073,7 +2066,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkFractional.setText("Use Fractional Accounting");
         chkFractional.setEnabled(false);
-        chkFractional.setNextFocusableComponent(txtVehicleName);
         chkFractional.addActionListener(this::chkFractionalActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -4395,6 +4387,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addComponent(pnlInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        installFocusTraversalPolicy( new Component[][] {
+            { pnlChassis, spnCruiseMP },
+            { spnHeatSinks, spnCruiseMP },
+            { pnlMovement, pnlChassisMods },
+            { spnJumpMP, chkFlotationHull },
+            { chkEnviroSealing, chkArmoredMotive },
+            { chkEscapePod, chkFractional },
+            { chkSponsonTurret, chkFractional },
+            { chkFractional, txtVehicleName }
+        } );
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -5643,6 +5646,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {
 
+    }
+
+    private void installFocusTraversalPolicy( final Component[][] nextFocus ) {
+        setFocusTraversalPolicy( new LayoutFocusTraversalPolicy() {
+            @Override
+            public Component getComponentAfter( Container root, Component component ) {
+                for( Component[] pair : nextFocus ) {
+                    if( pair[0] == component && accept( pair[1] ) ) {
+                        return pair[1];
+                    }
+                }
+                return super.getComponentAfter( root, component );
+            }
+
+            @Override
+            public Component getComponentBefore( Container root, Component component ) {
+                for( Component[] pair : nextFocus ) {
+                    if( pair[1] == component && accept( pair[0] ) ) {
+                        return pair[0];
+                    }
+                }
+                return super.getComponentBefore( root, component );
+            }
+        } );
     }
 
     private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {

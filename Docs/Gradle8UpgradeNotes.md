@@ -8,7 +8,7 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 
 ## Known Warnings
 
-- `saw:compileJava` still reports `setNextFocusableComponent(...)` deprecations in `saw/gui/frmVee.java` plus unchecked operation notes. Replace with a focus traversal policy during a focused UI cleanup pass.
+- `saw:compileJava` still reports unchecked operation notes. Continue clearing raw collections and Swing models in focused cleanup passes.
 - `BFB:compileJava` is clean in the checked Java 17/Gradle 8 compile pass.
 
 ## Resolved
@@ -22,8 +22,8 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - SAW `dlgPrefs` now uses typed string combo boxes/model swaps and no longer appears in the checked compile warning list.
 - BFB `dlgOpen`, `dlgGroup`, `dlgManeiDomini`, and `dlgOmnis` no longer emit checked compile warnings after typing their Swing models and small helper collections.
 - BFB `frmBase` no longer emits checked compile warnings after typing its directory, Warchest, and random assignment list models.
+- SAW `frmVee` no longer uses deprecated `setNextFocusableComponent(...)`; explicit traversal rules now live behind a `LayoutFocusTraversalPolicy`.
 
 ## Follow-Up Candidates
 
-- Replace SAW `frmVee` focus traversal calls with a modern focus traversal policy.
 - Continue unchecked generics cleanup in SAW `dlgOpen` and vehicle forms/HMPReader code.
