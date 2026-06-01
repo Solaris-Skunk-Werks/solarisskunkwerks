@@ -55,10 +55,10 @@ Initial concepts:
   - Shows preview when requested
   - Invokes direct print when requested
   - Supports direct print without an OS dialog for existing one-job-per-mech batch behavior.
-  - Supports one-dialog, one-spool-job-per-page printing for driver compatibility.
+  - Supports one-dialog, one-spool-job-per-page printing for user-selected driver compatibility mode.
   - Preserves the original shared print order: show the OS print dialog, then attach the pageable before printing.
   - Rasterizes printable pages before sending them to the OS printer to reduce driver-specific Java2D/spooler failures.
-  - Writes print diagnostics to the system temp file `SSWPrintDiagnostics.log`.
+  - Writes opt-in print diagnostics to the system temp file `SSWPrintDiagnostics.log` when launched with `-Dssw.print.diagnostics=true`.
   - Shared `PagePrinter` now delegates preview and direct print execution to this workflow.
 - `PrinterJobGateway`
   - Small wrapper around `PrinterJob`
@@ -88,3 +88,11 @@ The first implementation should preserve Swing behavior and existing dialogs. Th
 - Keep direct print behavior unchanged unless a bug is explicitly being fixed.
 - Keep image lookup behavior covered by regression tests.
 - Do not introduce JavaFX or a new UI framework in this phase.
+
+## Windows 11 Printing Notes
+
+- Canon UFR drivers on Windows 11 may reject multi-page Java `Pageable` print jobs even when the same pages preview correctly.
+- Printing to PDF and then printing the PDF works because the job is flattened before it reaches the printer driver.
+- Printer Compatibility Mode gives users an in-app equivalent workaround by submitting each page as a separate spool job after one print dialog.
+- Normal multi-page printing remains the default for printers and drivers that handle it correctly.
+- To capture print workflow diagnostics, launch with `-Dssw.print.diagnostics=true` and inspect `SSWPrintDiagnostics.log` in the system temp directory.

@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public final class PrintDiagnostics {
+    private static final String ENABLED_PROPERTY = "ssw.print.diagnostics";
     private static final File LOG_FILE = new File(System.getProperty("java.io.tmpdir"), "SSWPrintDiagnostics.log");
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
@@ -21,7 +22,14 @@ public final class PrintDiagnostics {
         return LOG_FILE.getAbsolutePath();
     }
 
+    public static boolean isEnabled() {
+        return Boolean.getBoolean(ENABLED_PROPERTY);
+    }
+
     public static void log(String message) {
+        if (!isEnabled()) {
+            return;
+        }
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(LOG_FILE, true));
             try {
@@ -35,6 +43,9 @@ public final class PrintDiagnostics {
     }
 
     public static void logBook(String label, Book book) {
+        if (!isEnabled()) {
+            return;
+        }
         log(label + " pageCount=" + book.getNumberOfPages());
         for (int i = 0; i < book.getNumberOfPages(); i++) {
             PageFormat format = book.getPageFormat(i);
@@ -51,6 +62,9 @@ public final class PrintDiagnostics {
     }
 
     public static void logException(String label, Throwable throwable) {
+        if (!isEnabled()) {
+            return;
+        }
         log(label + " exception=" + throwable.getClass().getName() + " message=" + throwable.getMessage());
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(LOG_FILE, true));
