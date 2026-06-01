@@ -150,21 +150,21 @@ public class VSetArmorTonnage implements ifVisitor {
     private void AllocateArmor( MechArmor a ) {
         // testing out a new allocation routine
         // round the armor tonnage up to the nearest half ton
-        double MidTons = ( (double) Math.floor( ArmorTons * 2.0f ) ) * 0.5f;
+        double MidTons = Math.floor( ArmorTons * 2.0f ) * 0.5f;
 
         // find the AV we get from this tonnage amount
-        int AV = (int) ( Math.floor( MidTons * 16 * a.GetAVMult() ) );
+        int AV = (int) Math.floor( MidTons * 16 * a.GetAVMult() );
 
         ArmorPoints[LocationIndex.MECH_LOC_HD] = (int) Math.floor( AV * 0.06f );
         ArmorPoints[LocationIndex.MECH_LOC_CT] = (int) Math.floor( AV * 0.15f );
-        ArmorPoints[LocationIndex.MECH_LOC_CTR] = (int) Math.round( ArmorPoints[LocationIndex.MECH_LOC_CT] * CTRPerc / 100 );
+        ArmorPoints[LocationIndex.MECH_LOC_CTR] = Math.round( ArmorPoints[LocationIndex.MECH_LOC_CT] * CTRPerc / 100 );
         switch( Prefs.getInt( "ArmorPriority", MechArmor.ARMOR_PRIORITY_TORSO ) ) {
         case 0:
             // torsos
             ArmorPoints[LocationIndex.MECH_LOC_LT] = (int) Math.floor( AV * 0.13f );
-            ArmorPoints[LocationIndex.MECH_LOC_LTR] = (int) Math.round( ArmorPoints[LocationIndex.MECH_LOC_LT] * STRPerc / 100 );
+            ArmorPoints[LocationIndex.MECH_LOC_LTR] = Math.round( ArmorPoints[LocationIndex.MECH_LOC_LT] * STRPerc / 100 );
             ArmorPoints[LocationIndex.MECH_LOC_RT] = (int) Math.floor( AV * 0.13f );
-            ArmorPoints[LocationIndex.MECH_LOC_RTR] = (int) Math.round( ArmorPoints[LocationIndex.MECH_LOC_RT] * STRPerc / 100 );
+            ArmorPoints[LocationIndex.MECH_LOC_RTR] = Math.round( ArmorPoints[LocationIndex.MECH_LOC_RT] * STRPerc / 100 );
             ArmorPoints[LocationIndex.MECH_LOC_RA] = (int) Math.floor( AV * 0.09f );
             ArmorPoints[LocationIndex.MECH_LOC_LA] = (int) Math.floor( AV * 0.09f );
             ArmorPoints[LocationIndex.MECH_LOC_LL] = (int) Math.floor( AV * 0.12f );
@@ -173,9 +173,9 @@ public class VSetArmorTonnage implements ifVisitor {
         case 1:
             // arms
             ArmorPoints[LocationIndex.MECH_LOC_LT] = (int) Math.floor( AV * 0.13f );
-            ArmorPoints[LocationIndex.MECH_LOC_LTR] = (int) Math.round( ArmorPoints[LocationIndex.MECH_LOC_LT] * STRPerc / 100 );
+            ArmorPoints[LocationIndex.MECH_LOC_LTR] = Math.round( ArmorPoints[LocationIndex.MECH_LOC_LT] * STRPerc / 100 );
             ArmorPoints[LocationIndex.MECH_LOC_RT] = (int) Math.floor( AV * 0.13f );
-            ArmorPoints[LocationIndex.MECH_LOC_RTR] = (int) Math.round( ArmorPoints[LocationIndex.MECH_LOC_RT] * STRPerc / 100 );
+            ArmorPoints[LocationIndex.MECH_LOC_RTR] = Math.round( ArmorPoints[LocationIndex.MECH_LOC_RT] * STRPerc / 100 );
             ArmorPoints[LocationIndex.MECH_LOC_RA] = (int) Math.floor( AV * 0.12f );
             ArmorPoints[LocationIndex.MECH_LOC_LA] = (int) Math.floor( AV * 0.12f );
             ArmorPoints[LocationIndex.MECH_LOC_LL] = (int) Math.floor( AV * 0.09f );
@@ -184,9 +184,9 @@ public class VSetArmorTonnage implements ifVisitor {
         case 2:
             // legs
             ArmorPoints[LocationIndex.MECH_LOC_LT] = (int) Math.floor( AV * 0.12f );
-            ArmorPoints[LocationIndex.MECH_LOC_LTR] = (int) Math.round( ArmorPoints[LocationIndex.MECH_LOC_LT] * STRPerc / 100 );
+            ArmorPoints[LocationIndex.MECH_LOC_LTR] = Math.round( ArmorPoints[LocationIndex.MECH_LOC_LT] * STRPerc / 100 );
             ArmorPoints[LocationIndex.MECH_LOC_RT] = (int) Math.floor( AV * 0.12f );
-            ArmorPoints[LocationIndex.MECH_LOC_RTR] = (int) Math.round( ArmorPoints[LocationIndex.MECH_LOC_RT] * STRPerc / 100 );
+            ArmorPoints[LocationIndex.MECH_LOC_RTR] = Math.round( ArmorPoints[LocationIndex.MECH_LOC_RT] * STRPerc / 100 );
             ArmorPoints[LocationIndex.MECH_LOC_RA] = (int) Math.floor( AV * 0.09f );
             ArmorPoints[LocationIndex.MECH_LOC_LA] = (int) Math.floor( AV * 0.09f );
             ArmorPoints[LocationIndex.MECH_LOC_LL] = (int) Math.floor( AV * 0.13f );
@@ -208,7 +208,7 @@ public class VSetArmorTonnage implements ifVisitor {
     private void AllocateArmor( CVArmor a ) {
         // testing out a new allocation routine
         // round the armor tonnage up to the nearest half ton
-        double MidTons = ( (double) Math.floor( ArmorTons * 2.0f ) ) * 0.5f;
+        double MidTons = Math.floor( ArmorTons * 2.0f ) * 0.5f;
 
         // find the AV we get from this tonnage amount
         int AV = a.GetArmorPoints(MidTons); //(int) ( Math.floor( MidTons * 16 * a.GetAVMult() ) );

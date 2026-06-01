@@ -168,7 +168,7 @@ public class MechTurret extends abPlaceable implements ifTurret {
     private double GetSize() {
         double retval = 0.0;
         for( int i = 0; i < items.size(); i++ ) {
-            retval += ((abPlaceable) items.get( i )).GetTonnage();
+            retval += items.get( i ).GetTonnage();
         }
         if( Owner.GetMech().UsingFractionalAccounting() ) {
             return CommonTools.RoundFractionalTons( retval * 0.1 );

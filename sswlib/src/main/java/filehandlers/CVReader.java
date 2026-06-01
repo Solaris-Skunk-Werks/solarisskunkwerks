@@ -1074,7 +1074,7 @@ public class CVReader {
             m.RemoveLoadout( "SSW_TEMP_LOADOUT_001" );
 
             // make sure the 'CombatVehicle is set to the first loadout.
-            m.SetCurLoadout( ((ifCVLoadout) m.GetLoadouts().get( 0 )).GetName() );
+            m.SetCurLoadout( m.GetLoadouts().get( 0 ).GetName() );
         }
 
         // fluff last
@@ -1203,6 +1203,7 @@ public class CVReader {
         return l;
     }
 
+    @SuppressWarnings("fallthrough")
     private abPlaceable GetEquipmentByName( String name, String type, CombatVehicle m ) {
         boolean rear = false;
         abPlaceable retval = null;
@@ -1285,6 +1286,7 @@ public class CVReader {
                 switch( ((RangedWeapon) retval).GetFCSType() ) {
                 case ifMissileGuidance.FCS_ArtemisIV:
                     if( m.UsingArtemisIV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
+                    // fall through
                 case ifMissileGuidance.FCS_ArtemisV:
                     if( m.UsingArtemisIV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
                     if( m.UsingArtemisV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisV ); }

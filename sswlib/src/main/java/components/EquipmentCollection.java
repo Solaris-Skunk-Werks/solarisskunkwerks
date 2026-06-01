@@ -97,15 +97,15 @@ public class EquipmentCollection {
             if( Owner.GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( equips.get( 0 ) instanceof Equipment ) {
                     if( ((Equipment) equips.get( 0 )).IsVariableSize() ) {
-                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).CritName();
+                        return "(" + equips.size() + ") " + equips.get( 0 ).CritName();
                     } else {
-                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).LookupName();
+                        return "(" + equips.size() + ") " + equips.get( 0 ).LookupName();
                     }
                 } else {
-                    return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).LookupName();
+                    return "(" + equips.size() + ") " + equips.get( 0 ).LookupName();
                 }
             } else {
-                return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).CritName();
+                return "(" + equips.size() + ") " + equips.get( 0 ).CritName();
             }
         }
     }

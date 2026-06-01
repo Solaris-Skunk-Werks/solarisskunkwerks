@@ -36,7 +36,7 @@ public class Turret extends abPlaceable {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private boolean Clan,
                     isTonnageSet;
-    private ArrayList Items = new ArrayList();
+    private ArrayList<abPlaceable> Items = new ArrayList<>();
     private double MaxTonnage = 0;
 
     public Turret( ifCVLoadout l, boolean clan) {
@@ -150,7 +150,7 @@ public class Turret extends abPlaceable {
         double Build = 0.0;
 
         for( int i = 0; i < Items.size(); i++ ) {
-            abPlaceable a = (abPlaceable)Items.get(i);
+            abPlaceable a = Items.get(i);
             if( a instanceof RangedWeapon ) {
                 if( ((RangedWeapon) a).IsUsingCapacitor() ) {
                     Build += a.GetTonnage() - ((RangedWeapon) a).GetCapacitor().GetTonnage();
@@ -190,11 +190,11 @@ public class Turret extends abPlaceable {
         return CritName();
     }
 
-    public void SetItems( ArrayList a ) {
+    public void SetItems( ArrayList<abPlaceable> a ) {
         Items = a;
     }
 
-    public ArrayList GetItems() {
+    public ArrayList<abPlaceable> GetItems() {
         return Items;
     }
 

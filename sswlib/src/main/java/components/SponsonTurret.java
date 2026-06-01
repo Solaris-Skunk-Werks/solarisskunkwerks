@@ -34,7 +34,7 @@ public class SponsonTurret extends abPlaceable {
     private ifCVLoadout Owner;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private boolean Clan;
-    private ArrayList Items = new ArrayList();
+    private ArrayList<abPlaceable> Items = new ArrayList<>();
 
     public SponsonTurret( ifCVLoadout l, boolean clan) {
         AC.SetISCodes( 'B', 'F', 'F', 'F', 'D' );
@@ -144,7 +144,7 @@ public class SponsonTurret extends abPlaceable {
         }
 
         for( int i = 0; i < Items.size(); i++ ) {
-            abPlaceable a = (abPlaceable)Items.get(i);
+            abPlaceable a = Items.get(i);
             if( a instanceof RangedWeapon ) {
                 if( ((RangedWeapon) a).IsUsingCapacitor() ) {
                     Build += a.GetTonnage() - ((RangedWeapon) a).GetCapacitor().GetTonnage();
@@ -176,11 +176,11 @@ public class SponsonTurret extends abPlaceable {
         return CritName();
     }
 
-    public void SetItems( ArrayList a ) {
+    public void SetItems( ArrayList<abPlaceable> a ) {
         Items = a;
     }
 
-    public ArrayList GetItems() {
+    public ArrayList<abPlaceable> GetItems() {
         return Items;
     }
 }

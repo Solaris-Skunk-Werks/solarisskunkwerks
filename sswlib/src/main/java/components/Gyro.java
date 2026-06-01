@@ -87,7 +87,7 @@ public class Gyro extends abPlaceable {
         // Gyros always start at index 3, right after the first (or only)
         // engine block.  Gyros should be placed before engines.
         try {
-            ((ifMechLoadout) l).AddToCT( this, 3 );
+            l.AddToCT( this, 3 );
         } catch ( Exception e ) {
             return false;
         }
@@ -100,7 +100,7 @@ public class Gyro extends abPlaceable {
     {
         // Only used by Interface cockpit
         try {
-            ((ifMechLoadout) l).Remove(this);
+            l.Remove(this);
         } catch ( Exception e ) {
             
         }
@@ -180,8 +180,8 @@ public class Gyro extends abPlaceable {
         //IntOps p.187 "Gyroless ’Mechs: If a ’Mech with a Machina Domini Interface Cockpit is not equipped with a gyro,
         //treat the unit as if it is equipped with a standard gyro when finding its Defensive Battle Rating."
         if( CurConfig instanceof stGyroNone) {
-            if(((Mech)Owner).GetCockpit().GetCurrentState() instanceof stCockpitInterface) {
-                Gyro temp = new Gyro((Mech)Owner);
+            if(Owner.GetCockpit().GetCurrentState() instanceof stCockpitInterface) {
+                Gyro temp = new Gyro(Owner);
                 temp.SetStandard();
                 return temp.GetDefensiveBV();
             }
