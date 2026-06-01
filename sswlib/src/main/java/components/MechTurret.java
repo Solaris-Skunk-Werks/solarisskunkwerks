@@ -36,7 +36,7 @@ public class MechTurret extends abPlaceable implements ifTurret {
 
     private ifMechLoadout Owner;
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private Vector<abPlaceable> items = new Vector<abPlaceable>();
+    private Vector<abPlaceable> items = new Vector<>();
 
     public MechTurret( ifMechLoadout l ) {
         Owner = l;
@@ -55,13 +55,12 @@ public class MechTurret extends abPlaceable implements ifTurret {
         //Make sure if they can split, that they haven't been.
         if( p.CanSplit() ) {
             //Gets all crit slots
-            ArrayList locations = Owner.FindIndexes( (abPlaceable) p );
+            ArrayList<LocationIndex> locations = Owner.FindIndexes( p );
             //first one
-            LocationIndex firstSlot = (LocationIndex) locations.get(0);
+            LocationIndex firstSlot = locations.get(0);
             //check all of them
-            for (int i = 0; i < locations.size(); i++) {
+            for( LocationIndex currentSlot : locations ) {
                 //compare to the first. If they are different, it's been split.
-                LocationIndex currentSlot = ((LocationIndex) locations.get(i));
                 if (currentSlot.Location != firstSlot.Location)
                     return false;
             }
