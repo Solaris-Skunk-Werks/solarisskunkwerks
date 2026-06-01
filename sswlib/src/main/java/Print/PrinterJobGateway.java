@@ -4,6 +4,7 @@ import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import javax.print.PrintService;
 
 public class PrinterJobGateway {
     private final PrinterJob job;
@@ -38,5 +39,13 @@ public class PrinterJobGateway {
 
     public PrinterJob getPrinterJob() {
         return job;
+    }
+
+    public String getPrintServiceName() {
+        PrintService service = job.getPrintService();
+        if (service == null) {
+            return "(no print service)";
+        }
+        return service.getName();
     }
 }

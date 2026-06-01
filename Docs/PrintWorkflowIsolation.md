@@ -58,6 +58,7 @@ Initial concepts:
   - Supports one-dialog, one-spool-job-per-page printing for driver compatibility.
   - Preserves the original shared print order: show the OS print dialog, then attach the pageable before printing.
   - Rasterizes printable pages before sending them to the OS printer to reduce driver-specific Java2D/spooler failures.
+  - Writes print diagnostics to the system temp file `SSWPrintDiagnostics.log`.
   - Shared `PagePrinter` now delegates preview and direct print execution to this workflow.
 - `PrinterJobGateway`
   - Small wrapper around `PrinterJob`
