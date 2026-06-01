@@ -456,7 +456,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
         cmbJumpJetType.setSelectedItem( SSWConstants.DEFAULT_JUMPJET );
         cmbArmorType.setSelectedItem( SSWConstants.DEFAULT_ARMOR );
-        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[] { CurMech.GetLoadout().GetName() } ) );
+        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { CurMech.GetLoadout().GetName() } ) );
         lblSumPAmps.setVisible( false );
         txtSumPAmpsTon.setVisible( false );
         txtSumPAmpsACode.setVisible( false );
@@ -497,10 +497,10 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                     a.SetManufacturer( (String) value );
                     fireTableCellUpdated( row, col );
                 } else {
-                    ArrayList v = CurMech.GetLoadout().GetEquipment();
+                    ArrayList<abPlaceable> v = CurMech.GetLoadout().GetEquipment();
                     for( int i = 0; i < v.size(); i++ ) {
-                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
-                            ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
+                        if( FileCommon.LookupStripArc( v.get( i ).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
+                            v.get( i ).SetManufacturer( (String) value );
                         }
                     }
                     fireTableDataChanged();
@@ -697,7 +697,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildChassisSelector() {
         // builds the structure selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the structure states and, for each that matches our criteria, add it
         // to the selector list
@@ -715,12 +715,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the structure chooser
-        cmbInternalType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbInternalType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
     }
 
     private void BuildEngineSelector() {
         // builds the engine selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the engine states and, for each that matches our criteria, add it
         // to the selector list
@@ -738,12 +738,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the engine chooser
-        cmbEngineType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbEngineType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
     }
 
     private void BuildGyroSelector() {
         // builds the gyro selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the gyro states and, for each that matches our criteria, add it
         // to the selector list
@@ -761,12 +761,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the gyro chooser
-        cmbGyroType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbGyroType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
     }
 
     private void BuildCockpitSelector() {
         // builds the structure selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the structure states and, for each that matches our criteria, add it
         // to the selector list
@@ -784,12 +784,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the structure chooser
-        cmbCockpitType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbCockpitType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
     }
 
     private void BuildEnhancementSelector() {
         // builds the physical enhancement selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the enhancement states and, for each that matches our criteria, add it
         // to the selector list
@@ -807,12 +807,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the physical enhancement chooser
-        cmbPhysEnhance.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPhysEnhance.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
     }
 
     private void BuildJumpJetSelector() {
         // ensures that we can enable the Improved Jump Jets checkbox.
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the jump jet states and, for each that matches our criteria, add it
         // to the selector list
@@ -830,7 +830,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the jump jet chooser
-        cmbJumpJetType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbJumpJetType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
         if( temp.length > 0 ) {
             EnableJumpJets( true );
             cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().LookupName() );
@@ -911,7 +911,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildHeatsinkSelector() {
         // builds the heat sink selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the heat sink states and, for each that matches our criteria, add it
         // to the selector list
@@ -929,12 +929,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the heat sink chooser
-        cmbHeatSinkType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbHeatSinkType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
     }
 
     private void BuildArmorSelector() {
         // builds the armor selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the armor states and, for each that matches our criteria, add it
         // to the selector list
@@ -952,12 +952,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the armor chooser
-        cmbArmorType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbArmorType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
     }
 
     private void BuildPatchworkChoosers() {
         // builds the armor selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
         // get the armor states and, for each that matches our criteria, add it
         // to the selector list
@@ -975,28 +975,28 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // now set the armor chooser
-        cmbPWHDType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-        cmbPWCTType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-        cmbPWLTType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-        cmbPWRTType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-        cmbPWLAType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-        cmbPWRAType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-        cmbPWLLType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-        cmbPWRLType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPWHDType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
+        cmbPWCTType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
+        cmbPWLTType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
+        cmbPWRTType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
+        cmbPWLAType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
+        cmbPWRAType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
+        cmbPWLLType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
+        cmbPWRLType.setModel( new javax.swing.DefaultComboBoxModel<>( temp ) );
     }
 
     private void BuildTechBaseSelector() {
         switch( CurMech.GetEra() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
-                cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere" } ) );
+                cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "Inner Sphere" } ) );
                 break;
             default:
                 if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
                 } else if( CurMech.GetRulesLevel() == AvailableCode.RULES_INTRODUCTORY ) {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere" } ) );
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "Inner Sphere" } ) );
                 } else {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "Inner Sphere", "Clan" } ) );
                 }
                 break;
         }
@@ -1011,19 +1011,19 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private void BuildMechTypeSelector() {
         switch( CurMech.GetRulesLevel() ) {
             case AvailableCode.RULES_INTRODUCTORY:
-                cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech" } ) );
+                cmbMechType.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "BattleMech" } ) );
                 CurMech.SetModern();
                 break;
             case AvailableCode.RULES_ERA_SPECIFIC:
                 if( CurMech.GetEra() == AvailableCode.ERA_SUCCESSION ) {
-                    cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
+                    cmbMechType.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "BattleMech", "IndustrialMech" } ) );
                     CurMech.SetModern();
                 } else {
-                    cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech" } ) );
+                    cmbMechType.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech" } ) );
                 }
                 break;
             default:
-                cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
+                cmbMechType.setModel( new javax.swing.DefaultComboBoxModel<>( new String[] { "BattleMech", "IndustrialMech" } ) );
                 CurMech.SetModern();
                 break;
         }
@@ -2477,8 +2477,9 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void ResetAmmo() {
         // first, get the weapons from the loadout that need ammunition
-        ArrayList v = CurMech.GetLoadout().GetNonCore(), wep = new ArrayList();
-        Object a;
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> wep = new ArrayList<>();
+        abPlaceable a;
 
         for( int i = 0; i < v.size(); i++ ) {
             a = v.get( i );
@@ -3355,7 +3356,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         // set the current loadout source before changing
         txtSource.setText( CurMech.GetSource() );
-        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( variants ) );
+        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel<>( variants ) );
         cmbOmniVariant.setSelectedItem( CurMech.GetLoadout().GetName() );
     }
 
@@ -3787,12 +3788,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             int newIDX = r.GetAmmoIndex();
 
             // check for other weapons with the original ammo index
-            ArrayList check = CurMech.GetLoadout().GetNonCore();
-            ArrayList replace = new ArrayList();
+            ArrayList<abPlaceable> check = CurMech.GetLoadout().GetNonCore();
+            ArrayList<abPlaceable> replace = new ArrayList<>();
             abPlaceable p;
             boolean HasOrig = false;
             for( int i = 0; i < check.size(); i++ ) {
-                p = (abPlaceable) check.get( i );
+                p = check.get( i );
                 if( p instanceof RangedWeapon ) {
                     if( ((RangedWeapon) p).GetAmmoIndex() == origIDX ) {
                         HasOrig = true;
@@ -4161,7 +4162,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     // the following method is provided to the MechRenderer for comparison
     // purposes.  Please check MechLoadoutRenderer.java for implementation.
-    public int GetLocation( javax.swing.JList list ) {
+    public int GetLocation( javax.swing.JList<?> list ) {
         if( list == lstHDCrits ) { return LocationIndex.MECH_LOC_HD; }
         if( list == lstCTCrits ) { return LocationIndex.MECH_LOC_CT; }
         if( list == lstLTCrits ) { return LocationIndex.MECH_LOC_LT; }
@@ -4630,7 +4631,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         btnOptionsIcon = new javax.swing.JButton();
         jSeparator21 = new javax.swing.JToolBar.Separator();
         lblSelectVariant = new javax.swing.JLabel();
-        cmbOmniVariant = new javax.swing.JComboBox();
+        cmbOmniVariant = new javax.swing.JComboBox<>();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
         pnlBasicInformation = new javax.swing.JPanel();
@@ -4639,44 +4640,44 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lblModel = new javax.swing.JLabel();
         txtMechModel = new javax.swing.JTextField();
         lblMechEra = new javax.swing.JLabel();
-        cmbMechEra = new javax.swing.JComboBox();
+        cmbMechEra = new javax.swing.JComboBox<>();
         lblEraYears = new javax.swing.JLabel();
         lblProdYear = new javax.swing.JLabel();
         txtProdYear = new javax.swing.JTextField();
         chkYearRestrict = new javax.swing.JCheckBox();
         lblTechBase = new javax.swing.JLabel();
-        cmbTechBase = new javax.swing.JComboBox();
-        cmbRulesLevel = new javax.swing.JComboBox();
+        cmbTechBase = new javax.swing.JComboBox<>();
+        cmbRulesLevel = new javax.swing.JComboBox<>();
         lblRulesLevel = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
         txtSource = new javax.swing.JTextField();
         jSeparator28 = new javax.swing.JSeparator();
         jSeparator29 = new javax.swing.JSeparator();
-        cmbProductionEra = new javax.swing.JComboBox();
+        cmbProductionEra = new javax.swing.JComboBox<>();
         pnlChassis = new javax.swing.JPanel();
         lblTonnage = new javax.swing.JLabel();
-        cmbTonnage = new javax.swing.JComboBox();
+        cmbTonnage = new javax.swing.JComboBox<>();
         lblMechType = new javax.swing.JLabel();
         lblMotiveType = new javax.swing.JLabel();
-        cmbMotiveType = new javax.swing.JComboBox();
+        cmbMotiveType = new javax.swing.JComboBox<>();
         lblEngineType = new javax.swing.JLabel();
-        cmbEngineType = new javax.swing.JComboBox();
+        cmbEngineType = new javax.swing.JComboBox<>();
         lblInternalType = new javax.swing.JLabel();
-        cmbInternalType = new javax.swing.JComboBox();
+        cmbInternalType = new javax.swing.JComboBox<>();
         lblGyroType = new javax.swing.JLabel();
-        cmbGyroType = new javax.swing.JComboBox();
+        cmbGyroType = new javax.swing.JComboBox<>();
         lblCockpit = new javax.swing.JLabel();
-        cmbCockpitType = new javax.swing.JComboBox();
+        cmbCockpitType = new javax.swing.JComboBox<>();
         lblPhysEnhance = new javax.swing.JLabel();
-        cmbPhysEnhance = new javax.swing.JComboBox();
+        cmbPhysEnhance = new javax.swing.JComboBox<>();
         chkOmnimech = new javax.swing.JCheckBox();
-        cmbMechType = new javax.swing.JComboBox();
+        cmbMechType = new javax.swing.JComboBox<>();
         lblUnitType = new javax.swing.JLabel();
         chkCommandConsole = new javax.swing.JCheckBox();
         chkFractional = new javax.swing.JCheckBox();
         pnlHeatSinks = new javax.swing.JPanel();
         lblHeatSinkType = new javax.swing.JLabel();
-        cmbHeatSinkType = new javax.swing.JComboBox();
+        cmbHeatSinkType = new javax.swing.JComboBox<>();
         lblHSNumber = new javax.swing.JLabel();
         spnNumberOfHS = new javax.swing.JSpinner();
         pnlMovement = new javax.swing.JPanel();
@@ -4686,7 +4687,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lblRunMP = new javax.swing.JLabel();
         lblJumpMP = new javax.swing.JLabel();
         spnJumpMP = new javax.swing.JSpinner();
-        cmbJumpJetType = new javax.swing.JComboBox();
+        cmbJumpJetType = new javax.swing.JComboBox<>();
         jLabel36 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         spnBoosterMP = new javax.swing.JSpinner();
@@ -4741,7 +4742,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         chkBSPFD = new javax.swing.JCheckBox();
         chkVoidSig = new javax.swing.JCheckBox();
         chkSupercharger = new javax.swing.JCheckBox();
-        cmbSCLoc = new javax.swing.JComboBox();
+        cmbSCLoc = new javax.swing.JComboBox<>();
         chkBoobyTrap = new javax.swing.JCheckBox();
         chkPartialWing = new javax.swing.JCheckBox();
         chkFHES = new javax.swing.JCheckBox();
@@ -4815,7 +4816,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlArmorSetup = new javax.swing.JPanel();
         btnMaxArmor = new javax.swing.JButton();
         btnArmorTons = new javax.swing.JButton();
-        cmbArmorType = new javax.swing.JComboBox();
+        cmbArmorType = new javax.swing.JComboBox<>();
         lblArmorType = new javax.swing.JLabel();
         btnBalanceArmor = new javax.swing.JCheckBox();
         btnEfficientArmor = new javax.swing.JButton();
@@ -4828,24 +4829,24 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lblPWLALoc = new javax.swing.JLabel();
         lblPWRALoc = new javax.swing.JLabel();
         lblPWLLLoc = new javax.swing.JLabel();
-        cmbPWHDType = new javax.swing.JComboBox();
-        cmbPWCTType = new javax.swing.JComboBox();
-        cmbPWLTType = new javax.swing.JComboBox();
-        cmbPWRTType = new javax.swing.JComboBox();
-        cmbPWLAType = new javax.swing.JComboBox();
-        cmbPWRAType = new javax.swing.JComboBox();
-        cmbPWLLType = new javax.swing.JComboBox();
-        cmbPWRLType = new javax.swing.JComboBox();
+        cmbPWHDType = new javax.swing.JComboBox<>();
+        cmbPWCTType = new javax.swing.JComboBox<>();
+        cmbPWLTType = new javax.swing.JComboBox<>();
+        cmbPWRTType = new javax.swing.JComboBox<>();
+        cmbPWLAType = new javax.swing.JComboBox<>();
+        cmbPWRAType = new javax.swing.JComboBox<>();
+        cmbPWLLType = new javax.swing.JComboBox<>();
+        cmbPWRLType = new javax.swing.JComboBox<>();
         lblPWRLLoc = new javax.swing.JLabel();
         pnlEquipment = new javax.swing.JPanel();
         tbpWeaponChooser = new javax.swing.JTabbedPane();
-        lstChooseBallistic = new javax.swing.JList();
-        lstChooseEnergy = new javax.swing.JList();
-        lstChooseMissile = new javax.swing.JList();
-        lstChoosePhysical = new javax.swing.JList();
-        lstChooseEquipment = new javax.swing.JList();
-        lstChooseArtillery = new javax.swing.JList();
-        lstChooseAmmunition = new javax.swing.JList();
+        lstChooseBallistic = new javax.swing.JList<>();
+        lstChooseEnergy = new javax.swing.JList<>();
+        lstChooseMissile = new javax.swing.JList<>();
+        lstChoosePhysical = new javax.swing.JList<>();
+        lstChooseEquipment = new javax.swing.JList<>();
+        lstChooseArtillery = new javax.swing.JList<>();
+        lstChooseAmmunition = new javax.swing.JList<>();
         pnlSpecials = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         chkUseTC = new javax.swing.JCheckBox();
@@ -4857,7 +4858,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         btnRemoveEquip = new javax.swing.JButton();
         btnClearEquip = new javax.swing.JButton();
         btnAddEquip = new javax.swing.JButton();
-        cmbNumEquips = new javax.swing.JComboBox();
+        cmbNumEquips = new javax.swing.JComboBox<>();
         pnlEquipInfo = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -4903,7 +4904,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lblInfoAVDA = new javax.swing.JLabel();
         pnlLACrits = new javax.swing.JPanel();
         scrLACrits = new javax.swing.JScrollPane();
-        lstLACrits = new javax.swing.JList();
+        lstLACrits = new javax.swing.JList<>();
         chkLALowerArm = new javax.swing.JCheckBox();
         chkLAHand = new javax.swing.JCheckBox();
         chkLACASE2 = new javax.swing.JCheckBox();
@@ -4911,32 +4912,32 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlLTCrits = new javax.swing.JPanel();
         chkLTCASE = new javax.swing.JCheckBox();
         jScrollPane12 = new javax.swing.JScrollPane();
-        lstLTCrits = new javax.swing.JList();
+        lstLTCrits = new javax.swing.JList<>();
         chkLTCASE2 = new javax.swing.JCheckBox();
         chkLTTurret = new javax.swing.JCheckBox();
         pnlHDCrits = new javax.swing.JPanel();
         chkHDTurret = new javax.swing.JCheckBox();
         chkHDCASE2 = new javax.swing.JCheckBox();
         jScrollPane10 = new javax.swing.JScrollPane();
-        lstHDCrits = new javax.swing.JList();
+        lstHDCrits = new javax.swing.JList<>();
         pnlRTCrits = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        lstRTCrits = new javax.swing.JList();
+        lstRTCrits = new javax.swing.JList<>();
         chkRTCASE = new javax.swing.JCheckBox();
         chkRTCASE2 = new javax.swing.JCheckBox();
         chkRTTurret = new javax.swing.JCheckBox();
         pnlCTCrits = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
-        lstCTCrits = new javax.swing.JList();
+        lstCTCrits = new javax.swing.JList<>();
         chkCTCASE = new javax.swing.JCheckBox();
         chkCTCASE2 = new javax.swing.JCheckBox();
         pnlLLCrits = new javax.swing.JPanel();
         jScrollPane16 = new javax.swing.JScrollPane();
-        lstLLCrits = new javax.swing.JList();
+        lstLLCrits = new javax.swing.JList<>();
         chkLLCASE2 = new javax.swing.JCheckBox();
         pnlRLCrits = new javax.swing.JPanel();
         jScrollPane17 = new javax.swing.JScrollPane();
-        lstRLCrits = new javax.swing.JList();
+        lstRLCrits = new javax.swing.JList<>();
         chkRLCASE2 = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
         jLabel59 = new javax.swing.JLabel();
@@ -4944,14 +4945,14 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         jLabel61 = new javax.swing.JLabel();
         pnlRACrits = new javax.swing.JPanel();
         scrRACrits = new javax.swing.JScrollPane();
-        lstRACrits = new javax.swing.JList();
+        lstRACrits = new javax.swing.JList<>();
         chkRALowerArm = new javax.swing.JCheckBox();
         chkRAHand = new javax.swing.JCheckBox();
         chkRACASE2 = new javax.swing.JCheckBox();
         chkRAAES = new javax.swing.JCheckBox();
         pnlEquipmentToPlace = new javax.swing.JPanel();
         scrEquipToPlace = new javax.swing.JScrollPane();
-        lstCritsToPlace = new javax.swing.JList();
+        lstCritsToPlace = new javax.swing.JList<>();
         btnRemoveItemCrits = new javax.swing.JButton();
         btnAutoAllocate = new javax.swing.JButton();
         btnSelectiveAllocate = new javax.swing.JButton();
@@ -5379,7 +5380,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlBasicInformation.add(lblMechEra, gridBagConstraints);
 
-        cmbMechEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
+        cmbMechEra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
         cmbMechEra.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbMechEra.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechEra.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5454,7 +5455,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlBasicInformation.add(lblTechBase, gridBagConstraints);
 
-        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
+        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inner Sphere" }));
         cmbTechBase.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbTechBase.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbTechBase.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5469,7 +5470,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.gridwidth = 2;
         pnlBasicInformation.add(cmbTechBase, gridBagConstraints);
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
         cmbRulesLevel.setSelectedIndex(1);
         cmbRulesLevel.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
@@ -5525,7 +5526,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlBasicInformation.add(jSeparator28, new java.awt.GridBagConstraints());
         pnlBasicInformation.add(jSeparator29, new java.awt.GridBagConstraints());
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages", "ilClan" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages", "ilClan" }));
         cmbProductionEra.setLightWeightPopupEnabled(false);
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
@@ -5556,7 +5557,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblTonnage, gridBagConstraints);
 
-        cmbTonnage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" }));
+        cmbTonnage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" }));
         cmbTonnage.setSelectedIndex(2);
         cmbTonnage.setMaximumSize(new java.awt.Dimension(60, 20));
         cmbTonnage.setMinimumSize(new java.awt.Dimension(60, 20));
@@ -5584,7 +5585,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblMotiveType, gridBagConstraints);
 
-        cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Biped", "Quad" }));
+        cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Biped", "Quad" }));
         cmbMotiveType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbMotiveType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMotiveType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5608,7 +5609,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblEngineType, gridBagConstraints);
 
-        cmbEngineType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fusion", "Fusion XL" }));
+        cmbEngineType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fusion", "Fusion XL" }));
         cmbEngineType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbEngineType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbEngineType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5632,7 +5633,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblInternalType, gridBagConstraints);
 
-        cmbInternalType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard", "Endo Steel" }));
+        cmbInternalType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard", "Endo Steel" }));
         cmbInternalType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbInternalType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbInternalType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5655,7 +5656,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblGyroType, gridBagConstraints);
 
-        cmbGyroType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard" }));
+        cmbGyroType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard" }));
         cmbGyroType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbGyroType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbGyroType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5678,7 +5679,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblCockpit, gridBagConstraints);
 
-        cmbCockpitType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard" }));
+        cmbCockpitType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard" }));
         cmbCockpitType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbCockpitType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbCockpitType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5701,7 +5702,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblPhysEnhance, gridBagConstraints);
 
-        cmbPhysEnhance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "MASC" }));
+        cmbPhysEnhance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "MASC" }));
         cmbPhysEnhance.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPhysEnhance.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPhysEnhance.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5731,7 +5732,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
         pnlChassis.add(chkOmnimech, gridBagConstraints);
 
-        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BattleMech", "IndustrialMech" }));
+        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BattleMech", "IndustrialMech" }));
         cmbMechType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5798,7 +5799,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlHeatSinks.add(lblHeatSinkType, gridBagConstraints);
 
-        cmbHeatSinkType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Single", "Double" }));
+        cmbHeatSinkType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Double" }));
         cmbHeatSinkType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbHeatSinkType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbHeatSinkType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5903,7 +5904,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlMovement.add(spnJumpMP, gridBagConstraints);
 
-        cmbJumpJetType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard Jump Jet", "Improved Jump Jet" }));
+        cmbJumpJetType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard Jump Jet", "Improved Jump Jet" }));
         cmbJumpJetType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbJumpJetType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbJumpJetType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -6508,7 +6509,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel4.add(chkSupercharger, gridBagConstraints);
 
-        cmbSCLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CT", "LT", "RT" }));
+        cmbSCLoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CT", "LT", "RT" }));
         cmbSCLoc.setEnabled(false);
         cmbSCLoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -7173,7 +7174,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 2);
         pnlArmorSetup.add(btnArmorTons, gridBagConstraints);
 
-        cmbArmorType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Industrial", "Standard", "Ferro-Fibrous" }));
+        cmbArmorType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Industrial", "Standard", "Ferro-Fibrous" }));
         cmbArmorType.setSelectedIndex(1);
         cmbArmorType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbArmorType.setMinimumSize(new java.awt.Dimension(150, 20));
@@ -7298,7 +7299,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         pnlPatchworkChoosers.add(lblPWLLLoc, gridBagConstraints);
 
-        cmbPWHDType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWHDType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPWHDType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPWHDType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPWHDType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -7309,7 +7310,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         pnlPatchworkChoosers.add(cmbPWHDType, new java.awt.GridBagConstraints());
 
-        cmbPWCTType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWCTType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPWCTType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPWCTType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPWCTType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -7323,7 +7324,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.gridy = 1;
         pnlPatchworkChoosers.add(cmbPWCTType, gridBagConstraints);
 
-        cmbPWLTType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWLTType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPWLTType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPWLTType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPWLTType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -7337,7 +7338,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.gridy = 2;
         pnlPatchworkChoosers.add(cmbPWLTType, gridBagConstraints);
 
-        cmbPWRTType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWRTType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPWRTType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPWRTType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPWRTType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -7351,7 +7352,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.gridy = 3;
         pnlPatchworkChoosers.add(cmbPWRTType, gridBagConstraints);
 
-        cmbPWLAType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWLAType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPWLAType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPWLAType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPWLAType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -7365,7 +7366,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.gridy = 4;
         pnlPatchworkChoosers.add(cmbPWLAType, gridBagConstraints);
 
-        cmbPWRAType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWRAType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPWRAType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPWRAType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPWRAType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -7379,7 +7380,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.gridy = 5;
         pnlPatchworkChoosers.add(cmbPWRAType, gridBagConstraints);
 
-        cmbPWLLType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWLLType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPWLLType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPWLLType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPWLLType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -7393,7 +7394,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.gridy = 6;
         pnlPatchworkChoosers.add(cmbPWLLType, gridBagConstraints);
 
-        cmbPWRLType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWRLType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPWRLType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbPWRLType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPWRLType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -7431,7 +7432,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlEquipment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         //region Equipment Tab / Weapons and Equipment Lists
-        AbstractListModel placeholder = new AbstractListModel() {
+        AbstractListModel<Object> placeholder = new AbstractListModel<Object>() {
             String[] strings = { "Placeholder" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -7577,7 +7578,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlControls.add(btnAddEquip, gridBagConstraints);
 
-        cmbNumEquips.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
+        cmbNumEquips.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -7881,7 +7882,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         scrLACrits.setPreferredSize(new java.awt.Dimension(105, 170));
 
         lstLACrits.setFont( PrintConsts.BaseCritFont );
-        lstLACrits.setModel(new javax.swing.AbstractListModel() {
+        lstLACrits.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Left Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -8017,7 +8018,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         jScrollPane12.setPreferredSize(new java.awt.Dimension(105, 170));
 
         lstLTCrits.setFont( PrintConsts.BaseCritFont );
-        lstLTCrits.setModel(new javax.swing.AbstractListModel() {
+        lstLTCrits.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Left Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -8141,7 +8142,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         jScrollPane10.setPreferredSize(new java.awt.Dimension(105, 87));
 
         lstHDCrits.setFont( PrintConsts.BaseCritFont );
-        lstHDCrits.setModel(new javax.swing.AbstractListModel() {
+        lstHDCrits.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Head", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -8215,7 +8216,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         jScrollPane13.setPreferredSize(new java.awt.Dimension(105, 170));
 
         lstRTCrits.setFont( PrintConsts.BaseCritFont );
-        lstRTCrits.setModel(new javax.swing.AbstractListModel() {
+        lstRTCrits.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Right Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -8325,7 +8326,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         jScrollPane11.setPreferredSize(new java.awt.Dimension(105, 170));
 
         lstCTCrits.setFont( PrintConsts.BaseCritFont );
-        lstCTCrits.setModel(new javax.swing.AbstractListModel() {
+        lstCTCrits.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Center Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -8420,7 +8421,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         jScrollPane16.setPreferredSize(new java.awt.Dimension(105, 87));
 
         lstLLCrits.setFont( PrintConsts.BaseCritFont );
-        lstLLCrits.setModel(new javax.swing.AbstractListModel() {
+        lstLLCrits.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Left Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -8503,7 +8504,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         jScrollPane17.setPreferredSize(new java.awt.Dimension(105, 87));
 
         lstRLCrits.setFont( PrintConsts.BaseCritFont );
-        lstRLCrits.setModel(new javax.swing.AbstractListModel() {
+        lstRLCrits.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Right Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -8605,7 +8606,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         scrRACrits.setPreferredSize(new java.awt.Dimension(105, 170));
 
         lstRACrits.setFont( PrintConsts.BaseCritFont );
-        lstRACrits.setModel(new javax.swing.AbstractListModel() {
+        lstRACrits.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Right Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -8727,7 +8728,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         scrEquipToPlace.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         lstCritsToPlace.setFont( PrintConsts.BaseCritFont );
-        lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
+        lstCritsToPlace.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Selected", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -10078,7 +10079,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private JPanel EquipmentLocation(JList list, ListSelectionListener selection, MouseListener listener, AbstractListModel display) {
+    private JPanel EquipmentLocation(JList<Object> list, ListSelectionListener selection, MouseListener listener, AbstractListModel<Object> display) {
         JPanel panel = new JPanel();
         list.setModel(display);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -14442,32 +14443,32 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBox chkUseTC;
     private javax.swing.JCheckBox chkVoidSig;
     private javax.swing.JCheckBox chkYearRestrict;
-    private javax.swing.JComboBox cmbArmorType;
-    private javax.swing.JComboBox cmbCockpitType;
-    private javax.swing.JComboBox cmbEngineType;
-    private javax.swing.JComboBox cmbGyroType;
-    private javax.swing.JComboBox cmbHeatSinkType;
-    private javax.swing.JComboBox cmbInternalType;
-    private javax.swing.JComboBox cmbJumpJetType;
-    private javax.swing.JComboBox cmbMechEra;
-    private javax.swing.JComboBox cmbMechType;
-    private javax.swing.JComboBox cmbMotiveType;
-    private javax.swing.JComboBox cmbNumEquips;
-    private javax.swing.JComboBox cmbOmniVariant;
-    private javax.swing.JComboBox cmbPWCTType;
-    private javax.swing.JComboBox cmbPWHDType;
-    private javax.swing.JComboBox cmbPWLAType;
-    private javax.swing.JComboBox cmbPWLLType;
-    private javax.swing.JComboBox cmbPWLTType;
-    private javax.swing.JComboBox cmbPWRAType;
-    private javax.swing.JComboBox cmbPWRLType;
-    private javax.swing.JComboBox cmbPWRTType;
-    private javax.swing.JComboBox cmbPhysEnhance;
-    private javax.swing.JComboBox cmbProductionEra;
-    private javax.swing.JComboBox cmbRulesLevel;
-    private javax.swing.JComboBox cmbSCLoc;
-    private javax.swing.JComboBox cmbTechBase;
-    private javax.swing.JComboBox cmbTonnage;
+    private javax.swing.JComboBox<String> cmbArmorType;
+    private javax.swing.JComboBox<String> cmbCockpitType;
+    private javax.swing.JComboBox<String> cmbEngineType;
+    private javax.swing.JComboBox<String> cmbGyroType;
+    private javax.swing.JComboBox<String> cmbHeatSinkType;
+    private javax.swing.JComboBox<String> cmbInternalType;
+    private javax.swing.JComboBox<String> cmbJumpJetType;
+    private javax.swing.JComboBox<String> cmbMechEra;
+    private javax.swing.JComboBox<String> cmbMechType;
+    private javax.swing.JComboBox<String> cmbMotiveType;
+    private javax.swing.JComboBox<String> cmbNumEquips;
+    private javax.swing.JComboBox<String> cmbOmniVariant;
+    private javax.swing.JComboBox<String> cmbPWCTType;
+    private javax.swing.JComboBox<String> cmbPWHDType;
+    private javax.swing.JComboBox<String> cmbPWLAType;
+    private javax.swing.JComboBox<String> cmbPWLLType;
+    private javax.swing.JComboBox<String> cmbPWLTType;
+    private javax.swing.JComboBox<String> cmbPWRAType;
+    private javax.swing.JComboBox<String> cmbPWRLType;
+    private javax.swing.JComboBox<String> cmbPWRTType;
+    private javax.swing.JComboBox<String> cmbPhysEnhance;
+    private javax.swing.JComboBox<String> cmbProductionEra;
+    private javax.swing.JComboBox<String> cmbRulesLevel;
+    private javax.swing.JComboBox<String> cmbSCLoc;
+    private javax.swing.JComboBox<String> cmbTechBase;
+    private javax.swing.JComboBox<String> cmbTonnage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -14679,22 +14680,22 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblTonnage;
     private javax.swing.JLabel lblUnitType;
     private javax.swing.JLabel lblWalkMP;
-    private javax.swing.JList lstCTCrits;
-    private javax.swing.JList lstChooseAmmunition;
-    private javax.swing.JList lstChooseArtillery;
-    private javax.swing.JList lstChooseBallistic;
-    private javax.swing.JList lstChooseEnergy;
-    private javax.swing.JList lstChooseEquipment;
-    private javax.swing.JList lstChooseMissile;
-    private javax.swing.JList lstChoosePhysical;
-    private javax.swing.JList lstCritsToPlace;
-    private javax.swing.JList lstHDCrits;
-    private javax.swing.JList lstLACrits;
-    private javax.swing.JList lstLLCrits;
-    private javax.swing.JList lstLTCrits;
-    private javax.swing.JList lstRACrits;
-    private javax.swing.JList lstRLCrits;
-    private javax.swing.JList lstRTCrits;
+    private javax.swing.JList<Object> lstCTCrits;
+    private javax.swing.JList<Object> lstChooseAmmunition;
+    private javax.swing.JList<Object> lstChooseArtillery;
+    private javax.swing.JList<Object> lstChooseBallistic;
+    private javax.swing.JList<Object> lstChooseEnergy;
+    private javax.swing.JList<Object> lstChooseEquipment;
+    private javax.swing.JList<Object> lstChooseMissile;
+    private javax.swing.JList<Object> lstChoosePhysical;
+    private javax.swing.JList<Object> lstCritsToPlace;
+    private javax.swing.JList<Object> lstHDCrits;
+    private javax.swing.JList<Object> lstLACrits;
+    private javax.swing.JList<Object> lstLLCrits;
+    private javax.swing.JList<Object> lstLTCrits;
+    private javax.swing.JList<Object> lstRACrits;
+    private javax.swing.JList<Object> lstRLCrits;
+    private javax.swing.JList<Object> lstRTCrits;
     private javax.swing.JMenuItem mnuAboutSSW;
     private javax.swing.JMenuItem mnuBFB;
     private javax.swing.JMenuItem mnuBatchHMP;

@@ -39,7 +39,7 @@ public interface DesignForm {
     public void showOpenDialog();
     
     public Preferences GetPrefs();
-    public int GetLocation( javax.swing.JList list );
+    public int GetLocation( javax.swing.JList<?> list );
     public String BuildLookupName( ifState s );
     public abPlaceable GetCurItem();
     public void RefreshInfoPane();
