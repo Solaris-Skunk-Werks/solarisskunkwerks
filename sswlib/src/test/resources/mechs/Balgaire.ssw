@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Balgaire" model="" tons="90" omnimech="TRUE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <cost>1.6142875E7</cost>
+    <rules_level>1</rules_level>
+    <era>2</era>
+    <productionera>0</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Clan</techbase>
+    <year restricted="FALSE">3060</year>
+    <motive_type>Quad</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="270" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>44</ct>
+        <ctr>14</ctr>
+        <lt>28</lt>
+        <ltr>10</ltr>
+        <rt>28</rt>
+        <rtr>10</rtr>
+        <la>38</la>
+        <ra>38</ra>
+        <ll>38</ll>
+        <rl>38</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>FM: CF</source>
+        <info>Balgaire 90t, 3/5/0, Std FE, Std Quad; 18.5T/100% Armor; 10 DHS</info>
+        <battleforce pv="13" wt="4" mv="3" s="0" m="0" l="0" e="0" ov="0" armor="10" internal="7" abilities="OMNI, ENE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <heatsinks number="10" techbase="1">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+    </baseloadout>
+    <loadout name="Primary" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>3060</loadout_year>
+        <info>Balgaire  Primary 90t, 3/5/0, Std FE, Std Quad; 18.5T/100% Armor; 10 DHS; 2 ERML, 2 GR, 2 LPL</info>
+        <battleforce pv="28" wt="4" mv="3" s="5" m="5" l="4" e="0" ov="2" armor="10" internal="7" abilities="OMNI, CASE, SRCH, ES, SEAL, SOA" />
+        <battle_value>2784</battle_value>
+        <cost>1.1274125E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <equipment>
+            <name manufacturer="">(CL) Gauss Rifle</name>
+            <type>ballistic</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Gauss Rifle</name>
+            <type>ballistic</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="6">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="6">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Gauss Rifle</name>
+            <type>ammunition</type>
+            <location index="9">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Gauss Rifle</name>
+            <type>ammunition</type>
+            <location index="8">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Gauss Rifle</name>
+            <type>ammunition</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Gauss Rifle</name>
+            <type>ammunition</type>
+            <location index="9">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+    </loadout>
+    <loadout name="A" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>3060</loadout_year>
+        <info>Balgaire  A 90t, 3/5/0, Std FE, Std Quad; 18.5T/100% Armor; 10 DHS; 1 UAC/10, 1 GR, 1 UAC20</info>
+        <battleforce pv="25" wt="4" mv="3" s="6" m="6" l="3" e="0" ov="0" armor="10" internal="7" abilities="OMNI, CASE, SRCH, ES, SEAL, SOA" />
+        <battle_value>2457</battle_value>
+        <cost>1.1250375E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <equipment>
+            <name manufacturer="">(CL) Ultra AC/20</name>
+            <type>ballistic</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Ultra AC/10</name>
+            <type>ballistic</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Gauss Rifle</name>
+            <type>ballistic</type>
+            <location index="4">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Ultra AC/20</name>
+            <type>ammunition</type>
+            <location index="9">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Ultra AC/20</name>
+            <type>ammunition</type>
+            <location index="8">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Ultra AC/20</name>
+            <type>ammunition</type>
+            <location index="10">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Ultra AC/20</name>
+            <type>ammunition</type>
+            <location index="11">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Ultra AC/10</name>
+            <type>ammunition</type>
+            <location index="11">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Ultra AC/10</name>
+            <type>ammunition</type>
+            <location index="10">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Gauss Rifle</name>
+            <type>ammunition</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Gauss Rifle</name>
+            <type>ammunition</type>
+            <location index="10">CT</location>
+        </equipment>
+    </loadout>
+    <loadout name="B" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>3060</loadout_year>
+        <info>Balgaire  B 90t, 3/5/0, Std FE, Std Quad; 18.5T/100% Armor; 14 DHS; 1 ERLL, 4 LRM20, 1 LPL</info>
+        <battleforce pv="27" wt="4" mv="3" s="5" m="5" l="5" e="0" ov="0" armor="10" internal="7" abilities="OMNI, CASE, SRCH, ES, SEAL, SOA, LRM 3/3/3, IF 3" />
+        <battle_value>2681</battle_value>
+        <cost>1.19605E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <heatsinks number="14" techbase="1">
+            <type>Double Heat Sink</type>
+            <location index="4">FRL</location>
+            <location index="4">FLL</location>
+            <location index="4">RLL</location>
+            <location index="4">RRL</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(CL) LRM-20</name>
+            <type>missile</type>
+            <location index="4">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) LRM-20</name>
+            <type>missile</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) LRM-20</name>
+            <type>missile</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) LRM-20</name>
+            <type>missile</type>
+            <location index="4">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ LRM-20</name>
+            <type>ammunition</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ LRM-20</name>
+            <type>ammunition</type>
+            <location index="8">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ LRM-20</name>
+            <type>ammunition</type>
+            <location index="9">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ LRM-20</name>
+            <type>ammunition</type>
+            <location index="9">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ LRM-20</name>
+            <type>ammunition</type>
+            <location index="10">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ LRM-20</name>
+            <type>ammunition</type>
+            <location index="10">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ LRM-20</name>
+            <type>ammunition</type>
+            <location index="11">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ LRM-20</name>
+            <type>ammunition</type>
+            <location index="11">RT</location>
+        </equipment>
+    </loadout>
+    <loadout name="C" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>3060</loadout_year>
+        <info>Balgaire  C 90t, 3/5/0, Std FE, Std Quad; 18.5T/100% Armor; 20 DHS; 1 SSRM4, 4 LPL, TC</info>
+        <battleforce pv="27" wt="4" mv="3" s="6" m="6" l="5" e="0" ov="0" armor="10" internal="7" abilities="OMNI, CASE, SRCH, ES, SEAL, SOA" />
+        <battle_value>2706</battle_value>
+        <cost>1.0656625E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <heatsinks number="20" techbase="1">
+            <type>Double Heat Sink</type>
+            <location index="10">LT</location>
+            <location index="10">CT</location>
+            <location index="4">RT</location>
+            <location index="4">FLL</location>
+            <location index="4">FRL</location>
+            <location index="4">RLL</location>
+            <location index="4">RRL</location>
+            <location index="6">RT</location>
+            <location index="8">RT</location>
+            <location index="10">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Streak SRM-4</name>
+            <type>missile</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Streak SRM-4</name>
+            <type>ammunition</type>
+            <location index="4">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Targeting Computer</name>
+            <type>TargetingComputer</type>
+            <location index="5">LT</location>
+        </equipment>
+    </loadout>
+    <loadout name="D" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>3060</loadout_year>
+        <info>Balgaire  D 90t, 3/5/0, Std FE, Std Quad; 18.5T/100% Armor; 12 DHS; 2 ERML, 1 MPL, 4 ATM12</info>
+        <battleforce pv="26" wt="4" mv="3" s="8" m="6" l="3" e="0" ov="4" armor="10" internal="7" abilities="OMNI, CASE, SRCH, ES, SEAL, SOA" />
+        <battle_value>2647</battle_value>
+        <cost>1.2751375E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <heatsinks number="12" techbase="1">
+            <type>Double Heat Sink</type>
+            <location index="4">FRL</location>
+            <location index="4">FLL</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(CL) ATM-12</name>
+            <type>missile</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ATM-12</name>
+            <type>missile</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ATM-12</name>
+            <type>missile</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ATM-12</name>
+            <type>missile</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-12</name>
+            <type>ammunition</type>
+            <location index="10">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-12</name>
+            <type>ammunition</type>
+            <location index="10">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-12 (HE)</name>
+            <type>ammunition</type>
+            <location index="5">RLL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-12 (HE)</name>
+            <type>ammunition</type>
+            <location index="4">RLL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-12 (HE)</name>
+            <type>ammunition</type>
+            <location index="4">RRL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-12 (HE)</name>
+            <type>ammunition</type>
+            <location index="5">RRL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-12 (ER)</name>
+            <type>ammunition</type>
+            <location index="11">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-12 (ER)</name>
+            <type>ammunition</type>
+            <location index="11">LT</location>
+        </equipment>
+    </loadout>
+    <loadout name="E" ruleslevel="3" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>3</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>3132</loadout_year>
+        <info>Balgaire  E 90t, 3/5[6]/3, Std FE, Std Quad; 18.5T/100% Armor; 16 DHS; 1 iATM6, 3 LPL, TC</info>
+        <battleforce pv="31" wt="4" mv="4/3j" s="6" m="5" l="5" e="0" ov="0" armor="10" internal="7" abilities="OMNI, CASE, SRCH, ES, SEAL, SOA" />
+        <battle_value>3073</battle_value>
+        <cost>1.73375E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <jumpjets number="3">
+            <type>Standard Jump Jet</type>
+            <location index="10">LT</location>
+            <location index="11">CT</location>
+            <location index="10">RT</location>
+        </jumpjets>
+        <heatsinks number="16" techbase="1">
+            <type>Double Heat Sink</type>
+            <location index="4">RLL</location>
+            <location index="4">FLL</location>
+            <location index="4">RRL</location>
+            <location index="4">FRL</location>
+            <location index="6">RT</location>
+            <location index="8">RT</location>
+        </heatsinks>
+        <turret type="right torso" index="11"/>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="4">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) iATM-6</name>
+            <type>missile</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-6</name>
+            <type>ammunition</type>
+            <location index="4">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-6 (HE)</name>
+            <type>ammunition</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-6 (HE)</name>
+            <type>ammunition</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Targeting Computer</name>
+            <type>TargetingComputer</type>
+            <location index="6">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Supercharger</name>
+            <type>Supercharger</type>
+            <location index="10">CT</location>
+        </equipment>
+    </loadout>
+    <loadout name="F" ruleslevel="3" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>3</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>3132</loadout_year>
+        <info>Balgaire  F 90t, 3/5/0, Std FE, Std Quad; 18.5T/100% Armor; 10 DHS; 2 RAC5, 1 ERML, 2 ATM9, 1 MPL</info>
+        <battleforce pv="26" wt="4" mv="3" s="7" m="6" l="4" e="0" ov="3" armor="10" internal="7" abilities="OMNI, CASE, SRCH, ES, SEAL, SOA" />
+        <techbase>Mixed</techbase>
+        <battle_value>2647</battle_value>
+        <cost>1.1701625E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <equipment>
+            <name manufacturer="">(CL) Rotary AC/5</name>
+            <type>ballistic</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Rotary AC/5</name>
+            <type>ballistic</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Rotary AC/5</name>
+            <type>ammunition</type>
+            <location index="5">FLL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Rotary AC/5</name>
+            <type>ammunition</type>
+            <location index="4">FLL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Rotary AC/5</name>
+            <type>ammunition</type>
+            <location index="4">FRL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Rotary AC/5</name>
+            <type>ammunition</type>
+            <location index="5">FRL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ATM-9</name>
+            <type>missile</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ATM-9</name>
+            <type>missile</type>
+            <location index="8">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-9 (HE)</name>
+            <type>ammunition</type>
+            <location index="4">RRL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-9 (HE)</name>
+            <type>ammunition</type>
+            <location index="5">RLL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-9 (HE)</name>
+            <type>ammunition</type>
+            <location index="5">RRL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-9</name>
+            <type>ammunition</type>
+            <location index="4">RLL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ ATM-9</name>
+            <type>ammunition</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+    </loadout>
+    <loadout name="G" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>3060</loadout_year>
+        <info>Balgaire  G 90t, 3/5/3, Std FE, Std Quad; 18.5T/100% Armor; 20 DHS; 2 ERML, 2 ERPPC, 2 LPL</info>
+        <battleforce pv="31" wt="4" mv="3j" s="5" m="5" l="4" e="0" ov="2" armor="10" internal="7" abilities="OMNI, ENE, SRCH, ES, SEAL, SOA" />
+        <battle_value>3126</battle_value>
+        <cost>1.1563875E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <jumpjets number="3">
+            <type>Standard Jump Jet</type>
+            <location index="11">CT</location>
+            <location index="11">LT</location>
+            <location index="11">RT</location>
+        </jumpjets>
+        <heatsinks number="20" techbase="1">
+            <type>Double Heat Sink</type>
+            <location index="4">RRL</location>
+            <location index="4">FLL</location>
+            <location index="4">RLL</location>
+            <location index="4">FRL</location>
+            <location index="4">LT</location>
+            <location index="6">LT</location>
+            <location index="8">LT</location>
+            <location index="4">RT</location>
+            <location index="6">RT</location>
+            <location index="8">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(CL) ER PPC</name>
+            <type>energy</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER PPC</name>
+            <type>energy</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+    </loadout>
+    <loadout name="R" ruleslevel="3" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>4</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>0</loadout_year>
+        <info>Balgaire  R 90t, 3/5/0, Std FE, Std Quad; 18.5T/100% Armor; 16 DHS; 2 ERML, 1 NCEWS, 2 iATM12, 2 LPL</info>
+        <battleforce pv="33" wt="4" mv="3" s="8" m="7" l="4" e="0" ov="2" armor="10" internal="7" abilities="OMNI, CASE, SRCH, ES, SEAL, SOA" />
+        <battle_value>3253</battle_value>
+        <cost>1.5872125E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <heatsinks number="16" techbase="1">
+            <type>Double Heat Sink</type>
+            <location index="4">FRL</location>
+            <location index="10">RT</location>
+            <location index="10">LT</location>
+            <location index="4">RRL</location>
+            <location index="4">RLL</location>
+            <location index="4">FLL</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) iATM-12</name>
+            <type>missile</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) iATM-12</name>
+            <type>missile</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12</name>
+            <type>ammunition</type>
+            <location index="7">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12</name>
+            <type>ammunition</type>
+            <location index="7">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12 (ER)</name>
+            <type>ammunition</type>
+            <location index="8">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12 (ER)</name>
+            <type>ammunition</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12 (HE)</name>
+            <type>ammunition</type>
+            <location index="9">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12 (HE)</name>
+            <type>ammunition</type>
+            <location index="9">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Nova CEWS</name>
+            <type>equipment</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+    </loadout>
+    <loadout name="H" ruleslevel="3" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source></source>
+        <loadout_era>4</loadout_era>
+        <loadout_productionera>0</loadout_productionera>
+        <loadout_year>0</loadout_year>
+        <info>Balgaire  H 90t, 3/5/3, Std FE, Std Quad; 18.5T/100% Armor; 13 DHS; 1 NCEWS, 2 iATM12, 3 MPL, 1 LPL</info>
+        <battleforce pv="34" wt="4" mv="3j" s="8" m="6" l="3" e="0" ov="3" armor="10" internal="7" abilities="OMNI, CASEII, CASE, SRCH, ES, SEAL, SOA" />
+        <battle_value>3446</battle_value>
+        <cost>1.6142875E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <jumpjets number="3">
+            <type>Standard Jump Jet</type>
+            <location index="4">RRL</location>
+            <location index="11">CT</location>
+            <location index="4">RLL</location>
+        </jumpjets>
+        <heatsinks number="13" techbase="1">
+            <type>Double Heat Sink</type>
+            <location index="4">FLL</location>
+            <location index="4">FRL</location>
+            <location index="10">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">Nova CEWS</name>
+            <type>equipment</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) iATM-12</name>
+            <type>missile</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) iATM-12</name>
+            <type>missile</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12</name>
+            <type>ammunition</type>
+            <location index="6">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12</name>
+            <type>ammunition</type>
+            <location index="7">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12 (HE)</name>
+            <type>ammunition</type>
+            <location index="9">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12 (HE)</name>
+            <type>ammunition</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iATM-12 (ER)</name>
+            <type>ammunition</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="4">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) CASE II</name>
+            <type>CASEII</type>
+            <location index="11">RT</location>
+        </equipment>
+    </loadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>
