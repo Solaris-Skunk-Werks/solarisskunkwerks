@@ -16,6 +16,7 @@ public class BFBPrinterTest {
         BFBPrinter printer = new BFBPrinter(new ImageTracker());
 
         assertEquals(2, printer.Preview().getNumberOfPages());
+        assertEquals("Repeated previews should not accumulate duplicate pages", 2, printer.Preview().getNumberOfPages());
     }
 
     @Test

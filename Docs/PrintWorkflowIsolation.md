@@ -5,7 +5,8 @@ This document tracks the print workflow exploration branch. The goal is to isola
 ## Current Shape
 
 - SSW uses `ssw.print.Printer` as its main print coordinator.
-  - Owns `Book`, `Paper`, and `PageFormat`.
+  - Owns `Paper` and `PageFormat`.
+  - Builds `PrintRequest` objects directly instead of maintaining a mutable `Book`.
   - Uses `PrinterJobGateway` for OS-facing print dialog and print calls.
   - Direct record-sheet and BattleForce print paths now execute through `PrintWorkflow`.
   - Builds `PrintMech` instances.
@@ -17,6 +18,7 @@ This document tracks the print workflow exploration branch. The goal is to isola
   - Preview is handled by `Print.preview.dlgPreview`.
 - BFB uses two paths.
   - `Print.BFBPrinter` owns force-list/declaration print jobs.
+  - `Print.BFBPrinter` builds `PrintRequest` objects directly instead of maintaining a mutable `Book`.
   - `Print.BFBPrinter` uses `PrinterJobGateway` for OS-facing print dialog and print calls.
   - `Print.BFBPrinter` now executes its direct print path through `PrintWorkflow`.
   - Some force/unit previews also assemble `PagePrinter` manually.
@@ -70,6 +72,7 @@ The first implementation should preserve Swing behavior and existing dialogs. Th
    - Shared `PagePrinter` now builds `PrintRequest` objects before converting to `Book`.
    - Shared `PagePrinter` now delegates request execution to `PrintWorkflow`.
    - SSW and BFB direct print paths now consume `PrintRequest` and `PrintWorkflow` directly.
+   - SSW and BFB coordinators now build requests directly rather than assembling mutable `Book` fields.
 7. Add Alpha Strike card generation as a print target after the request boundary exists.
 
 ## Guardrails

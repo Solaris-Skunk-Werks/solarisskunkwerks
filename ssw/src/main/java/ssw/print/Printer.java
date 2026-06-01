@@ -61,7 +61,6 @@ public class Printer {
 
     private ImageTracker images = new ImageTracker();
 
-    private Book pages = new Book();
     private Paper paper = new Paper();
     private PageFormat page = new PageFormat();
     private PrinterJobGateway job;
@@ -256,15 +255,8 @@ public class Printer {
             }
         }
 
-        //start building the print objects necessary
-        GeneratePrints();
-
-        PrintRequest request = PrintRequest.builder(printJobName())
-                .addBook(pages)
-                .build();
-
         try {
-            if( workflow.print(request) ) {
+            if( workflow.print(buildPrintRequest()) ) {
                 Mechs.clear();
             }
         } catch( PrinterException e ) {
@@ -274,21 +266,18 @@ public class Printer {
     }
 
     public Book Preview() {
-        GeneratePrints();
-        return pages;
+        return workflow.preview(buildPrintRequest());
     }
 
-    private void GeneratePrints() {
-        //reset the book so we don't get extra pages!
-        pages = new Book();
-
-        //start building the print objects necessary
+    private PrintRequest buildPrintRequest() {
         page.setPaper( paper );
+        PrintRequest.Builder request = PrintRequest.builder(printJobName());
 
         for (PrintMech pm : Mechs) {
-            pages.append(pm, page);
+            request.addPage(page, pm);
         }
 
+        return request.build();
     }
 
     private String printJobName() {
@@ -400,12 +389,7 @@ public class Printer {
 
     public Book PreviewBattleforce() {
         if ( battleforces.size() == 0 ) { return new Book(); }
-        pages = new Book();
-        page.setPaper( paper );
-        for (BattleforceCardPrinter battleforce : battleforces) {
-            pages.append(battleforce, page);
-        }
-        return pages;
+        return workflow.preview(buildBattleforceRequest());
     }
 
     public void PrintBattleforce( boolean useDialog ) {
@@ -415,8 +399,6 @@ public class Printer {
 
     public void PrintBattleforce() {
         if ( battleforces.size() == 0 ) { return; }
-        pages = new Book();
-        page.setPaper( paper );
 
         if ( jobName.isEmpty() ) { jobName = "BattleForce"; }
         if ( battleforces.size() == 1 ) {
@@ -437,19 +419,20 @@ public class Printer {
             }
         }
 
-        for (BattleforceCardPrinter battleforce : battleforces) {
-            pages.append(battleforce, page);
-        }
-
-        PrintRequest request = PrintRequest.builder(jobName)
-                .addBook(pages)
-                .build();
-
         try {
-            workflow.print(request);
+            workflow.print(buildBattleforceRequest());
         } catch( PrinterException e ) {
             System.err.println( e.getMessage() );
             System.out.println( e.getStackTrace() );
         }
+    }
+
+    private PrintRequest buildBattleforceRequest() {
+        page.setPaper( paper );
+        PrintRequest.Builder request = PrintRequest.builder(jobName);
+        for (BattleforceCardPrinter battleforce : battleforces) {
+            request.addPage(page, battleforce);
+        }
+        return request.build();
     }
 }

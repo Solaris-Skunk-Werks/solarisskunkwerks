@@ -32,8 +32,10 @@ public class PrinterPreviewSmokeTest {
         printer.AddMech(mech);
 
         Book preview = printer.Preview();
+        Book secondPreview = printer.Preview();
 
         assertEquals(1, preview.getNumberOfPages());
+        assertEquals("Repeated previews should not accumulate duplicate pages", 1, secondPreview.getNumberOfPages());
         RenderedPage renderedPage = renderFirstPage(preview);
         assertEquals(Printable.PAGE_EXISTS, renderedPage.printResult);
         assertTrue("Preview page should contain rendered content", renderedPage.hasInk);

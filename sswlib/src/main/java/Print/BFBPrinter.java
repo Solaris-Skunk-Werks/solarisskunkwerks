@@ -44,7 +44,6 @@ public final class BFBPrinter {
     private ImageTracker imageTracker;
     private int unitSize = 0;
 
-    private Book pages = new Book();
     private Paper paper = new Paper();
     private PageFormat page = new PageFormat();
     private PrinterJobGateway job;
@@ -111,14 +110,8 @@ public final class BFBPrinter {
     }
 
     public void Print() {
-        //start building the print objects necessary
-        GeneratePrints();
-        PrintRequest request = PrintRequest.builder(jobName.trim())
-                .addBook(pages)
-                .build();
-
         try {
-            workflow.print(request);
+            workflow.print(buildPrintRequest());
         } catch( PrinterException e ) {
             System.err.println( e.getMessage() );
             System.out.println( e.getStackTrace() );
@@ -126,27 +119,27 @@ public final class BFBPrinter {
     }
 
     public Book Preview() {
-        GeneratePrints();
-        return pages;
+        return workflow.preview(buildPrintRequest());
     }
 
-    private void GeneratePrints() {
-        //start building the print objects necessary
-        pages = new Book();
+    private PrintRequest buildPrintRequest() {
         page.setPaper( paper );
-        pages.append(sheet, page);
+        PrintRequest.Builder request = PrintRequest.builder(jobName.trim());
+        request.addPage(page, sheet);
 
         if ( unitSize > 24 ) {
             chits.clearForces();
             chits.AddForce(this.forces.get(0));
-            pages.append(chits, page);
+            request.addPage(page, chits);
 
             PrintDeclaration chit2 = new PrintDeclaration(imageTracker);
             chit2.AddForce(this.forces.get(1));
-            pages.append(chit2, page);
+            request.addPage(page, chit2);
         } else {
-            pages.append(chits, page);
+            request.addPage(page, chits);
         }
+
+        return request.build();
     }
 
     /**
