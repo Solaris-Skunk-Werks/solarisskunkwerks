@@ -943,7 +943,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
                 } else {
                     cmbUnitType.setSelectedIndex(2);
                 }
-                media.setLogo(lblLogo, new File(force.LogoPath));
+                media.setLogo(lblLogo, new File(imageTracker.resolveImagePath(force.LogoPath)));
                 force.RefreshBV();
                 prefs.put("LastOpenForce", forceFile.getCanonicalPath());
             } catch (Exception ex) {

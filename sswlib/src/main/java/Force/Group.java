@@ -187,8 +187,7 @@ public class Group {
     }
 
     public String getLogo() {
-        if ( Logo.isEmpty() ) { Logo = force.LogoPath; }
-        return Logo;
+        return Logo.isEmpty() ? force.LogoPath : Logo;
     }
 
     public void setLogo( String logoPath ) {

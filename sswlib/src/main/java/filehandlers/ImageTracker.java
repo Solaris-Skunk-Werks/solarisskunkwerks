@@ -102,6 +102,10 @@ public class ImageTracker {
         return tempimg;
     }
 
+    public String resolveImagePath(String filename) {
+        return imagePathResolver.resolve(filename);
+    }
+
     private void LoadImageFromFile( String filename ) {
         Image tempimg = null;
         tempimg = media.GetImage(filename);

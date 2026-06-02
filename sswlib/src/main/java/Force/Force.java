@@ -528,9 +528,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     }
 
     public void loadLogo(ImageTracker imageTracker) {
-        if (!LogoPath.isEmpty()) {
-            Logo = imageTracker.getImage(LogoPath);
-        }
+        Logo = LogoPath.isEmpty() ? null : imageTracker.getImage(LogoPath);
     }
 
     public void setupTable( JTable tbl ) {
