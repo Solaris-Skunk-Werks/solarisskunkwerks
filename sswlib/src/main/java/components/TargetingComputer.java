@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class TargetingComputer extends abPlaceable {
     private ifLoadout Owner;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private final static String[] EXCLUSIONS = { "A.E.S.", "Null Signature System", "Void Signature System" };
     private boolean Clan;
 
     public TargetingComputer( ifMechLoadout l, boolean clan ) {
@@ -47,7 +48,7 @@ public class TargetingComputer extends abPlaceable {
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = (ifLoadout)l;
         Clan = clan;
-        SetExclusions(new String[] { "A.E.S." });
+        SetExclusions(EXCLUSIONS);
     }
 
     public TargetingComputer( ifCVLoadout l, boolean clan) {
@@ -62,7 +63,7 @@ public class TargetingComputer extends abPlaceable {
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = (ifLoadout)l;
         Clan = clan;
-        SetExclusions(new String[] { "A.E.S." });
+        SetExclusions(EXCLUSIONS);
     }
 
     public String ActualName() {

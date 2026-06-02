@@ -38,6 +38,7 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - Strict Java 17/Gradle 8 Xlint compile remains clean after adding shared image path resolution.
 - Strict Java 17/Gradle 8 Xlint compile remains clean after force/scenario XML attribute escaping.
 - Strict Java 17/Gradle 8 Xlint compile remains clean after the print renderer overlap fix.
+- Strict Java 17/Gradle 8 Xlint compile remains clean after the Targeting Computer signature-system exclusion fix.
 
 ## Follow-Up Candidates
 
