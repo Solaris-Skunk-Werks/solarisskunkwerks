@@ -332,7 +332,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     public void SerializeXML(BufferedWriter file) throws IOException {
         sortForPrinting();
 
-        file.write( CommonTools.Tabs(2) + "<force name=\"" + this.ForceName + "\" logo=\"" + this.LogoPath + "\" type=\"" + this.Type + "\">" );
+        file.write( CommonTools.Tabs(2) + "<force name=\"" + FileCommon.EncodeXmlAttribute(this.ForceName) + "\" logo=\"" + FileCommon.EncodeXmlAttribute(this.LogoPath) + "\" type=\"" + FileCommon.EncodeXmlAttribute(this.Type) + "\">" );
         file.newLine();
 
         for ( Group g : Groups ) {

@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package Force;
 
 import IO.DataReader;
+import filehandlers.FileCommon;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -132,7 +133,7 @@ public class Warriors extends AbstractTableModel {
     }
 
     public void SerializeXML(BufferedWriter file) throws IOException {
-        file.write( "<warriors title=\"" + this.Title + "\">" );
+        file.write( "<warriors title=\"" + FileCommon.EncodeXmlAttribute(this.Title) + "\">" );
         file.newLine();
 
         for ( Warrior w : list ) {

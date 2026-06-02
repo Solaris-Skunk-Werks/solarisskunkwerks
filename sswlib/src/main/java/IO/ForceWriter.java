@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package IO;
 
 import Force.*;
+import filehandlers.FileCommon;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -87,7 +88,7 @@ public class ForceWriter {
         FR.write( "<?xml version=\"1.0\" encoding =\"UTF-8\"?>" );
         FR.newLine();
 
-        FR.write( "<forces scenario=\"" + this.Scenario + "\">" );
+        FR.write( "<forces scenario=\"" + FileCommon.EncodeXmlAttribute(this.Scenario) + "\">" );
         FR.newLine();
 
         // start parsing the forces

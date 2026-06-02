@@ -1015,6 +1015,23 @@ public class FileCommon {
         return retval;
     }
 
+    public static String EncodeXmlAttribute(String s) {
+        if (s == null) {
+            return "";
+        }
+
+        String retval = s.replace("&", "&amp;");
+        retval = retval.replace("<", "&lt;");
+        retval = retval.replace(">", "&gt;");
+        retval = retval.replace("'", "&apos;");
+        retval = retval.replace("\"", "&quot;");
+        retval = retval.replace("\n\r", ":br:");
+        retval = retval.replace("\n", ":br:");
+        retval = retval.replace("\r", ":br:");
+        retval = retval.replace("\t", ":tab:");
+        return retval.trim();
+    }
+
     public static String DecodeFluff( String s ) {
         String retval = s.replaceAll( "&amp;", "&" );
         retval = retval.replaceAll( "&lt;", "<" );

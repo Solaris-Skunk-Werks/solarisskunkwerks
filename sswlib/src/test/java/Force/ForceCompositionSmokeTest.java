@@ -58,6 +58,29 @@ public class ForceCompositionSmokeTest {
     }
 
     @Test
+    public void forceRosterRoundTripsQuotedXmlAttributeText() throws Exception {
+        Force original = loadForce("forces/ClanFox 1st Fox Dragoons roster.force");
+        File output = temporaryFolder.newFile("quoted-force.force");
+        String quotedForce = "Clan \"Fox\" Test";
+        String quotedGroup = "\"foo\" test";
+        String quotedPilot = "Vanessa \"Vixen\" Winstead";
+
+        Unit commander = original.getUnits().get(0);
+        original.ForceName = quotedForce;
+        commander.setGroup(quotedGroup);
+        commander.setMechwarrior(quotedPilot);
+        original.GroupUnit(commander);
+
+        new ForceWriter().SerializeForce(original, output.getAbsolutePath());
+        Force reloaded = new Force(new DataReader().ReadNode(output.getAbsolutePath(), "force"));
+        Group reloadedGroup = findGroup(reloaded, quotedGroup);
+
+        assertEquals(quotedForce, reloaded.ForceName);
+        assertEquals(quotedGroup, reloadedGroup.getName());
+        assertEquals(quotedPilot, reloadedGroup.getUnits().get(0).getMechwarrior());
+    }
+
+    @Test
     public void savedSswForceRosterExportsClipboardSummary() throws Exception {
         Force force = loadForce("forces/ClanFox 1st Fox Dragoons roster.force");
 
@@ -104,6 +127,15 @@ public class ForceCompositionSmokeTest {
 
     private Force loadForce(String resourcePath) throws Exception {
         return new Force(new DataReader().ReadNode(resourceFile(resourcePath).getAbsolutePath(), "force"));
+    }
+
+    private Group findGroup(Force force, String name) {
+        for (Group group : force.Groups) {
+            if (group.getName().equals(name)) {
+                return group;
+            }
+        }
+        throw new AssertionError("Missing group: " + name);
     }
 
     private File resourceFile(String path) throws Exception {

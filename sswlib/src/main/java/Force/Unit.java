@@ -520,7 +520,7 @@ public class Unit implements ifSerializable {
 
     public void SerializeXML(BufferedWriter file) throws IOException {
         LoadUnit();
-        file.write(CommonTools.Tabs(4) + "<unit type=\"" + FileCommon.EncodeFluff(this.Name) + "\" model=\"" + FileCommon.EncodeFluff(this.Model) + "\" config=\"" + this.Configuration + "\" tonnage=\"" + this.Tonnage + "\" bv=\"" + this.BaseBV + "\" design=\"" + this.UnitType + "\" file=\"" + this.Filename + "\" c3status=\"" + this.UsingC3 + "\">");
+        file.write(CommonTools.Tabs(4) + "<unit type=\"" + FileCommon.EncodeXmlAttribute(this.Name) + "\" model=\"" + FileCommon.EncodeXmlAttribute(this.Model) + "\" config=\"" + FileCommon.EncodeXmlAttribute(this.Configuration) + "\" tonnage=\"" + this.Tonnage + "\" bv=\"" + this.BaseBV + "\" design=\"" + this.UnitType + "\" file=\"" + FileCommon.EncodeXmlAttribute(this.Filename) + "\" c3status=\"" + this.UsingC3 + "\">");
         file.newLine();
         BFStats.SerializeXML(file, 5);
         file.newLine();
@@ -550,7 +550,7 @@ public class Unit implements ifSerializable {
 
         file.write(CommonTools.tab + "<entity chassis=\"" + FileCommon.EncodeFluff(this.Name) + "\" model=\"" + FileCommon.EncodeFluff(this.Model) + "\">");
         file.newLine();
-        file.write(CommonTools.tab + CommonTools.tab + "<pilot name=\"" + this.getMechwarrior() + "\" gunnery=\"" + this.getGunnery() + "\" piloting=\"" + this.getPiloting() + "\" />");
+        file.write(CommonTools.tab + CommonTools.tab + "<pilot name=\"" + FileCommon.EncodeXmlAttribute(this.getMechwarrior()) + "\" gunnery=\"" + this.getGunnery() + "\" piloting=\"" + this.getPiloting() + "\" />");
         file.newLine();
         file.write(CommonTools.tab + "</entity>");
         file.newLine();
