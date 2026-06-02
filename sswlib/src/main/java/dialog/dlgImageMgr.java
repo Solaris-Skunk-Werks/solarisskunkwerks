@@ -88,7 +88,7 @@ public class dlgImageMgr extends javax.swing.JDialog {
                     } else {
                         //It says it has an image, try to load
                         try {
-                            Image image = imageTracker.getImage(u.m.GetSSWImage());
+                            Image image = imageTracker.getImage(u.m.GetSSWImage(), u.Name, u.Model);
                             if ( image.getWidth(null) == -1 ) {
                                 if ( !unitList.contains(u.TypeModel)) {
                                     unitList.addElement(u.TypeModel);

@@ -16,6 +16,7 @@ public class ImageTracker {
     public Media media = new Media();
     private ArrayList<StoredImage> imageStore = new ArrayList<StoredImage>();
     private HashMap<String, JarResources> resources = new HashMap<String, JarResources>();
+    private ImagePathResolver imagePathResolver = new ImagePathResolver();
 
     public ImageTracker() {
         addResource( PrintConsts.PATTERNS, false);
@@ -68,6 +69,11 @@ public class ImageTracker {
     }
     
     public Image getImage( String filename ) {
+        return getImage(filename, "", "");
+    }
+
+    public Image getImage( String filename, String unitName, String unitModel ) {
+        filename = imagePathResolver.resolve(filename, unitName, unitModel);
         for ( StoredImage PreLoadImage : imageStore ) {
             if ( PreLoadImage.filename.equals(filename) ) {
                 return PreLoadImage.image;

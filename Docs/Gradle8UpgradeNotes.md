@@ -35,6 +35,7 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - `DesignForm#setUnit` now accepts lists of shared `ifUnit` implementations, removing the raw SAW vehicle handoff while preserving SSW mech loading.
 - SAW design forms now match the shared wildcard `JList<?>` location lookup contract.
 - SSW and SAW preference import handlers no longer need static-access suppression; both call `Preferences.importPreferences(...)` directly.
+- Strict Java 17/Gradle 8 Xlint compile remains clean after adding shared image path resolution.
 
 ## Follow-Up Candidates
 

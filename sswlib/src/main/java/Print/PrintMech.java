@@ -80,7 +80,7 @@ public class PrintMech implements Printable {
         RecordSheet = normalizePrintImage(images.getImage( PrintConsts.RS_TW_BP ));
         ChartImage = normalizePrintImage(images.getImage(PrintConsts.BP_ChartImage ));
         if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  )
-            MechImage = normalizePrintImage(imageTracker.getImage(m.GetSSWImage()));
+            MechImage = normalizePrintImage(imageTracker.getImage(m.GetSSWImage(), m.GetName(), m.GetModel()));
 
         //If we could not load the stored image, find it
         if (MechImage == null)
@@ -284,7 +284,7 @@ public class PrintMech implements Printable {
         start.y -= 6;
         if ( printMech ) {
             if (MechImage == null) // fallback to fluff image if user didn't explicitly choose a TRO pic in the print dialog
-                MechImage = normalizePrintImage(imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage())));
+                MechImage = normalizePrintImage(imageTracker.getImage(CurMech.GetSSWImage(), CurMech.GetName(), CurMech.GetModel()));
             if( MechImage != null) {
                 //graphics.drawRect(start.x, start.y, 150, 210);
                 Dimension d = imageTracker.media.reSize(getMechImage(), 150, 210);

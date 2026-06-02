@@ -79,7 +79,7 @@ public class PrintVehicle implements Printable {
     public PrintVehicle( CombatVehicle m, Image i, boolean adv, boolean A4, ImageTracker images) {
         CurVee = m;
         imageTracker = images;
-        if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  ) UnitImage = imageTracker.getImage(m.GetSSWImage());
+        if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  ) UnitImage = imageTracker.getImage(m.GetSSWImage(), m.GetName(), m.GetModel());
         Advanced = adv;
         BV = CommonTools.GetAdjustedBV(CurVee.GetCurrentBV(), Gunnery, Piloting);
         UseA4Paper = A4;
@@ -254,7 +254,7 @@ public class PrintVehicle implements Printable {
         start.y -= 6;
         Point bounds = ap.GetPoints().GetImageBounds();
         if ( printMech ) {
-            UnitImage = imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
+            UnitImage = imageTracker.getImage(CurVee.GetSSWImage(), CurVee.GetName(), CurVee.GetModel());
             if( UnitImage != null ) {
                 //graphics.drawRect(start.x, start.y, 150, 210);
                 Dimension d = imageTracker.media.reSize(getUnitImage(), bounds.x, bounds.y);
