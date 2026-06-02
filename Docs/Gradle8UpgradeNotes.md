@@ -37,6 +37,7 @@ This file tracks Gradle 8 migration warnings found during modernization work.
 - SSW and SAW preference import handlers no longer need static-access suppression; both call `Preferences.importPreferences(...)` directly.
 - Strict Java 17/Gradle 8 Xlint compile remains clean after adding shared image path resolution.
 - Strict Java 17/Gradle 8 Xlint compile remains clean after force/scenario XML attribute escaping.
+- Strict Java 17/Gradle 8 Xlint compile remains clean after the print renderer overlap fix.
 
 ## Follow-Up Candidates
 

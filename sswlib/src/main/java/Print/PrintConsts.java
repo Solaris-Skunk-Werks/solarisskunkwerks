@@ -141,6 +141,11 @@ public class PrintConsts {
     public final static Font CrazyTinyFont = BaseFont.deriveFont(Font.PLAIN, 4);
     public final static Font SectionHeaderFont = BaseFont.deriveFont(Font.PLAIN, 11);
 
+    public static int fitTextStartBeforeColumn(Graphics2D graphics, String text, int defaultX, int nextColumnX, int padding) {
+        int fittedX = nextColumnX - padding - graphics.getFontMetrics().stringWidth(text);
+        return Math.min(defaultX, fittedX);
+    }
+
     public static void ShadowText( Graphics2D graphic, Font font, Color foreColor, Color backColor, String Text, int X, int Y ) {
         ShadowText( graphic, font, foreColor, backColor, Text, (double) X, (double) Y);
     }

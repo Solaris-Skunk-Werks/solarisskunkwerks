@@ -427,7 +427,7 @@ public class PrintMech implements Printable {
         if (TotalItemLines() > 15) { graphics.setFont( PrintConsts.TinyFont ); }
         if (TotalItemLines() >= 20) { graphics.setFont( PrintConsts.CrazyTinyFont); }
         int offset = 0,
-            xoffset = 0;
+            xoffset;
 
         //Coverup the (hexes) above the ranges if we are not using traditional measurements
         if (useMiniConvRate)
@@ -438,13 +438,12 @@ public class PrintMech implements Printable {
         }
 
         for ( PlaceableInfo item : Items ) {
-            xoffset = 0;
             graphics.drawString( item.Count + "", p[0].x+1, p[0].y + offset );
             graphics.drawString( item.name, p[1].x-3, p[1].y + offset );
             graphics.drawString( item.locName, p[2].x, p[2].y + offset );
             graphics.drawString( item.heat, p[3].x, p[3].y + offset );
-            if ( item.damage.length() > 3 ) xoffset = (int)Math.ceil(item.damage.length());
-            graphics.drawString( item.damage, p[4].x - xoffset, p[4].y + offset );
+            int damageX = PrintConsts.fitTextStartBeforeColumn(graphics, item.damage, p[4].x, p[5].x, 3);
+            graphics.drawString( item.damage, damageX, p[4].y + offset );
             graphics.drawString( item.min, p[5].x, p[5].y + offset );
             graphics.drawString( item.rShort, p[6].x, p[6].y + offset );
             graphics.drawString( item.rMed, p[7].x, p[7].y + offset );
