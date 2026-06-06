@@ -1,16 +1,13 @@
 Solaris Skunk Werks
-Version: 0.5.0
-Public Beta Release 2
+Version: 0.7.8.0
 
 Overview:
 -------------------------------------------------------------------------------
 Solaris Skunk Werks is a tool used to design Battlemechs for use with the Classic Battletech wargame.  The program was designed from the beginning to work with the newer Tech Manual style of building mechs, and does not include the older "levels of play" as such.  In other words, SSW is a program that will support Tech Manual on up, but not older books.  Right now there are very few Advanced and Experimental pieces of equipment, but as time goes by the list will lengthen.
 
-This program was written in Java 6 SE using the Netbeans IDE.  You will need the latest version of the Java VM to run this program.  For most operating systems, the Java VM can be found here:
+Solaris Skunk Werks requires a Java 17 runtime. If Java is not already installed, download a Java 17 JRE or JDK from a current OpenJDK distribution such as Eclipse Temurin:
 
-http://java.sun.com
-
-Some operating systems, such as OS X, do not use the Java VM but include their own VM, so you may have to perform an update in order to use SSW.
+https://adoptium.net/temurin/releases/?version=17
 
 
 Using the Program:

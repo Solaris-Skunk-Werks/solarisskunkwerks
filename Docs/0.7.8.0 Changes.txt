@@ -1,0 +1,9 @@
+It is our pleasure to release Solaris Skunk Werks 0.7.8.0! Below the link we have a brief listing of the updates to SSW.
+
+You can download the newest version, and join our development discord through our Github page here. We welcome all who want to help make SSW even better: https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks
+
+# Fixes and Features:
+* Modernized the build to run on Java 17 and Gradle 8.14.4.
+* Updated CI to build with Java 17 and the current Gradle wrapper.
+* Restored saved mech-image rendering when printing saved units without choosing a separate image file.
+* Fixed print renderer overlap in generated output.
