@@ -158,16 +158,16 @@ public class Warchest implements ifSerializable {
         this.objectives = objectives;
     }
 
-    public DefaultListModel getObjectiveList() {
-        DefaultListModel model = new DefaultListModel();
+    public DefaultListModel<Objective> getObjectiveList() {
+        DefaultListModel<Objective> model = new DefaultListModel<>();
         for ( Objective objective : objectives ) {
             model.addElement(objective);
         }
         return model;
     }
 
-    public DefaultListModel getBonusList() {
-        DefaultListModel model = new DefaultListModel();
+    public DefaultListModel<Bonus> getBonusList() {
+        DefaultListModel<Bonus> model = new DefaultListModel<>();
         for ( Bonus bonus : bonuses ) {
             model.addElement(bonus);
         }

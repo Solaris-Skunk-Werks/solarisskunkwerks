@@ -121,10 +121,10 @@ public class CVCostBVBreakdown {
     private String GetEquipmentCostLines() {
         // returns a block of lines for the cost breakdown
         String retval = "";
-        ArrayList v = CurUnit.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurUnit.GetLoadout().GetNonCore();
         abPlaceable a;
         for( int i = 0; i < v.size(); i++ ) {
-            a = (abPlaceable) v.get( i );
+            a = v.get( i );
             if( a instanceof RangedWeapon ) {
                 if( ((RangedWeapon) a).IsUsingFCS() ) {
                     retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", a.CritName() + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).CritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
@@ -149,13 +149,13 @@ public class CVCostBVBreakdown {
 
     public String PrintNonHeatEquipBV() {
         // return the BV of all offensive equipment
-        ArrayList v = CurUnit.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurUnit.GetLoadout().GetNonCore();
         abPlaceable a = null;
         String retval = "";
 
         for( int i = 0; i < v.size(); i++ ) {
             if( ! ( v.get( i ) instanceof ifWeapon ) ) {
-                a = ((abPlaceable) v.get( i ));
+                a = v.get( i );
                 retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetOffensiveBV() ) + NL;
             }
         }
@@ -249,11 +249,11 @@ public class CVCostBVBreakdown {
         String retval = "";
 
         double temp;
-        temp = (double) (CurUnit.GetAdjustedFlankMP(false, true) + ( Math.floor( 0 * 0.5 + 0.5 )  ) - 5.0 );
+        temp = CurUnit.GetAdjustedFlankMP(false, true) + ( Math.floor( 0 * 0.5 + 0.5 )  ) - 5.0;
         retval += "    Adjusted Flank MP (" + CurUnit.GetAdjustedFlankMP(false, true ) + ") + ( Adjusted Jumping MP (" + 0 + ") / 2 ) - 5 = " + String.format( "%1$,.2f", CurUnit.GetAdjustedFlankMP(false, true) + ( Math.floor( 0 * 0.5 + 0.5 )  ) - 5.0 ) + NL;
         retval += "    " + String.format( "%1$,.2f", temp ) + " / 10 + 1 = " + String.format( "%1$.3f", ( temp * 0.1 + 1.0 ) ) + NL;
         temp = temp * 0.1 + 1.0;
-        retval += "    " + String.format( "%1$,.2f", temp ) + " ^ 1.2 = " + (double) Math.floor( ( Math.pow( temp, 1.2 ) ) * 100 + 0.5 ) / 100 + " (rounded off to two digits)" + NL;
+        retval += "    " + String.format( "%1$,.2f", temp ) + " ^ 1.2 = " + Math.floor( ( Math.pow( temp, 1.2 ) ) * 100 + 0.5 ) / 100 + " (rounded off to two digits)" + NL;
 
         return retval;
     }

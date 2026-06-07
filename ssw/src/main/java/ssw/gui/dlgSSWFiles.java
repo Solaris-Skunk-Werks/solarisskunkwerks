@@ -16,6 +16,7 @@ package ssw.gui;
  * @author gblouin
  */
 public class dlgSSWFiles extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
     public boolean result = false;
 
     /** Creates new form dlgSSWFiles */

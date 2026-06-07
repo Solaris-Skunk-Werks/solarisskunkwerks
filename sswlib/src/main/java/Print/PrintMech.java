@@ -77,14 +77,14 @@ public class PrintMech implements Printable {
     public PrintMech( Mech m, Image i, boolean adv, boolean A4, ImageTracker images) {
         CurMech = m;
         imageTracker = images;
-        RecordSheet = images.getImage( PrintConsts.RS_TW_BP );
-        ChartImage = images.getImage(PrintConsts.BP_ChartImage );
+        RecordSheet = normalizePrintImage(images.getImage( PrintConsts.RS_TW_BP ));
+        ChartImage = normalizePrintImage(images.getImage(PrintConsts.BP_ChartImage ));
         if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  )
-            MechImage = imageTracker.getImage(m.GetSSWImage());
+            MechImage = normalizePrintImage(imageTracker.getImage(m.GetSSWImage(), m.GetName(), m.GetModel()));
 
         //If we could not load the stored image, find it
         if (MechImage == null)
-            MechImage = images.getImage(imageTracker.media.DetermineMatchingImage(m.GetName(), m.GetModel(), ""));
+            MechImage = normalizePrintImage(images.getImage(imageTracker.media.DetermineMatchingImage(m.GetName(), m.GetModel(), "")));
 
         Advanced = adv;
         BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
@@ -149,7 +149,7 @@ public class PrintMech implements Printable {
 
     public void setMechImage(Image MechImage) {
         if ( MechImage != null) {
-            this.MechImage = MechImage;
+            this.MechImage = normalizePrintImage(MechImage);
             this.printMech = true;
         }
     }
@@ -160,7 +160,7 @@ public class PrintMech implements Printable {
 
     public void setLogoImage(Image LogoImage) {
         if ( LogoImage != null) {
-            this.LogoImage = LogoImage;
+            this.LogoImage = normalizePrintImage(LogoImage);
             this.printLogo = true;
         }
     }
@@ -214,6 +214,10 @@ public class PrintMech implements Printable {
         return TRO;
     }
     // </editor-fold>
+
+    private Image normalizePrintImage(Image image) {
+        return imageTracker.media.toBufferedImage(image);
+    }
 
     public int print( Graphics graphics, PageFormat pageFormat, int pageIndex ) throws PrinterException {
         ((Graphics2D) graphics).translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
@@ -280,7 +284,7 @@ public class PrintMech implements Printable {
         start.y -= 6;
         if ( printMech ) {
             if (MechImage == null) // fallback to fluff image if user didn't explicitly choose a TRO pic in the print dialog
-                MechImage = imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage()));
+                MechImage = normalizePrintImage(imageTracker.getImage(CurMech.GetSSWImage(), CurMech.GetName(), CurMech.GetModel()));
             if( MechImage != null) {
                 //graphics.drawRect(start.x, start.y, 150, 210);
                 Dimension d = imageTracker.media.reSize(getMechImage(), 150, 210);
@@ -423,7 +427,7 @@ public class PrintMech implements Printable {
         if (TotalItemLines() > 15) { graphics.setFont( PrintConsts.TinyFont ); }
         if (TotalItemLines() >= 20) { graphics.setFont( PrintConsts.CrazyTinyFont); }
         int offset = 0,
-            xoffset = 0;
+            xoffset;
 
         //Coverup the (hexes) above the ranges if we are not using traditional measurements
         if (useMiniConvRate)
@@ -434,13 +438,12 @@ public class PrintMech implements Printable {
         }
 
         for ( PlaceableInfo item : Items ) {
-            xoffset = 0;
             graphics.drawString( item.Count + "", p[0].x+1, p[0].y + offset );
             graphics.drawString( item.name, p[1].x-3, p[1].y + offset );
             graphics.drawString( item.locName, p[2].x, p[2].y + offset );
             graphics.drawString( item.heat, p[3].x, p[3].y + offset );
-            if ( item.damage.length() > 3 ) xoffset = (int)Math.ceil(item.damage.length());
-            graphics.drawString( item.damage, p[4].x - xoffset, p[4].y + offset );
+            int damageX = PrintConsts.fitTextStartBeforeColumn(graphics, item.damage, p[4].x, p[5].x, 3);
+            graphics.drawString( item.damage, damageX, p[4].y + offset );
             graphics.drawString( item.min, p[5].x, p[5].y + offset );
             graphics.drawString( item.rShort, p[6].x, p[6].y + offset );
             graphics.drawString( item.rMed, p[7].x, p[7].y + offset );
@@ -477,7 +480,7 @@ public class PrintMech implements Printable {
                 offset += graphics.getFont().getSize();
             }
             for ( int index=0; index < AmmoList.size(); index++ ) {
-                AmmoData CurAmmo = (AmmoData) AmmoList.get(index);
+                AmmoData CurAmmo = AmmoList.get(index);
                 graphics.drawString( CurAmmo.Format(), p[0].x, p[0].y + offset);
                 graphics.drawString( CurAmmo.LotSize + "", p[3].x, p[3].y + offset);
                 offset += graphics.getFont().getSize();
@@ -686,7 +689,7 @@ public class PrintMech implements Printable {
         String heatSinkType = CurMech.GetHeatSinks().LookupName().split( " " )[0];
         int extraDHS = 0;
         boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
-        ArrayList equipment = CurMech.GetLoadout().GetEquipment();
+        ArrayList<abPlaceable> equipment = CurMech.GetLoadout().GetEquipment();
 
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
@@ -877,7 +880,7 @@ public class PrintMech implements Printable {
 
     private ArrayList<AmmoData> GetAmmo() {
         //Output the list of Ammunition
-        ArrayList all = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> all = CurMech.GetLoadout().GetNonCore();
         ArrayList<AmmoData> AmmoLister = new ArrayList<AmmoData>();
         for ( int index=0; index < all.size(); index++ ) {
             if(  all.get( index ) instanceof Ammunition ) {
@@ -885,7 +888,7 @@ public class PrintMech implements Printable {
                 CurAmmo.makeGeneric = makeAmmoGeneric;
                 boolean found = false;
                 for ( int internal=0; internal < AmmoLister.size(); internal++ ) {
-                    AmmoData existAmmo = (AmmoData) AmmoLister.get(internal);
+                    AmmoData existAmmo = AmmoLister.get(internal);
                     if ( CurAmmo.Name().equals( existAmmo.Name() ) ) {
                         existAmmo.LotSize += CurAmmo.LotSize;
                         found = true;
@@ -951,20 +954,20 @@ public class PrintMech implements Printable {
         points = new TWBipedPoints();
 
         if ( ChartImageOption.equals("Minimal") )
-            ChartImage = images.getImage(PrintConsts.BP_ChartImage_Minimal);
+            ChartImage = normalizePrintImage(images.getImage(PrintConsts.BP_ChartImage_Minimal));
 
         if ( CurMech.IsQuad() ) {
-            RecordSheet = images.getImage( PrintConsts.RS_TW_QD );
+            RecordSheet = normalizePrintImage(images.getImage( PrintConsts.RS_TW_QD ));
             if ( !ChartImageOption.equals("Minimal"))
-                ChartImage = images.getImage(PrintConsts.QD_ChartImage);
+                ChartImage = normalizePrintImage(images.getImage(PrintConsts.QD_ChartImage));
             else
-                ChartImage = images.getImage(PrintConsts.QD_ChartImage_Minimal);
+                ChartImage = normalizePrintImage(images.getImage(PrintConsts.QD_ChartImage_Minimal));
 
             points = new TWQuadPoints();
         }
 
         if ( Advanced ) {
-            RecordSheet = images.getImage( PrintConsts.RS_TO_BP );
+            RecordSheet = normalizePrintImage(images.getImage( PrintConsts.RS_TO_BP ));
         }
     }
 

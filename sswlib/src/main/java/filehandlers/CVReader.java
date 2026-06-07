@@ -119,17 +119,17 @@ public class CVReader {
     }
 
     private UnitListData BuildData( UnitListData Data, Document d ) {
-        NodeList n = d.getElementsByTagName( "CombatVehicle" );
-        NamedNodeMap map = n.item( 0 ).getAttributes();
+        Node vehicle = FirstElement( d, "combatvehicle", "CombatVehicle" );
+        NamedNodeMap map = vehicle.getAttributes();
 
-        boolean isOmni = ParseBoolean( map.getNamedItem( "omniCombatVehicle" ).getTextContent() );
+        boolean isOmni = ParseBoolean( GetAttribute( map, "omni", "omniCombatVehicle", "omnivehicle" ) );
         Data.setOmni( isOmni );
 
         Data.setName( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
         Data.setModel( FileCommon.DecodeFluff( map.getNamedItem( "model" ).getTextContent() ) );
         Data.setTonnage( Integer.parseInt( map.getNamedItem( "tons" ).getTextContent() ) );
 
-        n = d.getElementsByTagName( "rules_level" );
+        NodeList n = d.getElementsByTagName( "rules_level" );
         Data.setLevel( CommonTools.GetRulesLevelString( Integer.parseInt( n.item( 0 ).getTextContent() ) ) );
 
         n = d.getElementsByTagName( "era" );
@@ -145,10 +145,19 @@ public class CVReader {
         if( n.getLength() > 0 ) {Data.setSource( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );}
 
         n = d.getElementsByTagName( "CombatVehicle_type" );
-        Data.setType( n.item( 0 ).getTextContent() );
+        if( n.getLength() > 0 ) {
+            Data.setType( n.item( 0 ).getTextContent() );
+        } else {
+            Data.setType( "Combat Vehicle" );
+        }
 
         n = d.getElementsByTagName( "motive_type" );
-        Data.setMotive( n.item( 0 ).getTextContent() );
+        if( n.getLength() > 0 ) {
+            Data.setMotive( n.item( 0 ).getTextContent() );
+        } else {
+            Node motive = FirstElement( d, "motive" );
+            Data.setMotive( GetAttribute( motive.getAttributes(), "type" ) );
+        }
 
         n = d.getElementsByTagName( "info" );
         if ( n.getLength() > 0 ) { Data.setInfo( n.item( 0 ).getTextContent() ); }
@@ -207,6 +216,26 @@ public class CVReader {
         return Data;
     }
 
+    private Node FirstElement( Document d, String... names ) {
+        for( String name : names ) {
+            NodeList nodes = d.getElementsByTagName( name );
+            if( nodes.getLength() > 0 ) {
+                return nodes.item( 0 );
+            }
+        }
+        throw new IllegalArgumentException( "Missing XML element: " + String.join( " or ", names ) );
+    }
+
+    private String GetAttribute( NamedNodeMap map, String... names ) {
+        for( String name : names ) {
+            Node node = map.getNamedItem( name );
+            if( node != null ) {
+                return node.getTextContent();
+            }
+        }
+        return "";
+    }
+
     public CombatVehicle ReadUnit( Node n ) throws Exception {
         Messages = "";
         CombatVehicle m = new CombatVehicle();
@@ -232,13 +261,13 @@ public class CVReader {
 
         NamedNodeMap map = n.item( 0 ).getAttributes();
         LocationIndex l;
-        ArrayList isLoc = new ArrayList();
-        ArrayList armLoc = new ArrayList();
-        ArrayList<ArmorType> armTypes = new ArrayList<ArmorType>();
-        ArrayList hsLoc = new ArrayList();
-        ArrayList jjLoc = new ArrayList();
-        ArrayList enhLoc = new ArrayList();
-        ArrayList acLoc = new ArrayList();
+        ArrayList<LocationIndex> isLoc = new ArrayList<>();
+        ArrayList<LocationIndex> armLoc = new ArrayList<>();
+        ArrayList<ArmorType> armTypes = new ArrayList<>();
+        ArrayList<LocationIndex> hsLoc = new ArrayList<>();
+        ArrayList<LocationIndex> jjLoc = new ArrayList<>();
+        ArrayList<LocationIndex> enhLoc = new ArrayList<>();
+        ArrayList<LocationIndex> acLoc = new ArrayList<>();
         String Source = "";
 
         VMechFullRecalc Recalc = new VMechFullRecalc();
@@ -495,13 +524,13 @@ public class CVReader {
                     JumpJet[] jjList = m.GetJumpJets().GetPlacedJumps();
                     for( int j = 0; j < jjLoc.size(); j++ ) {
                         // place each heat sink
-                        LocationIndex li = (LocationIndex) jjLoc.get( j );
+                        LocationIndex li = jjLoc.get( j );
                         loadout.AddTo( jjList[j], li.Location );
                     }
                 }
             } else if( n.item( i ).getNodeName().equals( "equipment" ) ) {
                 NodeList nl = n.item( i ).getChildNodes();
-                ArrayList splitLoc = new ArrayList();
+                ArrayList<LocationIndex> splitLoc = new ArrayList<>();
                 String eMan = "";
                 String eType = "";
                 String eName = "";
@@ -587,7 +616,7 @@ public class CVReader {
                 }
             } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                 NodeList nl = n.item( i ).getChildNodes();
-                acLoc = new ArrayList();
+                acLoc = new ArrayList<>();
                 l = new LocationIndex();
                 for( int j = 0; j < nl.getLength(); j++ ) {
                     if( nl.item( j ).getNodeName().equals( "location" ) ) {
@@ -598,7 +627,7 @@ public class CVReader {
             } else if( n.item( i ).getNodeName().equals( "multislot" ) ) {
                 map = n.item( i ).getAttributes();
                 String type = map.getNamedItem( "name" ).getTextContent();
-                ArrayList msLoc = new ArrayList();
+                ArrayList<LocationIndex> msLoc = new ArrayList<>();
                 NodeList nl = n.item( i ).getChildNodes();
                 l = new LocationIndex();
                 for( int j = 0; j < nl.getLength(); j++ ) {
@@ -611,7 +640,7 @@ public class CVReader {
                 // turn the ArrayList into an array
                 LocationIndex[] Locs = new LocationIndex[msLoc.size()];
                 for( int j = 0; j < msLoc.size(); j++ ) {
-                    Locs[j] = (LocationIndex) msLoc.get( j );
+                    Locs[j] = msLoc.get( j );
                 }
             }
         }
@@ -622,7 +651,7 @@ public class CVReader {
         if( isLoc.size() > 0 ) {
             InternalStructure is = m.GetIntStruc();
             for( int i = 0; i < isLoc.size(); i++ ) {
-                l = (LocationIndex) isLoc.get( i );
+                l = isLoc.get( i );
                 loadout.AddTo( is, l.Location );
             }
         }
@@ -747,7 +776,7 @@ public class CVReader {
             } else {
                 LocationIndex[] Locs = new LocationIndex[armLoc.size()];
                 for( int j = 0; j < armLoc.size(); j++ ) {
-                    Locs[j] = (LocationIndex) armLoc.get( j );
+                    Locs[j] = armLoc.get( j );
                 }
                 if( oldfile ) {
                     // old style save file, set the armor based on the 'CombatVehicle's techbase
@@ -791,7 +820,7 @@ public class CVReader {
             if( armLoc.size() > 0 ) {
                 CVArmor a = m.GetArmor();
                 for( int i = 0; i < armLoc.size(); i++ ) {
-                    l = (LocationIndex) armLoc.get( i );
+                    l = armLoc.get( i );
                     loadout.AddTo( a, l.Location );
                 }
             }
@@ -831,7 +860,7 @@ public class CVReader {
                     m.Visit( v );
                     if( enhLoc.size() > 0 ) {
                         for( int j = 0; j < enhLoc.size(); j++ ) {
-                            LocationIndex li = (LocationIndex) enhLoc.get( j );
+                            LocationIndex li = enhLoc.get( j );
                             m.GetLoadout().AddTo( m.GetPhysEnhance(), li.Location );
                         }
                     }
@@ -961,7 +990,7 @@ public class CVReader {
                         } else {
                             loadout = m.GetLoadout();
                             JumpJet[] jjList = m.GetJumpJets().GetPlacedJumps();
-                            ArrayList temp = new ArrayList();
+                            ArrayList<JumpJet> temp = new ArrayList<>();
                             for( int j = 0; j < jjList.length; j++ ) {
                                 if( ! loadout.IsAllocated( jjList[j] ) ) {
                                     temp.add( jjList[j] );
@@ -969,13 +998,13 @@ public class CVReader {
                             }
                             for( int j = 0; j < jjLoc.size(); j++ ) {
                                 // place each heat sink
-                                LocationIndex li = (LocationIndex) jjLoc.get( j );
-                                loadout.AddTo( (JumpJet) temp.get( j ), li.Location );
+                                LocationIndex li = jjLoc.get( j );
+                                loadout.AddTo( temp.get( j ), li.Location );
                             }
                         }
                     } else if( n.item( i ).getNodeName().equals( "equipment" ) ) {
                         NodeList nl = n.item( i ).getChildNodes();
-                        ArrayList splitLoc = new ArrayList();
+                        ArrayList<LocationIndex> splitLoc = new ArrayList<>();
                         String eMan = "";
                         String eType = "";
                         String eName = "";
@@ -1058,7 +1087,7 @@ public class CVReader {
                         }
                     } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {
                         NodeList nl = n.item( i ).getChildNodes();
-                        acLoc = new ArrayList();
+                        acLoc = new ArrayList<>();
                         l = new LocationIndex();
                         for( int j = 0; j < nl.getLength(); j++ ) {
                             if( nl.item( j ).getNodeName().equals( "location" ) ) {
@@ -1074,7 +1103,7 @@ public class CVReader {
             m.RemoveLoadout( "SSW_TEMP_LOADOUT_001" );
 
             // make sure the 'CombatVehicle is set to the first loadout.
-            m.SetCurLoadout( ((ifCVLoadout) m.GetLoadouts().get( 0 )).GetName() );
+            m.SetCurLoadout( m.GetLoadouts().get( 0 ).GetName() );
         }
 
         // fluff last
@@ -1203,6 +1232,7 @@ public class CVReader {
         return l;
     }
 
+    @SuppressWarnings("fallthrough")
     private abPlaceable GetEquipmentByName( String name, String type, CombatVehicle m ) {
         boolean rear = false;
         abPlaceable retval = null;
@@ -1285,6 +1315,7 @@ public class CVReader {
                 switch( ((RangedWeapon) retval).GetFCSType() ) {
                 case ifMissileGuidance.FCS_ArtemisIV:
                     if( m.UsingArtemisIV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
+                    // fall through
                 case ifMissileGuidance.FCS_ArtemisV:
                     if( m.UsingArtemisIV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
                     if( m.UsingArtemisV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisV ); }

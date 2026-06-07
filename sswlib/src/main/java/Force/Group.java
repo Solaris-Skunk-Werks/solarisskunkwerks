@@ -2,6 +2,7 @@
 package Force;
 
 import common.CommonTools;
+import filehandlers.FileCommon;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -133,7 +134,7 @@ public class Group {
     }
 
     public void SerializeXML( BufferedWriter file ) throws IOException {
-        file.write( CommonTools.Tabs(3) + "<group name=\"" + this.Name + "\" logo=\"" + this.Logo + "\" type=\"" + this.Type + "\" >");
+        file.write( CommonTools.Tabs(3) + "<group name=\"" + FileCommon.EncodeXmlAttribute(this.Name) + "\" logo=\"" + FileCommon.EncodeXmlAttribute(this.Logo) + "\" type=\"" + FileCommon.EncodeXmlAttribute(this.Type) + "\" >");
         file.newLine();
         for ( Unit u : Units ) {
             u.SerializeXML(file);
@@ -187,8 +188,7 @@ public class Group {
     }
 
     public String getLogo() {
-        if ( Logo.isEmpty() ) { Logo = force.LogoPath; }
-        return Logo;
+        return Logo.isEmpty() ? force.LogoPath : Logo;
     }
 
     public void setLogo( String logoPath ) {

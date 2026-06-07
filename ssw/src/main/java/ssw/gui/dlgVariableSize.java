@@ -32,6 +32,7 @@ import javax.swing.SpinnerNumberModel;
 import components.Equipment;
 
 public class dlgVariableSize extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     private Equipment CurEquip;
     private double CurTons;

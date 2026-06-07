@@ -6,17 +6,12 @@
 package ssw.components;
 
 import components.PhysicalWeapon;
-import components.PhysicalWeapon;
-import components.RangedWeapon;
 import components.RangedWeapon;
 import components.abPlaceable;
-import components.abPlaceable;
-import components.ifWeapon;
 import components.ifWeapon;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 /**
  * 
  * CCGMech - Class that generates a Battletech CCG card
@@ -211,7 +206,7 @@ public class CCGMech {
      * @param MovementHeat The maximum heat the 'Mech generates by moving (Usually 2 unless it jumps).
      * @param TotalHeatDis The total amount of heat the 'Mech can dissapate in one turn.
      */
-    public void setAttackValue(ArrayList CurrentLoadout, int MovementHeat, int TotalHeatDis) {
+    public void setAttackValue(ArrayList<abPlaceable> CurrentLoadout, int MovementHeat, int TotalHeatDis) {
         double attackValue = 0.0;
         double missileValue = 0.0;
         int vanPPCERLLcount = 0;

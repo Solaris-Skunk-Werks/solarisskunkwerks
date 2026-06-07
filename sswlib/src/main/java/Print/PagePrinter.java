@@ -30,31 +30,38 @@ package Print;
 
 import filehandlers.Media;
 import java.awt.print.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
 public class PagePrinter {
     private String jobName = "Skunkwerks Print";
     private boolean DoPrint = true;
+    private boolean splitPrintJobs = false;
 
-    private Book pages = new Book();
+    private List<PageEntry> pages = new ArrayList<PageEntry>();
     private PrintService service;
-    private PrinterJob job = PrinterJob.getPrinterJob();
+    private PrintWorkflow workflow = new PrintWorkflow();
 
     public PagePrinter() {
 
     }
 
+    PagePrinter( PrinterJobGateway job ) {
+        this.workflow = new PrintWorkflow(job);
+    }
+
     public PagePrinter( PageFormat page, Printable print ) {
-        pages.append(print, page);
+        Append(page, print);
     }
 
     public void Append( PageFormat page, Printable print ) {
-        pages.append(print, page);
+        pages.add(new PageEntry(page, print));
     }
 
     public void Clear() {
-        pages = new Book();
+        pages.clear();
     }
 
     public void selectService( String printerName ) {
@@ -71,11 +78,11 @@ public class PagePrinter {
     }
     
     public Book Preview() {
-        return pages;
+        return workflow.preview(buildRequest());
     }
 
     public void Print() {
-        job.setJobName(jobName);
+        PrintRequest request = buildRequest();
 
         //Setting to null so that it will ask the user for now...was having an error when I used the dropdown choice
         /*
@@ -90,20 +97,59 @@ public class PagePrinter {
             DoPrint = job.printDialog();
         }
         */
-        DoPrint = job.printDialog();
-
-        job.setPageable(Preview());
-        
-        if( DoPrint ) {
-            try {
-                job.print();
-            } catch( PrinterException e ) {
-                Media.Messager( e.getMessage() );
+        try {
+            if (splitPrintJobs) {
+                DoPrint = workflow.printPagesSeparately(request);
+            } else {
+                DoPrint = workflow.print(request);
             }
+        } catch( PrinterException e ) {
+            Media.Messager( e.getMessage() );
         }
+    }
+
+    public void PrintPagesSeparately() {
+        try {
+            DoPrint = workflow.printPagesSeparately(buildRequest());
+        } catch( PrinterException e ) {
+            Media.Messager( e.getMessage() );
+        }
+    }
+
+    public void setSplitPrintJobs(boolean splitPrintJobs) {
+        this.splitPrintJobs = splitPrintJobs;
+    }
+
+    public boolean getSplitPrintJobs() {
+        return splitPrintJobs;
     }
 
     public void setJobName(String jobName) {
         this.jobName = jobName;
+    }
+
+    PrintRequest buildRequest() {
+        PrintRequest.Builder request = PrintRequest.builder(printJobName());
+        for (PageEntry page : pages) {
+            request.addPage(page.pageFormat, page.printable);
+        }
+        return request.build();
+    }
+
+    private String printJobName() {
+        if (jobName == null || jobName.trim().isEmpty()) {
+            return "Skunkwerks Print";
+        }
+        return jobName.trim();
+    }
+
+    private static final class PageEntry {
+        private final PageFormat pageFormat;
+        private final Printable printable;
+
+        private PageEntry(PageFormat pageFormat, Printable printable) {
+            this.pageFormat = pageFormat;
+            this.printable = printable;
+        }
     }
 }

@@ -145,8 +145,8 @@ public class PlaceableInfo {
             this.specials = "-";
         }
 
-        public Vector getRowData() {
-            Vector data = new Vector();
+        public Vector<String> getRowData() {
+            Vector<String> data = new Vector<>();
             data.add(this.Count);
             data.add(this.name);
             data.add(this.locName);

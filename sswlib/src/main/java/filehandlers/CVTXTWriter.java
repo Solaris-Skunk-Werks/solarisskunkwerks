@@ -292,13 +292,13 @@ public class CVTXTWriter {
                 retval += String.format( "                                               Rotor     %1$-3s       ", CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_ROTOR ) ) + NL;
         }
         if( CurVee.IsOmni() ) {
-            ArrayList l = CurVee.GetLoadouts();
+            ArrayList<ifCVLoadout> l = CurVee.GetLoadouts();
             if ( !CurrentLoadoutOnly ) {
                 CurVee.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
                 retval += NL;
                 retval += BuildEquipmentBlock() + NL;
                 for( int i = 0; i < l.size(); i++ ) {
-                    CurVee.SetCurLoadout( ((ifCVLoadout) l.get( i )).GetName() );
+                    CurVee.SetCurLoadout( l.get( i ).GetName() );
                     retval += NL + "================================================================================" + NL;
                     retval += BuildOmniLoadout() + NL;
                 }
@@ -316,9 +316,9 @@ public class CVTXTWriter {
     }
 
     private String GetArmament() {
-        ArrayList v = CurVee.GetLoadout().GetNonCore();
-        ArrayList w = new ArrayList();
-        ArrayList EQ = new ArrayList();
+        ArrayList<abPlaceable> v = CurVee.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> w = new ArrayList<>();
+        ArrayList<abPlaceable> EQ = new ArrayList<>();
         String Armament = "";
 
         // find only the armaments
@@ -341,7 +341,7 @@ public class CVTXTWriter {
 
         // sort the weapons according to current BV, assuming front facing
         abPlaceable[] weapons = CurVee.SortWeapons( w, false );
-        ArrayList Temp = new ArrayList();
+        ArrayList<abPlaceable> Temp = new ArrayList<>();
 
         // add in the rest of the equipment
         for( int i = 0; i < weapons.length; i++ ) {
@@ -354,7 +354,7 @@ public class CVTXTWriter {
         }
         weapons = new abPlaceable[Temp.size()];
         for( int i = 0; i < Temp.size(); i++ ) {
-            weapons[i] = (abPlaceable) Temp.get( i );
+            weapons[i] = Temp.get( i );
         }
 
         // initialize the next loop
@@ -501,7 +501,7 @@ public class CVTXTWriter {
 //        String retval = "Equipment                                        Location     Critical    Mass  " + NL;
         String loc = "";
         String crits = "";
-        ArrayList v = (ArrayList) CurVee.GetLoadout().GetNonCore().clone();
+        ArrayList<abPlaceable> v = new ArrayList<>( CurVee.GetLoadout().GetNonCore() );
 
         // add in MASC and the targeting computer if needed.
         if( CurVee.GetPhysEnhance().IsMASC() ) {
@@ -527,7 +527,7 @@ public class CVTXTWriter {
         // turn the equipment into an array
         abPlaceable[] equips = new abPlaceable[v.size()];
         for( int i = 0; i < v.size(); i++ ) {
-            equips[i] = (abPlaceable) v.get( i );
+            equips[i] = v.get( i );
         }
 
         // we'll want to consolidate equipment within locations.
@@ -623,7 +623,7 @@ public class CVTXTWriter {
         String retval = "";
         String loc = "";
         String crits = "";
-        ArrayList v = (ArrayList) CurVee.GetLoadout().GetNonCore().clone();
+        ArrayList<abPlaceable> v = new ArrayList<>( CurVee.GetLoadout().GetNonCore() );
 
         retval += String.format( "Loadout Name: %1$-46s Cost: %2$,.0f", CurVee.GetLoadout().GetName(), Math.floor( CurVee.GetTotalCost() + 0.5 ) ) + NL;
         retval += String.format( "Tech Rating/Era Availability: %1$-31s BV2: %2$,d", CurVee.GetAvailability().GetBestCombinedCode(), CurVee.GetCurrentBV() ) + NL;
@@ -679,7 +679,7 @@ public class CVTXTWriter {
         // turn the equipment into an array
         abPlaceable[] equips = new abPlaceable[v.size()];
         for( int i = 0; i < v.size(); i++ ) {
-            equips[i] = (abPlaceable) v.get( i );
+            equips[i] = v.get( i );
         }
 
         // the basic equipment block header
@@ -882,7 +882,7 @@ public class CVTXTWriter {
         text = text.replace( "\t", "    " );
 
         char [] chars = text.toCharArray();
-        ArrayList lines = new ArrayList();
+        ArrayList<String> lines = new ArrayList<>();
         StringBuffer line = new StringBuffer();
         StringBuffer word = new StringBuffer();
 
@@ -916,9 +916,9 @@ public class CVTXTWriter {
 
         String [] ret = new String[lines.size()];
         int c = 0; // counter
-        Iterator itr = lines.iterator();
+        Iterator<String> itr = lines.iterator();
         while(itr.hasNext()) {
-            ret[c] = (String) itr.next();
+            ret[c] = itr.next();
             c++;
         }
 
@@ -1017,7 +1017,7 @@ public class CVTXTWriter {
 
         String datum = "";
         for (int i=0; i < list.Size(); i++) {
-            UnitListData data = (UnitListData) list.Get(i);
+            UnitListData data = list.Get(i);
             FR.write( CSVFormat("Combat Vehicle") );
             datum = "Combat Vehicle";
             if ( data.isOmni() ) { datum = "OmniVehicle"; }

@@ -104,10 +104,10 @@ public class Dumper extends abPlaceable {
         //TODO: Add dumper calculation based on location
         double tonnage = 0.0;
         LocationIndex location = Owner.FindIndex(this);
-        ArrayList equipment = Owner.GetEquipment();
+        ArrayList<abPlaceable> equipment = Owner.GetEquipment();
         for (int i = 0; i < equipment.size(); i++)
         {
-             abPlaceable currentItem = (abPlaceable) equipment.get( i );
+             abPlaceable currentItem = equipment.get( i );
              //See if the location is the same as the dumper
              if (Owner.FindIndex(currentItem).Location == location.Location)
              {

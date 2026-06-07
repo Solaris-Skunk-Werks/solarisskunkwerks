@@ -33,6 +33,7 @@ import ssw.constants.SSWConstants;
 import java.awt.Point;
 
 public class dlgAboutBox extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     ifMechForm Parent;
 

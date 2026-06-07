@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class dlgPreview extends javax.swing.JFrame implements ActionListener {
+    private static final long serialVersionUID = 1L;
+    private static final String COMPATIBILITY_PRINT_MODE = "CompatibilityPrintMode";
+
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
     protected Pageable pageable;
     private Preview preview;
@@ -149,6 +152,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         chkBFOnePerPage.setSelected(bfbPrefs.getBoolean(Constants.Format_OneForcePerPage, false));
         chkBFBacks.setSelected(bfbPrefs.getBoolean("BF_Backs", false));
         chkUseColor.setSelected(bfbPrefs.getBoolean("BF_Color", false));
+        chkCompatibilityPrint.setSelected(bfbPrefs.getBoolean(COMPATIBILITY_PRINT_MODE, false));
 
         cmbBFSheetType.setSelectedIndex(bfbPrefs.getInt(Constants.Format_BattleForceSheetChoice, 0));
         cmbRSType.setSelectedIndex(bfbPrefs.getInt(Constants.Format_RecordsheetChoice, 0));
@@ -514,6 +518,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         
         bfbPrefs.putBoolean("BF_Backs", chkBFBacks.isSelected());
         bfbPrefs.putBoolean("BF_Color", chkUseColor.isSelected());
+        bfbPrefs.putBoolean(COMPATIBILITY_PRINT_MODE, chkCompatibilityPrint.isSelected());
 
         bfbPrefs.putInt(Constants.Format_BattleForceSheetChoice, cmbBFSheetType.getSelectedIndex());
         bfbPrefs.putInt(Constants.Format_RecordsheetChoice, cmbRSType.getSelectedIndex());
@@ -540,26 +545,26 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         chkImage = new javax.swing.JCheckBox();
         chkPrintGroup = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
-        cmbPaperSize = new javax.swing.JComboBox();
+        cmbPaperSize = new javax.swing.JComboBox<String>();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         chkUseHexConversion = new javax.swing.JCheckBox();
         chkCanon = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        cmbHexConvFactor = new javax.swing.JComboBox();
+        cmbHexConvFactor = new javax.swing.JComboBox<String>();
         lblInches = new javax.swing.JLabel();
         lblOneHex = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         chkGenericAmmo = new javax.swing.JCheckBox();
         chkTables = new javax.swing.JCheckBox();
-        cmbRSType = new javax.swing.JComboBox();
-        cmbChartImage = new javax.swing.JComboBox();
+        cmbRSType = new javax.swing.JComboBox<String>();
+        cmbChartImage = new javax.swing.JComboBox<String>();
         jPanel6 = new javax.swing.JPanel();
         chkUseColor = new javax.swing.JCheckBox();
         chkBFBacks = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         chkBFTerrainMV = new javax.swing.JCheckBox();
-        cmbBFSheetType = new javax.swing.JComboBox();
+        cmbBFSheetType = new javax.swing.JComboBox<String>();
         chkBFOnePerPage = new javax.swing.JCheckBox();
         jToolBar1 = new javax.swing.JToolBar();
         btnPreview = new javax.swing.JButton();
@@ -578,6 +583,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         btnImageDefault = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnSaveOptions = new javax.swing.JButton();
+        chkCompatibilityPrint = new javax.swing.JCheckBox();
         btnPrint = new javax.swing.JButton();
         btnCloseDialog = new javax.swing.JButton();
         spnPreview = new javax.swing.JScrollPane();
@@ -686,9 +692,12 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
+        chkCompatibilityPrint.setText("Printer Compatibility Mode");
+        chkCompatibilityPrint.setToolTipText("Print each page as a separate job for printers that reject multi-page jobs.");
+
         jLabel5.setText("Paper Size:");
 
-        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "Legal", "A4" }));
+        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Letter", "Legal", "A4" }));
         cmbPaperSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPaperSizeActionPerformed(evt);
@@ -708,7 +717,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                         .addComponent(cmbPaperSize, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(chkLogo)
                     .addComponent(chkImage)
-                    .addComponent(chkPrintGroup))
+                    .addComponent(chkPrintGroup)
+                    .addComponent(chkCompatibilityPrint))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -719,6 +729,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                 .addComponent(chkLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkPrintGroup)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkCompatibilityPrint)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
@@ -743,7 +755,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "1", "2", "3", "4", "5" }));
         cmbHexConvFactor.setEnabled(false);
         cmbHexConvFactor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -794,14 +806,14 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        cmbRSType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Warfare", "Recordsheet", "Tactical Operations" }));
+        cmbRSType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Total Warfare", "Recordsheet", "Tactical Operations" }));
         cmbRSType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemChanged(evt);
             }
         });
 
-        cmbChartImage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Canon", "Minimal" }));
+        cmbChartImage.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Canon", "Minimal" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -880,7 +892,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        cmbBFSheetType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "*Strategic Ops", "*QuickStrike Cards", "*Alpha Strike Cards", "BattleForce Sheet", "Vertical Cards", "Alpha Strike Card Sheet" }));
+        cmbBFSheetType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "*Strategic Ops", "*QuickStrike Cards", "*Alpha Strike Cards", "BattleForce Sheet", "Vertical Cards", "Alpha Strike Card Sheet" }));
         cmbBFSheetType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemChanged(evt);
@@ -1125,6 +1137,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         setPreferences();
         if ( hasChanges ) { PrinterSetup(); }
+        printer.setSplitPrintJobs(chkCompatibilityPrint.isSelected());
         printer.Print();
     }//GEN-LAST:event_btnPrintActionPerformed
 
@@ -1255,6 +1268,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JCheckBox chkBFOnePerPage;
     private javax.swing.JCheckBox chkBFTerrainMV;
     private javax.swing.JCheckBox chkCanon;
+    private javax.swing.JCheckBox chkCompatibilityPrint;
     private javax.swing.JCheckBox chkGenericAmmo;
     private javax.swing.JCheckBox chkImage;
     private javax.swing.JCheckBox chkLogo;
@@ -1267,11 +1281,11 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JCheckBox chkTables;
     private javax.swing.JCheckBox chkUseColor;
     private javax.swing.JCheckBox chkUseHexConversion;
-    private javax.swing.JComboBox cmbBFSheetType;
-    private javax.swing.JComboBox cmbChartImage;
-    private javax.swing.JComboBox cmbHexConvFactor;
-    private javax.swing.JComboBox cmbPaperSize;
-    private javax.swing.JComboBox cmbRSType;
+    private javax.swing.JComboBox<String> cmbBFSheetType;
+    private javax.swing.JComboBox<String> cmbChartImage;
+    private javax.swing.JComboBox<String> cmbHexConvFactor;
+    private javax.swing.JComboBox<String> cmbPaperSize;
+    private javax.swing.JComboBox<String> cmbRSType;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

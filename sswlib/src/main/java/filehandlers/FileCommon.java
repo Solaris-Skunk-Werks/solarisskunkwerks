@@ -449,10 +449,10 @@ public class FileCommon {
 
     public static abPlaceable HasECM( Mech m ) {
         ifMechLoadout l = m.GetLoadout();
-        ArrayList v = l.GetNonCore();
+        ArrayList<abPlaceable> v = l.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            if( ((abPlaceable) v.get( i )).LookupName().contains( "ECM Suite" ) || ((abPlaceable) v.get( i )).LookupName().contains( "CEWS" ) ) {
-                return (abPlaceable) v.get( i );
+            if( v.get( i ).LookupName().contains( "ECM Suite" ) || v.get( i ).LookupName().contains( "CEWS" ) ) {
+                return v.get( i );
             }
         }
         return new EmptyItem();
@@ -460,10 +460,10 @@ public class FileCommon {
 
     public static abPlaceable HasBAP( Mech m ) {
         ifMechLoadout l = m.GetLoadout();
-        ArrayList v = l.GetNonCore();
+        ArrayList<abPlaceable> v = l.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            if( ((abPlaceable) v.get( i )).LookupName().contains( "Probe" ) || ((abPlaceable) v.get( i )).LookupName().contains( "CEWS" ) ) {
-                return (abPlaceable) v.get( i );
+            if( v.get( i ).LookupName().contains( "Probe" ) || v.get( i ).LookupName().contains( "CEWS" ) ) {
+                return v.get( i );
             }
         }
         return new EmptyItem();
@@ -472,10 +472,10 @@ public class FileCommon {
     public static Object[] HasC3( Mech m ) {
         // this one returns a full array because a mech may have more than one
         // C3 computer in it.
-        ArrayList retval = new ArrayList();
-        ArrayList v = m.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> retval = new ArrayList<>();
+        ArrayList<abPlaceable> v = m.GetLoadout().GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            if( ((abPlaceable) v.get( i )).LookupName().contains( "C3" ) ) {
+            if( v.get( i ).LookupName().contains( "C3" ) ) {
                 retval.add( v.get( i ) );
             }
         }
@@ -854,135 +854,137 @@ public class FileCommon {
         return retval;
     }
 
-    public static ArrayList<abPlaceable> SortEquipmentForStats( Mech m, ArrayList v ) {
+    public static ArrayList<abPlaceable> SortEquipmentForStats( Mech m, ArrayList<abPlaceable> v ) {
         boolean ExportOut = m.GetPrefs().getBoolean( "ExportSortOut", true );
         boolean AmmoEnd = m.GetPrefs().getBoolean( "AmmoGroupAtBottom", true );
 
         return SortEquipmentForStats(m, v, ExportOut, AmmoEnd);
     }
 
-    public static ArrayList<abPlaceable> SortEquipmentForStats( CombatVehicle m, ArrayList v ) {
+    public static ArrayList<abPlaceable> SortEquipmentForStats( CombatVehicle m, ArrayList<abPlaceable> v ) {
         boolean ExportOut = true;
         boolean AmmoEnd = true;
 
         return SortEquipmentForStats((ifLoadout)m.GetLoadout(), v, ExportOut, AmmoEnd);
     }
 
-    public static ArrayList<abPlaceable> SortEquipmentForStats( Mech m, ArrayList v, boolean ExportOut, boolean AmmoEnd ) {
+    public static ArrayList<abPlaceable> SortEquipmentForStats( Mech m, ArrayList<abPlaceable> v, boolean ExportOut, boolean AmmoEnd ) {
         // this routine takes the given ArrayList of equipment and sorts it by
         // location, starting with the head and working down to legs.
 
         return SortEquipmentForStats((ifLoadout)m.GetLoadout(), v, ExportOut, AmmoEnd);
     }
 
-    public static ArrayList<abPlaceable> SortEquipmentForStats( ifLoadout m, ArrayList v, boolean ExportOut, boolean AmmoEnd ) {
+    public static ArrayList<abPlaceable> SortEquipmentForStats( ifLoadout m, ArrayList<abPlaceable> v, boolean ExportOut, boolean AmmoEnd ) {
         // this routine takes the given ArrayList of equipment and sorts it by
         // location, starting with the head and working down to legs.
-        ArrayList[] sort = { new ArrayList<abPlaceable>(), new ArrayList<abPlaceable>(), new ArrayList<abPlaceable>(), new ArrayList<abPlaceable>(),
-            new ArrayList<abPlaceable>(), new ArrayList<abPlaceable>(), new ArrayList<abPlaceable>(), new ArrayList<abPlaceable>() };
-        ArrayList retval = new ArrayList<abPlaceable>();
+        ArrayList<ArrayList<abPlaceable>> sort = new ArrayList<>();
+        for( int i = 0; i < 8; i++ ) {
+            sort.add( new ArrayList<abPlaceable>() );
+        }
+        ArrayList<abPlaceable> retval = new ArrayList<>();
 
         // for each item in the given ArrayList, find it's innermost location and
         // place it into the appropriate ArrayList
         int index = 0;
         abPlaceable a;
         for( int i = 0; i < v.size(); i++ ) {
-            a = (abPlaceable) v.get( i );
+            a = v.get( i );
             index = m.Find( a );
             if( ! ( index < 0 || index > 7 ) ) {
-                sort[index].add( a );
+                sort.get(index).add( a );
             }
         }
 
         // for each ArrayList that has items, add them to the return ArrayList in
         // the correct order, based on options.
         if( ExportOut ) {
-            if( sort[LocationIndex.MECH_LOC_HD].size() > 0 ) {
-                for( int j = 0; j < sort[0].size(); j++ ) {
-                    retval.add( sort[0].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_HD).size() > 0 ) {
+                for( int j = 0; j < sort.get(0).size(); j++ ) {
+                    retval.add( sort.get(0).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_CT].size() > 0 ) {
-                for( int j = 0; j < sort[1].size(); j++ ) {
-                    retval.add( sort[1].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_CT).size() > 0 ) {
+                for( int j = 0; j < sort.get(1).size(); j++ ) {
+                    retval.add( sort.get(1).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_RT].size() > 0 ) {
-                for( int j = 0; j < sort[3].size(); j++ ) {
-                    retval.add( sort[3].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_RT).size() > 0 ) {
+                for( int j = 0; j < sort.get(3).size(); j++ ) {
+                    retval.add( sort.get(3).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_LT].size() > 0 ) {
-                for( int j = 0; j < sort[2].size(); j++ ) {
-                    retval.add( sort[2].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_LT).size() > 0 ) {
+                for( int j = 0; j < sort.get(2).size(); j++ ) {
+                    retval.add( sort.get(2).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_RA].size() > 0 ) {
-                for( int j = 0; j < sort[5].size(); j++ ) {
-                    retval.add( sort[5].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_RA).size() > 0 ) {
+                for( int j = 0; j < sort.get(5).size(); j++ ) {
+                    retval.add( sort.get(5).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_LA].size() > 0 ) {
-                for( int j = 0; j < sort[4].size(); j++ ) {
-                    retval.add( sort[4].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_LA).size() > 0 ) {
+                for( int j = 0; j < sort.get(4).size(); j++ ) {
+                    retval.add( sort.get(4).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_RL].size() > 0 ) {
-                for( int j = 0; j < sort[7].size(); j++ ) {
-                    retval.add( sort[7].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_RL).size() > 0 ) {
+                for( int j = 0; j < sort.get(7).size(); j++ ) {
+                    retval.add( sort.get(7).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_LL].size() > 0 ) {
-                for( int j = 0; j < sort[6].size(); j++ ) {
-                    retval.add( sort[6].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_LL).size() > 0 ) {
+                for( int j = 0; j < sort.get(6).size(); j++ ) {
+                    retval.add( sort.get(6).get( j ) );
                 }
             }
         } else {
-            if( sort[LocationIndex.MECH_LOC_RA].size() > 0 ) {
-                for( int j = 0; j < sort[5].size(); j++ ) {
-                    retval.add( sort[5].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_RA).size() > 0 ) {
+                for( int j = 0; j < sort.get(5).size(); j++ ) {
+                    retval.add( sort.get(5).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_LA].size() > 0 ) {
-                for( int j = 0; j < sort[4].size(); j++ ) {
-                    retval.add( sort[4].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_LA).size() > 0 ) {
+                for( int j = 0; j < sort.get(4).size(); j++ ) {
+                    retval.add( sort.get(4).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_RT].size() > 0 ) {
-                for( int j = 0; j < sort[3].size(); j++ ) {
-                    retval.add( sort[3].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_RT).size() > 0 ) {
+                for( int j = 0; j < sort.get(3).size(); j++ ) {
+                    retval.add( sort.get(3).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_LT].size() > 0 ) {
-                for( int j = 0; j < sort[2].size(); j++ ) {
-                    retval.add( sort[2].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_LT).size() > 0 ) {
+                for( int j = 0; j < sort.get(2).size(); j++ ) {
+                    retval.add( sort.get(2).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_CT].size() > 0 ) {
-                for( int j = 0; j < sort[1].size(); j++ ) {
-                    retval.add( sort[1].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_CT).size() > 0 ) {
+                for( int j = 0; j < sort.get(1).size(); j++ ) {
+                    retval.add( sort.get(1).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_HD].size() > 0 ) {
-                for( int j = 0; j < sort[0].size(); j++ ) {
-                    retval.add( sort[0].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_HD).size() > 0 ) {
+                for( int j = 0; j < sort.get(0).size(); j++ ) {
+                    retval.add( sort.get(0).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_RL].size() > 0 ) {
-                for( int j = 0; j < sort[7].size(); j++ ) {
-                    retval.add( sort[7].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_RL).size() > 0 ) {
+                for( int j = 0; j < sort.get(7).size(); j++ ) {
+                    retval.add( sort.get(7).get( j ) );
                 }
             }
-            if( sort[LocationIndex.MECH_LOC_LL].size() > 0 ) {
-                for( int j = 0; j < sort[6].size(); j++ ) {
-                    retval.add( sort[6].get( j ) );
+            if( sort.get(LocationIndex.MECH_LOC_LL).size() > 0 ) {
+                for( int j = 0; j < sort.get(6).size(); j++ ) {
+                    retval.add( sort.get(6).get( j ) );
                 }
             }
         }
 
         // if we need to put ammunition at the end, do it now.
         if( AmmoEnd ) {
-            ArrayList Ammo = new ArrayList();
+            ArrayList<abPlaceable> Ammo = new ArrayList<>();
             for( int i = retval.size() - 1; i >= 0; i-- ) {
                 if( retval.get( i ) instanceof Ammunition ) {
                     Ammo.add( retval.remove( i ) );
@@ -1011,6 +1013,23 @@ public class FileCommon {
         retval = retval.replaceAll( "\t", ":tab:" );
         retval = retval.trim();
         return retval;
+    }
+
+    public static String EncodeXmlAttribute(String s) {
+        if (s == null) {
+            return "";
+        }
+
+        String retval = s.replace("&", "&amp;");
+        retval = retval.replace("<", "&lt;");
+        retval = retval.replace(">", "&gt;");
+        retval = retval.replace("'", "&apos;");
+        retval = retval.replace("\"", "&quot;");
+        retval = retval.replace("\n\r", ":br:");
+        retval = retval.replace("\n", ":br:");
+        retval = retval.replace("\r", ":br:");
+        retval = retval.replace("\t", ":tab:");
+        return retval.trim();
     }
 
     public static String DecodeFluff( String s ) {

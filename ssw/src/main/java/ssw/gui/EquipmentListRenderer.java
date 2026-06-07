@@ -39,6 +39,7 @@ import components.EquipmentCollection;
 import filehandlers.FileCommon;
 
 public class EquipmentListRenderer extends DefaultListCellRenderer {
+    private static final long serialVersionUID = 1L;
     private ifMechForm Parent;
     private abPlaceable a = null;
 
@@ -47,7 +48,7 @@ public class EquipmentListRenderer extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean hasFocus) {
         JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         String Text = "";
         if( value instanceof abPlaceable ) {

@@ -4,6 +4,7 @@ import Force.Advantages;
 import Force.Advantages.Enhancement;
 import Force.Warrior;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 
 public class dlgManeiDomini extends javax.swing.JDialog {
@@ -37,7 +38,7 @@ public class dlgManeiDomini extends javax.swing.JDialog {
 
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        lstMods = new javax.swing.JList();
+        lstMods = new javax.swing.JList<Enhancement>();
         jLabel5 = new javax.swing.JLabel();
         lblHighestLevel = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
@@ -51,11 +52,7 @@ public class dlgManeiDomini extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Select Manei Domini Enhancements");
 
-        lstMods.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "0, Cosmetic Enhancement", "0, Prosthetic Hand/Foot/Arm/Leg", "1, Enhanced Prosthetic Hand/Foot/Arm/Leg", "3, Improved Enhanced Prosthetic Hand/Foot/Arm/Leg", "1, Secondary Power Supply", "3, Prosthetic Leg MASC", "2, Pain Shunt", "3, Pheremone Effuser", "4, Toxin Effuser", "2, Cybernetic Eye/Ear/Speech Implants", "3, Multi-Modal Cybernetic Eye/Ear/Speech Implants", "5, Enhanced Multi-Modal Cybernetic Eye/Ear/Speech Implants", "2, Recorder/Transmitter/Receiver/Communications Implant", "4, Boosted Recorder/Transmitter/Receiver/Communications Implants", "3, Filtration Liver/Lung Implants", "3, Vehicular Direct Neural Interface (VDNI)", "5, Buffered VDNI", "4, Myomer Full-Body Implants" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        lstMods.setModel(new DefaultListModel<Enhancement>());
         lstMods.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstModsValueChanged(evt);
@@ -136,7 +133,7 @@ public class dlgManeiDomini extends javax.swing.JDialog {
         if ( lstMods.getSelectedIndices().length > 0 ) {
             Enhancements.clear();
             for ( int index : lstMods.getSelectedIndices() ) {
-                Enhancement e = (Enhancement) lstMods.getModel().getElementAt(index);
+                Enhancement e = lstMods.getModel().getElementAt(index);
                 Enhancements.add(e);
                 //String item = lstMods.getModel().getElementAt(index).toString();
                 //String[] items = item.split(",");
@@ -169,7 +166,7 @@ public class dlgManeiDomini extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblHighestLevel;
     private javax.swing.JLabel lblMod;
-    private javax.swing.JList lstMods;
+    private javax.swing.JList<Enhancement> lstMods;
     // End of variables declaration//GEN-END:variables
 
 }

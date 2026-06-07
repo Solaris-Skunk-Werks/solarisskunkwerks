@@ -56,6 +56,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.*;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -209,15 +210,15 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         if (curTop != null) { // should only be null at root
             curTop.add(curDir);
         }
-        ArrayList ol = new ArrayList();
+        ArrayList<String> ol = new ArrayList<String>();
         String[] tmp = dir.list();
         ol.addAll(Arrays.asList(tmp));
         Collections.sort(ol, String.CASE_INSENSITIVE_ORDER);
         File f;
-        ArrayList files = new ArrayList();
+        ArrayList<String> files = new ArrayList<String>();
         // Make two passes, one for Dirs and one for Files. This is #1.
         for (int i = 0; i < ol.size(); i++) {
-            String thisObject = (String) ol.get(i);
+            String thisObject = ol.get(i);
             String newPath;
             if (curPath.equals(".")) {
                 newPath = thisObject;
@@ -282,7 +283,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
                     return (String.CASE_INSENSITIVE_ORDER).compare(o1.toString(), o2.toString());
                 }
             });
-            DefaultListModel listModel = new DefaultListModel();
+            DefaultListModel<DirectoryLeaf> listModel = new DefaultListModel<DirectoryLeaf>();
             for ( DirectoryLeaf leaf : v ) {
                 listModel.addElement(leaf);
             }
@@ -813,9 +814,9 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         txtReward = new javax.swing.JFormattedTextField();
         btnAddObjective = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        lstObjectives = new javax.swing.JList();
+        lstObjectives = new javax.swing.JList<Objective>();
         jScrollPane6 = new javax.swing.JScrollPane();
-        lstBonuses = new javax.swing.JList();
+        lstBonuses = new javax.swing.JList<Bonus>();
         jScrollPane7 = new javax.swing.JScrollPane();
         edtAttacker = new javax.swing.JTextPane();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -892,7 +893,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         treDirectories = new javax.swing.JTree();
         jPanel25 = new javax.swing.JPanel();
         jScrollPane12 = new javax.swing.JScrollPane();
-        lstFiles = new javax.swing.JList();
+        lstFiles = new javax.swing.JList<DirectoryLeaf>();
         jPanel26 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         btnRoll = new javax.swing.JButton();
@@ -902,10 +903,10 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         jLabel29 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        lstOptions = new javax.swing.JList();
+        lstOptions = new javax.swing.JList<String>();
         pnlRandomSelection = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
-        lstSelected = new javax.swing.JList();
+        lstSelected = new javax.swing.JList<String>();
         btnClearSelection = new javax.swing.JButton();
         btnClipboard1 = new javax.swing.JButton();
         lblRndStatus = new javax.swing.JLabel();
@@ -3067,7 +3068,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 
         jMenu1.setText("File");
 
-        mnuNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        mnuNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/document--plus.png"))); // NOI18N
         mnuNew.setText("New");
         mnuNew.addActionListener(new java.awt.event.ActionListener() {
@@ -3077,7 +3078,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu1.add(mnuNew);
 
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuLoad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/folder-open-document.png"))); // NOI18N
         mnuLoad.setText("Load");
         mnuLoad.addActionListener(new java.awt.event.ActionListener() {
@@ -3088,7 +3089,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         jMenu1.add(mnuLoad);
         jMenu1.add(jSeparator13);
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/disk-black.png"))); // NOI18N
         mnuSave.setText("Save");
         mnuSave.addActionListener(new java.awt.event.ActionListener() {
@@ -3098,7 +3099,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu1.add(mnuSave);
 
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuSaveAs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/disk.png"))); // NOI18N
         mnuSaveAs.setText("Save As...");
         mnuSaveAs.addActionListener(new java.awt.event.ActionListener() {
@@ -3108,7 +3109,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu1.add(mnuSaveAs);
 
-        mnuSaveScenario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuSaveScenario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuSaveScenario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/disks-black.png"))); // NOI18N
         mnuSaveScenario.setText("Save As Scenario");
         mnuSaveScenario.addActionListener(new java.awt.event.ActionListener() {
@@ -3127,7 +3128,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
-        mnuPrintDlg.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        mnuPrintDlg.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuPrintDlg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/printer.png"))); // NOI18N
         mnuPrintDlg.setText("Print Options");
         mnuPrintDlg.addActionListener(new java.awt.event.ActionListener() {
@@ -3137,7 +3138,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuPrint.add(mnuPrintDlg);
 
-        mnuPrintForce.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintForce.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintForce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/printer.png"))); // NOI18N
         mnuPrintForce.setText("Print Force List");
         mnuPrintForce.addActionListener(new java.awt.event.ActionListener() {
@@ -3147,7 +3148,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuPrint.add(mnuPrintForce);
 
-        mnuPrintUnits.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintUnits.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintUnits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/printer--plus.png"))); // NOI18N
         mnuPrintUnits.setText("Print Unit Sheets");
         mnuPrintUnits.addActionListener(new java.awt.event.ActionListener() {
@@ -3157,7 +3158,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuPrint.add(mnuPrintUnits);
 
-        mnuPrintRS.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintRS.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintRS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/printer--plus.png"))); // NOI18N
         mnuPrintRS.setText("Print Record Sheets");
         mnuPrintRS.addActionListener(new java.awt.event.ActionListener() {
@@ -3167,7 +3168,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuPrint.add(mnuPrintRS);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/printer--puzzle.png"))); // NOI18N
         jMenuItem1.setText("Print BattleForce");
         mnuPrint.add(jMenuItem1);
@@ -3175,7 +3176,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         jMenu1.add(mnuPrint);
         jMenu1.add(jSeparator3);
 
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/burn.png"))); // NOI18N
         mnuExit.setText("Exit");
         mnuExit.addActionListener(new java.awt.event.ActionListener() {
@@ -3254,7 +3255,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 
         jMenu6.setText("Force List");
 
-        rmnuTWModel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        rmnuTWModel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnGrpViews.add(rmnuTWModel);
         rmnuTWModel.setSelected(true);
         rmnuTWModel.setText("Total Warfare");
@@ -3265,7 +3266,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu6.add(rmnuTWModel);
 
-        rmnuBFModel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        rmnuBFModel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnGrpViews.add(rmnuBFModel);
         rmnuBFModel.setText("BattleForce");
         rmnuBFModel.addActionListener(new java.awt.event.ActionListener() {
@@ -3275,7 +3276,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu6.add(rmnuBFModel);
 
-        rmnuInformation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        rmnuInformation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnGrpViews.add(rmnuInformation);
         rmnuInformation.setText("Information Line");
         rmnuInformation.addActionListener(new java.awt.event.ActionListener() {
@@ -3285,7 +3286,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu6.add(rmnuInformation);
 
-        rmnuFCTModel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        rmnuFCTModel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         rmnuFCTModel.setText("Balance Factors");
         rmnuFCTModel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3300,7 +3301,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 
         jMenu2.setText("Design");
 
-        mnuDesignBattleMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuDesignBattleMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuDesignBattleMech.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/madcat-pencil.png"))); // NOI18N
         mnuDesignBattleMech.setText("BattleMech");
         mnuDesignBattleMech.addActionListener(new java.awt.event.ActionListener() {
@@ -3310,7 +3311,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu2.add(mnuDesignBattleMech);
 
-        mnuDesignVehicle.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuDesignVehicle.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuDesignVehicle.setText("Combat Vehicle");
         mnuDesignVehicle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3319,27 +3320,27 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu2.add(mnuDesignVehicle);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem3.setText("Battle Armor");
         jMenuItem3.setEnabled(false);
         jMenu2.add(jMenuItem3);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem4.setText("Aero/Conv Fighter");
         jMenuItem4.setEnabled(false);
         jMenu2.add(jMenuItem4);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem5.setText("Warship/Dropship");
         jMenuItem5.setEnabled(false);
         jMenu2.add(jMenuItem5);
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem6.setText("Support Vehicle");
         jMenuItem6.setEnabled(false);
         jMenu2.add(jMenuItem6);
 
-        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem7.setText("Protomech");
         jMenuItem7.setEnabled(false);
         jMenu2.add(jMenuItem7);
@@ -3348,7 +3349,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 
         jMenu3.setText("About");
 
-        mnuAbout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        mnuAbout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/projection-screen.png"))); // NOI18N
         mnuAbout.setText("Battletech Force Balancer");
         mnuAbout.addActionListener(new java.awt.event.ActionListener() {
@@ -4007,11 +4008,11 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnAddBonusActionPerformed
 
     private void lstObjectivesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstObjectivesKeyReleased
-        if ( lstObjectives.getSelectedValues().length > 0 ) {
+        if ( !lstObjectives.getSelectedValuesList().isEmpty() ) {
             if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
-                Object[] rows = lstObjectives.getSelectedValues();
-                for ( int i=0; i < rows.length; i++ ) {
-                    scenario.getWarchest().getObjectives().remove(rows[i]);
+                List<Objective> rows = lstObjectives.getSelectedValuesList();
+                for ( Objective row : rows ) {
+                    scenario.getWarchest().getObjectives().remove(row);
                 }
                 lstObjectives.setModel(scenario.getWarchest().getObjectiveList());
             }
@@ -4019,13 +4020,13 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_lstObjectivesKeyReleased
 
     private void lstBonusesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstBonusesKeyReleased
-        if ( lstBonuses.getSelectedValues().length > 0 ) {
+        if ( !lstBonuses.getSelectedValuesList().isEmpty() ) {
             if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
-                Object[] rows = lstBonuses.getSelectedValues();
-                for ( int i=0; i < rows.length; i++ ) {
-                    scenario.getWarchest().getBonuses().remove(rows[i]);
+                List<Bonus> rows = lstBonuses.getSelectedValuesList();
+                for ( Bonus row : rows ) {
+                    scenario.getWarchest().getBonuses().remove(row);
                 }
-                lstBonuses.setModel(scenario.getWarchest().getObjectiveList());
+                lstBonuses.setModel(scenario.getWarchest().getBonusList());
             }
         }
     }//GEN-LAST:event_lstBonusesKeyReleased
@@ -4672,7 +4673,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_spnMechTableMouseClicked
 
     private void lstFilesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstFilesValueChanged
-        DirectoryLeaf f = (DirectoryLeaf) lstFiles.getSelectedValue();
+        DirectoryLeaf f = lstFiles.getSelectedValue();
         //String filename = lstFiles.getSelectedValue().toString();
         RUSReader reader = new RUSReader();
         try {
@@ -4691,7 +4692,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void lstOptionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstOptionsMouseClicked
         if (evt.getClickCount() == 2) {
-            String Name = ((Object) lstOptions.getSelectedValue()).toString();
+            String Name = lstOptions.getSelectedValue();
             if (!Name.isEmpty()) {
                 Name = Name.split(",")[0];
             }
@@ -4728,8 +4729,9 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_jList1ValueChanged
 
     private void lstSelectedValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedValueChanged
-        if ((lstSelected.getSelectedValues().length > 0)) {
-            String Item = ((Object) lstSelected.getSelectedValues()[0]).toString();
+        List<String> selectedValues = lstSelected.getSelectedValuesList();
+        if (!selectedValues.isEmpty()) {
+            String Item = selectedValues.get(0).toString();
             if (Item.contains(" ")) {
                 String Name = RUS.ParseDesignName(Item);
                 txtName.setText(Name);
@@ -4755,11 +4757,12 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 }//GEN-LAST:event_lstSelectedValueChanged
 
     private void lstSelectedKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstSelectedKeyPressed
-        if (lstSelected.getSelectedValues().length > 0) {
+        List<String> selectedValues = lstSelected.getSelectedValuesList();
+        if (!selectedValues.isEmpty()) {
             if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-                DefaultListModel model = (DefaultListModel) lstSelected.getModel();
-                for (int i = lstSelected.getSelectedValues().length - 1; i >= 0; i--) {
-                    model.removeElement((Object) lstSelected.getSelectedValues()[i]);
+                DefaultListModel<String> model = (DefaultListModel<String>) lstSelected.getModel();
+                for (int i = selectedValues.size() - 1; i >= 0; i--) {
+                    model.removeElement(selectedValues.get(i));
                 }
                 lstSelected.clearSelection();
             }
@@ -4822,14 +4825,14 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void lstObjectivesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstObjectivesValueChanged
-        Objective o = (Objective) lstObjectives.getSelectedValue();
+        Objective o = lstObjectives.getSelectedValue();
         scenario.getWarchest().getObjectives().remove(o);
         txtReward.setText(o.getValue()+"");
         txtObjective.setText(o.getDescription());
     }//GEN-LAST:event_lstObjectivesValueChanged
 
     private void lstBonusesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstBonusesValueChanged
-        Bonus b = (Bonus) lstBonuses.getSelectedValue();
+        Bonus b = lstBonuses.getSelectedValue();
         scenario.getWarchest().getBonuses().remove(b);
         txtAmount.setText(b.getValue()+"");
         txtBonus.setText(b.getDescription());
@@ -5088,11 +5091,11 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     private javax.swing.JLabel lblUnitNameTop;
     private javax.swing.JLabel lblUnitsBottom;
     private javax.swing.JLabel lblUnitsTop;
-    private javax.swing.JList lstBonuses;
-    private javax.swing.JList lstFiles;
-    private javax.swing.JList lstObjectives;
-    private javax.swing.JList lstOptions;
-    private javax.swing.JList lstSelected;
+    private javax.swing.JList<Bonus> lstBonuses;
+    private javax.swing.JList<DirectoryLeaf> lstFiles;
+    private javax.swing.JList<Objective> lstObjectives;
+    private javax.swing.JList<String> lstOptions;
+    private javax.swing.JList<String> lstSelected;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenuItem mnuBVList;
     private javax.swing.JMenuItem mnuCurrentList;

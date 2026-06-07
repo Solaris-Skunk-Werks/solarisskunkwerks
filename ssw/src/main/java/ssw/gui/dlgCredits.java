@@ -31,6 +31,7 @@ package ssw.gui;
 import ssw.constants.SSWConstants;
 
 public class dlgCredits extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
     
     /** Creates new form dlgCredits */
     public dlgCredits(java.awt.Frame parent, boolean modal) {

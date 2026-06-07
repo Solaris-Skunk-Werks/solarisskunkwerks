@@ -229,7 +229,7 @@ public class Scenario implements ifSerializable {
     }
 
     public void SerializeXML(BufferedWriter file) throws IOException {
-        file.write( "<scenario name=\"" + this.Name + "\" version=\"" + VersionNumber + "\" forcesizemodifier=\"" + this.forceSizeModifier + "\" overwrite=\"" + allowOverwrite + "\">" );
+        file.write( "<scenario name=\"" + FileCommon.EncodeXmlAttribute(this.Name) + "\" version=\"" + VersionNumber + "\" forcesizemodifier=\"" + this.forceSizeModifier + "\" overwrite=\"" + allowOverwrite + "\">" );
         file.newLine();
 
         file.write( CommonTools.tab + "<situation>" + FileCommon.EncodeFluff(this.Situation) + "</situation>" );
@@ -238,7 +238,7 @@ public class Scenario implements ifSerializable {
         file.write( CommonTools.tab + "<setup>" + FileCommon.EncodeFluff(this.Setup) + "</setup>" );
         file.newLine();
 
-        file.write( CommonTools.tab + "<attacker description=\"" + FileCommon.EncodeFluff(this.Attacker) + "\">" );
+        file.write( CommonTools.tab + "<attacker description=\"" + FileCommon.EncodeXmlAttribute(this.Attacker) + "\">" );
         file.newLine();
 
         getAttackerForce().SerializeXML(file);
@@ -246,7 +246,7 @@ public class Scenario implements ifSerializable {
         file.write( CommonTools.tab + "</attacker>" );
         file.newLine();
 
-        file.write( CommonTools.tab + "<defender description=\"" + FileCommon.EncodeFluff(this.Defender) + "\">" );
+        file.write( CommonTools.tab + "<defender description=\"" + FileCommon.EncodeXmlAttribute(this.Defender) + "\">" );
         file.newLine();
 
         getDefenderForce().SerializeXML(file);

@@ -62,10 +62,10 @@ public class VArmorSetPatchworkLocation implements ifVisitor {
         MechArmor a = CurMech.GetArmor();
 
         // remove old armor from this location, if needed.
-        ArrayList v = l.FindIndexes( a );
+        ArrayList<LocationIndex> v = l.FindIndexes( a );
         LocationIndex[] OldLocs = new LocationIndex[v.size()];
         for( int i = 0; i < v.size(); i++ ) {
-            OldLocs[i] = (LocationIndex) v.get( i );
+            OldLocs[i] = v.get( i );
         }
         OldLocs = this.GetLocations( Location, OldLocs );
         if( OldLocs != null ) {

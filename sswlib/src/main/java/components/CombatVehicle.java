@@ -102,7 +102,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     private ifCVLoadout MainLoadout,
                         CurLoadout;
     private CVArmor CurArmor = new CVArmor( this );
-    private Hashtable Lookup = new Hashtable();
+    private Hashtable<String, ifVisitor> Lookup = new Hashtable<>();
     private ArrayList<MechModifier> MechMods = new ArrayList<MechModifier>();
     private ArrayList<Quirk> Quirks = new ArrayList<Quirk>();
     private static AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH ),
@@ -374,7 +374,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return getCurArmor();
     }
 
-    public ArrayList GetLoadouts() {
+    public ArrayList<ifCVLoadout> GetLoadouts() {
         return Loadouts;
     }
     
@@ -442,10 +442,10 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         //if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
         //if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
 
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
-                result += ((abPlaceable) v.get(i)).GetTonnage();
+                result += v.get(i).GetTonnage();
             }
         }
         return result;
@@ -468,11 +468,11 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         //if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
         if( UsingEnvironmentalSealing ) { result += EnviroSealing.GetTonnage(); }
 
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( ! ( v.get( i ) instanceof Ammunition ) ) {
-                    result += ((abPlaceable) v.get(i)).GetTonnage();
+                    result += v.get(i).GetTonnage();
                 }
             }
         }
@@ -656,13 +656,13 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         double armorpoints = a.GetArmorValue();
 
         if ( a.IsCommercial() ){
-            armorpoints = (double) Math.floor(armorpoints / 2.0);
+            armorpoints = Math.floor(armorpoints / 2.0);
         }else if ( a.IsFerroLamellor() ){
-            armorpoints = (double) Math.ceil(armorpoints * 1.2);
+            armorpoints = Math.ceil(armorpoints * 1.2);
         }else if ( a.IsHardened() ){
-            armorpoints = (double) Math.ceil(armorpoints * 2.0);
+            armorpoints = Math.ceil(armorpoints * 2.0);
         }else if ( a.IsReactive() || a.IsReflective() ){
-            armorpoints = (double) Math.ceil(armorpoints * 0.75f);
+            armorpoints = Math.ceil(armorpoints * 0.75f);
         }
 
         armorpoints += a.GetModularArmorValue();
@@ -688,7 +688,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
         // Loop through all weapons in non-core
         // and convert all weapon dmg
-        ArrayList nc = GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> nc = GetLoadout().GetNonCore();
         BattleForceData baseData = new BattleForceData();
         BattleForceData turret1Data = new BattleForceData();
         BattleForceData turret2Data = new BattleForceData();
@@ -704,8 +704,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                 double [] temp = BattleForceTools.GetDamage(w, (ifBattleforce)this);
                 BFData.AddBase(temp);
                 
-                isTurret1 = ( GetLoadout().Find((abPlaceable)nc.get(i)) == LocationIndex.CV_LOC_TURRET1);
-                isTurret2 = ( GetLoadout().Find((abPlaceable)nc.get(i)) == LocationIndex.CV_LOC_TURRET2);
+                isTurret1 = ( GetLoadout().Find(nc.get(i)) == LocationIndex.CV_LOC_TURRET1);
+                isTurret2 = ( GetLoadout().Find(nc.get(i)) == LocationIndex.CV_LOC_TURRET2);
                 
                 if ( isTurret1 ) turret1Data.AddBase(temp);
                 if ( isTurret2) turret2Data.AddBase(temp);
@@ -839,11 +839,11 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return retval;
     }
 
-    public ArrayList GetBFAbilities() {
-        ArrayList<String> retval = new ArrayList();
+    public ArrayList<String> GetBFAbilities() {
+        ArrayList<String> retval = new ArrayList<>();
 
         // First search all equipment for BF Abilities
-        ArrayList nc = GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> nc = GetLoadout().GetNonCore();
         boolean isENE = true,
                 hasExplodable = false;
         int Taser = 0,
@@ -867,7 +867,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         }
 
         for ( int i = 0; i < nc.size(); i++ ) {
-            abPlaceable item = (abPlaceable)nc.get(i);
+            abPlaceable item = nc.get(i);
 
             // Get the list of abilities from the equipment itself
             // handle special cases like C3
@@ -970,7 +970,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public int GetAmmoCount( int ammoIndex )
     {
         int retval = 0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( ( v.get( i ) instanceof Ammunition ) ) {
@@ -991,7 +991,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public int GetWeaponCount( int ammoIndex )
     {
         int retval = 0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if ( v.size() > 0 ) {
             for(Object w : v)
             {
@@ -1361,7 +1361,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
         // see if another loadout has the same name
         for( int i = 0; i < Loadouts.size(); i++ ) {
-            if( ((ifCVLoadout) Loadouts.get( i )).GetName().equals( Name ) ) {
+            if( Loadouts.get( i ).GetName().equals( Name ) ) {
                 throw new Exception( "Could not add the new loadout because\nthe name given matches an existing loadout." );
             }
         }
@@ -1376,7 +1376,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         // removes the given loadout from the loadout ArrayList.  if the ArrayList is
         // empty (non-omnimech) nothing is done.
         for( int i = 0; i < Loadouts.size(); i++ ) {
-            if( ((ifCVLoadout) Loadouts.get( i )).GetName().equals( Name ) ) {
+            if( Loadouts.get( i ).GetName().equals( Name ) ) {
                 // remove it
                 Loadouts.remove( i );
                 break;
@@ -1385,7 +1385,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
         // now set the current loadout to the first
         if( Loadouts.size() > 0 ) {
-            CurLoadout = (ifCVLoadout) Loadouts.get(0);
+            CurLoadout = Loadouts.get(0);
         } else {
             CurLoadout = MainLoadout;
         }
@@ -1500,15 +1500,15 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         }
 
         for( int i = 0; i < Loadouts.size(); i++ ) {
-            if( ((ifCVLoadout) Loadouts.get( i )).GetName().equals( Name ) ) {
-                CurLoadout = (ifCVLoadout) Loadouts.get( i );
+            if( Loadouts.get( i ).GetName().equals( Name ) ) {
+                CurLoadout = Loadouts.get( i );
                 return;
             }
         }
 
         // if we got here, there was a problem.  set the loadout to the base
         if( Loadouts.size() > 0 ) {
-            CurLoadout = (ifCVLoadout) Loadouts.get(0);
+            CurLoadout = Loadouts.get(0);
         } else {
             CurLoadout = MainLoadout;
         }
@@ -1552,14 +1552,14 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public ifVisitor Lookup( String s ) {
         // returns a visitor from the lookup table based on the lookup string
-        return (ifVisitor) Lookup.get( s );
+        return Lookup.get( s );
     }
 
-    public Hashtable getLookup() {
+    public Hashtable<String, ifVisitor> getLookup() {
         return Lookup;
     }
 
-    public void setLookup(Hashtable Lookup) {
+    public void setLookup(Hashtable<String, ifVisitor> Lookup) {
         this.Lookup = Lookup;
     }
 
@@ -1792,23 +1792,23 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         Hashtable<String, Integer> list = new Hashtable<String, Integer>();
         abPlaceable item;
         for( int i = 0; i < CurLoadout.GetNonCore().size(); i++ ) {
-            item = (abPlaceable) CurLoadout.GetNonCore().get( i );
+            item = CurLoadout.GetNonCore().get( i );
             if( ! ( item instanceof Ammunition ) ) {
                 if ( list.containsKey( item.ChatName() ) ) {
-                    int curVal = (Integer) list.get( item.ChatName() ).intValue();
+                    int curVal = list.get( item.ChatName() ).intValue();
                     curVal++;
                     list.remove( item.ChatName() );
                     list.put( item.ChatName(), curVal );
                 } else {
-                    list.put( item.ChatName(), new Integer( 1 ) );
+                    list.put( item.ChatName(), Integer.valueOf( 1 ) );
                 }
             }
         }
 
-        Enumeration e = list.keys();
+        Enumeration<String> e = list.keys();
         while( e.hasMoreElements() ) {
-            String name = (String) e.nextElement();
-            int count = (Integer) list.get(name).intValue();
+            String name = e.nextElement();
+            int count = list.get(name).intValue();
             info += count + " " + name + ", ";
         }
 
@@ -1909,11 +1909,11 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         //Lookup.put( "Primitive Industrial w/ Adv. FC", new VCockpitSetPrimIndustrialAFC() );
 
         // now to fix all the visitors with counterparts to use Clan tech if needed
-        ((ifVisitor) Lookup.get( "(CL) Ferro-Fibrous" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) Laser-Reflective" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) Reactive Armor" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) XL Engine" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) XXL Engine" )).SetClan( true );
+        Lookup.get( "(CL) Ferro-Fibrous" ).SetClan( true );
+        Lookup.get( "(CL) Laser-Reflective" ).SetClan( true );
+        Lookup.get( "(CL) Reactive Armor" ).SetClan( true );
+        Lookup.get( "(CL) XL Engine" ).SetClan( true );
+        Lookup.get( "(CL) XXL Engine" ).SetClan( true );
         //((ifVisitor) Lookup.get( "(CL) Double Heat Sink" )).SetClan( true );
     }
 
@@ -1925,7 +1925,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     }
 
     public boolean HasECM() {
-        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+        for (abPlaceable item : CurLoadout.GetEquipment()) {
             if (item.LookupName().contains("ECM") || item.LookupName().contains("Watchdog") || item.LookupName().contains("CEWS")) {
                 return true;
             }
@@ -1974,25 +1974,25 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         if( MechMods.size() > 0 ) {
             for( int i = 0; i < MechMods.size(); i++ ) {
                 if( BV ) {
-                    retval.BVCombine( ((MechModifier) MechMods.get( i )) );
+                    retval.BVCombine( MechMods.get( i ) );
                 } else {
-                    retval.Combine( ((MechModifier) MechMods.get( i )) );
+                    retval.Combine( MechMods.get( i ) );
                 }
             }
         }
         if( CurLoadout.GetMechMods().size() > 0 ) {
             for( int i = 0; i < CurLoadout.GetMechMods().size(); i++ ) {
                 if( BV ) {
-                    retval.BVCombine( ((MechModifier) CurLoadout.GetMechMods().get( i )) );
+                    retval.BVCombine( CurLoadout.GetMechMods().get( i ) );
                 } else {
-                    retval.Combine( ((MechModifier) CurLoadout.GetMechMods().get( i )) );
+                    retval.Combine( CurLoadout.GetMechMods().get( i ) );
                 }
             }
         }
         return retval;
     }
 
-    public ArrayList GetMechMods() {
+    public ArrayList<MechModifier> GetMechMods() {
         return MechMods;
     }
 
@@ -2048,10 +2048,10 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public double GetDefensiveEquipBV() {
         // return the BV of all defensive equipment
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
 
         for( int i = 0; i < v.size(); i++ ) {
-            result += ((abPlaceable) v.get( i )).GetDefensiveBV();
+            result += v.get( i ).GetDefensiveBV();
         }
         if( UsingTC() ) {
             result += GetTC().GetDefensiveBV();
@@ -2072,9 +2072,9 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetDefensiveExcessiveAmmoPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
-        ArrayList Ammo = new ArrayList(),
-               Wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> Ammo = new ArrayList<>(),
+               Wep = new ArrayList<>();
 
         // do we even need to do this?
         if( v.size() <= 0 ) { return result; }
@@ -2124,7 +2124,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                 if( ammoBV <= 0.0 ) {
                     ammoBV = ( NumAmmos * ammo.GetDefensiveBV() );
                 }
-                double wepBV = ( NumWeps * ((abPlaceable) test).GetDefensiveBV() );
+                double wepBV = ( NumWeps * test.GetDefensiveBV() );
                 if( ammoBV > wepBV ) {
                     result -= ammoBV - wepBV;
                 }
@@ -2136,11 +2136,11 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetExplosiveAmmoPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         abPlaceable p;
 
         for( int i = 0; i < v.size(); i++ ) {
-            p = (abPlaceable) v.get( i );
+            p = v.get( i );
             if( p instanceof Ammunition ) {
                 if( ((Ammunition) p).IsExplosive() ) {
                 }
@@ -2152,12 +2152,12 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetExplosiveWeaponPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         abPlaceable p;
         boolean Explode;
 
         for( int i = 0; i < v.size(); i++ ) {
-            p = (abPlaceable) v.get( i );
+            p = v.get( i );
             Explode = false;
             int mod = 0;
             if( p instanceof ifWeapon ) {
@@ -2289,11 +2289,11 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public double GetNonHeatEquipBV() {
         // return the BV of all offensive equipment
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
 
         for( int i = 0; i < v.size(); i++ ) {
             if( ! ( v.get( i ) instanceof ifWeapon ) ) {
-                result += ((abPlaceable) v.get( i )).GetOffensiveBV();
+                result += v.get( i ).GetOffensiveBV();
             }
         }
         return result;
@@ -2301,9 +2301,9 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetExcessiveAmmoPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
-        ArrayList Ammo = new ArrayList(),
-               Wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> Ammo = new ArrayList<>(),
+               Wep = new ArrayList<>();
 
         // do we even need to do this?
         if( v.size() <= 0 ) { return result; }
@@ -2372,12 +2372,12 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetOffensiveFactor() {
         double result = 0.0;
-        result += (double) (GetAdjustedFlankMP(true, true) - 5.0f);
+        result += GetAdjustedFlankMP(true, true) - 5.0f;
         result = result * 0.1 + 1.0;
-        result = (double) Math.pow( result, 1.2 ) ;
+        result = Math.pow( result, 1.2 ) ;
 
         // round off to the nearest two digits
-        result = (double) Math.floor( result * 100 + 0.5 ) / 100;
+        result = Math.floor( result * 100 + 0.5 ) / 100;
 
         double cockpitMultiplier = 1.0;
 
@@ -2407,7 +2407,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         retval -= CurEngine.NumCVSpaces();
         retval -= CurArmor.NumCVSpaces();
         retval -= GetLoadout().NumCVAmmoSpaces();
-        for ( abPlaceable a : (ArrayList<abPlaceable>)GetLoadout().GetNonCore() ) {
+        for ( abPlaceable a : GetLoadout().GetNonCore() ) {
             retval -= a.NumCVSpaces();
         }
 
@@ -2447,9 +2447,9 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
             Base.Combine( GetTC().GetAvailability() );
         }
         if( ! CurEngine.IsNuclear() ) { Base.Combine( CurLoadout.GetPowerAmplifier().GetAvailability() ); }
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            Base.Combine( ((abPlaceable) v.get( i )).GetAvailability() );
+            Base.Combine( v.get( i ).GetAvailability() );
         }
         if( CurLoadout.HasSupercharger() ) {
             Base.Combine( CurLoadout.GetSupercharger().GetAvailability() );
@@ -2482,30 +2482,30 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return Base;
     }
 
-    public abPlaceable[] SortWeapons( ArrayList v, boolean rear ) {
+    public abPlaceable[] SortWeapons( ArrayList<abPlaceable> v, boolean rear ) {
         // convert the results
-        ArrayList r = SortWeapons(v, rear, true);
+        ArrayList<abPlaceable> r = SortWeapons(v, rear, true);
         abPlaceable[] result = new abPlaceable[r.size()];
         for( int i = 0; i < r.size(); i++ ) {
-            result[i] = (abPlaceable) r.get( i );
+            result[i] = r.get( i );
         }
         return result;
     }
 
     // sorting routine for weapon BV calculation. this is undoubtedly slow
-    public ArrayList SortWeapons( ArrayList v, boolean rear, boolean DoRearHeatCheck ) {
+    public ArrayList<abPlaceable> SortWeapons( ArrayList<abPlaceable> v, boolean rear, boolean DoRearHeatCheck ) {
         // sort by BV first (using gnomesort for less code.  may have to change
         // this depending on the slowness of the program.  I figure lower overhead
         // will have better results at this time, and mechs typically don't
         // carry more than twelve to fifteen weapons.  I'll have to test this.
         int i = 1, j = 2;
         boolean TC = UsingTC();
-        Object swap;
+        abPlaceable swap;
         while( i < v.size() ) {
             // get the two items we'll be comparing
             boolean AES1 = false;
             boolean AES2 = false;
-            if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 ) >= ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 ) ) {
+            if( v.get( i - 1 ).GetCurOffensiveBV( rear, TC, AES1 ) >= v.get( i ).GetCurOffensiveBV( rear, TC, AES2 ) ) {
                 i = j;
                 j += 1;
             } else {
@@ -2526,9 +2526,9 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
             while( i < v.size() ) {
                 boolean AES1 = false;
                 boolean AES2 = false;
-                if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 ) == ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 ) ) {
+                if( v.get( i - 1 ).GetCurOffensiveBV( rear, TC, AES1 ) == v.get( i ).GetCurOffensiveBV( rear, TC, AES2 ) ) {
                     if( rear ) {
-                        if( ((abPlaceable) v.get( i - 1 )).IsMountedRear() &! ((abPlaceable) v.get( i )).IsMountedRear() ) {
+                        if( v.get( i - 1 ).IsMountedRear() &! v.get( i ).IsMountedRear() ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
@@ -2538,7 +2538,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                             v.set( i, swap );
                         }
                     } else {
-                        if( ! ((abPlaceable) v.get( i - 1 )).IsMountedRear() && ((abPlaceable) v.get( i )).IsMountedRear() ) {
+                        if( ! v.get( i - 1 ).IsMountedRear() && v.get( i ).IsMountedRear() ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
@@ -2566,12 +2566,12 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetEquipCost() {
         // gets the cost for all non-core items minus ammuntion.
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         double retval = 0.0;
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( ! (v.get( i ) instanceof Ammunition ) ) {
-                    retval += ( (abPlaceable) v.get( i ) ).GetCost();
+                    retval += v.get( i ).GetCost();
                 }
             }
             if( ! CurEngine.IsNuclear() ) { retval += CurLoadout.GetPowerAmplifier().GetCost(); }
@@ -2583,12 +2583,12 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetAmmoCosts() {
         // gets the cost for all ammuntion.
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         double retval = 0.0;
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( (v.get( i ) instanceof Ammunition ) ) {
-                    retval += ( (abPlaceable) v.get( i ) ).GetCost();
+                    retval += v.get( i ).GetCost();
                 }
             }
             if( Prefs.getBoolean( "CostAmmoMult", false ) ) {
@@ -2782,14 +2782,14 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         // this returns the heat generated by weapons for BV purposes as the
         // normal method is governed by user preferences
         double result = 0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() <= 0 ) {
             return result;
         }
 
         abPlaceable a;
         for( int i = 0; i < v.size(); i++ ) {
-            a = (abPlaceable) v.get( i );
+            a = v.get( i );
             if( a instanceof ifWeapon ) {
                 result += ((ifWeapon) a).GetBVHeat();
             }

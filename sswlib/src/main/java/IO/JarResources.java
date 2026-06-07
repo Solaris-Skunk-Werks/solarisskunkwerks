@@ -24,7 +24,7 @@ public final class JarResources {
    public boolean debugOn = false;
 
    // jar resource mapping tables
-   private HashMap htSizes = new HashMap();
+   private HashMap<String, Integer> htSizes = new HashMap<>();
    private HashMap<String, byte[]> htJarContents=new HashMap<String, byte[]>();
 
    // a jar file
@@ -45,7 +45,7 @@ public final class JarResources {
     * @param name a resource name.
     */
    public byte[] getResource(String name) {
-      return (byte[])htJarContents.get(name);
+      return htJarContents.get(name);
    }
 
    /**
@@ -55,13 +55,13 @@ public final class JarResources {
       try {
           // extracts just sizes only.
           ZipFile zf=new ZipFile(getJarFileName());
-          Enumeration e=zf.entries();
+          Enumeration<? extends ZipEntry> e=zf.entries();
           while (e.hasMoreElements()) {
-              ZipEntry ze=(ZipEntry)e.nextElement();
+              ZipEntry ze=e.nextElement();
               if (debugOn) {
                  System.out.println(dumpZipEntry(ze));
               }
-              htSizes.put(ze.getName(),new Integer((int)ze.getSize()));
+              htSizes.put(ze.getName(),Integer.valueOf((int)ze.getSize()));
           }
           zf.close();
 
@@ -82,14 +82,14 @@ public final class JarResources {
              int size=(int)ze.getSize();
              // -1 means unknown size.
              if (size==-1) {
-                size=((Integer)htSizes.get(ze.getName())).intValue();
+                size=htSizes.get(ze.getName()).intValue();
              }
 
-             byte[] b=new byte[(int)size];
+             byte[] b=new byte[size];
              int rb=0;
              int chunk=0;
-             while (((int)size - rb) > 0) {
-                 chunk=zis.read(b,rb,(int)size - rb);
+             while ((size - rb) > 0) {
+                 chunk=zis.read(b,rb,size - rb);
                  if (chunk==-1) {
                     break;
                  }

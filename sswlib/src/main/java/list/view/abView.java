@@ -37,6 +37,8 @@ import javax.swing.table.TableRowSorter;
 import list.UnitList;
 
 public abstract class abView extends AbstractTableModel {
+    private static final long serialVersionUID = 1L;
+
     public Vector<Column> Columns = new Vector<Column>();
     public Vector<Column> SortFields = new Vector<Column>();
     public UnitList list;
@@ -44,8 +46,8 @@ public abstract class abView extends AbstractTableModel {
     public void setupTable( JTable tbl ) {
         tbl.setModel(this);
         //Create a sorting class and apply it to the list
-        TableRowSorter Leftsorter = new TableRowSorter<abView>(this);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        TableRowSorter<abView> Leftsorter = new TableRowSorter<>(this);
+        List <RowSorter.SortKey> sortKeys = new ArrayList<>();
 
         if ( SortFields.size() > 0 ) {
             for ( Column col : SortFields ) {
@@ -85,7 +87,7 @@ public abstract class abView extends AbstractTableModel {
     public int getColumnCount() { return Columns.size(); }
     public int getRowCount() { return list.Size(); }
     @Override
-    public Class getColumnClass(int c) { return Columns.get(c).classType; }
+    public Class<?> getColumnClass(int c) { return Columns.get(c).classType; }
     public Object getClassOf( int row, int col ) { return Columns.get(col).classType; }
     @Override
     public boolean isCellEditable( int row, int col ) { return Columns.get(col).isEditable; }

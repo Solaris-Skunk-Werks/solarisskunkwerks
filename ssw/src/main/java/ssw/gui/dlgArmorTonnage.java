@@ -33,6 +33,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class dlgArmorTonnage extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
     private boolean NewTonnage = false;
     private double result;
     

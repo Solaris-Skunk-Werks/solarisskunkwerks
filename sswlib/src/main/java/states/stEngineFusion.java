@@ -50,7 +50,7 @@ public class stEngineFusion implements ifEngine, ifState {
                                            /*|----------- NORMAL WEIGHT -----------|---------SUPER HEAVY WEIGHT ---------|*/
     private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8};
     private Engine Owner;
-    
+
     public stEngineFusion( Engine e ) {
         AC.SetISCodes( 'D', 'C', 'E', 'D', 'D' );
         AC.SetISDates( 0, 0, false, 2021, 0, 0, false, false );
@@ -76,19 +76,19 @@ public class stEngineFusion implements ifEngine, ifState {
     public double GetTonnage( int Rating, boolean fractional ) {
         return Masses[GetIndex( Rating )];
     }
-    
+
     public int GetCTCrits() {
         return 3;
     }
-    
+
     public int GetSideTorsoCrits() {
         return 0;
     }
-    
+
     public int NumCTBlocks() {
         return 2;
     }
-    
+
     public int NumCVSpaces() {
         return 0;
     }
@@ -140,7 +140,7 @@ public class stEngineFusion implements ifEngine, ifState {
     public double GetCost( int MechTonnage, int Rating ) {
         double baseCost = 5000.0f;
         if ( Rating > 400 ) baseCost *= 2;
-        return ( baseCost * (double) MechTonnage * (double) Rating ) / 75.0;
+        return ( baseCost * MechTonnage * Rating ) / 75.0;
     }
 
     public AvailableCode GetAvailability() {
@@ -155,7 +155,7 @@ public class stEngineFusion implements ifEngine, ifState {
     public double GetBVMult() {
         return 1.0f;
     }
-    
+
     public boolean IsFusion() {
         return true;
     }

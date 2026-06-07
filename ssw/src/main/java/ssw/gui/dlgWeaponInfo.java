@@ -32,6 +32,8 @@ import common.CommonTools;
 import components.*;
 
 public class dlgWeaponInfo extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     ifMechForm Parent;
 
     /** Creates new form dlgItemInfo */

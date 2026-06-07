@@ -3,17 +3,23 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile project(':sswlib')
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation project(':sswlib')
+}
+
+sourceSets {
+    main {
+        resources.srcDir "${buildDir}/generated/resources"
+    }
 }
 
 application {
-    mainClassName = 'BFB.Main'
+    mainClass = 'BFB.Main'
 }
 
 jar {
@@ -23,7 +29,7 @@ jar {
                     .findAll { it.name.endsWith(".jar") }.collect { "lib/${it.name}" }.join(' '),
             'SplashScreen-Image' : 'Images/BFB_Load.png'
     )
-    archiveName = "BFB.jar"
+    archiveFileName = "BFB.jar"
 }
 
 task deleteAssets {
@@ -44,15 +50,16 @@ task copyAssets (dependsOn: deleteAssets) {
 task copyDependencies {
     copy {
         into "${buildDir}/deps"
-        from configurations.compile
+        from configurations.runtimeClasspath
     }
 }
 
 task writeProperties(type: WriteProperties) {
-    outputFile "${buildDir}/resources/main/BFB/build.properties"
+    destinationFile = file("${buildDir}/generated/resources/BFB/build.properties")
     property 'version', version
     property 'release', release
     property 'rev', rev
 }
 
-compileJava.finalizedBy(writeProperties)
+processResources.dependsOn(writeProperties)
+jar.dependsOn(writeProperties)

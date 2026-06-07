@@ -36,9 +36,10 @@ import components.Mech;
 import filehandlers.Media;
 
 public class dlgAmmoChooser extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     private Mech CurMech;
-    private ArrayList Ammo = new ArrayList();
+    private ArrayList<Ammunition> Ammo = new ArrayList<>();
     private DataFactory Data;
 
     /** Creates new form dlgAmmoChooser */
@@ -71,11 +72,11 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
     }
 
     private void BuildInstalledAmmoList() {
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<components.abPlaceable> v = CurMech.GetLoadout().GetNonCore();
         Ammo.clear();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                Ammo.add( v.get( i ) );
+                Ammo.add( (Ammunition) v.get( i ) );
             }
         }
         lstInstalledAmmo.setListData( Ammo.toArray() );
@@ -106,9 +107,9 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
 
         grpAmmoChooser = new javax.swing.ButtonGroup();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lstAvailableAmmo = new javax.swing.JList();
+        lstAvailableAmmo = new javax.swing.JList<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstInstalledAmmo = new javax.swing.JList();
+        lstInstalledAmmo = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         btnChangeAmmo = new javax.swing.JButton();
         btnDone = new javax.swing.JButton();
@@ -119,7 +120,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         rdoYearAmmo = new javax.swing.JRadioButton();
         txtAmmoYear = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cmbRulesLevel = new javax.swing.JComboBox();
+        cmbRulesLevel = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -128,7 +129,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         jScrollPane2.setMinimumSize(new java.awt.Dimension(250, 145));
         jScrollPane2.setPreferredSize(new java.awt.Dimension(250, 145));
 
-        lstAvailableAmmo.setModel(new javax.swing.AbstractListModel() {
+        lstAvailableAmmo.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -147,7 +148,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         jScrollPane1.setMinimumSize(new java.awt.Dimension(250, 145));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(250, 145));
 
-        lstInstalledAmmo.setModel(new javax.swing.AbstractListModel() {
+        lstInstalledAmmo.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -274,7 +275,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced", "Experimental", "Era Specific" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Introductory", "Tournament Legal", "Advanced", "Experimental", "Era Specific" }));
         cmbRulesLevel.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -327,7 +328,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
 
     private void lstInstalledAmmoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstInstalledAmmoValueChanged
         if( lstInstalledAmmo.getSelectedIndex() < 0 ) { return; }
-        Ammunition a = (Ammunition) Ammo.get( lstInstalledAmmo.getSelectedIndex() );
+        Ammunition a = Ammo.get( lstInstalledAmmo.getSelectedIndex() );
         if( rdoAllAmmo.isSelected() ) {
             lstAvailableAmmo.setListData( Data.GetEquipment().GetAllAmmo( a.GetAmmoIndex(), cmbRulesLevel.getSelectedIndex() ) );
         } else if( rdoCanonAmmo.isSelected() ) {
@@ -391,7 +392,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangeAmmo;
     private javax.swing.JButton btnDone;
-    private javax.swing.JComboBox cmbRulesLevel;
+    private javax.swing.JComboBox<String> cmbRulesLevel;
     private javax.swing.ButtonGroup grpAmmoChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -399,8 +400,8 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList lstAvailableAmmo;
-    private javax.swing.JList lstInstalledAmmo;
+    private javax.swing.JList<Object> lstAvailableAmmo;
+    private javax.swing.JList<Object> lstInstalledAmmo;
     private javax.swing.JRadioButton rdoAllAmmo;
     private javax.swing.JRadioButton rdoCanonAmmo;
     private javax.swing.JRadioButton rdoYearAmmo;

@@ -34,6 +34,7 @@ import javax.swing.JList;
 import javax.swing.TransferHandler;
 
 public class thQueueTransferHandler extends TransferHandler {
+    private static final long serialVersionUID = 1L;
 
     // the Queue transfer handler only deals with exporting to other list boxes.
     // other listeners will deal with adding items to the queue.

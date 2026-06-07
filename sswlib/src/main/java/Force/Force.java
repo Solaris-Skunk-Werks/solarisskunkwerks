@@ -40,13 +40,14 @@ import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import list.view.Column;
 import org.w3c.dom.Node;
 
 public class Force extends AbstractTableModel implements ifSerializable {
+    private static final long serialVersionUID = 1L;
+
     public ArrayList<Unit> Units = new ArrayList<Unit>();
     public ArrayList<Group> Groups = new ArrayList<Group>();
     public String ForceName = "",
@@ -174,8 +175,9 @@ public class Force extends AbstractTableModel implements ifSerializable {
     }
 
     public void RefreshBV() {
+        ArrayList<Unit> currentUnits = getUnits();
         NumC3 = 0;
-        TotalUnits = Units.size();
+        TotalUnits = currentUnits.size();
         TotalBaseBV = 0.0f;
         TotalBasePV = 0.0f;
         TotalModifier = 0.0f;
@@ -201,7 +203,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         Damage = 0;
 
         //First pass to determine C3 totals
-        for ( Unit u : getUnits() ) {
+        for ( Unit u : currentUnits ) {
              if (u.UsingC3) {
                 NumC3++;
                 TotalC3BV += u.BaseBV;
@@ -210,7 +212,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
 
         if (TotalC3BV > 1) TotalC3BV *= .05;
 
-        for ( Unit u : getUnits() ) {
+        for ( Unit u : currentUnits ) {
             if ( u.UsingC3 )
                 u.setForceC3BV(TotalC3BV);
 
@@ -330,7 +332,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     public void SerializeXML(BufferedWriter file) throws IOException {
         sortForPrinting();
 
-        file.write( CommonTools.Tabs(2) + "<force name=\"" + this.ForceName + "\" logo=\"" + this.LogoPath + "\" type=\"" + this.Type + "\">" );
+        file.write( CommonTools.Tabs(2) + "<force name=\"" + FileCommon.EncodeXmlAttribute(this.ForceName) + "\" logo=\"" + FileCommon.EncodeXmlAttribute(this.LogoPath) + "\" type=\"" + FileCommon.EncodeXmlAttribute(this.Type) + "\">" );
         file.newLine();
 
         for ( Group g : Groups ) {
@@ -526,9 +528,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     }
 
     public void loadLogo(ImageTracker imageTracker) {
-        if (!LogoPath.isEmpty()) {
-            Logo = imageTracker.getImage(LogoPath);
-        }
+        Logo = LogoPath.isEmpty() ? null : imageTracker.getImage(LogoPath);
     }
 
     public void setupTable( JTable tbl ) {
@@ -584,7 +584,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         bf.ForceName = ForceName;
         bf.LogoPath = this.LogoPath;
         for ( int i=0; i < Units.size(); i++ ) {
-            Unit u = (Unit) Units.get(i);
+            Unit u = Units.get(i);
             if ( u.getBFStats() != null ) {
                 bf.BattleForceStats.add(u.getBFStats());
             } else {
@@ -676,7 +676,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     public int getRowCount() { return Units.size(); }
     public int getColumnCount() { return 11; }
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (Units.size() > 0) {
             return getClassOf(0, c).getClass();
         } else {
@@ -684,7 +684,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         }
     }
     public Object getClassOf( int row, int col ) {
-        Unit u = (Unit) Units.get( row );
+        Unit u = Units.get( row );
         switch( col ) {
             case 0:
                 return u.TypeModel;
@@ -712,7 +712,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         return "";
     }
     public Object getValueAt( int row, int col ) {
-        Unit u = (Unit) Units.get( row );
+        Unit u = Units.get( row );
         switch( col ) {
             case 0:
                 return u.TypeModel;
@@ -761,7 +761,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     }
     @Override
     public void setValueAt( Object value, int row, int col ) {
-        Unit u = (Unit) Units.get( row );
+        Unit u = Units.get( row );
         switch( col ) {
             case 2:
                 u.setMechwarrior(value.toString());

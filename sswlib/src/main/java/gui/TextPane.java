@@ -34,6 +34,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
 public class TextPane extends JPanel {
+    private static final long serialVersionUID = 1L;
+
     private JScrollPane Scroller;
     private JTextPane Text = new JTextPane();
 

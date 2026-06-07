@@ -39,12 +39,12 @@ public class dlgGroup extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstGroups = new javax.swing.JList();
+        lstGroups = new javax.swing.JList<Group>();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblGroupLogo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lstUnits = new javax.swing.JList();
+        lstUnits = new javax.swing.JList<Unit>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -261,7 +261,7 @@ public class dlgGroup extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loadGroupList() {
-        DefaultListModel gModel = new DefaultListModel();
+        DefaultListModel<Group> gModel = new DefaultListModel<Group>();
         for ( Force f : scenario.getForces() ) {
             for ( Group g : f.Groups ) {
                 gModel.addElement(g);
@@ -292,7 +292,7 @@ public class dlgGroup extends javax.swing.JDialog {
             lblPV.setText(curGroup.getTotalPV()+"");
             media.setLogo(lblGroupLogo, new File(curGroup.getLogo()));
 
-            DefaultListModel uModel = new DefaultListModel();
+            DefaultListModel<Unit> uModel = new DefaultListModel<Unit>();
             for ( Unit u : curGroup.getUnits() ) {
                 uModel.addElement(u);
             }
@@ -352,8 +352,8 @@ public class dlgGroup extends javax.swing.JDialog {
     private javax.swing.JLabel lblBV;
     private javax.swing.JLabel lblGroupLogo;
     private javax.swing.JLabel lblPV;
-    private javax.swing.JList lstGroups;
-    private javax.swing.JList lstUnits;
+    private javax.swing.JList<Group> lstGroups;
+    private javax.swing.JList<Unit> lstUnits;
     private javax.swing.JRadioButton rdoClan;
     private javax.swing.JRadioButton rdoComstar;
     private javax.swing.JRadioButton rdoInnerSphere;

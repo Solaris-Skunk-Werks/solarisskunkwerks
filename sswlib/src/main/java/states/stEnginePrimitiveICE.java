@@ -120,7 +120,7 @@ public class stEnginePrimitiveICE implements ifEngine, ifState {
     }
 
     public double GetCost( int MechTonnage, int Rating ) {
-        return ( 1250.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
+        return ( 1250.0f * (MechTonnage) * (Rating )) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {

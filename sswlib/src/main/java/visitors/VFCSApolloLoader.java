@@ -45,11 +45,11 @@ public class VFCSApolloLoader implements ifVisitor {
     }
 
     public void Visit( Mech m ) {
-        ArrayList test = m.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> test = m.GetLoadout().GetNonCore();
         abPlaceable p;
         abPlaceable FCS;
         for( int i = 0; i < test.size(); i++ ) {
-            p = (abPlaceable) test.get( i );
+            p = test.get( i );
             if( p instanceof RangedWeapon ) {
                 RangedWeapon MW = (RangedWeapon) p;
                 if( MW.GetFCSType() == ifMissileGuidance.FCS_Apollo ) {
@@ -127,11 +127,11 @@ public class VFCSApolloLoader implements ifVisitor {
     }
 
     public void Visit( CombatVehicle v ) throws Exception {
-        ArrayList test = v.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> test = v.GetLoadout().GetNonCore();
         abPlaceable p;
         
         for( int i = 0; i < test.size(); i++ ) {
-            p = (abPlaceable) test.get( i );
+            p = test.get( i );
             //Is it a Ranged Weapon
             if( p instanceof RangedWeapon ) {
                 RangedWeapon MW = (RangedWeapon) p;

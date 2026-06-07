@@ -33,6 +33,8 @@ import javax.swing.SortOrder;
 import list.view.Column;
 
 public class tbBattleForce extends abTable {
+    private static final long serialVersionUID = 1L;
+
     public tbBattleForce() {
         Columns.add(new Column( 0, "Unit", "TypeModel", 150 ));
         Columns.add(new Column( 1, "Type", "UnitType", 50 ));

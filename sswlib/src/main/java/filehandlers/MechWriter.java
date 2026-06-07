@@ -143,7 +143,7 @@ public class MechWriter {
         FR.write( tab + "</structure>" );
         FR.newLine();
 
-        ArrayList engineLocs = CurMech.GetLoadout().FindIndexes( CurMech.GetEngine() );
+        ArrayList<LocationIndex> engineLocs = CurMech.GetLoadout().FindIndexes( CurMech.GetEngine() );
         LocationIndex ls = new LocationIndex();
         LocationIndex rs = new LocationIndex();
         ls.Location = LocationIndex.MECH_LOC_LT;
@@ -151,8 +151,8 @@ public class MechWriter {
         rs.Location = LocationIndex.MECH_LOC_RT;
         rs.Index = 12;
         for( int i = 0; i < engineLocs.size(); i++ ) {
-            ls.SetFirst( ((LocationIndex) engineLocs.get( i )) );
-            rs.SetFirst( ((LocationIndex) engineLocs.get( i )) );
+            ls.SetFirst( engineLocs.get( i ) );
+            rs.SetFirst( engineLocs.get( i ) );
         }
         if( ls.Index == 12 ) { ls.Index = -1; }
         if( rs.Index == 12 ) { rs.Index = -1; }
@@ -336,7 +336,7 @@ public class MechWriter {
         }
         if( CurMech.UsingPartialWing() ) {
             // this can only ever go in the base loadout, so we'll save it here
-            ArrayList pwlocs = CurMech.GetLoadout().FindIndexes( CurMech.GetPartialWing() );
+            ArrayList<LocationIndex> pwlocs = CurMech.GetLoadout().FindIndexes( CurMech.GetPartialWing() );
             ls = new LocationIndex();
             rs = new LocationIndex();
             ls.Location = LocationIndex.MECH_LOC_LT;
@@ -344,8 +344,8 @@ public class MechWriter {
             rs.Location = LocationIndex.MECH_LOC_RT;
             rs.Index = 12;
             for( int i = 0; i < pwlocs.size(); i++ ) {
-                ls.SetFirst( ((LocationIndex) pwlocs.get( i )) );
-                rs.SetFirst( ((LocationIndex) pwlocs.get( i )) );
+                ls.SetFirst( pwlocs.get( i ) );
+                rs.SetFirst( pwlocs.get( i ) );
             }
             if( ls.Index == 12 ) { ls.Index = -1; }
             if( rs.Index == 12 ) { rs.Index = -1; }
@@ -403,9 +403,9 @@ public class MechWriter {
 
         if( CurMech.IsOmnimech() ) {
             String curLoadout = CurMech.GetLoadout().GetName();
-            ArrayList v = CurMech.GetLoadouts();
+            ArrayList<ifMechLoadout> v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
-                String loadoutName = ((ifMechLoadout)v.get( i )).GetName();
+                String loadoutName = v.get( i ).GetName();
                 CurMech.SetCurLoadout( loadoutName );
                 if( CurMech.GetBaseRulesLevel() != CurMech.GetLoadout().GetRulesLevel() ) {
                     FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" ruleslevel=\"" + CurMech.GetLoadout().GetRulesLevel() + "\" fcsa4=\"" + FileCommon.GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + FileCommon.GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + FileCommon.GetBoolean( CurMech.UsingApollo() ) + "\">" );
@@ -571,15 +571,15 @@ public class MechWriter {
         String retval = "";
         if( p.Contiguous() ) {
             if( p.CanSplit() ) {
-                ArrayList v = CurMech.GetLoadout().FindSplitIndex( p );
+                ArrayList<LocationIndex> v = CurMech.GetLoadout().FindSplitIndex( p );
                 if( v.size() < 1 ) {
                     return "";
                 } else if( v.size() == 1 ) {
-                    LocationIndex l = (LocationIndex) v.get( 0 );
+                    LocationIndex l = v.get( 0 );
                     retval += Prefix + "<location index=\"" + l.Index + "\">" + FileCommon.EncodeLocation( l.Location, CurMech.IsQuad() ) + "</location>" + NL;
                 } else {
                     for( int i = 0; i < v.size(); i++ ) {
-                        LocationIndex l = (LocationIndex) v.get( i );
+                        LocationIndex l = v.get( i );
                         retval += Prefix + "<splitlocation index=\"" + l.Index + "\" number=\"" + l.Number + "\">" + FileCommon.EncodeLocation( l.Location, CurMech.IsQuad() ) + "</splitlocation>" + NL;
                     }
                 }
@@ -588,13 +588,13 @@ public class MechWriter {
                 retval += Prefix + "<location index=\"" + l.Index + "\">" + FileCommon.EncodeLocation( l.Location, CurMech.IsQuad() ) + "</location>" + NL;
             }
         } else {
-            ArrayList v = CurMech.GetLoadout().FindIndexes( p );
+            ArrayList<LocationIndex> v = CurMech.GetLoadout().FindIndexes( p );
             if( v.size() < 1 ) {
                 return "";
             }
 
             for( int i = 0; i < v.size(); i++ ) {
-                LocationIndex l = (LocationIndex) v.get( i );
+                LocationIndex l = v.get( i );
                 retval += Prefix + "<location index=\"" + l.Index + "\">" + FileCommon.EncodeLocation( l.Location, CurMech.IsQuad() ) + "</location>" + NL;
             }
         }
@@ -656,14 +656,14 @@ public class MechWriter {
 
     private String GetEquipmentLines( String prefix ) {
         String retval = "";
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
-        ArrayList vBase = CurMech.GetBaseLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> vBase = CurMech.GetBaseLoadout().GetNonCore();
         boolean OmniLoad = false;
         if( ! CurMech.GetLoadout().GetName().equals( Constants.BASELOADOUT_NAME ) ) {
             OmniLoad = true;
         }
         for( int i = 0; i < v.size(); i++ ) {
-            abPlaceable p = (abPlaceable) v.get( i );
+            abPlaceable p = v.get( i );
             if( vBase.contains( p ) && OmniLoad ) {
                 // the logic escapes me.  do nothing here.
             } else {

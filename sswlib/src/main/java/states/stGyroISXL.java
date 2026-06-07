@@ -47,9 +47,9 @@ public class stGyroISXL implements ifGyro, ifState {
     }
 
     public double GetTonnage( int rating ) {
-        return (double) (((int) ( rating * 0.01f + 0.99f )) * 0.5);
+        return (((int) ( rating * 0.01f + 0.99f )) * 0.5);
     }
-    
+
     public int GetCrits() {
         return 6;
     }
@@ -85,15 +85,15 @@ public class stGyroISXL implements ifGyro, ifState {
     public double GetBVMult() {
         return 0.5f;
     }
-    
+
     public double GetCostMult() {
         return 750000.0f;
     }
-    
+
     public AvailableCode GetAvailability() {
         return AC;
     }
-    
+
     public MechModifier GetMechModifier() {
         return null;
     }

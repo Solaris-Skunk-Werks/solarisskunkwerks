@@ -26,7 +26,7 @@ public class JsonReader {
             .registerTypeAdapter(Quirk.class, new QuirkInstanceCreator())
             .create();
 
-    public ArrayList ReadAllAmmo(Path f) throws Exception {
+    public ArrayList<Ammunition> ReadAllAmmo(Path f) throws Exception {
         Type collectionType = new TypeToken<Map<String, Ammunition>>(){}.getType();
         Map<String, Ammunition> map = gson.fromJson(new FileReader(f.toString()), collectionType);
         // hack to get the lot size showing correctly in the GUI
@@ -37,25 +37,25 @@ public class JsonReader {
 
     }
 
-    public ArrayList ReadAllRangedWeapons(Path f) throws Exception {
+    public ArrayList<RangedWeapon> ReadAllRangedWeapons(Path f) throws Exception {
         Type collectionType = new TypeToken<Map<String, RangedWeapon>>(){}.getType();
         Map<String, RangedWeapon> map = gson.fromJson(new FileReader(f.toString()), collectionType);
         return new ArrayList<>(map.values());
     }
 
-    public ArrayList ReadAllPhysicalWeapons(Path f) throws Exception {
+    public ArrayList<PhysicalWeapon> ReadAllPhysicalWeapons(Path f) throws Exception {
         Type collectionType = new TypeToken<Map<String, PhysicalWeapon>>(){}.getType();
         Map<String, PhysicalWeapon> map = gson.fromJson(new FileReader(f.toString()), collectionType);
         return new ArrayList<>(map.values());
     }
 
-    public ArrayList ReadAllEquipment(Path f) throws Exception {
+    public ArrayList<Equipment> ReadAllEquipment(Path f) throws Exception {
         Type collectionType = new TypeToken<Map<String, Equipment>>(){}.getType();
         Map<String, Equipment> map = gson.fromJson(new FileReader(f.toString()), collectionType);
         return new ArrayList<>(map.values());
     }
 
-    public ArrayList ReadAllQuirks(Path f) throws Exception {
+    public ArrayList<Quirk> ReadAllQuirks(Path f) throws Exception {
         Type collectionType = new TypeToken<Map<String, Quirk>>(){}.getType();
         Map<String, Quirk> map = gson.fromJson(new FileReader(f.toString()), collectionType);
         return new ArrayList<>(map.values());

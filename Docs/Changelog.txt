@@ -1,5 +1,14 @@
 SSW Changelog
 -------------------------------------------------------------------------------
+Version 0.7.8.0
++ Changed
+- Modernized the build to run on Java 17 and Gradle 8.14.4.
+- Updated CI to build with Java 17 and the current Gradle wrapper.
+
++ Fixed
+- Restored saved mech-image rendering when printing saved units without choosing a separate image file.
+- Fixed print renderer overlap in generated output.
+
 Version 0.7.0
 + Added
 - You can now control whether Clan CASE is used in the 'Mech, affecting cost and BV.

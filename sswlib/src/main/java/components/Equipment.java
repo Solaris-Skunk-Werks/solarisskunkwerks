@@ -545,9 +545,9 @@ public class Equipment extends abPlaceable implements ifEquipment {
             throw new Exception(CritName() + " may only be mounted on a quad 'Mech.");
         }
         if( MaxAllowed > 0 ) {
-            ArrayList currentEquipment = m.GetLoadout().GetEquipment();
+            ArrayList<abPlaceable> currentEquipment = m.GetLoadout().GetEquipment();
             for (int i = 0, c = 0; i < currentEquipment.size(); ++i) {
-                abPlaceable currentItem = (abPlaceable) currentEquipment.get(i);
+                abPlaceable currentItem = currentEquipment.get(i);
                 if (currentItem.ActualName().equals(ActualName)) {
                     ++c;
                     if (c == MaxAllowed) {
@@ -564,9 +564,9 @@ public class Equipment extends abPlaceable implements ifEquipment {
     @Override
     public void Validate( CombatVehicle v ) throws Exception {
         if( MaxAllowed > 0 ) {
-            ArrayList currentEquipment = v.GetLoadout().GetEquipment();
+            ArrayList<abPlaceable> currentEquipment = v.GetLoadout().GetEquipment();
             for( int i = 0, c = 0; i < currentEquipment.size(); ++i ) {
-                abPlaceable currentItem = (abPlaceable) currentEquipment.get( i );
+                abPlaceable currentItem = currentEquipment.get( i );
                 if( currentItem.ActualName().equals( ActualName ) ) {
                     ++c;
                     if( c == MaxAllowed ) {

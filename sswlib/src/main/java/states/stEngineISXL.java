@@ -140,7 +140,7 @@ public class stEngineISXL implements ifEngine, ifState {
     public double GetCost( int MechTonnage, int Rating ) {
         double baseCost = 20000.0f;
         if ( Rating > 400 ) baseCost *= 2;
-        return ( baseCost * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
+        return ( baseCost * (MechTonnage) * (Rating )) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {

@@ -35,7 +35,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.AbstractTableModel;
 
 public class FSL extends AbstractTableModel {
-    private ArrayList Items = new ArrayList();
+    private static final long serialVersionUID = 1L;
+
+    private ArrayList<FSLItem> Items = new ArrayList<>();
 
     public void Add( FSLItem item ) {
         Items.add( item );
@@ -68,11 +70,11 @@ public class FSL extends AbstractTableModel {
         }
     }
 
-    public DefaultComboBoxModel getFactions() {
-        ArrayList storage = new ArrayList();
-        DefaultComboBoxModel list = new DefaultComboBoxModel();
+    public DefaultComboBoxModel<String> getFactions() {
+        ArrayList<String> storage = new ArrayList<>();
+        DefaultComboBoxModel<String> list = new DefaultComboBoxModel<>();
         for ( int i=0; i < Items.size(); i++ ) {
-            FSLItem item = (FSLItem) Items.get(i);
+            FSLItem item = Items.get(i);
             if ( ! storage.contains( item.Faction ) ) {
                 list.addElement( item.Faction );
                 storage.add(item.Faction);
@@ -81,11 +83,11 @@ public class FSL extends AbstractTableModel {
         return list;
     }
 
-    public DefaultComboBoxModel getTypes() {
-        ArrayList storage = new ArrayList();
-        DefaultComboBoxModel list = new DefaultComboBoxModel();
+    public DefaultComboBoxModel<String> getTypes() {
+        ArrayList<String> storage = new ArrayList<>();
+        DefaultComboBoxModel<String> list = new DefaultComboBoxModel<>();
         for ( int i=0; i < Items.size(); i++ ) {
-            FSLItem item = (FSLItem) Items.get(i);
+            FSLItem item = Items.get(i);
             if ( ! storage.contains( item.Type ) ) {
                 list.addElement( item.Type );
                 storage.add(item.Type);
@@ -94,11 +96,11 @@ public class FSL extends AbstractTableModel {
         return list;
     }
 
-    public DefaultComboBoxModel getSources() {
-        ArrayList storage = new ArrayList();
-        DefaultComboBoxModel list = new DefaultComboBoxModel();
+    public DefaultComboBoxModel<String> getSources() {
+        ArrayList<String> storage = new ArrayList<>();
+        DefaultComboBoxModel<String> list = new DefaultComboBoxModel<>();
         for ( int i=0; i < Items.size(); i++ ) {
-            FSLItem item = (FSLItem) Items.get(i);
+            FSLItem item = Items.get(i);
             if ( ! storage.contains( item.Source ) ) {
                 list.addElement( item.Source );
                 storage.add(item.Source);
@@ -107,11 +109,11 @@ public class FSL extends AbstractTableModel {
         return list;
     }
 
-    public DefaultComboBoxModel getEras() {
-        ArrayList storage = new ArrayList();
-        DefaultComboBoxModel list = new DefaultComboBoxModel();
+    public DefaultComboBoxModel<String> getEras() {
+        ArrayList<String> storage = new ArrayList<>();
+        DefaultComboBoxModel<String> list = new DefaultComboBoxModel<>();
         for ( int i=0; i < Items.size(); i++ ) {
-            FSLItem item = (FSLItem) Items.get(i);
+            FSLItem item = Items.get(i);
             if ( ! storage.contains( item.Era ) ) {
                 list.addElement( item.Era );
                 storage.add(item.Era);
@@ -149,7 +151,7 @@ public class FSL extends AbstractTableModel {
     public int getRowCount() { return Items.size(); }
     public int getColumnCount() { return 10; }
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (Items.size() > 0) {
             return getClassOf(0, c).getClass();
         } else {
@@ -157,7 +159,7 @@ public class FSL extends AbstractTableModel {
         }
     }
     public Object getClassOf( int row, int col ) {
-        FSLItem u = (FSLItem) Items.get( row );
+        FSLItem u = Items.get( row );
         switch( col ) {
             case 0:
                 return u.Faction;
@@ -183,7 +185,7 @@ public class FSL extends AbstractTableModel {
         return "";
     }
     public Object getValueAt( int row, int col ) {
-        FSLItem u = (FSLItem) Items.get( row );
+        FSLItem u = Items.get( row );
         switch( col ) {
             case 0:
                 return u.Faction;

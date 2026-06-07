@@ -79,7 +79,7 @@ public class PrintVehicle implements Printable {
     public PrintVehicle( CombatVehicle m, Image i, boolean adv, boolean A4, ImageTracker images) {
         CurVee = m;
         imageTracker = images;
-        if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  ) UnitImage = imageTracker.getImage(m.GetSSWImage());
+        if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  ) UnitImage = imageTracker.getImage(m.GetSSWImage(), m.GetName(), m.GetModel());
         Advanced = adv;
         BV = CommonTools.GetAdjustedBV(CurVee.GetCurrentBV(), Gunnery, Piloting);
         UseA4Paper = A4;
@@ -254,7 +254,7 @@ public class PrintVehicle implements Printable {
         start.y -= 6;
         Point bounds = ap.GetPoints().GetImageBounds();
         if ( printMech ) {
-            UnitImage = imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
+            UnitImage = imageTracker.getImage(CurVee.GetSSWImage(), CurVee.GetName(), CurVee.GetModel());
             if( UnitImage != null ) {
                 //graphics.drawRect(start.x, start.y, 150, 210);
                 Dimension d = imageTracker.media.reSize(getUnitImage(), bounds.x, bounds.y);
@@ -309,17 +309,15 @@ public class PrintVehicle implements Printable {
         graphics.setFont( PrintConsts.ReallySmallFont );
         if (TotalItemLines() > 15) { graphics.setFont( PrintConsts.TinyFont ); }
         if (TotalItemLines() >= 20) { graphics.setFont( PrintConsts.CrazyTinyFont); }
-        int offset = 0,
-            xoffset = 0;
+        int offset = 0;
 
         for ( PlaceableInfo item : Items ) {
-            xoffset = 0;
             graphics.drawString( item.Count + "", p[0].x+1, p[0].y + offset );
             graphics.drawString( item.name, p[1].x-3, p[1].y + offset );
             graphics.drawString( item.locName, p[2].x, p[2].y + offset );
             //graphics.drawString( item.heat, p[3].x, p[3].y + offset );
-            if ( item.damage.length() > 3 ) xoffset = (int)Math.ceil(item.damage.length());
-            graphics.drawString( item.damage, p[4].x - xoffset, p[4].y + offset );
+            int damageX = PrintConsts.fitTextStartBeforeColumn(graphics, item.damage, p[4].x, p[5].x, 3);
+            graphics.drawString( item.damage, damageX, p[4].y + offset );
             graphics.drawString( item.min, p[5].x, p[5].y + offset );
             graphics.drawString( item.rShort, p[6].x, p[6].y + offset );
             graphics.drawString( item.rMed, p[7].x, p[7].y + offset );
@@ -337,10 +335,10 @@ public class PrintVehicle implements Printable {
                 //if we aren't printing a TRO specific sheet...get rid of all the excess!
                 if (TRO || TotalItemLines() < 15) {
                     if ( item.specials.replace("-", "").length() > 0 ) {
-                        xoffset = (int)Math.ceil(item.specials.length());
                         //Font curFont = graphics.getFont();
                         //graphics.setFont(PrintConsts.CrazyTinyFont);
-                        graphics.drawString( item.specials, p[4].x - xoffset, p[4].y + offset );
+                        int specialsX = p[4].x - (int) Math.ceil(item.specials.length());
+                        graphics.drawString( item.specials, specialsX, p[4].y + offset );
                         lineoffset = graphics.getFont().getSize();
                         //graphics.setFont(curFont);
                     }
@@ -362,7 +360,7 @@ public class PrintVehicle implements Printable {
                 offset += graphics.getFont().getSize();
             }
             for ( int index=0; index < AmmoList.size(); index++ ) {
-                AmmoData CurAmmo = (AmmoData) AmmoList.get(index);
+                AmmoData CurAmmo = AmmoList.get(index);
                 graphics.drawString( CurAmmo.Format(), p[0].x, p[0].y + offset);
                 graphics.drawString( CurAmmo.LotSize + "", p[3].x-30, p[3].y + offset);
                 
@@ -537,7 +535,7 @@ public class PrintVehicle implements Printable {
 
     private ArrayList<AmmoData> GetAmmo() {
         //Output the list of Ammunition
-        ArrayList all = CurVee.GetLoadout().GetNonCore();
+        ArrayList<components.abPlaceable> all = CurVee.GetLoadout().GetNonCore();
         ArrayList<AmmoData> AmmoLister = new ArrayList<AmmoData>();
         for ( int index=0; index < all.size(); index++ ) {
             if(  all.get( index ) instanceof Ammunition ) {
@@ -545,7 +543,7 @@ public class PrintVehicle implements Printable {
                 CurAmmo.makeGeneric = makeAmmoGeneric;
                 boolean found = false;
                 for ( int internal=0; internal < AmmoLister.size(); internal++ ) {
-                    AmmoData existAmmo = (AmmoData) AmmoLister.get(internal);
+                    AmmoData existAmmo = AmmoLister.get(internal);
                     if ( CurAmmo.Name().equals( existAmmo.Name() ) ) {
                         existAmmo.LotSize += CurAmmo.LotSize;
                         found = true;

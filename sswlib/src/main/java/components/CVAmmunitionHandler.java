@@ -31,11 +31,9 @@ package components;
 import java.util.Vector;
 
 public class CVAmmunitionHandler {
-    private Vector<Ammunition> Ammo = new Vector<Ammunition>();
-    private CVLoadout Owner;
+    private Vector<Ammunition> Ammo = new Vector<>();
 
     public CVAmmunitionHandler( CVLoadout c ) {
-        Owner = c;
     }
 
     public void AddAmmo( Ammunition a ) {
@@ -52,14 +50,14 @@ public class CVAmmunitionHandler {
 
     public double GetTonnage() {
         double retval = 0.0;
-        for( int i = 0; i < Ammo.size(); i++ ) {
-            retval += Ammo.get( i ).GetTonnage();
+        for( Ammunition ammo : Ammo ) {
+            retval += ammo.GetTonnage();
         }
         return retval;
     }
 
     public int AmmoSpace() {
-        Vector<Ammunition> check = (Vector<Ammunition>) Ammo.clone();
+        Vector<Ammunition> check = new Vector<>(Ammo);
         int curIDX = 0, retval = 0;
         while( check.size() > 0 ) {
             curIDX = check.lastElement().GetAmmoIndex();

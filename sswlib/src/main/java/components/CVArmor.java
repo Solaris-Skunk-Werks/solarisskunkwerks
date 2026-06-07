@@ -919,7 +919,7 @@ public class CVArmor extends abPlaceable {
         if( Owner.UsingFractionalAccounting() ) { return 0.0; }
         double result = GetTonnage() - GetArmorValue() / ( 16 * Config.GetAVMult() );
         if( result < 0.0 ) { result = 0.0; }
-        return (double) Math.floor( result * 100 ) / 100;
+        return Math.floor( result * 100 ) / 100;
     }
 
     public int GetWastedAV() {
@@ -935,7 +935,7 @@ public class CVArmor extends abPlaceable {
     public double GetCoverage() {
         // returns the amount of max armor coverage on this mech as a percentage
         double result = (double) GetArmorValue() / (double) GetMaxArmor();
-        return (double) Math.floor( result * 10000 ) / 100;
+        return Math.floor( result * 10000 ) / 100;
     }
 
     public double GetMaxTonnage() {

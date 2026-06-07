@@ -33,7 +33,6 @@ import Force.*;
 import filehandlers.ImageTracker;
 import java.awt.print.*;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public final class BFBPrinter {
     private String jobName = "Battletech Force Balancer",
@@ -45,10 +44,10 @@ public final class BFBPrinter {
     private ImageTracker imageTracker;
     private int unitSize = 0;
 
-    private Book pages = new Book();
     private Paper paper = new Paper();
     private PageFormat page = new PageFormat();
-    private PrinterJob job = PrinterJob.getPrinterJob();
+    private PrinterJobGateway job;
+    private PrintWorkflow workflow;
 
     //To convert paper size to pixels is inches / 0.0139 rounded down
     public final static PaperSize Letter = new PaperSize(8.5d, 11d);
@@ -58,7 +57,13 @@ public final class BFBPrinter {
     public final static PaperSize FullLetter = new PaperSize(612, 791, 10, 10, 592, 771);
 
     public BFBPrinter( ImageTracker imageTracker) {
+        this(imageTracker, new PrinterJobGateway());
+    }
+
+    BFBPrinter( ImageTracker imageTracker, PrinterJobGateway job ) {
         this.imageTracker = imageTracker;
+        this.job = job;
+        workflow = new PrintWorkflow(job);
         setPaperSize(Letter);
         sheet = new ForceListPrinter(imageTracker);
         chits = new PrintDeclaration(imageTracker);
@@ -91,7 +96,7 @@ public final class BFBPrinter {
     }
 
     public PrinterJob getJob() {
-        return job;
+        return job.getPrinterJob();
     }
 
     public void setPaperSize( PaperSize s ) {
@@ -105,44 +110,36 @@ public final class BFBPrinter {
     }
 
     public void Print() {
-        job.setJobName(jobName.trim());
-
-        //start building the print objects necessary
-        GeneratePrints();
-
-        job.setPageable(pages);
-        boolean DoPrint = job.printDialog();
-        if( DoPrint ) {
-            try {
-                job.print();
-            } catch( PrinterException e ) {
-                System.err.println( e.getMessage() );
-                System.out.println( e.getStackTrace() );
-            }
+        try {
+            workflow.print(buildPrintRequest());
+        } catch( PrinterException e ) {
+            System.err.println( e.getMessage() );
+            System.out.println( e.getStackTrace() );
         }
     }
 
     public Book Preview() {
-        GeneratePrints();
-        return pages;
+        return workflow.preview(buildPrintRequest());
     }
 
-    private void GeneratePrints() {
-        //start building the print objects necessary
+    private PrintRequest buildPrintRequest() {
         page.setPaper( paper );
-        pages.append(sheet, page);
+        PrintRequest.Builder request = PrintRequest.builder(jobName.trim());
+        request.addPage(page, sheet);
 
         if ( unitSize > 24 ) {
             chits.clearForces();
-            chits.AddForce((Force) this.forces.get(0));
-            pages.append(chits, page);
+            chits.AddForce(this.forces.get(0));
+            request.addPage(page, chits);
 
             PrintDeclaration chit2 = new PrintDeclaration(imageTracker);
-            chit2.AddForce((Force) this.forces.get(1));
-            pages.append(chit2, page);
+            chit2.AddForce(this.forces.get(1));
+            request.addPage(page, chit2);
         } else {
-            pages.append(chits, page);
+            request.addPage(page, chits);
         }
+
+        return request.build();
     }
 
     /**

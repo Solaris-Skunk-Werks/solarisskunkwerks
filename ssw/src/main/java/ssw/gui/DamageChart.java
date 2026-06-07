@@ -37,10 +37,11 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 public class DamageChart extends JPanel {
+    private static final long serialVersionUID = 1L;
     private int GridX = 1;
     private int GridY = 1;
-    private Vector charts = new Vector();
-    private Vector colors = new Vector();
+    private Vector<int[]> charts = new Vector<>();
+    private Vector<Color> colors = new Vector<>();
     private boolean TextView = false;
 
     public DamageChart() {
@@ -110,8 +111,8 @@ public class DamageChart extends JPanel {
 
         g.setStroke( new BasicStroke( 2 ) );
         for( int i = 0; i < charts.size(); i++ ) {
-            int[] chart = (int[]) charts.get( i );
-            g.setColor( ((Color) colors.get( i )) );
+            int[] chart = charts.get( i );
+            g.setColor( colors.get( i ) );
             for( int j = 1; j < chart.length; j++ ) {
                 if( chart[j] == 0 ) {
                     g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j-1] * offY)), (( j - 1 ) * offX), (dy - (chart[j] * offY)) ) );
@@ -161,8 +162,8 @@ public class DamageChart extends JPanel {
         int CurX = 10;
 
         for( int i = 0; i < charts.size(); i++ ) {
-            int[] chart = (int[]) charts.get( i );
-            g.setColor( (Color) colors.get( i ) );
+            int[] chart = charts.get( i );
+            g.setColor( colors.get( i ) );
             Group newGroup = null;
             for( int j = 1; j < chart.length; j++ ) {
                 // build the group.

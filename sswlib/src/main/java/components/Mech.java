@@ -120,7 +120,7 @@ public class Mech implements ifUnit, ifBattleforce {
                       CurRAAES;
     private PartialWing Wing = new PartialWing( this );
     private AvailableCode FHESAC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private Hashtable Lookup = new Hashtable();
+    private Hashtable<String, ifVisitor> Lookup = new Hashtable<String, ifVisitor>();
     private AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH );
     private BattleForceData BFData;
     private Preferences Prefs;
@@ -282,6 +282,297 @@ public class Mech implements ifUnit, ifBattleforce {
         FHESAC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
+    private void ReinstallFixedSlotEquipment( boolean reinstallSignatureSystems, boolean reinstallPartialWing ) throws Exception {
+        if( HasBlueShield ) {
+            SetBlueShield( false );
+            if( reinstallSignatureSystems ) {
+                SetBlueShield( true );
+            }
+        }
+        if( HasChameleon ) {
+            SetChameleon( false );
+            if( reinstallSignatureSystems ) {
+                SetChameleon( true );
+            }
+        }
+        if( HasEjectionSeat ) {
+            SetEjectionSeat( false );
+            SetEjectionSeat( true );
+        }
+        if( HasEnviroSealing ) {
+            SetEnviroSealing( false );
+            SetEnviroSealing( true );
+        }
+        if( HasNullSig ) {
+            SetNullSig( false );
+            if( reinstallSignatureSystems ) {
+                SetNullSig( true );
+            }
+        }
+        if( HasTracks ) {
+            SetTracks( false );
+            SetTracks( true );
+        }
+        if( HasVoidSig ) {
+            SetVoidSig( false );
+            if( reinstallSignatureSystems ) {
+                SetVoidSig( true );
+            }
+        }
+        if( HasPartialWing ) {
+            SetPartialWing( false );
+            if( reinstallPartialWing ) {
+                SetPartialWing( true );
+            }
+        }
+    }
+
+    private boolean SetMultiSlotSystem( boolean set, boolean currentlySet, MultiSlotSystem system, String noRoomMessage ) throws Exception {
+        return SetMultiSlotSystem( set, currentlySet, system, null, noRoomMessage );
+    }
+
+    private boolean SetMultiSlotSystem( boolean set, boolean currentlySet, MultiSlotSystem system, LocationIndex[] locs, String noRoomMessage ) throws Exception {
+        if( set == currentlySet ) {
+            return currentlySet;
+        }
+
+        if( set ) {
+            MainLoadout.CheckExclusions( system );
+            boolean placed;
+            if( locs == null ) {
+                placed = system.Place( MainLoadout );
+            } else {
+                placed = system.Place( MainLoadout, locs );
+            }
+            if( ! placed ) {
+                MainLoadout.Remove( system );
+                throw new Exception( noRoomMessage );
+            }
+            AddMechModifier( system.GetMechModifier() );
+        } else {
+            MainLoadout.Remove( system );
+        }
+
+        SetChanged( true );
+        return set;
+    }
+
+    private void SetDefaultInternalStructure() {
+        SetDefaultInternalStructure( IsQuad() );
+    }
+
+    private void SetDefaultInternalStructure( boolean quadStyleStructure ) {
+        if( quadStyleStructure ) {
+            if( IndustrialMech ) {
+                CurIntStruc.SetIMQD();
+            } else {
+                CurIntStruc.SetMSQD();
+            }
+        } else {
+            if( IndustrialMech ) {
+                CurIntStruc.SetIMBP();
+            } else {
+                CurIntStruc.SetMSBP();
+            }
+        }
+    }
+
+    private void SetDefaultCockpit() {
+        if( IndustrialMech ) {
+            CurCockpit.SetIndustrialCockpit();
+        } else {
+            CurCockpit.SetStandardCockpit();
+        }
+    }
+
+    private void PlaceCoreComponents() {
+        CurGyro.Place( CurLoadout );
+        CurEngine.Place( CurLoadout );
+        CurIntStruc.Place( CurLoadout );
+        CurCockpit.Place( CurLoadout );
+        GetActuators().PlaceActuators();
+        CurPhysEnhance.Place( CurLoadout );
+    }
+
+    private ChassisConversionState CaptureChassisConversionState() {
+        ChassisConversionState state = new ChassisConversionState();
+        state.ctcase = HasCTCase();
+        state.ltcase = HasLTCase();
+        state.rtcase = HasRTCase();
+        state.hdcase2 = CurLoadout.HasHDCASEII();
+        state.hdcase2clan = CurLoadout.GetHDCaseII().IsClan();
+        state.ctcase2 = CurLoadout.HasCTCASEII();
+        state.ctcase2clan = CurLoadout.GetCTCaseII().IsClan();
+        state.ltcase2 = CurLoadout.HasLTCASEII();
+        state.ltcase2clan = CurLoadout.GetLTCaseII().IsClan();
+        state.rtcase2 = CurLoadout.HasRTCASEII();
+        state.rtcase2clan = CurLoadout.GetRTCaseII().IsClan();
+        state.lacase2 = CurLoadout.HasLACASEII();
+        state.lacase2clan = CurLoadout.GetLACaseII().IsClan();
+        state.racase2 = CurLoadout.HasRACASEII();
+        state.racase2clan = CurLoadout.GetRACaseII().IsClan();
+        state.llcase2 = CurLoadout.HasLLCASEII();
+        state.llcase2clan = CurLoadout.GetLLCaseII().IsClan();
+        state.rlcase2 = CurLoadout.HasRLCASEII();
+        state.rlcase2clan = CurLoadout.GetRLCaseII().IsClan();
+        state.useClanCase = CurLoadout.IsUsingClanCASE();
+        state.jumps = GetJumpJets().LookupName();
+        state.heatSinks = GetHeatSinks().LookupName();
+        state.numJJ = GetJumpJets().GetNumJJ();
+        state.numHS = GetHeatSinks().GetNumHS() - CurEngine.FreeHeatSinks();
+        return state;
+    }
+
+    private void SwitchBaseLoadout( ifMechLoadout loadout ) {
+        loadout.SetTechBase( MainLoadout.GetTechBase() );
+        loadout.SetRulesLevel( MainLoadout.GetRulesLevel() );
+        loadout.SetEra( MainLoadout.GetEra() );
+        loadout.SetProductionEra( MainLoadout.GetProductionEra() );
+        CurLoadout.Transfer( loadout );
+        CurLoadout.ClearLoadout();
+
+        MainLoadout = loadout;
+        CurLoadout = loadout;
+        CurLoadout.SetBaseLoadout( MainLoadout );
+    }
+
+    private void ClearAESSystems( AESSystem leftArmAES, AESSystem rightArmAES ) {
+        CurLAAES = leftArmAES;
+        CurRAAES = rightArmAES;
+        HasRAAES = false;
+        HasLAAES = false;
+        HasLegAES = false;
+    }
+
+    private void RemoveInvalidPhysicalWeaponsAndEquipment() {
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
+        for( int i = v.size() - 1; i >= 0; i-- ) {
+            abPlaceable p = v.get( i );
+            if( p instanceof PhysicalWeapon ) {
+                CurLoadout.Remove( p );
+            } else if( p instanceof Equipment ) {
+                try {
+                    ( (Equipment) p ).Validate( this );
+                } catch( Exception e ) {
+                    CurLoadout.Remove( p );
+                }
+            }
+        }
+    }
+
+    private void RestoreMovementEquipment( ChassisConversionState state ) {
+        try {
+            ifVisitor ResetV = Lookup( state.jumps );
+            Visit( ResetV );
+            for( int i = 0; i < state.numJJ; i++ ) {
+                GetJumpJets().IncrementNumJJ();
+            }
+            ResetV = Lookup( state.heatSinks );
+            Visit( ResetV );
+            for( int i = 0; i < state.numHS; i++ ) {
+                GetHeatSinks().IncrementNumHS();
+            }
+        } catch( Exception e ) {
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+        }
+    }
+
+    private void RecalculateAndPlaceArmor() {
+        GetHeatSinks().ReCalculate();
+        GetJumpJets().ReCalculate();
+        CurArmor.Recalculate();
+        CurArmor.ResetPlaced();
+        CurArmor.Place( CurLoadout );
+    }
+
+    private void CompleteChassisConversion( ChassisConversionState state ) {
+        // replace everything into the new loadout
+        PlaceCoreComponents();
+
+        // reset the correct number of heat sinks and jump jets
+        RestoreMovementEquipment( state );
+
+        // it is safe to recalc here because we have the correct number
+        RecalculateAndPlaceArmor();
+
+        // attempt to replace any CASE systems that went missing
+        try {
+            RestoreCaseSystems( state );
+            ReinstallFixedSlotEquipment( true, true );
+        } catch( Exception e ) {
+            // unhandled at this time, print an error out
+            System.err.println( "System not reinstalled:\n" + e.getMessage() );
+        }
+    }
+
+    private void RestoreCaseSystems( ChassisConversionState state ) throws Exception {
+        if( state.ctcase ) {
+            AddCTCase();
+        }
+        if( state.ltcase ) {
+            AddLTCase();
+        }
+        if( state.rtcase ) {
+            AddRTCase();
+        }
+        if( state.hdcase2 ) {
+            CurLoadout.SetHDCASEII( true, -1, state.hdcase2clan );
+        }
+        if( state.ctcase2 ) {
+            CurLoadout.SetCTCASEII( true, -1, state.ctcase2clan );
+        }
+        if( state.ltcase2 ) {
+            CurLoadout.SetLTCASEII( true, -1, state.ltcase2clan );
+        }
+        if( state.rtcase2 ) {
+            CurLoadout.SetRTCASEII( true, -1, state.rtcase2clan );
+        }
+        if( state.lacase2 ) {
+            CurLoadout.SetLACASEII( true, -1, state.lacase2clan );
+        }
+        if( state.racase2 ) {
+            CurLoadout.SetRACASEII( true, -1, state.racase2clan );
+        }
+        if( state.llcase2 ) {
+            CurLoadout.SetLLCASEII( true, -1, state.llcase2clan );
+        }
+        if( state.rlcase2 ) {
+            CurLoadout.SetRLCASEII( true, -1, state.rlcase2clan );
+        }
+        if( state.useClanCase ) {
+            CurLoadout.SetClanCASE( false );
+            CurLoadout.SetClanCASE( true );
+        }
+    }
+
+    private static class ChassisConversionState {
+        private boolean ctcase,
+                        ltcase,
+                        rtcase,
+                        hdcase2,
+                        hdcase2clan,
+                        ctcase2,
+                        ctcase2clan,
+                        ltcase2,
+                        ltcase2clan,
+                        rtcase2,
+                        rtcase2clan,
+                        lacase2,
+                        lacase2clan,
+                        racase2,
+                        racase2clan,
+                        llcase2,
+                        llcase2clan,
+                        rlcase2,
+                        rlcase2clan,
+                        useClanCase;
+        private String jumps,
+                       heatSinks;
+        private int numJJ,
+                    numHS;
+    }
+
     public void Recalculate() {
         // recalculates the Mech Mult and the Jump Jet Mult
         if( Tonnage < 60 ) {
@@ -433,26 +724,10 @@ public class Mech implements ifUnit, ifBattleforce {
         CurGyro.SetStandard();
 
         // switch the internal structure
-        if( IsQuad() ) {
-            if( IndustrialMech ) {
-                CurIntStruc.SetIMQD();
-            } else {
-                CurIntStruc.SetMSQD();
-            }
-        } else {
-            if( IndustrialMech ) {
-                CurIntStruc.SetIMBP();
-            } else {
-                CurIntStruc.SetMSBP();
-            }
-        }
+        SetDefaultInternalStructure();
 
         // switch the cockpit
-        if( IndustrialMech ) {
-            CurCockpit.SetIndustrialCockpit();
-        } else {
-            CurCockpit.SetStandardCockpit();
-        }
+        SetDefaultCockpit();
 
         // switch the heat sinks
         GetHeatSinks().SetSingle();
@@ -467,49 +742,13 @@ public class Mech implements ifUnit, ifBattleforce {
         CurArmor.SetStandard();
 
         // replace everything in the loadout
-        CurGyro.Place( CurLoadout );
-        CurEngine.Place( CurLoadout );
-        CurIntStruc.Place( CurLoadout );
-        CurCockpit.Place( CurLoadout );
-        GetActuators().PlaceActuators();
-        CurPhysEnhance.Place( CurLoadout );
+        PlaceCoreComponents();
         GetHeatSinks().ReCalculate();
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
         UseTC( false, false );
         try {
-            // replace fixed-slot equipment
-            if(HasBlueShield){
-                SetBlueShield(false);
-                SetBlueShield(true);
-            }
-            if(HasChameleon){
-                SetChameleon(false);
-                SetChameleon(true);
-            }
-            if(HasEjectionSeat){
-                SetEjectionSeat(false);
-                SetEjectionSeat(true);
-            }
-            if(HasEnviroSealing){
-                SetEnviroSealing(false);
-                SetEnviroSealing(true);
-            }
-            if(HasNullSig){
-                SetNullSig(false);
-                SetNullSig(true);
-            }
-            if(HasTracks){
-                SetTracks(false);
-                SetTracks(true);
-            }
-            if(HasVoidSig){
-                SetVoidSig(false);
-                SetVoidSig(true);
-            }
-            if(HasPartialWing) {
-                SetPartialWing( false );
-            }
+            ReinstallFixedSlotEquipment( true, false );
         } catch( Exception e ) {
             e.printStackTrace();
         }
@@ -536,26 +775,10 @@ public class Mech implements ifUnit, ifBattleforce {
         CurGyro.SetStandard();
 
         // switch the internal structure
-        if( IsQuad() ) {
-            if( IndustrialMech ) {
-                CurIntStruc.SetIMQD();
-            } else {
-                CurIntStruc.SetMSQD();
-            }
-        } else {
-            if( IndustrialMech ) {
-                CurIntStruc.SetIMBP();
-            } else {
-                CurIntStruc.SetMSBP();
-            }
-        }
+        SetDefaultInternalStructure();
 
         // switch the cockpit
-        if( IndustrialMech ) {
-            CurCockpit.SetIndustrialCockpit();
-        } else {
-            CurCockpit.SetStandardCockpit();
-        }
+        SetDefaultCockpit();
 
         // switch the heat sinks
         GetHeatSinks().SetSingle();
@@ -570,46 +793,13 @@ public class Mech implements ifUnit, ifBattleforce {
         CurArmor.SetStandard();
 
         // replace everything iun the loadout
-        CurGyro.Place( CurLoadout );
-        CurEngine.Place( CurLoadout );
-        CurIntStruc.Place( CurLoadout );
-        CurCockpit.Place( CurLoadout );
-        GetActuators().PlaceActuators();
-        CurPhysEnhance.Place( CurLoadout );
+        PlaceCoreComponents();
         GetHeatSinks().ReCalculate();
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
         UseTC( false, false );
         try {
-            // replace fixed-slot equipment
-            if(HasBlueShield){
-                SetBlueShield(false);
-            }
-            if(HasChameleon){
-                SetChameleon(false);
-            }
-            if(HasEjectionSeat){
-                SetEjectionSeat(false);
-                SetEjectionSeat(true);
-            }
-            if(HasEnviroSealing){
-                SetEnviroSealing(false);
-                SetEnviroSealing(true);
-            }
-            if(HasNullSig){
-                SetNullSig(false);
-            }
-            if(HasTracks){
-                SetTracks(false);
-                SetTracks(true);
-            }
-            if(HasVoidSig){
-                SetVoidSig(false);
-            }
-            if(HasPartialWing) {
-                SetPartialWing( false );
-                SetPartialWing( true );
-            }
+            ReinstallFixedSlotEquipment( false, true );
         } catch( Exception e ) {
             e.printStackTrace();
         }
@@ -640,28 +830,12 @@ public class Mech implements ifUnit, ifBattleforce {
 
         if( ! CommonTools.IsAllowed( CurIntStruc.GetAvailability(), this ) ) {
             // switch the internal structure
-            if( IsQuad() ) {
-                if( IndustrialMech ) {
-                    CurIntStruc.SetIMQD();
-                } else {
-                    CurIntStruc.SetMSQD();
-                }
-            } else {
-                if( IndustrialMech ) {
-                    CurIntStruc.SetIMBP();
-                } else {
-                    CurIntStruc.SetMSBP();
-                }
-            }
+            SetDefaultInternalStructure();
             CurIntStruc.Place( CurLoadout );
         }
 
         if( ! CommonTools.IsAllowed( CurCockpit.GetAvailability(), this ) ) {
-            if( IndustrialMech ) {
-                CurCockpit.SetIndustrialCockpit();
-            } else {
-                CurCockpit.SetStandardCockpit();
-            }
+            SetDefaultCockpit();
             CurCockpit.Place( CurLoadout );
         }
 
@@ -688,39 +862,7 @@ public class Mech implements ifUnit, ifBattleforce {
         // replace everything iun the loadout
         UseTC( false, false );
         try {
-            // replace fixed-slot equipment
-            if(HasBlueShield){
-                SetBlueShield(false);
-                SetBlueShield(true);
-            }
-            if(HasChameleon){
-                SetChameleon(false);
-                SetChameleon(true);
-            }
-            if(HasEjectionSeat){
-                SetEjectionSeat(false);
-                SetEjectionSeat(true);
-            }
-            if(HasEnviroSealing){
-                SetEnviroSealing(false);
-                SetEnviroSealing(true);
-            }
-            if(HasNullSig){
-                SetNullSig(false);
-                SetNullSig(true);
-            }
-            if(HasTracks){
-                SetTracks(false);
-                SetTracks(true);
-            }
-            if(HasVoidSig){
-                SetVoidSig(false);
-                SetVoidSig(true);
-            }
-            if(HasPartialWing) {
-                SetPartialWing( false );
-                SetPartialWing( true );
-            }
+            ReinstallFixedSlotEquipment( true, true );
         } catch( Exception e ) {
             e.printStackTrace();
         }
@@ -781,12 +923,7 @@ public class Mech implements ifUnit, ifBattleforce {
         CurArmor.SetStandard();
 
         // replace everything iun the loadout
-        CurGyro.Place( CurLoadout );
-        CurEngine.Place( CurLoadout );
-        CurIntStruc.Place( CurLoadout );
-        CurCockpit.Place( CurLoadout );
-        GetActuators().PlaceActuators();
-        CurPhysEnhance.Place( CurLoadout );
+        PlaceCoreComponents();
         GetHeatSinks().ReCalculate();
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
@@ -850,378 +987,48 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public void SetBiped() {
         // this performs all the neccesary actions to change this mech into a biped
-        // see if we have any CASE systems installed first.
-        boolean ctcase = HasCTCase();
-        boolean ltcase = HasLTCase();
-        boolean rtcase = HasRTCase();
-        boolean hdcase2 = CurLoadout.HasHDCASEII();
-        boolean hdcase2clan = CurLoadout.GetHDCaseII().IsClan();
-        boolean ctcase2 = CurLoadout.HasCTCASEII();
-        boolean ctcase2clan = CurLoadout.GetCTCaseII().IsClan();
-        boolean ltcase2 = CurLoadout.HasLTCASEII();
-        boolean ltcase2clan = CurLoadout.GetLTCaseII().IsClan();
-        boolean rtcase2 = CurLoadout.HasRTCASEII();
-        boolean rtcase2clan = CurLoadout.GetRTCaseII().IsClan();
-        boolean lacase2 = CurLoadout.HasLACASEII();
-        boolean lacase2clan = CurLoadout.GetLACaseII().IsClan();
-        boolean racase2 = CurLoadout.HasRACASEII();
-        boolean racase2clan = CurLoadout.GetRACaseII().IsClan();
-        boolean llcase2 = CurLoadout.HasLLCASEII();
-        boolean llcase2clan = CurLoadout.GetLLCaseII().IsClan();
-        boolean rlcase2 = CurLoadout.HasRLCASEII();
-        boolean rlcase2clan = CurLoadout.GetRLCaseII().IsClan();
-        boolean useClanCase = CurLoadout.IsUsingClanCASE();
-        String Jumps = GetJumpJets().LookupName();
-        String HeatSinks = GetHeatSinks().LookupName();
-
-        // remember how many heat sinks and jump jets we had
-        int NumJJ = GetJumpJets().GetNumJJ();
-        int NumHS = GetHeatSinks().GetNumHS() - CurEngine.FreeHeatSinks();
+        ChassisConversionState state = CaptureChassisConversionState();
 
         // Get a new Biped Loadout and load up the queue
-        ifMechLoadout l = new BipedLoadout( Constants.BASELOADOUT_NAME, this );
-        l.SetTechBase( MainLoadout.GetTechBase() );
-        l.SetRulesLevel( MainLoadout.GetRulesLevel() );
-        l.SetEra( MainLoadout.GetEra() );
-        l.SetProductionEra( MainLoadout.GetProductionEra() );
-        CurLoadout.Transfer( l );
-        CurLoadout.ClearLoadout();
-
-        // Now set the new main loadout and current loadout
-        MainLoadout = l;
-        CurLoadout = MainLoadout;
-        CurLoadout.SetBaseLoadout( MainLoadout );
+        SwitchBaseLoadout( new BipedLoadout( Constants.BASELOADOUT_NAME, this ) );
 
         // next, change the internal structure to a default standard biped
-        if( IndustrialMech ) {
-            CurIntStruc.SetIMBP();
-        } else {
-            CurIntStruc.SetMSBP();
-        }
+        SetDefaultInternalStructure( false );
 
         // set the mech to a biped
         Quad = false;
 
         // remove the AES system entirely
-        CurLAAES = LAAES;
-        CurRAAES = RAAES;
-        HasRAAES = false;
-        HasLAAES = false;
-        HasLegAES = false;
+        ClearAESSystems( LAAES, RAAES );
 
         // remove the any existing physical weapons, and industrial equipment
-        ArrayList v = CurLoadout.GetNonCore();
-        for( int i = v.size() - 1; i >= 0; i-- ) {
-            abPlaceable p = (abPlaceable) v.get( i );
-            if( p instanceof PhysicalWeapon ) {
-                CurLoadout.Remove(p);
-            } else if( p instanceof Equipment ) {
-                try {
-                    ((Equipment) p).Validate( this);
-                } catch (Exception e) {
-                    CurLoadout.Remove( p );
-                }
-            }
-        }
+        RemoveInvalidPhysicalWeaponsAndEquipment();
 
-        // replace everything into the new loadout
-        CurGyro.Place( CurLoadout );
-        CurEngine.Place( CurLoadout );
-        CurIntStruc.Place( CurLoadout );
-        CurCockpit.Place( CurLoadout );
-        GetActuators().PlaceActuators();
-        CurPhysEnhance.Place( CurLoadout );
-        // reset the correct number of heat sinks and jump jets
-        try {
-            ifVisitor ResetV = Lookup( Jumps );
-            Visit( ResetV );
-            for( int i = 0; i < NumJJ; i++ ) {
-                GetJumpJets().IncrementNumJJ();
-            }
-            ResetV = Lookup( HeatSinks );
-            Visit( ResetV );
-            for( int i = 0; i < NumHS; i++ ) {
-                GetHeatSinks().IncrementNumHS();
-            }
-        } catch( Exception e ) {
-            System.err.println( e.getMessage() );
-            e.printStackTrace();
-        }
-
-        // it is safe to recalc here because we have the correct number
-        GetHeatSinks().ReCalculate();
-        GetJumpJets().ReCalculate();
-        CurArmor.Recalculate();
-        CurArmor.ResetPlaced();
-        CurArmor.Place( CurLoadout );
-
-        // attempt to replace any CASE systems that went missing
-        try {
-            if( ctcase ) {
-                AddCTCase();
-            }
-            if( ltcase ) {
-                AddLTCase();
-            }
-            if( rtcase ) {
-                AddRTCase();
-            }
-            if( hdcase2 ) {
-                CurLoadout.SetHDCASEII( true, -1, hdcase2clan );
-            }
-            if( ctcase2 ) {
-                CurLoadout.SetCTCASEII( true, -1, ctcase2clan );
-            }
-            if( ltcase2 ) {
-                CurLoadout.SetLTCASEII( true, -1, ltcase2clan );
-            }
-            if( rtcase2 ) {
-                CurLoadout.SetRTCASEII( true, -1, rtcase2clan );
-            }
-            if( lacase2 ) {
-                CurLoadout.SetLACASEII( true, -1, lacase2clan );
-            }
-            if( racase2 ) {
-                CurLoadout.SetRACASEII( true, -1, racase2clan );
-            }
-            if( llcase2 ) {
-                CurLoadout.SetLLCASEII( true, -1, llcase2clan );
-            }
-            if( rlcase2 ) {
-                CurLoadout.SetRLCASEII( true, -1, rlcase2clan );
-            }
-
-             if (useClanCase){
-                CurLoadout.SetClanCASE(false);
-                CurLoadout.SetClanCASE(true);
-            }
-
-            // replace fixed-slot equipment
-            if(HasBlueShield){
-                SetBlueShield(false);
-                SetBlueShield(true);
-            }
-            if(HasChameleon){
-                SetChameleon(false);
-                SetChameleon(true);
-            }
-            if(HasEjectionSeat){
-                SetEjectionSeat(false);
-                SetEjectionSeat(true);
-            }
-            if(HasEnviroSealing){
-                SetEnviroSealing(false);
-                SetEnviroSealing(true);
-            }
-            if(HasNullSig){
-                SetNullSig(false);
-                SetNullSig(true);
-            }
-            if(HasTracks){
-                SetTracks(false);
-                SetTracks(true);
-            }
-            if(HasVoidSig){
-                SetVoidSig(false);
-                SetVoidSig(true);
-            }
-            if(HasPartialWing) {
-                SetPartialWing( false );
-                SetPartialWing( true );
-            }
-        } catch( Exception e ) {
-            // unhandled at this time, print an error out
-            System.err.println( "System not reinstalled:\n" + e.getMessage() );
-        }
+        CompleteChassisConversion( state );
 
         SetChanged( true );
     }
 
     public void SetQuad() {
         // this performs all the neccesary actions to change this mech into a quad
-        // see if we have any CASE systems installed first.
-        boolean ctcase = HasCTCase();
-        boolean ltcase = HasLTCase();
-        boolean rtcase = HasRTCase();
-        boolean hdcase2 = CurLoadout.HasHDCASEII();
-        boolean hdcase2clan = CurLoadout.GetHDCaseII().IsClan();
-        boolean ctcase2 = CurLoadout.HasCTCASEII();
-        boolean ctcase2clan = CurLoadout.GetCTCaseII().IsClan();
-        boolean ltcase2 = CurLoadout.HasLTCASEII();
-        boolean ltcase2clan = CurLoadout.GetLTCaseII().IsClan();
-        boolean rtcase2 = CurLoadout.HasRTCASEII();
-        boolean rtcase2clan = CurLoadout.GetRTCaseII().IsClan();
-        boolean lacase2 = CurLoadout.HasLACASEII();
-        boolean lacase2clan = CurLoadout.GetLACaseII().IsClan();
-        boolean racase2 = CurLoadout.HasRACASEII();
-        boolean racase2clan = CurLoadout.GetRACaseII().IsClan();
-        boolean llcase2 = CurLoadout.HasLLCASEII();
-        boolean llcase2clan = CurLoadout.GetLLCaseII().IsClan();
-        boolean rlcase2 = CurLoadout.HasRLCASEII();
-        boolean rlcase2clan = CurLoadout.GetRLCaseII().IsClan();
-        boolean useClanCase = CurLoadout.IsUsingClanCASE();
-        String Jumps = GetJumpJets().LookupName();
-        String HeatSinks = GetHeatSinks().LookupName();
-
-        // remember how many heat sinks and jump jets we had
-        int NumJJ = GetJumpJets().GetNumJJ();
-        int NumHS = GetHeatSinks().GetNumHS() - CurEngine.FreeHeatSinks();
+        ChassisConversionState state = CaptureChassisConversionState();
 
         // Get a new Quad Loadout and load up the queue
-        ifMechLoadout l = new QuadLoadout( Constants.BASELOADOUT_NAME, this );
-        l.SetTechBase( MainLoadout.GetTechBase() );
-        l.SetRulesLevel( MainLoadout.GetRulesLevel() );
-        l.SetEra( MainLoadout.GetEra() );
-        l.SetProductionEra( MainLoadout.GetProductionEra() );
-        CurLoadout.Transfer( l );
-        CurLoadout.ClearLoadout();
-
-        // Now set the new main loadout and current loadout
-        MainLoadout = l;
-        CurLoadout = l;
-        CurLoadout.SetBaseLoadout( MainLoadout );
+        SwitchBaseLoadout( new QuadLoadout( Constants.BASELOADOUT_NAME, this ) );
 
         // next, change the internal structure to a default standard quad
-        if( IndustrialMech ) {
-            CurIntStruc.SetIMQD();
-        } else {
-            CurIntStruc.SetMSQD();
-        }
+        SetDefaultInternalStructure( true );
 
         // set the mech to a quad
         Quad = true;
 
         // remove the AES system entirely
-        CurLAAES = FLLAES;
-        CurRAAES = FRLAES;
-        HasRAAES = false;
-        HasLAAES = false;
-        HasLegAES = false;
+        ClearAESSystems( FLLAES, FRLAES );
 
         // remove the  any existing  physical weapons and industrial equipment
-        ArrayList v = CurLoadout.GetNonCore();
-        for( int i = v.size() - 1; i >= 0; i-- ) {
-            abPlaceable p = (abPlaceable) v.get( i );
-            if( p instanceof PhysicalWeapon ) {
-                CurLoadout.Remove(p);
-            } else if( p instanceof Equipment ) {
-                try {
-                    ((Equipment) p).Validate( this);
-                } catch (Exception e) {
-                    CurLoadout.Remove(p);
-                }
-            }
-        }
+        RemoveInvalidPhysicalWeaponsAndEquipment();
 
-        // replace everything into the new loadout
-        CurGyro.Place( CurLoadout );
-        CurEngine.Place( CurLoadout );
-        CurIntStruc.Place( CurLoadout );
-        CurCockpit.Place( CurLoadout );
-        GetActuators().PlaceActuators();
-        CurPhysEnhance.Place( CurLoadout );
-        // reset the correct number of heat sinks and jump jets
-        try {
-            ifVisitor ResetV = Lookup( Jumps );
-            Visit( ResetV );
-            for( int i = 0; i < NumJJ; i++ ) {
-                GetJumpJets().IncrementNumJJ();
-            }
-            ResetV = Lookup( HeatSinks );
-            Visit( ResetV );
-            for( int i = 0; i < NumHS; i++ ) {
-                GetHeatSinks().IncrementNumHS();
-            }
-        } catch( Exception e ) {
-            // we shouldn't get an error from these visitors, but log it anyway
-            System.err.println( e.getMessage() );
-            e.printStackTrace();
-        }
-
-        // it is safe to recalc here because we have the correct number
-        GetHeatSinks().ReCalculate();
-        GetJumpJets().ReCalculate();
-        CurArmor.Recalculate();
-        CurArmor.ResetPlaced();
-        CurArmor.Place( CurLoadout );
-
-        // attempt to replace any CASE systems that went missing
-        try {
-            if( ctcase ) {
-                AddCTCase();
-            }
-            if( ltcase ) {
-                AddLTCase();
-            }
-            if( rtcase ) {
-                AddRTCase();
-            }
-            if( hdcase2 ) {
-                CurLoadout.SetHDCASEII( true, -1, hdcase2clan );
-            }
-            if( ctcase2 ) {
-                CurLoadout.SetCTCASEII( true, -1, ctcase2clan );
-            }
-            if( ltcase2 ) {
-                CurLoadout.SetLTCASEII( true, -1, ltcase2clan );
-            }
-            if( rtcase2 ) {
-                CurLoadout.SetRTCASEII( true, -1, rtcase2clan );
-            }
-            if( lacase2 ) {
-                CurLoadout.SetLACASEII( true, -1, lacase2clan );
-            }
-            if( racase2 ) {
-                CurLoadout.SetRACASEII( true, -1, racase2clan );
-            }
-            if( llcase2 ) {
-                CurLoadout.SetLLCASEII( true, -1, llcase2clan );
-            }
-            if( rlcase2 ) {
-                CurLoadout.SetRLCASEII( true, -1, rlcase2clan );
-            }
-
-            if (useClanCase){
-                CurLoadout.SetClanCASE(false);
-                CurLoadout.SetClanCASE(true);
-            }
-            // replace fixed-slot equipment
-            if(HasBlueShield){
-                SetBlueShield(false);
-                SetBlueShield(true);
-            }
-            if(HasChameleon){
-                SetChameleon(false);
-                SetChameleon(true);
-            }
-            if(HasEjectionSeat){
-                SetEjectionSeat(false);
-                SetEjectionSeat(true);
-            }
-            if(HasEnviroSealing){
-                SetEnviroSealing(false);
-                SetEnviroSealing(true);
-            }
-            if(HasNullSig){
-                SetNullSig(false);
-                SetNullSig(true);
-            }
-            if(HasTracks){
-                SetTracks(false);
-                SetTracks(true);
-            }
-            if(HasVoidSig){
-                SetVoidSig(false);
-                SetVoidSig(true);
-            }
-            if(HasPartialWing) {
-                SetPartialWing( false );
-                SetPartialWing( true );
-            }
-        } catch( Exception e ) {
-            // unhandled at this time, print an error out
-            System.err.println( "System not reinstalled:\n" + e.getMessage() );
-        }
+        CompleteChassisConversion( state );
 
         SetChanged( true );
     }
@@ -1236,189 +1043,24 @@ public class Mech implements ifUnit, ifBattleforce {
     
     public void SetTripod() {
         // this performs all the neccesary actions to change this mech into a quad
-        // see if we have any CASE systems installed first.
-        boolean ctcase = HasCTCase();
-        boolean ltcase = HasLTCase();
-        boolean rtcase = HasRTCase();
-        boolean hdcase2 = CurLoadout.HasHDCASEII();
-        boolean hdcase2clan = CurLoadout.GetHDCaseII().IsClan();
-        boolean ctcase2 = CurLoadout.HasCTCASEII();
-        boolean ctcase2clan = CurLoadout.GetCTCaseII().IsClan();
-        boolean ltcase2 = CurLoadout.HasLTCASEII();
-        boolean ltcase2clan = CurLoadout.GetLTCaseII().IsClan();
-        boolean rtcase2 = CurLoadout.HasRTCASEII();
-        boolean rtcase2clan = CurLoadout.GetRTCaseII().IsClan();
-        boolean lacase2 = CurLoadout.HasLACASEII();
-        boolean lacase2clan = CurLoadout.GetLACaseII().IsClan();
-        boolean racase2 = CurLoadout.HasRACASEII();
-        boolean racase2clan = CurLoadout.GetRACaseII().IsClan();
-        boolean llcase2 = CurLoadout.HasLLCASEII();
-        boolean llcase2clan = CurLoadout.GetLLCaseII().IsClan();
-        boolean rlcase2 = CurLoadout.HasRLCASEII();
-        boolean rlcase2clan = CurLoadout.GetRLCaseII().IsClan();
-        boolean useClanCase = CurLoadout.IsUsingClanCASE();
-        String Jumps = GetJumpJets().LookupName();
-        String HeatSinks = GetHeatSinks().LookupName();
-
-        // remember how many heat sinks and jump jets we had
-        int NumJJ = GetJumpJets().GetNumJJ();
-        int NumHS = GetHeatSinks().GetNumHS() - CurEngine.FreeHeatSinks();
+        ChassisConversionState state = CaptureChassisConversionState();
 
         // Get a new Quad Loadout and load up the queue
-        ifMechLoadout l = new TripodLoadout( Constants.BASELOADOUT_NAME, this );
-        l.SetTechBase( MainLoadout.GetTechBase() );
-        l.SetRulesLevel( MainLoadout.GetRulesLevel() );
-        l.SetEra( MainLoadout.GetEra() );
-        l.SetProductionEra( MainLoadout.GetProductionEra() );
-        CurLoadout.Transfer( l );
-        CurLoadout.ClearLoadout();
-
-        // Now set the new main loadout and current loadout
-        MainLoadout = l;
-        CurLoadout = l;
-        CurLoadout.SetBaseLoadout( MainLoadout );
+        SwitchBaseLoadout( new TripodLoadout( Constants.BASELOADOUT_NAME, this ) );
 
         // next, change the internal structure to a default standard quad
-        if( IndustrialMech ) {
-            CurIntStruc.SetIMQD();
-        } else {
-            CurIntStruc.SetMSQD();
-        }
+        SetDefaultInternalStructure( true );
 
         // set the mech to a quad
         Tripod = true;
 
         // remove the AES system entirely
-        CurLAAES = FLLAES;
-        CurRAAES = FRLAES;
-        HasRAAES = false;
-        HasLAAES = false;
-        HasLegAES = false;
+        ClearAESSystems( FLLAES, FRLAES );
 
         // remove the  any existing  physical weapons and industrial equipment
-        ArrayList v = CurLoadout.GetNonCore();
-        for( int i = v.size() - 1; i >= 0; i-- ) {
-            abPlaceable p = (abPlaceable) v.get( i );
-            if( p instanceof PhysicalWeapon ) {
-                CurLoadout.Remove(p);
-            } else if( p instanceof Equipment ) {
-                try {
-                    ((Equipment) p).Validate(this);
-                } catch (Exception e) {
-                    CurLoadout.Remove(p);
-                }
-            }
-        }
+        RemoveInvalidPhysicalWeaponsAndEquipment();
 
-        // replace everything into the new loadout
-        CurGyro.Place( CurLoadout );
-        CurEngine.Place( CurLoadout );
-        CurIntStruc.Place( CurLoadout );
-        CurCockpit.Place( CurLoadout );
-        GetActuators().PlaceActuators();
-        CurPhysEnhance.Place( CurLoadout );
-        // reset the correct number of heat sinks and jump jets
-        try {
-            ifVisitor ResetV = Lookup( Jumps );
-            Visit( ResetV );
-            for( int i = 0; i < NumJJ; i++ ) {
-                GetJumpJets().IncrementNumJJ();
-            }
-            ResetV = Lookup( HeatSinks );
-            Visit( ResetV );
-            for( int i = 0; i < NumHS; i++ ) {
-                GetHeatSinks().IncrementNumHS();
-            }
-        } catch( Exception e ) {
-            // we shouldn't get an error from these visitors, but log it anyway
-            System.err.println( e.getMessage() );
-            e.printStackTrace();
-        }
-
-        // it is safe to recalc here because we have the correct number
-        GetHeatSinks().ReCalculate();
-        GetJumpJets().ReCalculate();
-        CurArmor.Recalculate();
-        CurArmor.ResetPlaced();
-        CurArmor.Place( CurLoadout );
-
-        // attempt to replace any CASE systems that went missing
-        try {
-            if( ctcase ) {
-                AddCTCase();
-            }
-            if( ltcase ) {
-                AddLTCase();
-            }
-            if( rtcase ) {
-                AddRTCase();
-            }
-            if( hdcase2 ) {
-                CurLoadout.SetHDCASEII( true, -1, hdcase2clan );
-            }
-            if( ctcase2 ) {
-                CurLoadout.SetCTCASEII( true, -1, ctcase2clan );
-            }
-            if( ltcase2 ) {
-                CurLoadout.SetLTCASEII( true, -1, ltcase2clan );
-            }
-            if( rtcase2 ) {
-                CurLoadout.SetRTCASEII( true, -1, rtcase2clan );
-            }
-            if( lacase2 ) {
-                CurLoadout.SetLACASEII( true, -1, lacase2clan );
-            }
-            if( racase2 ) {
-                CurLoadout.SetRACASEII( true, -1, racase2clan );
-            }
-            if( llcase2 ) {
-                CurLoadout.SetLLCASEII( true, -1, llcase2clan );
-            }
-            if( rlcase2 ) {
-                CurLoadout.SetRLCASEII( true, -1, rlcase2clan );
-            }
-
-            if (useClanCase){
-                CurLoadout.SetClanCASE(false);
-                CurLoadout.SetClanCASE(true);
-            }
-            // replace fixed-slot equipment
-            if(HasBlueShield){
-                SetBlueShield(false);
-                SetBlueShield(true);
-            }
-            if(HasChameleon){
-                SetChameleon(false);
-                SetChameleon(true);
-            }
-            if(HasEjectionSeat){
-                SetEjectionSeat(false);
-                SetEjectionSeat(true);
-            }
-            if(HasEnviroSealing){
-                SetEnviroSealing(false);
-                SetEnviroSealing(true);
-            }
-            if(HasNullSig){
-                SetNullSig(false);
-                SetNullSig(true);
-            }
-            if(HasTracks){
-                SetTracks(false);
-                SetTracks(true);
-            }
-            if(HasVoidSig){
-                SetVoidSig(false);
-                SetVoidSig(true);
-            }
-            if(HasPartialWing) {
-                SetPartialWing( false );
-                SetPartialWing( true );
-            }
-        } catch( Exception e ) {
-            // unhandled at this time, print an error out
-            System.err.println( "System not reinstalled:\n" + e.getMessage() );
-        }
+        CompleteChassisConversion( state );
 
         SetChanged( true );
     }
@@ -1567,13 +1209,13 @@ public class Mech implements ifUnit, ifBattleforce {
         // there are no physical weapons located there.
         boolean left = true;
         boolean right = true;
-        ArrayList v = MainLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = MainLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof PhysicalWeapon ) {
-                if( MainLoadout.Find( (abPlaceable) v.get( i ) ) == LocationIndex.MECH_LOC_LA ) {
+                if( MainLoadout.Find( v.get( i ) ) == LocationIndex.MECH_LOC_LA ) {
                     left = false;
                 }
-                if( MainLoadout.Find( (abPlaceable) v.get( i ) ) == LocationIndex.MECH_LOC_RA ) {
+                if( MainLoadout.Find( v.get( i ) ) == LocationIndex.MECH_LOC_RA ) {
                     right = false;
                 }
             }
@@ -1625,7 +1267,7 @@ public class Mech implements ifUnit, ifBattleforce {
 
         // see if another loadout has the same name
         for( int i = 0; i < Loadouts.size(); i++ ) {
-            if( ((ifMechLoadout) Loadouts.get( i )).GetName().equals( Name ) ) {
+            if( Loadouts.get( i ).GetName().equals( Name ) ) {
                 throw new Exception( "Could not add the new loadout because\nthe name given matches an existing loadout." );
             }
         }
@@ -1642,7 +1284,7 @@ public class Mech implements ifUnit, ifBattleforce {
         // removes the given loadout from the loadout ArrayList.  if the ArrayList is
         // empty (non-omnimech) nothing is done.
         for( int i = 0; i < Loadouts.size(); i++ ) {
-            if( ((ifMechLoadout) Loadouts.get( i )).GetName().equals( Name ) ) {
+            if( Loadouts.get( i ).GetName().equals( Name ) ) {
                 // remove it
                 Loadouts.remove( i );
                 break;
@@ -1651,7 +1293,7 @@ public class Mech implements ifUnit, ifBattleforce {
 
         // now set the current loadout to the first
         if( Loadouts.size() > 0 ) {
-            CurLoadout = (ifMechLoadout) Loadouts.get(0);
+            CurLoadout = Loadouts.get(0);
         } else {
             CurLoadout = MainLoadout;
         }
@@ -1667,21 +1309,21 @@ public class Mech implements ifUnit, ifBattleforce {
         }
 
         for( int i = 0; i < Loadouts.size(); i++ ) {
-            if( ((ifMechLoadout) Loadouts.get( i )).GetName().equals( Name ) ) {
-                CurLoadout = (ifMechLoadout) Loadouts.get( i );
+            if( Loadouts.get( i ).GetName().equals( Name ) ) {
+                CurLoadout = Loadouts.get( i );
                 return;
             }
         }
 
         // if we got here, there was a problem.  set the loadout to the base
         if( Loadouts.size() > 0 ) {
-            CurLoadout = (ifMechLoadout) Loadouts.get(0);
+            CurLoadout = Loadouts.get(0);
         } else {
             CurLoadout = MainLoadout;
         }
     }
 
-    public ArrayList GetLoadouts() {
+    public ArrayList<ifMechLoadout> GetLoadouts() {
         return Loadouts;
     }
 
@@ -1797,23 +1439,23 @@ public class Mech implements ifUnit, ifBattleforce {
         Hashtable<String, Integer> list = new Hashtable<String, Integer>();
         abPlaceable item;
         for( int i = 0; i < CurLoadout.GetNonCore().size(); i++ ) {
-            item = (abPlaceable) CurLoadout.GetNonCore().get( i );
+            item = CurLoadout.GetNonCore().get( i );
             if( ! ( item instanceof Ammunition ) ) {
                 if ( list.containsKey( item.ChatName() ) ) {
-                    int curVal = (Integer) list.get( item.ChatName() ).intValue();
+                    int curVal = list.get( item.ChatName() ).intValue();
                     curVal++;
                     list.remove( item.ChatName() );
                     list.put( item.ChatName(), curVal );
                 } else {
-                    list.put( item.ChatName(), new Integer( 1 ) );
+                    list.put( item.ChatName(), Integer.valueOf( 1 ) );
                 }
             }
         }
 
-        Enumeration e = list.keys();
+        Enumeration<String> e = list.keys();
         while( e.hasMoreElements() ) {
-            String name = (String) e.nextElement();
-            int count = (Integer) list.get(name).intValue();
+            String name = e.nextElement();
+            int count = list.get(name).intValue();
             info += count + " " + name + ", ";
         }
 
@@ -1919,14 +1561,14 @@ public class Mech implements ifUnit, ifBattleforce {
                 if( ! CurEngine.Place( MainLoadout ) ) {
                     MainLoadout.Remove( CurEngine );
                     CurEngine.SetRating( oldrate );
-                    WalkMP = (int) oldrate / Tonnage;
+                    WalkMP = oldrate / Tonnage;
                     CurEngine.Place( MainLoadout );
                     throw new Exception( "The engine cannot support the new rating of " + rate + "\nbecause there is no room for the engine!" );
                 }
-                WalkMP = (int) rate / Tonnage;
+                WalkMP = rate / Tonnage;
             } else {
                 CurEngine.SetRating( rate );
-                WalkMP = (int) rate / Tonnage;
+                WalkMP = rate / Tonnage;
             }
         } else {
             SetWalkMP( 1 );
@@ -1968,7 +1610,7 @@ public class Mech implements ifUnit, ifBattleforce {
             if( ! CurEngine.Place( MainLoadout ) ) {
                 MainLoadout.Remove( CurEngine );
                 CurEngine.SetRating( oldrate );
-                WalkMP = (int) oldrate / Tonnage;
+                WalkMP = oldrate / Tonnage;
                 throw new Exception( "The engine cannot support the new rating of " + rate + "\nbecause there is no room for the engine!\nEngine reset to the previous rating." );
             } else {
                 WalkMP = mp;
@@ -2104,10 +1746,10 @@ public class Mech implements ifUnit, ifBattleforce {
         }
         if ( CurLoadout.HasBoobyTrap() ) { result += CurLoadout.GetBoobyTrap().GetTonnage(); }
 
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
-                result += ((abPlaceable) v.get(i)).GetTonnage();
+                result += v.get(i).GetTonnage();
             }
         }
         return result;
@@ -2162,11 +1804,11 @@ public class Mech implements ifUnit, ifBattleforce {
             if( HasLegAES ) { result += RLAES.GetTonnage() * 2.0; }
         }
 
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( ! ( v.get( i ) instanceof Ammunition ) ) {
-                    result += ((abPlaceable) v.get(i)).GetTonnage();
+                    result += v.get(i).GetTonnage();
                 }
             }
         }
@@ -2321,14 +1963,14 @@ public class Mech implements ifUnit, ifBattleforce {
         // returns the heat generated by weaponry and equipment that are not 
         // core components
         double result = 0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() <= 0 ) {
             return result;
         }
 
         abPlaceable a;
         for( int i = 0; i < v.size(); i++ ) {
-            a = (abPlaceable) v.get( i );
+            a = v.get( i );
             if( a instanceof ifWeapon ) {
                 boolean OS = ((ifWeapon) a).IsOneShot();
                 boolean Rear = a.IsMountedRear();
@@ -2380,14 +2022,14 @@ public class Mech implements ifUnit, ifBattleforce {
         // this returns the heat generated by weapons for BV purposes as the
         // normal method is governed by user preferences
         double result = 0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() <= 0 ) {
             return result;
         }
 
         abPlaceable a;
         for( int i = 0; i < v.size(); i++ ) {
-            a = (abPlaceable) v.get( i );
+            a = v.get( i );
             if( a instanceof ifWeapon ) {
                 result += ((ifWeapon) a).GetBVHeat();
             }
@@ -2433,10 +2075,10 @@ public class Mech implements ifUnit, ifBattleforce {
     public double GetDefensiveEquipBV() {
         // return the BV of all defensive equipment
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
 
         for( int i = 0; i < v.size(); i++ ) {
-            result += ((abPlaceable) v.get( i )).GetDefensiveBV();
+            result += v.get( i ).GetDefensiveBV();
         }
         if( UsingTC() ) {
             result += GetTC().GetDefensiveBV();
@@ -2490,9 +2132,9 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetDefensiveExcessiveAmmoPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
-        ArrayList Ammo = new ArrayList(),
-               Wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
+        ArrayList<Ammunition> Ammo = new ArrayList<>();
+        ArrayList<Equipment> Wep = new ArrayList<>();
 
         // do we even need to do this?
         if( v.size() <= 0 ) { return result; }
@@ -2500,11 +2142,11 @@ public class Mech implements ifUnit, ifBattleforce {
         // seperate out the ammo-using weapons and their ammunition
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                Ammo.add( v.get( i ) );
+                Ammo.add( (Ammunition) v.get( i ) );
             }
             if( v.get(i) instanceof Equipment ) {
                 if( ((Equipment) v.get( i )).HasAmmo() ) {
-                    Wep.add( v.get( i ) );
+                    Wep.add( (Equipment) v.get( i ) );
                 }
             }
         }
@@ -2516,13 +2158,13 @@ public class Mech implements ifUnit, ifBattleforce {
         // not excessive.  Add the BV to the running total.
         while( Wep.size() > 0 ) {
             // get the first item and check if anything else uses the same ammo
-            Equipment test = (Equipment) Wep.get( 0 );
+            Equipment test = Wep.get( 0 );
             Wep.remove( test );
             Ammunition ammo = null;
             int NumWeps = 1;
             int NumAmmos = 0;
             for( int i = Wep.size() - 1; i >= 0; i-- ) {
-                if( ((Equipment) Wep.get( i )).GetAmmoIndex() == test.GetAmmoIndex() ) {
+                if( Wep.get( i ).GetAmmoIndex() == test.GetAmmoIndex() ) {
                     NumWeps++;
                     Wep.remove( i );
                 }
@@ -2530,8 +2172,8 @@ public class Mech implements ifUnit, ifBattleforce {
 
             // now check the number of ammunitions that this weapon uses
             for( int i = 0; i < Ammo.size(); i++ ) {
-                if( ((Ammunition) Ammo.get(i)).GetAmmoIndex() == test.GetAmmoIndex() ) {
-                    ammo = (Ammunition) Ammo.get( i );
+                if( Ammo.get(i).GetAmmoIndex() == test.GetAmmoIndex() ) {
+                    ammo = Ammo.get( i );
                     NumAmmos++;
                 }
             }
@@ -2542,7 +2184,7 @@ public class Mech implements ifUnit, ifBattleforce {
                 if( ammoBV <= 0.0 ) {
                     ammoBV = ( NumAmmos * ammo.GetDefensiveBV() );
                 }
-                double wepBV = ( NumWeps * ((abPlaceable) test).GetDefensiveBV() );
+                double wepBV = ( NumWeps * test.GetDefensiveBV() );
                 if( ammoBV > wepBV ) {
                     result -= ammoBV - wepBV;
                 }
@@ -2554,11 +2196,11 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetExplosiveAmmoPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         abPlaceable p;
 
         for( int i = 0; i < v.size(); i++ ) {
-            p = (abPlaceable) v.get( i );
+            p = v.get( i );
             // Extended Fuel Tanks are to be treated just like explosive ammunition for BV calculation purposes
             // https://bg.battletech.com/forums/index.php?topic=67275.0
             if((p instanceof Ammunition && ((Ammunition)p).IsExplosive()) || p instanceof ExtendedFuelTank) {
@@ -2656,7 +2298,7 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetExplosiveWeaponPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         JumpJetFactory jumpJetFactory = CurLoadout.GetJumpJets();
         JumpJet[] jumpjets = jumpJetFactory.GetPlacedJumps();
         abPlaceable p;
@@ -2764,7 +2406,7 @@ public class Mech implements ifUnit, ifBattleforce {
         }
 
         for( int i = 0; i < v.size(); i++ ) {
-            p = (abPlaceable) v.get( i );
+            p = v.get( i );
             Explode = false;
             int mod = 0;
 
@@ -2967,7 +2609,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public double GetHeatAdjustedWeaponBV() {
-        ArrayList v = CurLoadout.GetNonCore(), wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore(), wep = new ArrayList<>();
         double result = 0.0, foreBV = 0.0, rearBV = 0.0;
         boolean UseRear = false, TC = UsingTC(), UseAESMod = false, UseRobotic = CurCockpit.IsRobotic();
         abPlaceable a;
@@ -3015,7 +2657,7 @@ public class Mech implements ifUnit, ifBattleforce {
             // check for coolant pods
             int NumHS = GetHeatSinks().GetNumHS(), MaxHSBonus = NumHS * 2, NumPods = 0;
             for( int i = 0; i < v.size(); i++ ) {
-                a = (abPlaceable) v.get( i );
+                a = v.get( i );
                 if( a instanceof Equipment ) {
                     if( ((Equipment) a).LookupName().equals( "Coolant Pod" ) ) {
                         NumPods++;
@@ -3030,7 +2672,7 @@ public class Mech implements ifUnit, ifBattleforce {
 
         // find out the total BV of rear and forward firing weapons
         for( int i = 0; i < wep.size(); i++ ) {
-            a = ((abPlaceable) wep.get( i ));
+            a = wep.get( i );
             // arm mounted weapons always count their full BV, so ignore them.
             int loc = CurLoadout.Find( a );
             // 2020-10-10 Turreted are also always their full BV
@@ -3051,7 +2693,7 @@ public class Mech implements ifUnit, ifBattleforce {
         if( heff - wheat >= 0 ) {
             // no need for extensive calculations, return the weapon BV
             for( int i = 0; i < wep.size(); i++ ) {
-                a = ((abPlaceable) wep.get( i ));
+                a = wep.get( i );
                 int loc = CurLoadout.Find( a );
                 UseAESMod = UseAESModifier( a );
                 if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
@@ -3108,11 +2750,11 @@ public class Mech implements ifUnit, ifBattleforce {
     public double GetNonHeatEquipBV() {
         // return the BV of all offensive equipment
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
 
         for( int i = 0; i < v.size(); i++ ) {
             if( ! ( v.get( i ) instanceof ifWeapon ) ) {
-                result += ((abPlaceable) v.get( i )).GetOffensiveBV();
+                result += v.get( i ).GetOffensiveBV();
             }
         }
         return result;
@@ -3120,9 +2762,9 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetExcessiveAmmoPenalty() {
         double result = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
-        ArrayList Ammo = new ArrayList(),
-               Wep = new ArrayList();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
+        ArrayList<Ammunition> Ammo = new ArrayList<>();
+        ArrayList<ifWeapon> Wep = new ArrayList<>();
 
         // do we even need to do this?
         if( v.size() <= 0 ) { return result; }
@@ -3130,11 +2772,11 @@ public class Mech implements ifUnit, ifBattleforce {
         // seperate out the ammo-using weapons and their ammunition
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                Ammo.add( v.get( i ) );
+                Ammo.add( (Ammunition) v.get( i ) );
             }
             if( v.get(i) instanceof ifWeapon ) {
                 if( ((ifWeapon) v.get( i )).HasAmmo() ) {
-                    Wep.add( v.get( i ) );
+                    Wep.add( (ifWeapon) v.get( i ) );
                 }
             }
         }
@@ -3146,13 +2788,13 @@ public class Mech implements ifUnit, ifBattleforce {
         // not excessive.  Add the BV to the running total.
         while( Wep.size() > 0 ) {
             // get the first item and check if anything else uses the same ammo
-            ifWeapon test = (ifWeapon) Wep.get( 0 );
+            ifWeapon test = Wep.get( 0 );
             Wep.remove( test );
             Ammunition ammo = null;
             int NumWeps = 1;
             int NumAmmos = 0;
             for( int i = Wep.size() - 1; i >= 0; i-- ) {
-                if( ((ifWeapon) Wep.get( i )).GetAmmoIndex() == test.GetAmmoIndex() ) {
+                if( Wep.get( i ).GetAmmoIndex() == test.GetAmmoIndex() ) {
                     NumWeps++;
                     Wep.remove( i );
                 }
@@ -3160,8 +2802,8 @@ public class Mech implements ifUnit, ifBattleforce {
 
             // now check the number of ammunitions that this weapon uses
             for( int i = 0; i < Ammo.size(); i++ ) {
-                if( ((Ammunition) Ammo.get(i)).GetAmmoIndex() == test.GetAmmoIndex() ) {
-                    ammo = (Ammunition) Ammo.get( i );
+                if( Ammo.get(i).GetAmmoIndex() == test.GetAmmoIndex() ) {
+                    ammo = Ammo.get( i );
                     NumAmmos++;
                 }
             }
@@ -3211,18 +2853,18 @@ public class Mech implements ifUnit, ifBattleforce {
             int boost = GetAdjustedBoosterMP( true );
             int jump = GetAdjustedJumpingMP( true );
             if( jump >= boost ) {
-                result += (double) (GetAdjustedRunningMP(true, true) + (Math.floor(GetAdjustedJumpingMP(true) * 0.5f + 0.5f)) - 5.0f);
+                result += GetAdjustedRunningMP(true, true) + (Math.floor(GetAdjustedJumpingMP(true) * 0.5f + 0.5f)) - 5.0f;
             } else {
-                result += (double) (GetAdjustedRunningMP(true, true) + (Math.floor(GetAdjustedBoosterMP(true) * 0.5f + 0.5f)) - 5.0f);
+                result += GetAdjustedRunningMP(true, true) + (Math.floor(GetAdjustedBoosterMP(true) * 0.5f + 0.5f)) - 5.0f;
             }
         } else {
-            result += (double) (GetAdjustedRunningMP(true, true) + (Math.floor(GetAdjustedJumpingMP(true) * 0.5f + 0.5f)) - 5.0f);
+            result += GetAdjustedRunningMP(true, true) + (Math.floor(GetAdjustedJumpingMP(true) * 0.5f + 0.5f)) - 5.0f;
         }
         result = result * 0.1 + 1.0;
-        result = (double) Math.pow( result, 1.2 ) ;
+        result = Math.pow( result, 1.2 ) ;
 
         // round off to the nearest two digits
-        result = (double) Math.floor( result * 100 + 0.5 ) / 100;
+        result = Math.floor( result * 100 + 0.5 ) / 100;
 
         double cockpitMultiplier = 1.0;
         if( ! CurCockpit.HasFireControl() ) {
@@ -3394,12 +3036,12 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetEquipCost() {
         // gets the cost for all non-core items minus ammuntion.
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         double retval = 0.0;
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( ! (v.get( i ) instanceof Ammunition ) ) {
-                    retval += ( (abPlaceable) v.get( i ) ).GetCost();
+                    retval += v.get( i ).GetCost();
                 }
             }
             if( ! CurEngine.IsNuclear() ) { retval += CurLoadout.GetPowerAmplifier().GetCost(); }
@@ -3411,12 +3053,12 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetAmmoCosts() {
         // gets the cost for all ammuntion.
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         double retval = 0.0;
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( (v.get( i ) instanceof Ammunition ) ) {
-                    retval += ( (abPlaceable) v.get( i ) ).GetCost();
+                    retval += v.get( i ).GetCost();
                 }
             }
             if( Prefs.getBoolean( "CostAmmoMult", false ) ) {
@@ -3432,7 +3074,7 @@ public class Mech implements ifUnit, ifBattleforce {
     public int GetAmmoCount( int ammoIndex )
     {
         int retval = 0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( ( v.get( i ) instanceof Ammunition ) ) {
@@ -3453,7 +3095,7 @@ public class Mech implements ifUnit, ifBattleforce {
     public int GetWeaponCount( int ammoIndex )
     {
         int retval = 0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         if ( v.size() > 0 ) {
             for(Object w : v)
             {
@@ -3611,55 +3253,13 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public void SetNullSig( boolean set ) throws Exception {
-        if( set == HasNullSig ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( NullSig );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! NullSig.Place( MainLoadout ) ) {
-                    MainLoadout.Remove( NullSig );
-                    throw new Exception( "There is no available room for the Null Signature System!\nIt will not be allocated." );
-                }
-                AddMechModifier( NullSig.GetMechModifier() );
-                HasNullSig = true;
-            } else {
-                MainLoadout.Remove( NullSig );
-                HasNullSig = false;
-            }
-        }
-
-        SetChanged( true );
+        HasNullSig = SetMultiSlotSystem( set, HasNullSig, NullSig, "There is no available room for the Null Signature System!\nIt will not be allocated." );
     }
 
     // the following method is added for when we want to load a 'Mech
     // and have specific locations for the system
     public void SetNullSig( boolean set, LocationIndex[] locs ) throws Exception {
-        if( set == HasNullSig ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( NullSig );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! NullSig.Place( MainLoadout, locs ) ) {
-                    MainLoadout.Remove( NullSig );
-                    throw new Exception( "There is no available room for the Null Signature System!\nIt will not be allocated." );
-                }
-                AddMechModifier( NullSig.GetMechModifier() );
-                HasNullSig = true;
-            } else {
-                MainLoadout.Remove( NullSig );
-                HasNullSig = false;
-            }
-        }
-
-        SetChanged( true );
+        HasNullSig = SetMultiSlotSystem( set, HasNullSig, NullSig, locs, "There is no available room for the Null Signature System!\nIt will not be allocated." );
     }
 
     public boolean HasNullSig() {
@@ -3671,55 +3271,13 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public void SetChameleon( boolean set ) throws Exception {
-        if( set == HasChameleon ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( Chameleon );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! Chameleon.Place( MainLoadout ) ) {
-                    MainLoadout.Remove( Chameleon );
-                    throw new Exception( "There is no available room for the Chameleon LPS!\nIt will not be allocated." );
-                }
-                AddMechModifier( Chameleon.GetMechModifier() );
-                HasChameleon = true;
-            } else {
-                MainLoadout.Remove( Chameleon );
-                HasChameleon = false;
-            }
-        }
-
-        SetChanged( true );
+        HasChameleon = SetMultiSlotSystem( set, HasChameleon, Chameleon, "There is no available room for the Chameleon LPS!\nIt will not be allocated." );
     }
 
     // the following method is added for when we want to load a 'Mech
     // and have specific locations for the system
     public void SetChameleon( boolean set, LocationIndex[] locs ) throws Exception {
-        if( set == HasChameleon ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( Chameleon );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! Chameleon.Place( MainLoadout, locs ) ) {
-                    MainLoadout.Remove( Chameleon );
-                    throw new Exception( "There is no available room for the Chameleon LPS!\nIt will not be allocated." );
-                }
-                AddMechModifier( Chameleon.GetMechModifier() );
-                HasChameleon = true;
-            } else {
-                MainLoadout.Remove( Chameleon );
-                HasChameleon = false;
-            }
-        }
-
-        SetChanged( true );
+        HasChameleon = SetMultiSlotSystem( set, HasChameleon, Chameleon, locs, "There is no available room for the Chameleon LPS!\nIt will not be allocated." );
     }
 
     public boolean HasChameleon() {
@@ -3762,55 +3320,13 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public void SetVoidSig( boolean set ) throws Exception {
-        if( set == HasVoidSig ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( VoidSig );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! VoidSig.Place( MainLoadout ) ) {
-                    MainLoadout.Remove( VoidSig );
-                    throw new Exception( "There is no available room for the Void Signature System!\nIt will not be allocated." );
-                }
-                AddMechModifier( VoidSig.GetMechModifier() );
-                HasVoidSig = true;
-            } else {
-                MainLoadout.Remove( VoidSig );
-                HasVoidSig = false;
-            }
-        }
-
-        SetChanged( true );
+        HasVoidSig = SetMultiSlotSystem( set, HasVoidSig, VoidSig, "There is no available room for the Void Signature System!\nIt will not be allocated." );
     }
 
     // the following method is added for when we want to load a 'Mech
     // and have specific locations for the system
     public void SetVoidSig( boolean set, LocationIndex[] locs ) throws Exception {
-        if( set == HasVoidSig ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( VoidSig );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! VoidSig.Place( MainLoadout, locs ) ) {
-                    MainLoadout.Remove( VoidSig );
-                    throw new Exception( "There is no available room for the Void Signature System!\nIt will not be allocated." );
-                }
-                AddMechModifier( VoidSig.GetMechModifier() );
-                HasVoidSig = true;
-            } else {
-                MainLoadout.Remove( VoidSig );
-                HasVoidSig = false;
-            }
-        }
-
-        SetChanged( true );
+        HasVoidSig = SetMultiSlotSystem( set, HasVoidSig, VoidSig, locs, "There is no available room for the Void Signature System!\nIt will not be allocated." );
     }
 
     public boolean HasVoidSig() {
@@ -3822,55 +3338,13 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public void SetBlueShield( boolean set ) throws Exception {
-        if( set == HasBlueShield ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( BlueShield );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! BlueShield.Place( MainLoadout ) ) {
-                    MainLoadout.Remove( BlueShield );
-                    throw new Exception( "There is no available room for the Blue Shield PFD!\nIt will not be allocated." );
-                }
-                AddMechModifier( BlueShield.GetMechModifier() );
-                HasBlueShield = true;
-            } else {
-                MainLoadout.Remove( BlueShield );
-                HasBlueShield = false;
-            }
-        }
-
-        SetChanged( true );
+        HasBlueShield = SetMultiSlotSystem( set, HasBlueShield, BlueShield, "There is no available room for the Blue Shield PFD!\nIt will not be allocated." );
     }
 
     // the following method is added for when we want to load a 'Mech
     // and have specific locations for the system
     public void SetBlueShield( boolean set, LocationIndex[] locs ) throws Exception {
-        if( set == HasBlueShield ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( BlueShield );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! BlueShield.Place( MainLoadout, locs ) ) {
-                    MainLoadout.Remove( BlueShield );
-                    throw new Exception( "There is no available room for the Blue Shield PFD!\nIt will not be allocated." );
-                }
-                AddMechModifier( BlueShield.GetMechModifier() );
-                HasBlueShield = true;
-            } else {
-                MainLoadout.Remove( BlueShield );
-                HasBlueShield = false;
-            }
-        }
-
-        SetChanged( true );
+        HasBlueShield = SetMultiSlotSystem( set, HasBlueShield, BlueShield, locs, "There is no available room for the Blue Shield PFD!\nIt will not be allocated." );
     }
 
     public boolean HasBlueShield() {
@@ -3882,55 +3356,13 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public void SetEnviroSealing( boolean set ) throws Exception {
-        if( set == HasEnviroSealing ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( EnviroSealing );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! EnviroSealing.Place( MainLoadout ) ) {
-                    MainLoadout.Remove( EnviroSealing );
-                    throw new Exception( "There is no available room for the Environmental Sealing!\nIt will not be allocated." );
-                }
-                AddMechModifier( EnviroSealing.GetMechModifier() );
-                HasEnviroSealing = true;
-            } else {
-                MainLoadout.Remove( EnviroSealing );
-                HasEnviroSealing = false;
-            }
-        }
-
-        SetChanged( true );
+        HasEnviroSealing = SetMultiSlotSystem( set, HasEnviroSealing, EnviroSealing, "There is no available room for the Environmental Sealing!\nIt will not be allocated." );
     }
 
     // the following method is added for when we want to load a 'Mech
     // and have specific locations for the system
     public void SetEnviroSealing( boolean set, LocationIndex[] locs ) throws Exception {
-        if( set == HasEnviroSealing ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( EnviroSealing );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! EnviroSealing.Place( MainLoadout, locs ) ) {
-                    MainLoadout.Remove( EnviroSealing );
-                    throw new Exception( "There is no available room for the Environmental Sealing!\nIt will not be allocated." );
-                }
-                AddMechModifier( EnviroSealing.GetMechModifier() );
-                HasEnviroSealing = true;
-            } else {
-                MainLoadout.Remove( EnviroSealing );
-                HasEnviroSealing = false;
-            }
-        }
-
-        SetChanged( true );
+        HasEnviroSealing = SetMultiSlotSystem( set, HasEnviroSealing, EnviroSealing, locs, "There is no available room for the Environmental Sealing!\nIt will not be allocated." );
     }
 
     public boolean HasEnviroSealing() {
@@ -3943,55 +3375,13 @@ public class Mech implements ifUnit, ifBattleforce {
 
 
     public void SetTracks( boolean set ) throws Exception {
-        if( set == HasTracks ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( Tracks );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! Tracks.Place( MainLoadout ) ) {
-                    MainLoadout.Remove( Tracks );
-                    throw new Exception( "There is no available room for the Tracks!\nIt will not be allocated." );
-                }
-                AddMechModifier( Tracks.GetMechModifier() );
-                HasTracks = true;
-            } else {
-                MainLoadout.Remove( Tracks );
-                HasTracks = false;
-            }
-        }
-
-        SetChanged( true );
+        HasTracks = SetMultiSlotSystem( set, HasTracks, Tracks, "There is no available room for the Tracks!\nIt will not be allocated." );
     }
 
     // the following method is added for when we want to load a 'Mech
     // and have specific locations for the system
     public void SetTracks( boolean set, LocationIndex[] locs ) throws Exception {
-        if( set == HasTracks ) {
-            return;
-        } else {
-            if( set ) {
-                try {
-                    MainLoadout.CheckExclusions( Tracks );
-                } catch( Exception e ) {
-                    throw e;
-                }
-                if( ! Tracks.Place( MainLoadout, locs ) ) {
-                    MainLoadout.Remove( Tracks );
-                    throw new Exception( "There is no available room for the Tracks!\nIt will not be allocated." );
-                }
-                AddMechModifier( Tracks.GetMechModifier() );
-                HasTracks = true;
-            } else {
-                MainLoadout.Remove( Tracks );
-                HasTracks = false;
-            }
-        }
-
-        SetChanged( true );
+        HasTracks = SetMultiSlotSystem( set, HasTracks, Tracks, locs, "There is no available room for the Tracks!\nIt will not be allocated." );
     }
 
     public boolean HasTracks() {
@@ -4407,9 +3797,9 @@ public class Mech implements ifUnit, ifBattleforce {
     public void CheckPhysicals() {
         // unallocates physical weapons, especially if the tonnage changes
         // we'll also check to see if the mech is a quad and remove the weapons
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            abPlaceable p = (abPlaceable) v.get( i );
+            abPlaceable p = v.get( i );
             if( p instanceof PhysicalWeapon ) {
                 CurLoadout.UnallocateAll( p, false );
             }
@@ -4457,9 +3847,9 @@ public class Mech implements ifUnit, ifBattleforce {
             Base.Combine( CurLoadout.GetCTCaseII().GetAvailability() );
         }
         if( ! CurEngine.IsNuclear() ) { Base.Combine( CurLoadout.GetPowerAmplifier().GetAvailability() ); }
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            Base.Combine( ((abPlaceable) v.get( i )).GetAvailability() );
+            Base.Combine( v.get( i ).GetAvailability() );
         }
         if( CurLoadout.HasSupercharger() ) {
             Base.Combine( CurLoadout.GetSupercharger().GetAvailability() );
@@ -4574,33 +3964,33 @@ public class Mech implements ifUnit, ifBattleforce {
         }
     }
 
-    public ArrayList SortLoadout( ArrayList v ) {
+    public ArrayList<abPlaceable> SortLoadout( ArrayList<abPlaceable> v ) {
         return SortWeapons(v, false, false);
     }
 
-    public abPlaceable[] SortWeapons( ArrayList v, boolean rear ) {
+    public abPlaceable[] SortWeapons( ArrayList<abPlaceable> v, boolean rear ) {
         // convert the results
-        ArrayList r = SortWeapons(v, rear, true);
+        ArrayList<abPlaceable> r = SortWeapons(v, rear, true);
         abPlaceable[] result = new abPlaceable[r.size()];
         for( int i = 0; i < r.size(); i++ ) {
-            result[i] = (abPlaceable) r.get( i );
+            result[i] = r.get( i );
         }
         return result;
     }
 
     // sorting routine for weapon BV calculation. this is undoubtedly slow
-    public ArrayList SortWeapons( ArrayList v, boolean rear, boolean DoRearHeatCheck ) {
+    public ArrayList<abPlaceable> SortWeapons( ArrayList<abPlaceable> v, boolean rear, boolean DoRearHeatCheck ) {
         // sort by BV first (using gnomesort for less code.  may have to change 
         // this depending on the slowness of the program.  I figure lower overhead
         // will have better results at this time, and mechs typically don't
         // carry more than twelve to fifteen weapons.  I'll have to test this.
         int i = 1, j = 2;
         boolean TC = UsingTC();
-        Object swap;
+        abPlaceable swap;
         while( i < v.size() ) {
             // get the two items we'll be comparing
-            boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
-            boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+            boolean AES1 = UseAESModifier( v.get( i - 1 ) );
+            boolean AES2 = UseAESModifier( v.get( i ) );
             /***
              * 2020-10-06:
              * This should be improved but the problem is it needs to be sorted by BV,
@@ -4608,8 +3998,8 @@ public class Mech implements ifUnit, ifBattleforce {
              * compare them as a second step if the BV is the same.  If the BV is higher
              * then we don't need to look.
              */
-            double offensiveBV1 = ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 );
-            double offensiveBV2 = ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 );
+            double offensiveBV1 = v.get( i - 1 ).GetCurOffensiveBV( rear, TC, AES1 );
+            double offensiveBV2 = v.get( i ).GetCurOffensiveBV( rear, TC, AES2 );
             double heat1 = ((ifWeapon) v.get( i - 1 )).GetHeat();
             double heat2 = ((ifWeapon) v.get( i )).GetHeat();
             if( offensiveBV1 > offensiveBV2 || ( offensiveBV1 == offensiveBV2 && heat1 <= heat2 ) ) {
@@ -4631,13 +4021,13 @@ public class Mech implements ifUnit, ifBattleforce {
         if ( DoRearHeatCheck ) {
             i = 1;
             while( i < v.size() ) {
-                boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
-                boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+                boolean AES1 = UseAESModifier( v.get( i - 1 ) );
+                boolean AES2 = UseAESModifier( v.get( i ) );
                 double heat1 = ((ifWeapon) v.get( i - 1 )).GetHeat();
                 double heat2 = ((ifWeapon) v.get( i )).GetHeat();
-                if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 ) == ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 ) ) {
+                if( v.get( i - 1 ).GetCurOffensiveBV( rear, TC, AES1 ) == v.get( i ).GetCurOffensiveBV( rear, TC, AES2 ) ) {
                     if( rear ) {
-                        if( ((abPlaceable) v.get( i - 1 )).IsMountedRear() &! ((abPlaceable) v.get( i )).IsMountedRear() ) {
+                        if( v.get( i - 1 ).IsMountedRear() &! v.get( i ).IsMountedRear() ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
@@ -4647,7 +4037,7 @@ public class Mech implements ifUnit, ifBattleforce {
                             v.set( i, swap );
                         }
                     } else {
-                        if( ! ((abPlaceable) v.get( i - 1 )).IsMountedRear() && ((abPlaceable) v.get( i )).IsMountedRear() ) {
+                        if( ! v.get( i - 1 ).IsMountedRear() && v.get( i ).IsMountedRear() ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
@@ -4671,7 +4061,7 @@ public class Mech implements ifUnit, ifBattleforce {
      * @return 
      */
     
-    public ArrayList SortWeaponsToPrint( ArrayList v ) {
+    public ArrayList<abPlaceable> SortWeaponsToPrint( ArrayList<abPlaceable> v ) {
         /***
         * 2020-10-10:
         * When we fixed the BV calculations sort (see 10-06 note above) it broke
@@ -4683,14 +4073,14 @@ public class Mech implements ifUnit, ifBattleforce {
         
         int i = 1, j = 2;
         boolean TC = UsingTC();
-        Object swap;
+        abPlaceable swap;
         while( i < v.size() ) {
             // get the two items we'll be comparing
-            boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
-            boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+            boolean AES1 = UseAESModifier( v.get( i - 1 ) );
+            boolean AES2 = UseAESModifier( v.get( i ) );
 
-            double offensiveBV1 = ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( false, TC, AES1 );
-            double offensiveBV2 = ((abPlaceable) v.get( i )).GetCurOffensiveBV( false, TC, AES2 );
+            double offensiveBV1 = v.get( i - 1 ).GetCurOffensiveBV( false, TC, AES1 );
+            double offensiveBV2 = v.get( i ).GetCurOffensiveBV( false, TC, AES2 );
             if( offensiveBV1 >= offensiveBV2 ) {
                 i = j;
                 j += 1;
@@ -4712,9 +4102,9 @@ public class Mech implements ifUnit, ifBattleforce {
         if( ! ( a instanceof ifWeapon ) ) { return false; }
         if( HasLegAES || HasRAAES || HasLAAES ) {
             if( a.CanSplit() ) {
-                ArrayList v = CurLoadout.FindSplitIndex( a );
+                ArrayList<LocationIndex> v = CurLoadout.FindSplitIndex( a );
                 if( v.size() > 1 || v.size() < 1 ) { return false; }
-                int test = ((LocationIndex) v.get( 0 )).Location;
+                int test = v.get( 0 ).Location;
                 if( Quad ) {
                     if( HasLegAES && ( test == LocationIndex.MECH_LOC_RL || test == LocationIndex.MECH_LOC_LL || test == LocationIndex.MECH_LOC_RA || test == LocationIndex.MECH_LOC_LA ) ) {
                         if( a instanceof PhysicalWeapon ) {
@@ -4807,7 +4197,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public boolean HasC3() {
-        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+        for (abPlaceable item : CurLoadout.GetEquipment()) {
             if (item.LookupName().contains("C3")) {
                 return true;
             }
@@ -4816,7 +4206,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public boolean HasECM() {
-        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+        for (abPlaceable item : CurLoadout.GetEquipment()) {
             if (item.LookupName().contains("ECM") || item.LookupName().contains("Watchdog")) {
                 return true;
             }
@@ -4825,7 +4215,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public boolean HasProbe() {
-        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+        for (abPlaceable item : CurLoadout.GetEquipment()) {
             if (item.LookupName().contains("Probe")) {
                 return true;
             }
@@ -4840,7 +4230,7 @@ public class Mech implements ifUnit, ifBattleforce {
         return true;
     }
 
-    public ArrayList GetMechMods() {
+    public ArrayList<MechModifier> GetMechMods() {
         return MechMods;
     }
 
@@ -4862,18 +4252,18 @@ public class Mech implements ifUnit, ifBattleforce {
             for( int i = 0; i < MechMods.size(); i++ ) {
                 if( BV ) {
                     if( MASCTSM ) {
-                        retval.BVCombine( ((MechModifier) MechMods.get( i )) );
+                        retval.BVCombine( MechMods.get( i ) );
                     } else {
                         if( MechMods.get( i ) != CurPhysEnhance.GetMechModifier() ) {
-                            retval.BVCombine( ((MechModifier) MechMods.get( i )) );
+                            retval.BVCombine( MechMods.get( i ) );
                         }
                     }
                 } else {
                     if( MASCTSM ) {
-                        retval.Combine( ((MechModifier) MechMods.get( i )) );
+                        retval.Combine( MechMods.get( i ) );
                     } else {
                         if( MechMods.get( i ) != CurPhysEnhance.GetMechModifier() ) {
-                            retval.Combine( ((MechModifier) MechMods.get( i )) );
+                            retval.Combine( MechMods.get( i ) );
                         }
                     }
                 }
@@ -4882,9 +4272,9 @@ public class Mech implements ifUnit, ifBattleforce {
         if( CurLoadout.GetMechMods().size() > 0 ) {
             for( int i = 0; i < CurLoadout.GetMechMods().size(); i++ ) {
                 if( BV ) {
-                    retval.BVCombine( ((MechModifier) CurLoadout.GetMechMods().get( i )) );
+                    retval.BVCombine( CurLoadout.GetMechMods().get( i ) );
                 } else {
-                    retval.Combine( ((MechModifier) CurLoadout.GetMechMods().get( i )) );
+                    retval.Combine( CurLoadout.GetMechMods().get( i ) );
                 }
             }
         }
@@ -5187,13 +4577,13 @@ public class Mech implements ifUnit, ifBattleforce {
         double armorpoints = a.GetArmorValue();
 
         if ( a.IsCommercial() ){
-            armorpoints = (double) Math.floor(armorpoints / 2.0);
+            armorpoints = Math.floor(armorpoints / 2.0);
         }else if ( a.IsFerroLamellor() ){
-            armorpoints = (double) Math.ceil(armorpoints * 1.2);
+            armorpoints = Math.ceil(armorpoints * 1.2);
         }else if ( a.IsHardened() ){
-            armorpoints = (double) Math.ceil(armorpoints * 2.0);
+            armorpoints = Math.ceil(armorpoints * 2.0);
         }else if ( a.IsReactive() || a.IsReflective() ){
-            armorpoints = (double) Math.ceil(armorpoints * 0.75f);
+            armorpoints = Math.ceil(armorpoints * 0.75f);
         }
 
         armorpoints += a.GetModularArmorValue();
@@ -5219,7 +4609,7 @@ public class Mech implements ifUnit, ifBattleforce {
 
         // Loop through all weapons in non-core
         // and convert all weapon dmg
-        ArrayList nc = GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> nc = GetLoadout().GetNonCore();
         BFData = new BattleForceData();
 
         BFData.AddNote("Weapon  :: Short / Medium / Long / Extreme / [Heat]" );
@@ -5322,10 +4712,10 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public ArrayList<String> GetBFAbilities() {
-        ArrayList<String> retval = new ArrayList();
+        ArrayList<String> retval = new ArrayList<>();
 
         // First search all equipment for BF Abilities
-        ArrayList nc = GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> nc = GetLoadout().GetNonCore();
         boolean isENE = true,
                 hasExplodable = false;
         int Taser = 0,
@@ -5365,7 +4755,7 @@ public class Mech implements ifUnit, ifBattleforce {
             MHQTons += 1.0d;
 
         for ( int i = 0; i < nc.size(); i++ ) {
-            abPlaceable item = (abPlaceable)nc.get(i);
+            abPlaceable item = nc.get(i);
 
             // Get the list of abilities from the equipment itself
             // handle special cases like C3
@@ -5537,7 +4927,7 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public ifVisitor Lookup( String s ) {
         // returns a visitor from the lookup table based on the lookup string
-        return (ifVisitor) Lookup.get( s );
+        return Lookup.get( s );
     }
 
     private void BuildLookupTable() {
@@ -5630,15 +5020,15 @@ public class Mech implements ifUnit, ifBattleforce {
         Lookup.put( "Primitive Industrial w/ Adv. FC", new VCockpitSetPrimIndustrialAFC() );
 
         // now to fix all the visitors with counterparts to use Clan tech if needed
-        ((ifVisitor) Lookup.get( "(CL) Ferro-Fibrous" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) Laser-Reflective" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) Reactive Armor" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) Endo-Steel" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) Endo-Composite" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) XL Engine" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) XXL Engine" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) MASC" )).SetClan( true );
-        ((ifVisitor) Lookup.get( "(CL) Double Heat Sink" )).SetClan( true );
+        Lookup.get( "(CL) Ferro-Fibrous" ).SetClan( true );
+        Lookup.get( "(CL) Laser-Reflective" ).SetClan( true );
+        Lookup.get( "(CL) Reactive Armor" ).SetClan( true );
+        Lookup.get( "(CL) Endo-Steel" ).SetClan( true );
+        Lookup.get( "(CL) Endo-Composite" ).SetClan( true );
+        Lookup.get( "(CL) XL Engine" ).SetClan( true );
+        Lookup.get( "(CL) XXL Engine" ).SetClan( true );
+        Lookup.get( "(CL) MASC" ).SetClan( true );
+        Lookup.get( "(CL) Double Heat Sink" ).SetClan( true );
     }
 
     // toString

@@ -36,6 +36,7 @@ import filehandlers.TXTWriter;
 import battleforce.BattleForceStats;
 import common.CommonTools;
 import common.Constants;
+import components.ifCVLoadout;
 import components.ifMechLoadout;
 
 import filehandlers.*;
@@ -48,6 +49,8 @@ import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
 
 public class dlgUnit extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     private Force force;
     private Unit unit;
     private boolean Default = true;
@@ -104,7 +107,7 @@ public class dlgUnit extends javax.swing.JDialog {
                         String curConfig = unit.m.GetLoadout().GetName();
                         int BV = unit.m.GetCurrentBV();
                         for (int i=0; i < unit.m.GetLoadouts().size(); i++) {
-                            ifMechLoadout config = (ifMechLoadout) unit.m.GetLoadouts().get(i);
+                            ifMechLoadout config = unit.m.GetLoadouts().get(i);
                             unit.m.SetCurLoadout(config.GetName());
                             cmbConfiguration.addItem(config.GetName() + " (" + unit.m.GetCurrentBV() + ")");
                         }
@@ -131,7 +134,7 @@ public class dlgUnit extends javax.swing.JDialog {
                         String curConfig = unit.v.GetLoadout().GetName();
                         int BV = unit.v.GetCurrentBV();
                         for (int i=0; i < unit.v.GetLoadouts().size(); i++) {
-                            ifMechLoadout config = (ifMechLoadout) unit.v.GetLoadouts().get(i);
+                            ifCVLoadout config = unit.v.GetLoadouts().get(i);
                             unit.v.SetCurLoadout(config.GetName());
                             cmbConfiguration.addItem(config.GetName() + " (" + unit.v.GetCurrentBV() + ")");
                         }
@@ -259,11 +262,11 @@ public class dlgUnit extends javax.swing.JDialog {
         txtMechwarrior = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cmbPiloting = new javax.swing.JComboBox();
+        cmbPiloting = new javax.swing.JComboBox<>();
         lblTonnage = new javax.swing.JLabel();
-        cmbGunnery = new javax.swing.JComboBox();
+        cmbGunnery = new javax.swing.JComboBox<>();
         pnlConfiguration = new javax.swing.JPanel();
-        cmbConfiguration = new javax.swing.JComboBox();
+        cmbConfiguration = new javax.swing.JComboBox<>();
         lblConfig = new javax.swing.JLabel();
         txtMod = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
@@ -299,18 +302,18 @@ public class dlgUnit extends javax.swing.JDialog {
         rdoPiloting = new javax.swing.JRadioButton();
         rdoNeither = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstSkills = new javax.swing.JList();
+        lstSkills = new javax.swing.JList<>();
         jLabel10 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        cmbSkillLevel = new javax.swing.JComboBox();
+        cmbSkillLevel = new javax.swing.JComboBox<>();
         lblRandomSkill = new javax.swing.JLabel();
         btnRandomGen = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         btnApply = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lstPersonnel = new javax.swing.JList();
+        lstPersonnel = new javax.swing.JList<>();
         btnSelectWarrior = new javax.swing.JButton();
         btnLoadFile = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
@@ -364,7 +367,7 @@ public class dlgUnit extends javax.swing.JDialog {
 
         jLabel3.setText("Mechwarrior");
 
-        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
+        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
         cmbPiloting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPilotingActionPerformed(evt);
@@ -375,7 +378,7 @@ public class dlgUnit extends javax.swing.JDialog {
         lblTonnage.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTonnage.setText("100 Tons");
 
-        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
+        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
         cmbGunnery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGunneryActionPerformed(evt);
@@ -710,10 +713,10 @@ public class dlgUnit extends javax.swing.JDialog {
             }
         });
 
-        lstSkills.setModel(new javax.swing.AbstractListModel() {
+        lstSkills.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "0 / 0  (1000)", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         lstSkills.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -789,7 +792,7 @@ public class dlgUnit extends javax.swing.JDialog {
 
         jLabel12.setText("Skill Level:");
 
-        cmbSkillLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Random", "Green", "Regular", "Veteran", "Elite" }));
+        cmbSkillLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Random", "Green", "Regular", "Veteran", "Elite" }));
 
         lblRandomSkill.setFont(new java.awt.Font("Arial Black", 1, 18));
         lblRandomSkill.setText("0 / 0");
@@ -850,10 +853,10 @@ public class dlgUnit extends javax.swing.JDialog {
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Mechwarrior List"));
 
-        lstPersonnel.setModel(new javax.swing.AbstractListModel() {
+        lstPersonnel.setModel(new javax.swing.AbstractListModel<Warrior>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public Warrior getElementAt(int i) { return null; }
         });
         lstPersonnel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstPersonnel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1390,7 +1393,7 @@ public class dlgUnit extends javax.swing.JDialog {
 
     private void btnSelectWarriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectWarriorActionPerformed
         if ( lstPersonnel.getSelectedIndex() > -1 ) {
-            Warrior w = (Warrior) lstPersonnel.getSelectedValue();
+            Warrior w = lstPersonnel.getSelectedValue();
             unit.setGunnery(w.getGunnery());
             unit.setPiloting(w.getPiloting());
             unit.setMechwarrior(w.getName());
@@ -1490,10 +1493,10 @@ public class dlgUnit extends javax.swing.JDialog {
     private javax.swing.JButton btnSelectMech;
     private javax.swing.JButton btnSelectWarrior;
     private javax.swing.JCheckBox chkC3Active;
-    private javax.swing.JComboBox cmbConfiguration;
-    private javax.swing.JComboBox cmbGunnery;
-    private javax.swing.JComboBox cmbPiloting;
-    private javax.swing.JComboBox cmbSkillLevel;
+    private javax.swing.JComboBox<String> cmbConfiguration;
+    private javax.swing.JComboBox<String> cmbGunnery;
+    private javax.swing.JComboBox<String> cmbPiloting;
+    private javax.swing.JComboBox<String> cmbSkillLevel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1560,8 +1563,8 @@ public class dlgUnit extends javax.swing.JDialog {
     private javax.swing.JLabel lblSSWImage;
     private javax.swing.JLabel lblTonnage;
     private javax.swing.JLabel lblTotalBV;
-    private javax.swing.JList lstPersonnel;
-    private javax.swing.JList lstSkills;
+    private javax.swing.JList<Warrior> lstPersonnel;
+    private javax.swing.JList<String> lstSkills;
     private javax.swing.JPanel pnlBFStats;
     private javax.swing.JPanel pnlConfiguration;
     private javax.swing.JPanel pnlFile;

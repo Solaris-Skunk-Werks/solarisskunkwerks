@@ -28,11 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package Force;
 
 import IO.DataReader;
+import filehandlers.FileCommon;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
@@ -47,6 +47,8 @@ import org.w3c.dom.*;
  * @author George Blouin
  */
 public class Warriors extends AbstractTableModel {
+    private static final long serialVersionUID = 1L;
+
     private ArrayList<Warrior> list = new ArrayList<Warrior>();
     private String defaultPath = "data/Personnel/WarriorList.psn",
                     Title = "",
@@ -106,7 +108,7 @@ public class Warriors extends AbstractTableModel {
     }
 
     public Warrior Get( int index ) {
-        return (Warrior) list.get(index);
+        return list.get(index);
     }
 
     public void Remove( Warrior warrior ) {
@@ -119,11 +121,11 @@ public class Warriors extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public DefaultListModel getModel() {
-        DefaultListModel model = new DefaultListModel();
+    public DefaultListModel<Warrior> getModel() {
+        DefaultListModel<Warrior> model = new DefaultListModel<>();
 
         for (int i = 0; i < list.size(); i++) {
-            Warrior w = (Warrior) list.get(i);
+            Warrior w = list.get(i);
             model.addElement(w);
         }
 
@@ -131,7 +133,7 @@ public class Warriors extends AbstractTableModel {
     }
 
     public void SerializeXML(BufferedWriter file) throws IOException {
-        file.write( "<warriors title=\"" + this.Title + "\">" );
+        file.write( "<warriors title=\"" + FileCommon.EncodeXmlAttribute(this.Title) + "\">" );
         file.newLine();
 
         for ( Warrior w : list ) {
@@ -146,8 +148,8 @@ public class Warriors extends AbstractTableModel {
         tbl.setModel(this);
 
         //Create a sorting class and apply it to the list
-        TableRowSorter Leftsorter = new TableRowSorter<Warriors>(this);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        TableRowSorter<Warriors> Leftsorter = new TableRowSorter<>(this);
+        List <RowSorter.SortKey> sortKeys = new ArrayList<>();
         sortKeys.add(new RowSorter.SortKey(2, SortOrder.ASCENDING));
         sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
@@ -176,7 +178,7 @@ public class Warriors extends AbstractTableModel {
     public int getRowCount() { return list.size(); }
     public int getColumnCount() { return 4; }
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (list.size() > 0) {
             return getClassOf(0, c).getClass();
         } else {

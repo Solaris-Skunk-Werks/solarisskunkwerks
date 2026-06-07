@@ -87,7 +87,7 @@ public class stArmorISAB implements ifArmor, ifState {
         LocationIndex li;
         try {
             for( int i = 0; i < Locs.length; i++ ) {
-                li = (LocationIndex) Locs[i];
+                li = Locs[i];
                 for( int x = 0; x < li.Number; x++ ) {
                     int index = li.Index;
                     if( index < 0 ) { index = l.FirstFree( l.GetCrits( li.Location ) ); }

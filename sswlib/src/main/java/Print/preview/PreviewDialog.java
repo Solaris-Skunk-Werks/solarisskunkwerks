@@ -44,6 +44,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 public class PreviewDialog extends JDialog implements ActionListener {
+    private static final long serialVersionUID = 1L;
+
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
 
     public PreviewDialog(String title, JFrame owner, Pageable pageable, double zoom) {

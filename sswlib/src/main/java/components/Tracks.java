@@ -123,6 +123,7 @@ public class Tracks extends MultiSlotSystem{
     }
 
     @Override
+    @SuppressWarnings("fallthrough")
     public boolean Place( ifMechLoadout l, LocationIndex[] Locs ) {
         try {
             if( Locs == null ) {

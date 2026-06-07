@@ -11,8 +11,6 @@
 
 package ssw.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import battleforce.BattleForce;
 
 /**
@@ -20,6 +18,8 @@ import battleforce.BattleForce;
  * @author gblouin
  */
 public class dlgPrintBattleforce extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     private BattleForce force;
     public boolean Result = false;
     public String Sheet = BattleForce.InnerSphere;
@@ -33,23 +33,9 @@ public class dlgPrintBattleforce extends javax.swing.JDialog {
         lblForce.setText(lblForce.getText().replace("{Force}", force.ForceName).replace("{Units}", force.BattleForceStats.size()+""));
         this.setTitle(force.ForceName);
 
-        btnIS.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Sheet = BattleForce.InnerSphere;
-            }
-        });
-
-        btnCL.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Sheet = BattleForce.Clan;
-            }
-        });
-
-        btnCS.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Sheet = BattleForce.Comstar;
-            }
-        });
+        btnIS.addActionListener(e -> Sheet = BattleForce.InnerSphere);
+        btnCL.addActionListener(e -> Sheet = BattleForce.Clan);
+        btnCS.addActionListener(e -> Sheet = BattleForce.Comstar);
     }
 
     /** This method is called from within the constructor to

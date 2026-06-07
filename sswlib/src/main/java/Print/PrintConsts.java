@@ -141,6 +141,11 @@ public class PrintConsts {
     public final static Font CrazyTinyFont = BaseFont.deriveFont(Font.PLAIN, 4);
     public final static Font SectionHeaderFont = BaseFont.deriveFont(Font.PLAIN, 11);
 
+    public static int fitTextStartBeforeColumn(Graphics2D graphics, String text, int defaultX, int nextColumnX, int padding) {
+        int fittedX = nextColumnX - padding - graphics.getFontMetrics().stringWidth(text);
+        return Math.min(defaultX, fittedX);
+    }
+
     public static void ShadowText( Graphics2D graphic, Font font, Color foreColor, Color backColor, String Text, int X, int Y ) {
         ShadowText( graphic, font, foreColor, backColor, Text, (double) X, (double) Y);
     }
@@ -257,12 +262,12 @@ public class PrintConsts {
     public static ArrayList<PlaceableInfo> SortEquipmentByLocation( Mech CurMech, int MiniConvRate ) {
         boolean HasAmmoData = false;
 
-        ArrayList v = (ArrayList) CurMech.GetLoadout().GetNonCore().clone();
+        ArrayList<abPlaceable> v = new ArrayList<>( CurMech.GetLoadout().GetNonCore() );
         
         // Remove Proto Double Heatsinks, so they don't clog up the equipment list
-        ListIterator listIterator = v.listIterator();
+        ListIterator<abPlaceable> listIterator = v.listIterator();
         while (listIterator.hasNext()){
-            Object temp = listIterator.next();
+            abPlaceable temp = listIterator.next();
              if (temp instanceof EquipmentProtoSuccWarsDoubleHeatSink){
                  listIterator.remove();
              } else if(temp instanceof EquipmentProtoStarLeagueDoubleHeatSink) {
@@ -290,13 +295,13 @@ public class PrintConsts {
                 v.add( CurMech.GetLLAES() );
             }
         }
-        ArrayList Equip = CurMech.SortWeaponsToPrint(v);
+        ArrayList<abPlaceable> Equip = CurMech.SortWeaponsToPrint(v);
         ArrayList<abPlaceable> sorted = FileCommon.SortEquipmentForStats(CurMech, Equip, true, false);
 
         abPlaceable[] a = new abPlaceable[sorted.size()];
         for( int i = 0; i < sorted.size(); i++ ) {
             if( ! ( sorted.get( i ) instanceof Ammunition ) ) {
-                a[i] = (abPlaceable) sorted.get( i );
+                a[i] = sorted.get( i );
             }
         }
 
