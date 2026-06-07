@@ -124,9 +124,9 @@ public class Warrior {
      * @throws java.io.IOException
      */
     public void SerializeXML(BufferedWriter file) throws IOException {
-        file.write(CommonTools.Tabs(5) + "<warrior name=\"" + FileCommon.EncodeFluff(this.Name.trim()) + "\" status=\"" + this.Status.trim() + "\">");
+        file.write(CommonTools.Tabs(5) + "<warrior name=\"" + FileCommon.EncodeXmlAttribute(this.Name.trim()) + "\" status=\"" + FileCommon.EncodeXmlAttribute(this.Status.trim()) + "\">");
         file.newLine();
-        file.write(CommonTools.Tabs(6) + "<affiliation faction=\"" + this.Faction.trim() + "\" rank=\"" + this.getRank().trim() + "\" />");
+        file.write(CommonTools.Tabs(6) + "<affiliation faction=\"" + FileCommon.EncodeXmlAttribute(this.Faction.trim()) + "\" rank=\"" + FileCommon.EncodeXmlAttribute(this.getRank().trim()) + "\" />");
         file.newLine();
         file.write(CommonTools.Tabs(6) + "<skills gunnery=\"" + this.Gunnery + "\" piloting=\"" + this.Piloting + "\" mod=\"" + this.getManeiDomini() + "\" />");
         file.newLine();

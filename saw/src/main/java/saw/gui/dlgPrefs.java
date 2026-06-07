@@ -138,6 +138,10 @@ public class dlgPrefs extends javax.swing.JDialog {
         }
     }
 
+    private void setStringModel( javax.swing.JComboBox<String> combo, String... values ) {
+        combo.setModel( new javax.swing.DefaultComboBoxModel<String>( values ) );
+    }
+
     private void SaveState() {
         Prefs.put( "NewVee_RulesLevel", (String) cmbRulesLevel.getSelectedItem() );
         Prefs.put( "NewVee_Era", (String) cmbEra.getSelectedItem() );
@@ -273,10 +277,10 @@ public class dlgPrefs extends javax.swing.JDialog {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnlConstruction = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        cmbRulesLevel = new javax.swing.JComboBox();
-        cmbEra = new javax.swing.JComboBox();
-        cmbTechbase = new javax.swing.JComboBox();
-        cmbHeatSinks = new javax.swing.JComboBox();
+        cmbRulesLevel = new javax.swing.JComboBox<String>();
+        cmbEra = new javax.swing.JComboBox<String>();
+        cmbTechbase = new javax.swing.JComboBox<String>();
+        cmbHeatSinks = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -383,7 +387,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "New Vee Defaults"));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        setStringModel( cmbRulesLevel, "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" );
         cmbRulesLevel.setSelectedIndex(1);
         cmbRulesLevel.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
@@ -398,7 +402,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         jPanel1.add(cmbRulesLevel, gridBagConstraints);
 
-        cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
+        setStringModel( cmbEra, "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" );
         cmbEra.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbEra.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbEra.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -412,7 +416,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         jPanel1.add(cmbEra, gridBagConstraints);
 
-        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed" }));
+        setStringModel( cmbTechbase, "Inner Sphere", "Clan", "Mixed" );
         cmbTechbase.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbTechbase.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbTechbase.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -426,7 +430,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.gridy = 2;
         jPanel1.add(cmbTechbase, gridBagConstraints);
 
-        cmbHeatSinks.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Single Heat Sinks", "Double Heat Sinks", "Laser Heat Sinks", "Compact Heat Sinks" }));
+        setStringModel( cmbHeatSinks, "Single Heat Sinks", "Double Heat Sinks", "Laser Heat Sinks", "Compact Heat Sinks" );
         cmbHeatSinks.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbHeatSinks.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbHeatSinks.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -1515,59 +1519,59 @@ public class dlgPrefs extends javax.swing.JDialog {
     private void cmbEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEraActionPerformed
         switch( cmbEra.getSelectedIndex() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
-                cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere" }));
+                setStringModel( cmbTechbase, "Inner Sphere" );
                 switch( cmbRulesLevel.getSelectedIndex() ) {
                     case AvailableCode.RULES_INTRODUCTORY:
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink" } ) );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink" );
                         break;
                     default:
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         break;
                 }
                 break;
             case AvailableCode.ERA_SUCCESSION:
                 switch( cmbRulesLevel.getSelectedIndex() ) {
                     case AvailableCode.RULES_INTRODUCTORY:
-                        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink" } ) );
+                        setStringModel( cmbTechbase, "Inner Sphere" );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink" );
                         break;
                     case AvailableCode.RULES_TOURNAMENT:
-                        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                        setStringModel( cmbTechbase, "Inner Sphere", "Clan" );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         break;
                     case AvailableCode.RULES_EXPERIMENTAL: case AvailableCode.RULES_ERA_SPECIFIC:
-                        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed" }));
+                        setStringModel( cmbTechbase, "Inner Sphere", "Clan", "Mixed" );
                         if( cmbTechbase.getSelectedIndex() == 3 ) {
-                            cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "(IS) Double Heat Sink", "(CL) Double Heat Sink" } ) );
+                            setStringModel( cmbHeatSinks, "Single Heat Sink", "(IS) Double Heat Sink", "(CL) Double Heat Sink" );
                         } else {
-                            cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                            setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         }
                     default:
-                        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                        setStringModel( cmbTechbase, "Inner Sphere", "Clan" );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         break;
                 }
                 break;
             case AvailableCode.ERA_CLAN_INVASION: case AvailableCode.ERA_DARK_AGES: case AvailableCode.ERA_ALL:
                 switch( cmbRulesLevel.getSelectedIndex() ) {
                     case AvailableCode.RULES_INTRODUCTORY:
-                        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink" } ) );
+                        setStringModel( cmbTechbase, "Inner Sphere" );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink" );
                         break;
                     case AvailableCode.RULES_TOURNAMENT:
-                        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                        setStringModel( cmbTechbase, "Inner Sphere", "Clan" );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         break;
                     case AvailableCode.RULES_EXPERIMENTAL: case AvailableCode.RULES_ERA_SPECIFIC:
-                        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed" }));
+                        setStringModel( cmbTechbase, "Inner Sphere", "Clan", "Mixed" );
                         if( cmbTechbase.getSelectedIndex() == AvailableCode.TECH_BOTH ) {
-                            cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "(IS) Double Heat Sink", "(CL) Double Heat Sink", "Compact Heat Sink", "Laser Heat Sink" } ) );
+                            setStringModel( cmbHeatSinks, "Single Heat Sink", "(IS) Double Heat Sink", "(CL) Double Heat Sink", "Compact Heat Sink", "Laser Heat Sink" );
                         } else {
-                            cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink", "Compact Heat Sink", "Laser Heat Sink" } ) );
+                            setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink", "Compact Heat Sink", "Laser Heat Sink" );
                         }
                     default:
-                        cmbTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                        setStringModel( cmbTechbase, "Inner Sphere", "Clan" );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         break;
                 }
                 break;
@@ -1583,17 +1587,17 @@ public class dlgPrefs extends javax.swing.JDialog {
             case AvailableCode.TECH_INNER_SPHERE:
                 switch( cmbRulesLevel.getSelectedIndex() ) {
                     case AvailableCode.RULES_INTRODUCTORY:
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink" } ) );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink" );
                         break;
                     case AvailableCode.RULES_EXPERIMENTAL: case AvailableCode.RULES_ERA_SPECIFIC:
                         if( cmbEra.getSelectedIndex() >= AvailableCode.ERA_CLAN_INVASION ) {
-                            cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink", "Compact Heat Sink" } ) );
+                            setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink", "Compact Heat Sink" );
                         } else {
-                            cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                            setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         }
                         break;
                     default:
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         break;
                 }
                 break;
@@ -1601,21 +1605,21 @@ public class dlgPrefs extends javax.swing.JDialog {
                 switch( cmbRulesLevel.getSelectedIndex() ) {
                     case AvailableCode.RULES_EXPERIMENTAL: case AvailableCode.RULES_ERA_SPECIFIC:
                         if( cmbEra.getSelectedIndex() >= AvailableCode.ERA_CLAN_INVASION ) {
-                            cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink", "Laser Heat Sink" } ) );
+                            setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink", "Laser Heat Sink" );
                         } else {
-                            cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                            setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         }
                         break;
                     default:
-                        cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "Double Heat Sink" } ) );
+                        setStringModel( cmbHeatSinks, "Single Heat Sink", "Double Heat Sink" );
                         break;
                 }
                 break;
             case AvailableCode.TECH_BOTH:
                 if( cmbEra.getSelectedIndex() >= AvailableCode.ERA_CLAN_INVASION ) {
-                    cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "(IS) Double Heat Sink", "(CL) Double Heat Sink", "Compact Heat Sink", "Laser Heat Sink" } ) );
+                    setStringModel( cmbHeatSinks, "Single Heat Sink", "(IS) Double Heat Sink", "(CL) Double Heat Sink", "Compact Heat Sink", "Laser Heat Sink" );
                 } else {
-                    cmbHeatSinks.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Single Heat Sink", "(IS) Double Heat Sink", "(CL) Double Heat Sink" } ) );
+                    setStringModel( cmbHeatSinks, "Single Heat Sink", "(IS) Double Heat Sink", "(CL) Double Heat Sink" );
                 }
                 break;
         }
@@ -1644,7 +1648,6 @@ public class dlgPrefs extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnExportActionPerformed
 
-    @SuppressWarnings("static-access")
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
         FileInputStream fis = null;
         Media media = new Media();
@@ -1652,7 +1655,7 @@ public class dlgPrefs extends javax.swing.JDialog {
             File prefPath = media.SelectFile("prefs.xml", "xml", "Select Preferences File");
             fis = new FileInputStream(prefPath);
             try {
-                Prefs.importPreferences(fis);
+                Preferences.importPreferences(fis);
                 SetState();
                 Media.Messager(this, "Preferences Imported.");
             } catch (IOException ex) {
@@ -1713,10 +1716,10 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkLoadLastMech;
     private javax.swing.JCheckBox chkMaxNotInt;
     private javax.swing.JCheckBox chkUpdateStartup;
-    private javax.swing.JComboBox cmbEra;
-    private javax.swing.JComboBox cmbHeatSinks;
-    private javax.swing.JComboBox cmbRulesLevel;
-    private javax.swing.JComboBox cmbTechbase;
+    private javax.swing.JComboBox<String> cmbEra;
+    private javax.swing.JComboBox<String> cmbHeatSinks;
+    private javax.swing.JComboBox<String> cmbRulesLevel;
+    private javax.swing.JComboBox<String> cmbTechbase;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;

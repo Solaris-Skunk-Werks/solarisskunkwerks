@@ -28,14 +28,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.ArrayList;
-
-public class PowerAmplifier {
-
-    private ifLoadout CurLoadout;
-    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+public class PowerAmplifier extends AbstractPowerAmplifier {
 
     public PowerAmplifier( ifLoadout l ) {
+        super( l );
         AC.SetISCodes( 'D', 'B', 'C', 'B', 'B' );
         AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
@@ -45,44 +41,5 @@ public class PowerAmplifier {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        CurLoadout = l;
-    }
-
-    public AvailableCode GetAvailability() {
-        return AC;
-    }
-
-    public double GetTonnage() {
-        double tons = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
-        for( int i = 0; i < v.size(); i++ ) {
-            if( v.get( i ) instanceof ifWeapon ) {
-                if ( ((ifWeapon)v.get( i ) ).RequiresPowerAmps() )
-                    tons += ((abPlaceable) v.get( i )).GetTonnage();
-            } else if (v.get(i) instanceof Equipment) {
-                if (((Equipment)v.get(i)).RequiresPowerAmps())
-                    tons += ((Equipment) v.get( i )).GetTonnage();
-            }
-        }
-        if( tons <= 0.0 ) {
-            return 0.0;
-        } else {
-            double result = 0.0;
-            if( CurLoadout.GetUnit().UsingFractionalAccounting() ) {
-                result = Math.ceil( tons * 100 ) * 0.001;
-            } else {
-                result = (double) Math.ceil( tons * 0.2 ) * 0.5;
-            }
-            return result;
-        }
-    }
-
-    public double GetCost() {
-        return GetTonnage() * 20000.0;
-    }
-
-    @Override
-    public String toString() {
-        return "Power Amplifiers";
     }
 }

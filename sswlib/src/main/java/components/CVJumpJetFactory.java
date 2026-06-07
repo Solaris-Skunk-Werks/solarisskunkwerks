@@ -36,7 +36,7 @@ public class CVJumpJetFactory {
     private int NumJJ = 0,
                 BaseLoadoutNumJJ = 0;
     private ifCVLoadout Owner;
-    private LinkedList CurrentJumps = new LinkedList();
+    private LinkedList<JumpJet> CurrentJumps = new LinkedList<>();
     private static ifJumpJetFactory NJJ = new stJumpJetStandard(),
                                     IJJ = new stJumpJetImproved(),
                                     UMU = new stJumpJetUMU();
@@ -133,7 +133,7 @@ public class CVJumpJetFactory {
     }
 
     public boolean DecrementNumJJ() {
-        JumpJet j = (JumpJet) CurrentJumps.getLast();
+        JumpJet j = CurrentJumps.getLast();
         Owner.GetOwner().SetChanged( true );
         return RemoveJJ( j );
     }
@@ -142,7 +142,7 @@ public class CVJumpJetFactory {
         // returns the total tonnage of jump jets we have installed
         double result = ( NumJJ * Owner.GetOwner().GetJJMult() * CurConfig.GetTonnage() );
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetTonnage();
+            result += CurrentJumps.get( i ).GetTonnage();
         }
         return result;
     }
@@ -157,7 +157,7 @@ public class CVJumpJetFactory {
         if( NumJJ <= 0 ) { return 0.0; }
         double result = ( CurConfig.GetCost() * ( NumJJ * NumJJ ) * Owner.GetOwner().GetTonnage() );
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetCost();
+            result += CurrentJumps.get( i ).GetCost();
         }
         return result;
     }
@@ -206,7 +206,7 @@ public class CVJumpJetFactory {
         // this routine removes all jump jets and sets the number to 0.
         JumpJet j;
         for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
-            j = (JumpJet) CurrentJumps.get(i);
+            j = CurrentJumps.get(i);
             CurrentJumps.remove(j);
             j.Remove( Owner );
         }
@@ -218,7 +218,7 @@ public class CVJumpJetFactory {
         // clear the loadout of JumpJets
         JumpJet j;
         for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
-            j = (JumpJet) CurrentJumps.get(i);
+            j = CurrentJumps.get(i);
             CurrentJumps.remove(j);
             j.Remove( Owner );
         }
@@ -254,7 +254,7 @@ public class CVJumpJetFactory {
         // returns the currently placed jumpjets in array form
         JumpJet[] retval = new JumpJet[CurrentJumps.size()];
         for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
-            retval[i] = (JumpJet) CurrentJumps.get( i );
+            retval[i] = CurrentJumps.get( i );
         }
         return retval;
     }
@@ -262,7 +262,7 @@ public class CVJumpJetFactory {
     public double GetOffensiveBV() {
         double result = 0.0;
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetOffensiveBV();
+            result += CurrentJumps.get( i ).GetOffensiveBV();
         }
         return result;
     }
@@ -270,7 +270,7 @@ public class CVJumpJetFactory {
     public double GetDefensiveBV() {
         double result = 0.0;
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetDefensiveBV();
+            result += CurrentJumps.get( i ).GetDefensiveBV();
         }
         return result;
     }

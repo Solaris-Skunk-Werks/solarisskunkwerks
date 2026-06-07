@@ -38,6 +38,8 @@ import java.util.ArrayList;
 
 
 public class UnitList extends AbstractTableModel {
+    private static final long serialVersionUID = 1L;
+
     private ArrayList<UnitListData> List = new ArrayList<UnitListData>();
     private String Directory = "";
     private int IndexVersion = 10;
@@ -107,7 +109,7 @@ public class UnitList extends AbstractTableModel {
             UnitListData mData = new UnitListData( f.getCanonicalPath(), getDirectory());
             if (mData.isOmni()) {
                 for ( int d=0; d < mData.Configurations.size(); d++ ) {
-                    List.add((UnitListData) mData.Configurations.get(d));
+                    List.add(mData.Configurations.get(d));
                 }
             } else {
                 List.add(mData);
@@ -122,7 +124,7 @@ public class UnitList extends AbstractTableModel {
     }
 
     public UnitListData Get( int row ) {
-        return (UnitListData) List.get(row);
+        return List.get(row);
     }
 
     public void Remove(UnitListData m) {
@@ -283,7 +285,7 @@ public class UnitList extends AbstractTableModel {
     public int getRowCount() { return List.size(); }
     public int getColumnCount() { return 9; }
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (List.size() > 0) {
             return getClassOf(c).getClass();
         } else {
@@ -292,7 +294,7 @@ public class UnitList extends AbstractTableModel {
     }
 
     public Object getClassOf( int c ) {
-        UnitListData m = (UnitListData) List.get( 0 );
+        UnitListData m = List.get( 0 );
         switch( c ) {
             case 0:
                 return m.getTonnage();
@@ -322,7 +324,7 @@ public class UnitList extends AbstractTableModel {
     }
 
     public Object getValueAt( int row, int col ) {
-        UnitListData m = (UnitListData) List.get( row );
+        UnitListData m = List.get( row );
         switch( col ) {
             case 0:
                 return m.getTonnage();

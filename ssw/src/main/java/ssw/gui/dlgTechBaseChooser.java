@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 public class dlgTechBaseChooser extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
     private boolean Clan = false;
 
     /** Creates new form dlgTechBaseChooser */

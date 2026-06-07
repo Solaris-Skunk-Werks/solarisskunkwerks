@@ -4,13 +4,19 @@ Solaris Skunk Werks is a community-supported tool used to design Battlemechs for
 ## Getting Started
 Download the [latest release](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/releases) and extract it into the
 desired directory. You can then launch the various applications by double clicking them or from the command line with 
-`java -jar SSW.jar`.  More detailed install instructions can be found in [this repository's wiki](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/wiki/How-to-download-and-install-the-SSW-apps)
+`java -jar SSW.jar`. Solaris Skunk Werks requires a Java 17 runtime. If Java is not already installed, download a Java 17
+JRE or JDK from a current OpenJDK distribution such as Eclipse Temurin.
+
+More detailed install instructions can be found in [this repository's wiki](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/wiki/How-to-download-and-install-the-SSW-apps)
 
 ## Building From Source
-This project uses the gradle build system and requires gradle and a JDK of version 8 or higher to be installed to be able to compile from source. If you 
-intend to develop the project with an IDE, you'll need one with gradle support. Intellij IDEA and Netbeans 11.x have been
-tested and both have gradle support out of the box. Netbeans earlier than 11.x should work but you may need to install the 
-gradle plugin.
+This project uses the Gradle build system and requires JDK 17 to compile from source. Use the included Gradle wrapper
+(`./gradlew` on Linux/macOS or `.\gradlew.bat` on Windows), which downloads and runs Gradle 8.14.4 automatically. If you
+choose to use a separately installed Gradle instead of the wrapper, use Gradle 8.14.4.
+
+If you intend to develop the project with an IDE, you'll need one with Gradle support and JDK 17 configured. Intellij IDEA
+and Netbeans 11.x have been tested and both have Gradle support out of the box. Netbeans earlier than 11.x should work but
+you may need to install the Gradle plugin.
 
 To build the full suite of applications on the command line, run the following gradle task (substitute `.\gradlew.bat` in all of these commands 
 if you're on Windows):
@@ -18,7 +24,7 @@ if you're on Windows):
 ```
 $ ./gradlew releaseBuild
 ```
-This will compile all of the applications and dependencies and place them in `build/release/SSW_-<version>`.
+This will compile all of the applications and dependencies and place them in `build/release/SSW_<version>`.
 
 To build a release zip containing all of the applications:
 

@@ -13,6 +13,7 @@ package ssw.gui;
 
 import java.util.ArrayList;
 import ssw.components.CCGMech;
+import components.abPlaceable;
 import components.Mech;
 import components.ifMechLoadout;
 
@@ -21,6 +22,7 @@ import components.ifMechLoadout;
  * @author Kevin
  */
 public class dlgCCGMech extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     private Mech CurMech;
     private String NL;
@@ -47,8 +49,8 @@ public class dlgCCGMech extends javax.swing.JDialog {
         card.setArmourAndStructure(CurMech.GetArmor().GetArmorValue());
         card.setJump(CurMech.GetLoadout().GetJumpJets().GetNumJJ());
 
-        ifMechLoadout loadout = (ifMechLoadout)CurMech.GetLoadout();
-        ArrayList CurrentLoadout = loadout.GetNonCore();
+        ifMechLoadout loadout = CurMech.GetLoadout();
+        ArrayList<abPlaceable> CurrentLoadout = loadout.GetNonCore();
         card.setAttackValue(CurrentLoadout, CurMech.GetBVMovementHeat(), CurMech.GetHeatSinks().TotalDissipation());
 
         lblCardTitle.setText(card.getName());
@@ -190,4 +192,3 @@ public class dlgCCGMech extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 }
-

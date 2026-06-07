@@ -31,6 +31,8 @@ package ssw.gui;
 import components.AvailableCode;
 
 public class dlgSummaryInfo extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     ifMechForm Parent;
 
     /** Creates new form dlgSummaryInfo */

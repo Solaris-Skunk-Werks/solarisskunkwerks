@@ -42,16 +42,16 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
     // Each mech will have a basic loadout for it's chassis, equipment, and
     // extras.  Omnimechs may have several loadouts.  We're using arrays because
     // space inside a mech is fixed.
-    
+
     // Declares
     private String Name,
                    Source = "";
     private final static EmptyItem NoItem = new EmptyItem();
-    private ArrayList Queue = new ArrayList(),
-                   NonCore = new ArrayList(),
-                   Equipment = new ArrayList(),
-                   TCList = new ArrayList(),
-                   MechMods = new ArrayList();
+    private ArrayList<Object> Queue = new ArrayList<>();
+    private ArrayList<abPlaceable> NonCore = new ArrayList<>();
+    private ArrayList<abPlaceable> Equipment = new ArrayList<>();
+    private ArrayList<abPlaceable> TCList = new ArrayList<>();
+    private ArrayList<MechModifier> MechMods = new ArrayList<>();
     private Mech Owner;
     private JumpJetFactory Jumps;
     private HeatSinkFactory HeatSinks;
@@ -158,7 +158,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
     public boolean IsTripod(){
         return false;
     }
-    
+
     public abPlaceable GetNoItem() {
         return NoItem;
     }
@@ -227,7 +227,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         ProductionEra = era;
         return true;
     }
-    
+
     public int GetYear() {
         return Year;
     }
@@ -377,20 +377,20 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         return null;
     }
 
-    public ArrayList GetQueue() {
+    public ArrayList<Object> GetQueue() {
         // returns the queue
         return Queue;
     }
 
-    public ArrayList GetNonCore() {
+    public ArrayList<abPlaceable> GetNonCore() {
         return NonCore;
     }
 
-    public ArrayList GetEquipment() {
+    public ArrayList<abPlaceable> GetEquipment() {
         return Equipment;
     }
 
-    public ArrayList GetTCList() {
+    public ArrayList<abPlaceable> GetTCList() {
         return TCList;
     }
 
@@ -473,11 +473,11 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
     public void SafeClearLoadout() {
         // this routine clears the loadout of any items that are non-core
         for( int i = NonCore.size() - 1; i >= 0; i-- ) {
-            abPlaceable p = (abPlaceable) NonCore.get( i );
+            abPlaceable p = NonCore.get( i );
             if( ! p.LocationLocked() ) {
-                Remove( (abPlaceable) NonCore.get( i ) );
+                Remove( NonCore.get( i ) );
             } else if( p instanceof Talons ) {
-                Remove( (abPlaceable) NonCore.get( i ) );
+                Remove( NonCore.get( i ) );
             }
         }
 
@@ -489,7 +489,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             UnallocateAll( HDCrits[i], false );
         }
     }
-    
+
     public void SafeMassUnallocate() {
         // this unallocates all non-core and movable items from the loadout
         for( int i = 0; i < 6; i++ ) {
@@ -540,7 +540,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         // to the new loadout.
         abPlaceable p;
         for( int i = NonCore.size(); i > 0; i-- ) {
-            p = (abPlaceable) NonCore.get(NonCore.size()-1);
+            p = NonCore.get(NonCore.size()-1);
             l.AddToQueue( p );
             NonCore.remove( p );
         }
@@ -746,7 +746,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof ModularArmor ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if ( NonCore.get( i ) instanceof ModularArmor ) {
-                    if( Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_HD ) {
+                    if( Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_HD ) {
                         throw new Exception( p.CritName() + " cannot be allocated to the head\nbecause only one may be mounted in any location." );
                     }
                 }
@@ -771,7 +771,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof ModularArmor ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if ( NonCore.get( i ) instanceof ModularArmor ) {
-                    if( Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_CT ) {
+                    if( Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_CT ) {
                         throw new Exception( p.CritName() + " cannot be allocated to the center torso\nbecause only one may be mounted in any location." );
                     }
                 }
@@ -790,7 +790,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof ModularArmor ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if ( NonCore.get( i ) instanceof ModularArmor ) {
-                    if( Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_RT ) {
+                    if( Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_RT ) {
                         throw new Exception( p.CritName() + " cannot be allocated to the right torso\nbecause only one may be mounted in any location." );
                     }
                 }
@@ -798,7 +798,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof PhysicalWeapon ) {
                 // Ensure that no other physical weapons of the same class are mounted in this location,
                 for( int i = 0; i < NonCore.size(); i++ ){
-                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_RT) {
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_RT) {
                         if ( ((PhysicalWeapon)p).GetPWClass() == ((PhysicalWeapon)NonCore.get( i )).GetPWClass() )
                             throw new Exception( p.CritName() +
                                 " cannot be allocated to the right torso because\nthe torso already mounts a physical weapon of the same class." );
@@ -818,7 +818,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof ModularArmor ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if ( NonCore.get( i ) instanceof ModularArmor ) {
-                    if( Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_LT ) {
+                    if( Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_LT ) {
                         throw new Exception( p.CritName() + " cannot be allocated to the left torso\nbecause only one may be mounted in any location." );
                     }
                 }
@@ -826,7 +826,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof PhysicalWeapon ) {
                 // Ensure that no other physical weapons of the same class are mounted in this location,
                 for( int i = 0; i < NonCore.size(); i++ ){
-                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_LT) {
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_LT) {
                         if ( ((PhysicalWeapon)p).GetPWClass() == ((PhysicalWeapon)NonCore.get( i )).GetPWClass() )
                             throw new Exception( p.CritName() +
                                 " cannot be allocated to the left torso because\nthe torso already mounts a physical weapon of the same class." );
@@ -846,7 +846,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof ModularArmor ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if ( NonCore.get( i ) instanceof ModularArmor ) {
-                    if( Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_RA ) {
+                    if( Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_RA ) {
                         throw new Exception( p.CritName() + " cannot be allocated to the right front leg\nbecause only one may be mounted in any location." );
                     }
                 }
@@ -854,7 +854,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         }
         Allocate( p, SIndex, RACrits );
     }
-    
+
     public void AddToLA( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocLegs() ) {
@@ -865,7 +865,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof ModularArmor ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if ( NonCore.get( i ) instanceof ModularArmor ) {
-                    if( Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_LA ) {
+                    if( Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_LA ) {
                         throw new Exception( p.CritName() + " cannot be allocated to the left front leg\nbecause only one may be mounted in any location." );
                     }
                 }
@@ -873,7 +873,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         }
         Allocate( p, SIndex, LACrits );
     }
-    
+
     public void AddToRL( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocLegs() ) {
@@ -884,7 +884,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof ModularArmor ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if ( NonCore.get( i ) instanceof ModularArmor ) {
-                    if( Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_RL ) {
+                    if( Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_RL ) {
                         throw new Exception( p.CritName() + " cannot be allocated to the right rear leg\nbecause only one may be mounted in any location." );
                     }
                 }
@@ -892,7 +892,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         }
         Allocate( p, SIndex, RLCrits );
     }
-    
+
     public void AddToLL( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocLegs() ) {
@@ -903,7 +903,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         } else if( p instanceof ModularArmor ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if ( NonCore.get( i ) instanceof ModularArmor ) {
-                    if( Find( (abPlaceable) NonCore.get( i ) ) == LocationIndex.MECH_LOC_LL ) {
+                    if( Find( NonCore.get( i ) ) == LocationIndex.MECH_LOC_LL ) {
                         throw new Exception( p.CritName() + " cannot be allocated to the left rear leg\nbecause only one may be mounted in any location." );
                     }
                 }
@@ -1125,10 +1125,10 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         return l;
     }
 
-    public ArrayList FindSplitIndex( abPlaceable p ) {
+    public ArrayList<LocationIndex> FindSplitIndex( abPlaceable p ) {
         // finds the split location indexes of a contiguous item that can split.
         // the ArrayList should never be larger than two in size.
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<>();
         LocationIndex l;
         int NumHere = 0;
         boolean[] searched = { false, false, false, false, false, false, false, false };
@@ -1376,10 +1376,10 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         return retval;
     }
 
-    public ArrayList FindIndexes( abPlaceable p ) {
+    public ArrayList<LocationIndex> FindIndexes( abPlaceable p ) {
         // returns a ArrayList full of location indexes for the XML writer
         // this should only be used for non-contiguous items
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<>();
         LocationIndex l;
         for( int i = 0; i < 6; i++ ) {
             if( HDCrits[i] == p ) {
@@ -1509,7 +1509,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
     }
 
     public boolean HasItem(String lookupName) {
-        for (abPlaceable item : (ArrayList<abPlaceable>)NonCore) {
+        for (abPlaceable item : NonCore) {
             if (item.LookupName().equals(lookupName)) {
                 return true;
             }
@@ -1850,9 +1850,9 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         if( NonCore.size() <= 0 ) { return; }
 
         for( int i = NonCore.size() - 1; i >= 0; i-- ) {
-            p = (abPlaceable) NonCore.get( i );
+            p = NonCore.get( i );
             AC = p.GetAvailability();
-            try { 
+            try {
                 CheckExclusions( p );
                 if( ! CommonTools.IsAllowed( AC, Owner ) ) {
                     Remove( p );
@@ -1942,9 +1942,9 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
 
         // add the item back into the queue unless is already exists there
         // unless it's an Artemis IV FCS system.
-        if( ! QueueContains(p) 
-                &! ( p instanceof ifMissileGuidance ) 
-                &! ( p instanceof PPCCapacitor ) 
+        if( ! QueueContains(p)
+                &! ( p instanceof ifMissileGuidance )
+                &! ( p instanceof PPCCapacitor )
                 &! ( p instanceof LaserInsulator )
                 &! ( p instanceof RiscLaserPulseModule ) ) {
             if( p instanceof RangedWeapon ) {
@@ -3443,13 +3443,13 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         }
         if( NonCore.size() > 0 ) {
             // have to move the none-core items
-            clone.SetNonCore( (ArrayList) NonCore.clone() );
+            clone.SetNonCore( new ArrayList<>( NonCore ) );
         }
         if( TCList.size() > 0 ) {
-            clone.SetTCList( (ArrayList) TCList.clone() );
+            clone.SetTCList( new ArrayList<>( TCList ) );
         }
         if( Equipment.size() > 0 ) {
-            clone.SetEquipment( (ArrayList) Equipment.clone() );
+            clone.SetEquipment( new ArrayList<>( Equipment ) );
         }
         if( HasSupercharger() ) {
             clone.SetSupercharger( SCharger );
@@ -3523,16 +3523,16 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         // NO CENTER LEG ON QUADS -- IGNORE
         // SHOULD ONLY BE USED WHEN CLONING THE LOADOUT
     }
-    
-    public void SetNonCore( ArrayList v ) {
+
+    public void SetNonCore( ArrayList<abPlaceable> v ) {
         NonCore = v;
     }
 
-    public void SetTCList( ArrayList v ) {
+    public void SetTCList( ArrayList<abPlaceable> v ) {
         TCList = v;
     }
 
-    public void SetEquipment( ArrayList v ) {
+    public void SetEquipment( ArrayList<abPlaceable> v ) {
         Equipment = v;
     }
 
@@ -4575,7 +4575,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
 
     private void ClearTurretWeapons( MechTurret t ) {
         for( int i = 0; i < NonCore.size(); i++ ) {
-            abPlaceable p = (abPlaceable) NonCore.get( i );
+            abPlaceable p = NonCore.get( i );
             if( p.GetTurret() == t ) {
                 p.MountTurret( null );
             }
@@ -4587,7 +4587,7 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         // changes (the crit size may change).
         for( int i = 0; i < NonCore.size(); i++ ) {
             if( NonCore.get( i ) instanceof ExtendedFuelTank ) {
-                UnallocateAll( (abPlaceable) NonCore.get( i ), true );
+                UnallocateAll( NonCore.get( i ), true );
             }
         }
     }
@@ -4756,7 +4756,7 @@ public void SetBoobyTrap( boolean b ) throws Exception{
         MechMods.remove( m );
     }
 
-    public ArrayList GetMechMods() {
+    public ArrayList<MechModifier> GetMechMods() {
         return MechMods;
     }
 
@@ -4772,11 +4772,11 @@ public void SetBoobyTrap( boolean b ) throws Exception{
     public boolean UsingFractionalAccounting() {
         return Owner.UsingFractionalAccounting();
     }
-    
+
     public ifUnit GetUnit() {
         return Owner;
     }
-    
+
     /**
      * Checks the location given for instances of EmptyItem
      * @param Location What area of crits to check
@@ -4810,7 +4810,7 @@ public void SetBoobyTrap( boolean b ) throws Exception{
                 Section = RTCrits;
                 break;
         }
-        
+
         for ( abPlaceable a : Section ) {
              if ( a instanceof EmptyItem )
                  return true;

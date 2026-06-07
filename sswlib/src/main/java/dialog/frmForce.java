@@ -57,6 +57,8 @@ import java.util.prefs.Preferences;
 
 
 public class frmForce extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
+    private static final long serialVersionUID = 1L;
+
     private Force force = new Force();
     private Media media = new Media();
     private ImageTracker imageTracker;
@@ -88,10 +90,10 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
     private void LoadMech() {
         try
         {
-            Unit Data = (Unit) ((abTable) tblForce.getModel()).getForce().getUnits().get( tblForce.convertRowIndexToModel( tblForce.getSelectedRow() ) );
+            Unit Data = ((abTable) tblForce.getModel()).getForce().getUnits().get( tblForce.convertRowIndexToModel( tblForce.getSelectedRow() ) );
             Data.LoadUnit();
             if ( Data.m != null ) {
-                ArrayList u = new ArrayList();
+                ArrayList<Mech> u = new ArrayList<>();
                 u.add(Data.m);
                 parent.setUnit(u);
                 parent.loadUnitIntoGUI();
@@ -146,7 +148,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
         btnImages = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         jLabel4 = new javax.swing.JLabel();
-        cmbView = new javax.swing.JComboBox();
+        cmbView = new javax.swing.JComboBox<String>();
         spnList = new javax.swing.JScrollPane();
         tblForce = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -168,17 +170,17 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
         rdoNeither = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        cmbSkillLevel = new javax.swing.JComboBox();
+        cmbSkillLevel = new javax.swing.JComboBox<String>();
         btnRandomGen = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        cmbNameFilter = new javax.swing.JComboBox();
+        cmbNameFilter = new javax.swing.JComboBox<String>();
         chkOverwriteName = new javax.swing.JCheckBox();
         btnRandomName = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cmbUnitType = new javax.swing.JComboBox();
+        cmbUnitType = new javax.swing.JComboBox<String>();
         txtForceName = new javax.swing.JTextField();
         lblForceName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -362,7 +364,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
         jLabel4.setText("View:");
         tlbActions.add(jLabel4);
 
-        cmbView.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Warfare", "BattleForce", "Information" }));
+        cmbView.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Total Warfare", "BattleForce", "Information" }));
         cmbView.setMaximumSize(new java.awt.Dimension(100, 18));
         cmbView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -509,7 +511,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
 
         jLabel12.setText("Skill Level:");
 
-        cmbSkillLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Random", "Green", "Regular", "Veteran", "Elite" }));
+        cmbSkillLevel.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Random", "Green", "Regular", "Veteran", "Elite" }));
 
         btnRandomGen.setText("Generate");
         btnRandomGen.addActionListener(new java.awt.event.ActionListener() {
@@ -546,7 +548,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
 
         jLabel14.setText("Filter By:");
 
-        cmbNameFilter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Random" }));
+        cmbNameFilter.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Random" }));
 
         chkOverwriteName.setText("Overwrite Existing");
 
@@ -594,7 +596,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
 
         jLabel3.setText("Override Skills");
 
-        cmbUnitType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Comstar / Word of Blake" }));
+        cmbUnitType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Inner Sphere", "Clan", "Comstar / Word of Blake" }));
         cmbUnitType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbUnitTypeActionPerformed(evt);
@@ -896,7 +898,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
          int[] rows = tblForce.getSelectedRows();
          ArrayList<Unit> units = new ArrayList<Unit>();
          for ( int i : rows ) {
-             Unit u = (Unit) force.getUnits().get(tblForce.convertRowIndexToModel(i));
+             Unit u = force.getUnits().get(tblForce.convertRowIndexToModel(i));
              units.add(u);
          }
          for ( Unit u : units ) {
@@ -941,7 +943,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
                 } else {
                     cmbUnitType.setSelectedIndex(2);
                 }
-                media.setLogo(lblLogo, new File(force.LogoPath));
+                media.setLogo(lblLogo, new File(imageTracker.resolveImagePath(force.LogoPath)));
                 force.RefreshBV();
                 prefs.put("LastOpenForce", forceFile.getCanonicalPath());
             } catch (Exception ex) {
@@ -993,7 +995,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
         if (!mtfDir.endsWith(File.separator)) { mtfDir += File.separator; }
         
         for ( int i = 0; i < force.getUnits().size(); i++ ) {
-            Unit u = (Unit) force.getUnits().get(i);
+            Unit u = force.getUnits().get(i);
             u.LoadUnit();
             mtf.setMech(u.m);
             try {
@@ -1015,7 +1017,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
     private void txtGunneryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGunneryKeyReleased
         if ( !txtGunnery.getText().isEmpty() ) {
             for ( int i = 0; i < force.getUnits().size(); i++ ) {
-                Unit u = (Unit) force.getUnits().get(i);
+                Unit u = force.getUnits().get(i);
                 u.setGunnery(Integer.parseInt(txtGunnery.getText()));
                 u.Refresh();
             }
@@ -1026,7 +1028,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
     private void txtPilotingKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPilotingKeyReleased
         if ( !txtPiloting.getText().isEmpty() ) {
             for ( int i = 0; i < force.getUnits().size(); i++ ) {
-                Unit u = (Unit) force.getUnits().get(i);
+                Unit u = force.getUnits().get(i);
                 u.setPiloting(Integer.parseInt(txtPiloting.getText()));
                 u.Refresh();
             }
@@ -1047,7 +1049,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
             int[] rows = tblForce.getSelectedRows();
             for ( int i=0; i < rows.length; i++ ) {
                 try {
-                    Unit data = (Unit) force.getUnits().get( tblForce.convertRowIndexToModel( rows[i] ) );
+                    Unit data = force.getUnits().get( tblForce.convertRowIndexToModel( rows[i] ) );
                     data.LoadUnit();
                     if ( data.m != null ) {
                         dlgAmmoChooser Ammo = new dlgAmmoChooser( this, false, data.m, new DataFactory(data.m) );
@@ -1201,7 +1203,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
         if ( tblForce.getSelectedRowCount() == 0 ) { tblForce.selectAll(); }
 
         for ( int i : tblForce.getSelectedRows() ) {
-            Unit u = (Unit) force.getUnits().get(tblForce.convertRowIndexToModel(i));
+            Unit u = force.getUnits().get(tblForce.convertRowIndexToModel(i));
             skills.setBV(u.BaseBV);
             Skill skill = skills.getBestSkills();
             u.setGunnery(skill.getGunnery());
@@ -1217,7 +1219,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
         boolean overwrite = chkOverwriteName.isSelected();
         if ( tblForce.getSelectedRowCount() == 0 ) { tblForce.selectAll(); }
         for ( int i : tblForce.getSelectedRows() ) {
-            Unit u = (Unit) force.getUnits().get(tblForce.convertRowIndexToModel(i));
+            Unit u = force.getUnits().get(tblForce.convertRowIndexToModel(i));
             if ( u.getMechwarrior().isEmpty() || overwrite ) u.setMechwarrior(gen.SimpleGenerate());
         }
         force.isDirty = true;
@@ -1228,7 +1230,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
         skills.setSkillLevel(cmbSkillLevel.getSelectedItem().toString());
         if ( tblForce.getSelectedRowCount() == 0 ) { tblForce.selectAll(); }
         for ( int i : tblForce.getSelectedRows() ) {
-            Unit u = (Unit) force.getUnits().get(tblForce.convertRowIndexToModel(i));
+            Unit u = force.getUnits().get(tblForce.convertRowIndexToModel(i));
             Skill skill = skills.generateRandomSkill();
             u.setGunnery(skill.getGunnery());
             u.setPiloting(skill.getPiloting());
@@ -1262,10 +1264,10 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
     private javax.swing.JButton btnRemoveUnit;
     private javax.swing.JButton btnSave;
     private javax.swing.JCheckBox chkOverwriteName;
-    private javax.swing.JComboBox cmbNameFilter;
-    private javax.swing.JComboBox cmbSkillLevel;
-    private javax.swing.JComboBox cmbUnitType;
-    private javax.swing.JComboBox cmbView;
+    private javax.swing.JComboBox<String> cmbNameFilter;
+    private javax.swing.JComboBox<String> cmbSkillLevel;
+    private javax.swing.JComboBox<String> cmbUnitType;
+    private javax.swing.JComboBox<String> cmbView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

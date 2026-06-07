@@ -34,6 +34,8 @@ import javax.swing.SortOrder;
 import list.view.Column;
 
 public class tbTotalWarfareSmall extends abTable {
+    private static final long serialVersionUID = 1L;
+
     public tbTotalWarfareSmall() {
         Columns.add(new Column( 0, "Unit", "TypeModel", 150 ));
         Columns.add(new Column( 1, "Type", "UnitType", 50 ));

@@ -1281,7 +1281,8 @@
       "IntMult": 0,
       "CanJump": true,
       "BVMovement": true,
-      "BVHeatMod": false
+      "BVHeatMod": false,
+	  "ConfigOnly": true
     }
   },
   "Large Shield": {

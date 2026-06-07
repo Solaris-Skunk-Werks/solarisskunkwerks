@@ -28,13 +28,11 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import java.awt.Font;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.prefs.Preferences;
-import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -58,7 +56,7 @@ public class Main {
         //args = new String[]{"k:\\ssw\\master\\Anvil ANV-6M.ssw"};
 
         if ( args.length >= 1 ) {
-            prefs.put("FileToOpen", args[0].toString());
+            prefs.put("FileToOpen", args[0]);
         }
 
         Runtime runtime = Runtime.getRuntime();
@@ -79,59 +77,30 @@ public class Main {
         SetupLogFile( SSWConstants.LogDirectoryName, SSWConstants.LogFileName );
 
         try {
-            // added code to turn off the boldface of Metal L&F.
-            // Set System L&F
-            if( ! UIManager.getSystemLookAndFeelClassName().equals( "com.sun.java.swing.plaf.windows.WindowsLookAndFeel" ) ) {
-                UIManager.put( "swing.boldMetal", Boolean.FALSE );
-                UIDefaults uiDefaults = UIManager.getDefaults();
-                Font f = uiDefaults.getFont( "Label.font" );
-                uiDefaults.put( "Label.font", f.deriveFont( f.getStyle(), 10.0f ));
-                f = uiDefaults.getFont( "ComboBox.font" );
-                uiDefaults.put( "ComboBox.font", f.deriveFont( f.getStyle(), 10.0f ));
-                f = uiDefaults.getFont( "Button.font" );
-                uiDefaults.put( "Button.font", f.deriveFont( f.getStyle(), 10.0f ));
-                f = uiDefaults.getFont( "CheckBox.font" );
-                uiDefaults.put( "CheckBox.font", f.deriveFont( f.getStyle(), 10.0f ));
-                UIManager.setLookAndFeel( "javax.swing.plaf.metal.MetalLookAndFeel" );
-            } else {
-                UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-            }
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-            System.err.flush();
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.err.flush();
-        }
-        catch (InstantiationException e) {
-            e.printStackTrace();
-            System.err.flush();
-        }
-        catch (IllegalAccessException e) {
+            UIManager.put( "swing.boldMetal", Boolean.FALSE );
+            UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
             System.err.flush();
         }
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                javax.swing.JFrame MainFrame;
-                switch( screensize ) {
-                    case SSWConstants.SCREEN_SIZE_WIDE_1280:
-                        MainFrame = new frmMainWide();
-                        MainFrame.setSize( 1350, 650 );
-                        break;
-                    default:
-                        MainFrame = new frmMain();
-                        MainFrame.setSize( 750, 610 );
-                        break;
-                }
-
-                MainFrame.setLocationRelativeTo( null );
-                MainFrame.setResizable( true );
-                MainFrame.setDefaultCloseOperation( javax.swing.JFrame.DISPOSE_ON_CLOSE );
-                MainFrame.setVisible( true );
+        java.awt.EventQueue.invokeLater(() -> {
+            javax.swing.JFrame MainFrame;
+            switch( screensize ) {
+                case SSWConstants.SCREEN_SIZE_WIDE_1280:
+                    MainFrame = new frmMainWide();
+                    MainFrame.setSize( 1350, 650 );
+                    break;
+                default:
+                    MainFrame = new frmMain();
+                    MainFrame.setSize( 750, 610 );
+                    break;
             }
+
+            MainFrame.setLocationRelativeTo( null );
+            MainFrame.setResizable( true );
+            MainFrame.setDefaultCloseOperation( javax.swing.JFrame.DISPOSE_ON_CLOSE );
+            MainFrame.setVisible( true );
         });
 
         System.out.flush();
@@ -144,7 +113,7 @@ public class Main {
         try {
             File directory = new File(LogDirectory);
             if (! directory.exists()){
-                directory.mkdir();
+                directory.mkdirs();
             }
         } catch (Exception e) {
             System.err.println( "Unable to find or create log directory." );

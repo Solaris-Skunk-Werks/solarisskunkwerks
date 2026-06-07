@@ -28,18 +28,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package common;
 
 import components.abPlaceable;
+import components.ifUnit;
 import dialog.frmForce;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 import states.ifState;
 
 public interface DesignForm {
-    public void setUnit( ArrayList v );
+    public void setUnit( ArrayList<? extends ifUnit> v );
     public void loadUnitIntoGUI();
     public void showOpenDialog();
     
     public Preferences GetPrefs();
-    public int GetLocation( javax.swing.JList list );
+    public int GetLocation( javax.swing.JList<?> list );
     public String BuildLookupName( ifState s );
     public abPlaceable GetCurItem();
     public void RefreshInfoPane();

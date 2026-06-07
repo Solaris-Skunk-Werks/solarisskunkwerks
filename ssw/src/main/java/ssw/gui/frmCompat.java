@@ -31,6 +31,7 @@ package ssw.gui;
 import javax.swing.Box;
 
 public class frmCompat extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1L;
 
     /** Creates new form frmCompat */
     public frmCompat() {
@@ -68,7 +69,7 @@ public class frmCompat extends javax.swing.JFrame {
         btnOptionsIcon = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JToolBar.Separator();
         lblSelectVariant = new javax.swing.JLabel();
-        cmbOmniVariant = new javax.swing.JComboBox();
+        cmbOmniVariant = new javax.swing.JComboBox<>();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
         pnlBasicSetupLeft = new javax.swing.JPanel();
@@ -84,13 +85,13 @@ public class frmCompat extends javax.swing.JFrame {
         txtSource = new javax.swing.JTextField();
         pnlBasicInfo4 = new javax.swing.JPanel();
         lblRulesLevel = new javax.swing.JLabel();
-        cmbRulesLevel = new javax.swing.JComboBox();
+        cmbRulesLevel = new javax.swing.JComboBox<>();
         pnlBasicInfo5 = new javax.swing.JPanel();
         lblMechEra = new javax.swing.JLabel();
-        cmbMechEra = new javax.swing.JComboBox();
+        cmbMechEra = new javax.swing.JComboBox<>();
         pnlBasicInfo6 = new javax.swing.JPanel();
         lblTechBase = new javax.swing.JLabel();
-        cmbTechBase = new javax.swing.JComboBox();
+        cmbTechBase = new javax.swing.JComboBox<>();
         pnlBasicInfo7 = new javax.swing.JPanel();
         lblEraYears = new javax.swing.JLabel();
         pnlBasicInfo8 = new javax.swing.JPanel();
@@ -100,37 +101,37 @@ public class frmCompat extends javax.swing.JFrame {
         chkYearRestrict = new javax.swing.JCheckBox();
         pnlBasicInfo10 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        cmbFluffEra = new javax.swing.JComboBox();
+        cmbFluffEra = new javax.swing.JComboBox<>();
         pnlChassis = new javax.swing.JPanel();
         pnlChassis1 = new javax.swing.JPanel();
         lblTonnage = new javax.swing.JLabel();
-        cmbTonnage = new javax.swing.JComboBox();
+        cmbTonnage = new javax.swing.JComboBox<>();
         lblMechType = new javax.swing.JLabel();
         pnlChassis2 = new javax.swing.JPanel();
         lblUnitType = new javax.swing.JLabel();
-        cmbMechType = new javax.swing.JComboBox();
+        cmbMechType = new javax.swing.JComboBox<>();
         pnlChassis3 = new javax.swing.JPanel();
         lblMotiveType = new javax.swing.JLabel();
-        cmbMotiveType = new javax.swing.JComboBox();
+        cmbMotiveType = new javax.swing.JComboBox<>();
         pnlChassis4 = new javax.swing.JPanel();
         chkOmnimech = new javax.swing.JCheckBox();
         pnlChassis5 = new javax.swing.JPanel();
         lblInternalType = new javax.swing.JLabel();
-        cmbInternalType = new javax.swing.JComboBox();
+        cmbInternalType = new javax.swing.JComboBox<>();
         pnlChassis6 = new javax.swing.JPanel();
         lblEngineType = new javax.swing.JLabel();
-        cmbEngineType = new javax.swing.JComboBox();
+        cmbEngineType = new javax.swing.JComboBox<>();
         pnlChassis7 = new javax.swing.JPanel();
         lblGyroType = new javax.swing.JLabel();
-        cmbGyroType = new javax.swing.JComboBox();
+        cmbGyroType = new javax.swing.JComboBox<>();
         pnlChassis8 = new javax.swing.JPanel();
         lblCockpit = new javax.swing.JLabel();
-        cmbCockpitType = new javax.swing.JComboBox();
+        cmbCockpitType = new javax.swing.JComboBox<>();
         pnlChassis9 = new javax.swing.JPanel();
         chkCommandConsole = new javax.swing.JCheckBox();
         pnlChassis10 = new javax.swing.JPanel();
         lblPhysEnhance = new javax.swing.JLabel();
-        cmbPhysEnhance = new javax.swing.JComboBox();
+        cmbPhysEnhance = new javax.swing.JComboBox<>();
         pnlBasicSetupCenter = new javax.swing.JPanel();
         pnlBasicSetupRight = new javax.swing.JPanel();
         pnlArmor = new javax.swing.JPanel();
@@ -382,7 +383,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblRulesLevel.setText("Rules Level: ");
         pnlBasicInfo4.add(lblRulesLevel);
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlBasicInfo4.add(cmbRulesLevel);
@@ -395,7 +396,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblMechEra.setText("Tech Era: ");
         pnlBasicInfo5.add(lblMechEra);
 
-        cmbMechEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMechEra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbMechEra.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechEra.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlBasicInfo5.add(cmbMechEra);
@@ -408,7 +409,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblTechBase.setText("Tech Base: ");
         pnlBasicInfo6.add(lblTechBase);
 
-        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbTechBase.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbTechBase.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlBasicInfo6.add(cmbTechBase);
@@ -449,7 +450,7 @@ public class frmCompat extends javax.swing.JFrame {
         jLabel9.setText("Fluff Era: ");
         pnlBasicInfo10.add(jLabel9);
 
-        cmbFluffEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFluffEra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbFluffEra.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbFluffEra.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlBasicInfo10.add(cmbFluffEra);
@@ -467,7 +468,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblTonnage.setText("Tonnage: ");
         pnlChassis1.add(lblTonnage);
 
-        cmbTonnage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTonnage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbTonnage.setMinimumSize(new java.awt.Dimension(60, 20));
         cmbTonnage.setPreferredSize(new java.awt.Dimension(60, 20));
         pnlChassis1.add(cmbTonnage);
@@ -483,7 +484,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblUnitType.setText("Mech Type: ");
         pnlChassis2.add(lblUnitType);
 
-        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbMechType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlChassis2.add(cmbMechType);
@@ -496,7 +497,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblMotiveType.setText("Motive Type: ");
         pnlChassis3.add(lblMotiveType);
 
-        cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbMotiveType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMotiveType.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlChassis3.add(cmbMotiveType);
@@ -517,7 +518,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblInternalType.setText("Internal Structure: ");
         pnlChassis5.add(lblInternalType);
 
-        cmbInternalType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbInternalType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbInternalType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbInternalType.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlChassis5.add(cmbInternalType);
@@ -530,7 +531,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblEngineType.setText("Engine Type: ");
         pnlChassis6.add(lblEngineType);
 
-        cmbEngineType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEngineType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbEngineType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbEngineType.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlChassis6.add(cmbEngineType);
@@ -543,7 +544,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblGyroType.setText("Gyro Type: ");
         pnlChassis7.add(lblGyroType);
 
-        cmbGyroType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbGyroType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbGyroType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbGyroType.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlChassis7.add(cmbGyroType);
@@ -556,7 +557,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblCockpit.setText("Cockpit Type: ");
         pnlChassis8.add(lblCockpit);
 
-        cmbCockpitType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCockpitType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbCockpitType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbCockpitType.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlChassis8.add(cmbCockpitType);
@@ -577,7 +578,7 @@ public class frmCompat extends javax.swing.JFrame {
         lblPhysEnhance.setText("Enhancements: ");
         pnlChassis10.add(lblPhysEnhance);
 
-        cmbPhysEnhance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPhysEnhance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbPhysEnhance.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbPhysEnhance.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlChassis10.add(cmbPhysEnhance);
@@ -746,17 +747,17 @@ public class frmCompat extends javax.swing.JFrame {
 
         mnuFile.setText("File");
 
-        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
+        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuNewMech.setText("New Mech");
         mnuNewMech.setToolTipText("Create New 'Mech");
         mnuFile.add(mnuNewMech);
 
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuLoad.setText("Load Mech");
         mnuLoad.setToolTipText("Load 'Mech from File");
         mnuFile.add(mnuLoad);
 
-        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOpen.setText("Open");
         mnuOpen.setToolTipText("Show Open Dialogue");
         mnuFile.add(mnuOpen);
@@ -773,29 +774,29 @@ public class frmCompat extends javax.swing.JFrame {
         mnuFile.add(mnuImport);
         mnuFile.add(jSeparator7);
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSave.setText("Save Mech");
         mnuFile.add(mnuSave);
 
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuSaveAs.setText("Save Mech As");
         mnuFile.add(mnuSaveAs);
 
         mnuExport.setText("Export Mech...");
 
-        mnuExportHTML.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        mnuExportHTML.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuExportHTML.setText("to HTML (Web)");
         mnuExport.add(mnuExportHTML);
 
-        mnuExportMTF.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        mnuExportMTF.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuExportMTF.setText("to MTF (MegaMek)");
         mnuExport.add(mnuExportMTF);
 
-        mnuExportTXT.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
+        mnuExportTXT.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuExportTXT.setText("to TXT (Text)");
         mnuExport.add(mnuExportTXT);
 
-        mnuExportClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuExportClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuExportClipboard.setText("to Clipboard (Text)");
         mnuExport.add(mnuExportClipboard);
 
@@ -807,30 +808,30 @@ public class frmCompat extends javax.swing.JFrame {
 
         mnuPrint.setText("Print");
 
-        mnuPrintCurrentMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintCurrentMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintCurrentMech.setText("Current Mech");
         mnuPrint.add(mnuPrintCurrentMech);
 
-        mnuPrintSavedMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintSavedMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintSavedMech.setText("Saved Mech");
         mnuPrint.add(mnuPrintSavedMech);
 
-        mnuPrintBatch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintBatch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintBatch.setText("Batch Print Mechs");
         mnuPrint.add(mnuPrintBatch);
 
         mnuFile.add(mnuPrint);
 
-        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintPreview.setText("Print Preview");
         mnuFile.add(mnuPrintPreview);
 
-        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuPostS7.setText("Post Mech to Solaris7.com");
         mnuFile.add(mnuPostS7);
         mnuFile.add(jSeparator9);
 
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
+        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuExit.setText("Exit");
         mnuFile.add(mnuExit);
 
@@ -838,7 +839,7 @@ public class frmCompat extends javax.swing.JFrame {
 
         mnuTools.setText("Tools");
 
-        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSummary.setText("Show Summary");
         mnuTools.add(mnuSummary);
 
@@ -853,11 +854,11 @@ public class frmCompat extends javax.swing.JFrame {
         mnuTools.add(mnuUnlock);
         mnuTools.add(jSeparator10);
 
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
+        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOptions.setText("Preferences");
         mnuTools.add(mnuOptions);
 
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.setText("View Toolbar");
         mnuTools.add(mnuViewToolbar);
@@ -900,19 +901,19 @@ public class frmCompat extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkCommandConsole;
     private javax.swing.JCheckBox chkOmnimech;
     private javax.swing.JCheckBox chkYearRestrict;
-    private javax.swing.JComboBox cmbCockpitType;
-    private javax.swing.JComboBox cmbEngineType;
-    private javax.swing.JComboBox cmbFluffEra;
-    private javax.swing.JComboBox cmbGyroType;
-    private javax.swing.JComboBox cmbInternalType;
-    private javax.swing.JComboBox cmbMechEra;
-    private javax.swing.JComboBox cmbMechType;
-    private javax.swing.JComboBox cmbMotiveType;
-    private javax.swing.JComboBox cmbOmniVariant;
-    private javax.swing.JComboBox cmbPhysEnhance;
-    private javax.swing.JComboBox cmbRulesLevel;
-    private javax.swing.JComboBox cmbTechBase;
-    private javax.swing.JComboBox cmbTonnage;
+    private javax.swing.JComboBox<String> cmbCockpitType;
+    private javax.swing.JComboBox<String> cmbEngineType;
+    private javax.swing.JComboBox<String> cmbFluffEra;
+    private javax.swing.JComboBox<String> cmbGyroType;
+    private javax.swing.JComboBox<String> cmbInternalType;
+    private javax.swing.JComboBox<String> cmbMechEra;
+    private javax.swing.JComboBox<String> cmbMechType;
+    private javax.swing.JComboBox<String> cmbMotiveType;
+    private javax.swing.JComboBox<String> cmbOmniVariant;
+    private javax.swing.JComboBox<String> cmbPhysEnhance;
+    private javax.swing.JComboBox<String> cmbRulesLevel;
+    private javax.swing.JComboBox<String> cmbTechBase;
+    private javax.swing.JComboBox<String> cmbTonnage;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator10;

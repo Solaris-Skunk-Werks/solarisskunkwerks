@@ -32,6 +32,7 @@ import components.Ammunition;
 import javax.swing.SpinnerNumberModel;
 
 public class dlgAmmoLotSize extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     private Ammunition Ammo;
     private int CurAmmo;

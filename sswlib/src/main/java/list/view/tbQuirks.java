@@ -34,9 +34,11 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 public class tbQuirks extends AbstractTableModel {
-    public ArrayList quirklist;
+    private static final long serialVersionUID = 1L;
 
-    public tbQuirks(ArrayList quirks)
+    public ArrayList<Quirk> quirklist;
+
+    public tbQuirks(ArrayList<Quirk> quirks)
     {
         quirklist = quirks;
     }
@@ -49,7 +51,7 @@ public class tbQuirks extends AbstractTableModel {
         tbl.getColumnModel().getColumn(1).setMinWidth(100);
     }
 
-    public Object get( int index ) {
+    public Quirk get( int index ) {
         return quirklist.get(index);
     }
 
@@ -65,9 +67,9 @@ public class tbQuirks extends AbstractTableModel {
         switch (columnIndex)
         {
             case 0:
-                return ((Quirk)quirklist.get(rowIndex)).getCostText();
+                return quirklist.get(rowIndex).getCostText();
             case 1:
-                return ((Quirk)quirklist.get(rowIndex)).getName();
+                return quirklist.get(rowIndex).getName();
         }
         return null;
     }

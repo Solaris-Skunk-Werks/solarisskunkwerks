@@ -525,8 +525,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             int newIDX = r.GetAmmoIndex();
 
             // check for other weapons with the original ammo index
-            ArrayList check = CurVee.GetLoadout().GetNonCore();
-            ArrayList replace = new ArrayList();
+            ArrayList<abPlaceable> check = CurVee.GetLoadout().GetNonCore();
+            ArrayList<abPlaceable> replace = new ArrayList<abPlaceable>();
             abPlaceable p;
             boolean HasOrig = false;
             for (Object o : check) {
@@ -932,11 +932,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     private void ResetAmmo() {
         // first, get the weapons from the loadout that need ammunition
-        ArrayList v = CurVee.GetLoadout().GetNonCore(), wep = new ArrayList();
-        Object a;
+        ArrayList<abPlaceable> v = CurVee.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> wep = new ArrayList<abPlaceable>();
 
-        for (Object o : v) {
-            a = o;
+        for (abPlaceable a : v) {
             if (a instanceof ifWeapon) {
                 if (((ifWeapon) a).HasAmmo()) {
                     wep.add(a);
@@ -1007,7 +1006,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         JButton btnOptions = new JButton();
         JToolBar.Separator jSeparator21 = new JToolBar.Separator();
         JLabel lblSelectVariant = new JLabel();
-        cmbOmniVariant = new javax.swing.JComboBox();
+        cmbOmniVariant = new javax.swing.JComboBox<String>();
         tbpMainTabPane = new JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
         JPanel pnlBasicInfo = new JPanel();
@@ -1016,29 +1015,29 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         JLabel jLabel4 = new JLabel();
         txtModel = new javax.swing.JTextField();
         JLabel jLabel2 = new JLabel();
-        cmbRulesLevel = new javax.swing.JComboBox();
+        cmbRulesLevel = new javax.swing.JComboBox<String>();
         JLabel jLabel5 = new JLabel();
-        cmbEra = new javax.swing.JComboBox();
+        cmbEra = new javax.swing.JComboBox<String>();
         JLabel jLabel3 = new JLabel();
-        cmbTechBase = new javax.swing.JComboBox();
+        cmbTechBase = new javax.swing.JComboBox<String>();
         lblEraYears = new javax.swing.JLabel();
         chkYearRestrict = new javax.swing.JCheckBox();
         JLabel jLabel81 = new JLabel();
         txtSource = new javax.swing.JTextField();
         JLabel lblProdYear = new JLabel();
         txtProdYear = new javax.swing.JTextField();
-        cmbProductionEra = new javax.swing.JComboBox();
+        cmbProductionEra = new javax.swing.JComboBox<String>();
         JPanel pnlChassis = new JPanel();
-        cmbMotiveType = new javax.swing.JComboBox();
+        cmbMotiveType = new javax.swing.JComboBox<String>();
         JLabel jLabel7 = new JLabel();
         JLabel jLabel8 = new JLabel();
         chkOmniVee = new javax.swing.JCheckBox();
         chkTrailer = new javax.swing.JCheckBox();
         spnTonnage = new javax.swing.JSpinner();
         JLabel jLabel9 = new JLabel();
-        cmbEngineType = new javax.swing.JComboBox();
+        cmbEngineType = new javax.swing.JComboBox<String>();
         JLabel jLabel32 = new JLabel();
-        cmbTurret = new javax.swing.JComboBox();
+        cmbTurret = new javax.swing.JComboBox<String>();
         lblVeeClass = new javax.swing.JLabel();
         lblVeeLimits = new javax.swing.JLabel();
         JLabel jLabel91 = new JLabel();
@@ -1167,7 +1166,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnRotorArmor = new javax.swing.JSpinner();
         JPanel pnlArmorType = new JPanel();
         JLabel jLabel52 = new JLabel();
-        cmbArmorType = new javax.swing.JComboBox();
+        cmbArmorType = new javax.swing.JComboBox<String>();
         chkBalanceLRArmor = new javax.swing.JCheckBox();
         chkBalanceFRArmor = new javax.swing.JCheckBox();
         btnSetArmorTons = new javax.swing.JButton();
@@ -1184,13 +1183,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblArmorLeftInLot = new javax.swing.JLabel();
         pnlEquipment = new javax.swing.JPanel();
         tbpWeaponChooser = new JTabbedPane();
-        lstChooseBallistic = new javax.swing.JList();
-        lstChooseEnergy = new javax.swing.JList();
-        lstChooseMissile = new javax.swing.JList();
-        lstChoosePhysical = new javax.swing.JList();
-        lstChooseEquipment = new javax.swing.JList();
-        lstChooseArtillery = new javax.swing.JList();
-        lstChooseAmmunition = new javax.swing.JList();
+        lstChooseBallistic = new javax.swing.JList<Object>();
+        lstChooseEnergy = new javax.swing.JList<Object>();
+        lstChooseMissile = new javax.swing.JList<Object>();
+        lstChoosePhysical = new javax.swing.JList<Object>();
+        lstChooseEquipment = new javax.swing.JList<Object>();
+        lstChooseArtillery = new javax.swing.JList<Object>();
+        lstChooseAmmunition = new javax.swing.JList<Object>();
         JPanel pnlSpecials = new JPanel();
         JLabel jLabel37 = new JLabel();
         chkUseTC = new javax.swing.JCheckBox();
@@ -1200,7 +1199,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkCASE = new javax.swing.JCheckBox();
         JPanel pnlSelected = new JPanel();
         JScrollPane scrSelectedEquip = new JScrollPane();
-        lstSelectedEquipment = new javax.swing.JList();
+        lstSelectedEquipment = new javax.swing.JList<Object>();
         JPanel pnlEquipInfo = new JPanel();
         JLabel jLabel38 = new JLabel();
         JLabel jLabel39 = new JLabel();
@@ -1249,9 +1248,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         JButton btnClearEquip = new JButton();
         // Variables declaration - do not modify//GEN-BEGIN:variables
         JButton btnAddEquip = new JButton();
-        cmbNumEquips = new javax.swing.JComboBox();
+        cmbNumEquips = new javax.swing.JComboBox<String>();
         JScrollPane jScrollPane1 = new JScrollPane();
-        cmbLocation = new javax.swing.JList();
+        cmbLocation = new javax.swing.JList<String>();
         JPanel jPanel4 = new JPanel();
         JPanel pnlFluff = new JPanel();
         JPanel pnlImage = new JPanel();
@@ -1719,7 +1718,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtProdYear.addMouseListener( mlProdYear );
 
         pnlChassis.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Chassis"));
-        pnlChassis.setNextFocusableComponent(spnCruiseMP);
 
         cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hovercraft", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "VTOL", "Wheeled", "WiGE", "Hovercraft (Super Heavy)", "Displacement (Super Heavy)" }));
         cmbMotiveType.setMinimumSize(new Dimension(150, 20));
@@ -1775,7 +1773,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         spnHeatSinks.setModel(new javax.swing.SpinnerNumberModel(10, 1, null, 1));
         spnHeatSinks.setMinimumSize(new Dimension(45, 20));
-        spnHeatSinks.setNextFocusableComponent(spnCruiseMP);
         spnHeatSinks.setPreferredSize(new Dimension(45, 20));
         spnHeatSinks.addChangeListener(this::spnHeatSinksStateChanged);
         spnHeatSinks.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1887,7 +1884,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         );
 
         pnlMovement.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Movement"));
-        pnlMovement.setNextFocusableComponent(pnlChassisMods);
 
         jLabel10.setText("Cruise MP:");
 
@@ -1913,7 +1909,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         spnJumpMP.setEnabled(false);
         spnJumpMP.setMinimumSize(new Dimension(45, 20));
-        spnJumpMP.setNextFocusableComponent(chkFlotationHull);
         spnJumpMP.setPreferredSize(new Dimension(45, 20));
 
         javax.swing.GroupLayout pnlMovementLayout = new javax.swing.GroupLayout(pnlMovement);
@@ -1997,7 +1992,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkEnviroSealing.setText("Enviro (Vacuum) Sealing");
         chkEnviroSealing.setEnabled(false);
-        chkEnviroSealing.setNextFocusableComponent(chkArmoredMotive);
         chkEnviroSealing.addActionListener(this::chkEnviroSealingActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -2015,7 +2009,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkEscapePod.setText("Combat Vehicle Escape Pod");
         chkEscapePod.setEnabled(false);
-        chkEscapePod.setNextFocusableComponent(chkFractional);
         chkEscapePod.addActionListener(this::chkEscapePodActionPerformed);
 
         chkMinesweeper.setText("Minesweeper");
@@ -2031,7 +2024,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkSponsonTurret.setText("Sponson Turret");
         chkSponsonTurret.setEnabled(false);
-        chkSponsonTurret.setNextFocusableComponent(chkFractional);
         chkSponsonTurret.addActionListener(this::chkSponsonTurretActionPerformed);
 
         javax.swing.GroupLayout pnlExperimentalLayout = new javax.swing.GroupLayout(pnlExperimental);
@@ -2073,7 +2065,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkFractional.setText("Use Fractional Accounting");
         chkFractional.setEnabled(false);
-        chkFractional.setNextFocusableComponent(txtVehicleName);
         chkFractional.addActionListener(this::chkFractionalActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -3079,7 +3070,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         tbpMainTabPane.addTab("Armor", jPanel2);
 
         //region Equipment Tab / Weapons and Equipment Lists
-        AbstractListModel placeholder = new AbstractListModel() {
+        AbstractListModel<Object> placeholder = new AbstractListModel<Object>() {
             String[] strings = { "Placeholder" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -3170,7 +3161,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         scrSelectedEquip.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrSelectedEquip.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel() );
+        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel<Object>() );
         lstSelectedEquipment.setMaximumSize(new Dimension(180, 225));
         lstSelectedEquipment.setMinimumSize(new Dimension(180, 225));
         lstSelectedEquipment.setPreferredSize(null);
@@ -3523,10 +3514,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.insets = new java.awt.Insets(4, 8, 0, 0);
         pnlControls.add(cmbNumEquips, gridBagConstraints);
 
-        cmbLocation.setModel(new javax.swing.AbstractListModel() {
+        cmbLocation.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Front", "Left", "Right", "Rear", "Body", "Turret", "Rear Turret" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         cmbLocation.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         cmbLocation.setSelectedIndex(0);
@@ -4229,17 +4220,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuFile.setText("File");
         mnuFile.addActionListener(this::mnuFileActionPerformed);
 
-        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
+        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuNewMech.setText("New");
         mnuNewMech.addActionListener(this::mnuNewMechActionPerformed);
         mnuFile.add(mnuNewMech);
 
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuLoad.setText("Load");
         mnuLoad.addActionListener(this::mnuLoadActionPerformed);
         mnuFile.add(mnuLoad);
 
-        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOpen.setText("Open");
         mnuOpen.addActionListener(this::mnuOpenActionPerformed);
         mnuFile.add(mnuOpen);
@@ -4257,12 +4248,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuFile.add(mnuImport);
         mnuFile.add(jSeparator22);
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSave.setText("Save");
         mnuSave.addActionListener(this::mnuSaveActionPerformed);
         mnuFile.add(mnuSave);
 
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuSaveAs.setText("Save As...");
         mnuSaveAs.addActionListener(this::mnuSaveAsActionPerformed);
         mnuFile.add(mnuSaveAs);
@@ -4295,13 +4286,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuPrint.setText("Print");
         mnuFile.add(mnuPrint);
 
-        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintPreview.setText("Print Preview");
         mnuPrintPreview.addActionListener(this::mnuPrintPreviewActionPerformed);
         mnuFile.add(mnuPrintPreview);
         mnuFile.add(jSeparator24);
 
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
+        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuExit.setText("Exit");
         mnuExit.addActionListener(this::mnuExitActionPerformed);
         mnuFile.add(mnuExit);
@@ -4310,7 +4301,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         mnuClearFluff.setText("Tools");
 
-        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSummary.setText("Show Summary");
         mnuSummary.addActionListener(this::mnuSummaryActionPerformed);
         mnuClearFluff.add(mnuSummary);
@@ -4329,12 +4320,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuClearFluff.add(mnuBFB);
         mnuClearFluff.add(jSeparator27);
 
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOptions.setText("Preferences");
         mnuOptions.addActionListener(this::mnuOptionsActionPerformed);
         mnuClearFluff.add(mnuOptions);
 
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.setText("View Toolbar");
         mnuViewToolbar.addActionListener(this::mnuViewToolbarActionPerformed);
@@ -4395,10 +4386,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addComponent(pnlInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        installFocusTraversalPolicy( new Component[][] {
+            { pnlChassis, spnCruiseMP },
+            { spnHeatSinks, spnCruiseMP },
+            { pnlMovement, pnlChassisMods },
+            { spnJumpMP, chkFlotationHull },
+            { chkEnviroSealing, chkArmoredMotive },
+            { chkEscapePod, chkFractional },
+            { chkSponsonTurret, chkFractional },
+            { chkFractional, txtVehicleName }
+        } );
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private JPanel EquipmentLocation(JList list, ListSelectionListener selection, MouseListener listener, AbstractListModel display) {
+    private JPanel EquipmentLocation(JList<Object> list, ListSelectionListener selection, MouseListener listener, AbstractListModel<Object> display) {
         JPanel panel = new JPanel();
         list.setModel(display);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -4577,7 +4579,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void BuildLocationSelector() {
-        ArrayList locs = new ArrayList();
+        ArrayList<String> locs = new ArrayList<String>();
         locs.add("Front");
         locs.add("Left");
         if ( CurVee.isHasSponsonTurret() )
@@ -4592,7 +4594,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if ( CurVee.isHasTurret2() )
             locs.add("Rear Turret");
 
-        cmbLocation.setModel(new DefaultComboBoxModel(locs.toArray()));
+        cmbLocation.setModel(new DefaultComboBoxModel<String>(locs.toArray(new String[0])));
         int curSelection = cmbLocation.getSelectedIndex();
         if ( curSelection < 0 || curSelection >= locs.size()) {
             curSelection = 0; // reset to Front
@@ -4602,7 +4604,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     private void BuildArmorSelector() {
         // builds the armor selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<String>();
 
         // get the armor states and, for each that matches our criteria, add it
         // to the selector list
@@ -4614,13 +4616,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         // turn the ArrayList into a string array
-        String[] temp = new String[list.size()];
-        for( int i = 0; i < list.size(); i++ ) {
-            temp[i] = (String) list.get(i);
-        }
+        String[] temp = list.toArray(new String[0]);
 
         // now set the armor chooser
-        cmbArmorType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbArmorType.setModel( new javax.swing.DefaultComboBoxModel<String>( temp ) );
 
         cmbArmorType.setSelectedItem(CurVee.GetArmor().ActualName());
     }
@@ -4628,15 +4627,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void BuildTechBaseSelector() {
         switch( CurVee.GetEra() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
-                cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere" } ) );
+                cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel<String>( new String[] { "Inner Sphere" } ) );
                 break;
             default:
                 if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel<String>( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
                 } else if( CurVee.GetRulesLevel() == AvailableCode.RULES_INTRODUCTORY ) {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere" } ) );
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel<String>( new String[] { "Inner Sphere" } ) );
                 } else {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel<String>( new String[] { "Inner Sphere", "Clan" } ) );
                 }
                 break;
         }
@@ -4650,7 +4649,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     private void BuildEngineSelector() {
         // builds the engine selection box
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<String>();
 
         // get the engine states and, for each that matches our criteria, add it
         // to the selector list
@@ -4666,13 +4665,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         // turn the ArrayList into a string array
-        String[] temp = new String[list.size()];
-        for( int i = 0; i < list.size(); i++ ) {
-            temp[i] = (String) list.get(i);
-        }
+        String[] temp = list.toArray(new String[0]);
 
         // now set the engine chooser
-        cmbEngineType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbEngineType.setModel( new javax.swing.DefaultComboBoxModel<String>( temp ) );
     }
 
     private void FixArmorSpinners() {
@@ -4842,7 +4838,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void BuildTurretSelector() {
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<String>();
 
         if ( !CurVee.IsOmni())
             cmbTurret.setEnabled(true);
@@ -4863,13 +4859,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         // turn the ArrayList into a string array
-        String[] temp = new String[list.size()];
-        for( int i = 0; i < list.size(); i++ ) {
-            temp[i] = (String) list.get(i);
-        }
+        String[] temp = list.toArray(new String[0]);
 
         // now set the turret chooser
-        cmbTurret.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbTurret.setModel( new javax.swing.DefaultComboBoxModel<String>( temp ) );
         if (CurVee.isHasTurret2())
             cmbTurret.setSelectedItem("Dual Turret");
         else if (CurVee.isHasTurret1())
@@ -5645,6 +5638,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     }
 
+    private void installFocusTraversalPolicy( final Component[][] nextFocus ) {
+        setFocusTraversalPolicy( new LayoutFocusTraversalPolicy() {
+            @Override
+            public Component getComponentAfter( Container root, Component component ) {
+                for( Component[] pair : nextFocus ) {
+                    if( pair[0] == component && accept( pair[1] ) ) {
+                        return pair[1];
+                    }
+                }
+                return super.getComponentAfter( root, component );
+            }
+
+            @Override
+            public Component getComponentBefore( Container root, Component component ) {
+                for( Component[] pair : nextFocus ) {
+                    if( pair[1] == component && accept( pair[0] ) ) {
+                        return pair[0];
+                    }
+                }
+                return super.getComponentBefore( root, component );
+            }
+        } );
+    }
+
     private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {
         GetForceDialogue().setLocationRelativeTo(this);
         GetForceDialogue().setVisible(true);
@@ -6089,7 +6106,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
         spnRearTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
 
-        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
+        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel<String>( new String[0] ) );
 
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewVee_RulesLevel", "Tournament Legal" ) );
         cmbEra.setSelectedItem( Prefs.get( "NewVee_Era", "Age of War/Star League" ) );
@@ -7542,7 +7559,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // set the current loadout source before changing
         txtSource.setText( CurVee.getSource() );
-        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( variants ) );
+        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel<String>( variants ) );
         cmbOmniVariant.setSelectedItem( CurVee.GetLoadout().GetName() );
     }
 
@@ -7920,7 +7937,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             RefreshOmniVariants();
             RefreshOmniChoices();
         } else {
-            cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
+            cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel<String>( new String[0] ) );
         }
 
         double turretTons = 0.0;
@@ -8911,17 +8928,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JCheckBox chkTrailer;
     private javax.swing.JCheckBox chkUseTC;
     private javax.swing.JCheckBox chkYearRestrict;
-    private javax.swing.JComboBox cmbArmorType;
-    private javax.swing.JComboBox cmbEngineType;
-    private javax.swing.JComboBox cmbEra;
-    private javax.swing.JList cmbLocation;
-    private javax.swing.JComboBox cmbMotiveType;
-    private javax.swing.JComboBox cmbNumEquips;
-    private javax.swing.JComboBox cmbOmniVariant;
-    private javax.swing.JComboBox cmbProductionEra;
-    private javax.swing.JComboBox cmbRulesLevel;
-    private javax.swing.JComboBox cmbTechBase;
-    private javax.swing.JComboBox cmbTurret;
+    private javax.swing.JComboBox<String> cmbArmorType;
+    private javax.swing.JComboBox<String> cmbEngineType;
+    private javax.swing.JComboBox<String> cmbEra;
+    private javax.swing.JList<String> cmbLocation;
+    private javax.swing.JComboBox<String> cmbMotiveType;
+    private javax.swing.JComboBox<String> cmbNumEquips;
+    private javax.swing.JComboBox<String> cmbOmniVariant;
+    private javax.swing.JComboBox<String> cmbProductionEra;
+    private javax.swing.JComboBox<String> cmbRulesLevel;
+    private javax.swing.JComboBox<String> cmbTechBase;
+    private javax.swing.JComboBox<String> cmbTurret;
     private javax.swing.JTextArea jTextAreaBFConversion;
     private javax.swing.JLabel lblArmorCoverage;
     private javax.swing.JLabel lblArmorLeftInLot;
@@ -8977,14 +8994,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JLabel lblTurretIntPts;
     private javax.swing.JLabel lblVeeClass;
     private javax.swing.JLabel lblVeeLimits;
-    private javax.swing.JList lstChooseAmmunition;
-    private javax.swing.JList lstChooseArtillery;
-    private javax.swing.JList lstChooseBallistic;
-    private javax.swing.JList lstChooseEnergy;
-    private javax.swing.JList lstChooseEquipment;
-    private javax.swing.JList lstChooseMissile;
-    private javax.swing.JList lstChoosePhysical;
-    private javax.swing.JList lstSelectedEquipment;
+    private javax.swing.JList<Object> lstChooseAmmunition;
+    private javax.swing.JList<Object> lstChooseArtillery;
+    private javax.swing.JList<Object> lstChooseBallistic;
+    private javax.swing.JList<Object> lstChooseEnergy;
+    private javax.swing.JList<Object> lstChooseEquipment;
+    private javax.swing.JList<Object> lstChooseMissile;
+    private javax.swing.JList<Object> lstChoosePhysical;
+    private javax.swing.JList<Object> lstSelectedEquipment;
     private javax.swing.JMenuItem mnuUnlock;
     private javax.swing.JCheckBoxMenuItem mnuViewToolbar;
     private javax.swing.JPanel pnlAdditionalFluff;
@@ -9068,7 +9085,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         //do nothing
     }
 
-    public void setUnit(ArrayList v) {
+    public void setUnit(ArrayList<? extends ifUnit> v) {
         this.setVee( (CombatVehicle) v.get(0) );
     }
 
@@ -9090,7 +9107,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         return Prefs;
     }
 
-    public int GetLocation(JList list) {
+    public int GetLocation(JList<?> list) {
         //do nothing
         return 0;
     }

@@ -72,10 +72,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         this.parent = (common.DesignForm) parent;
 
         prgResaving.setVisible(false);
-        cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
-        cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Level", "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
-        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Motive", "Hovercraft", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "VTOL", "Wheeled", "WiGE" }));
+        cmbTech.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
+        cmbEra.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Any Level", "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Any Motive", "Hovercraft", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "VTOL", "Wheeled", "WiGE" }));
         NL = System.getProperty( "line.separator" );
     }
 
@@ -105,7 +105,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             if (Data.isOmni()) {
                 m.SetCurLoadout( Data.getConfig() );
             }
-            ArrayList units = new ArrayList();
+            ArrayList<CombatVehicle> units = new ArrayList<>();
             units.add(m);
             parent.setUnit( units );
 
@@ -362,7 +362,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         jSeparator3 = new javax.swing.JToolBar.Separator();
         lblForce = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JToolBar.Separator();
-        cmbView = new javax.swing.JComboBox();
+        cmbView = new javax.swing.JComboBox<String>();
         spnMechTable = new javax.swing.JScrollPane();
         tblMechData = new javax.swing.JTable();
         pnlFilters = new javax.swing.JPanel();
@@ -372,19 +372,19 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         jPanel14 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         lblMinMP = new javax.swing.JLabel();
-        cmbMinMP = new javax.swing.JComboBox();
+        cmbMinMP = new javax.swing.JComboBox<String>();
         jPanel3 = new javax.swing.JPanel();
-        cmbEra = new javax.swing.JComboBox();
+        cmbEra = new javax.swing.JComboBox<String>();
         lblEra = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         lblMotive = new javax.swing.JLabel();
-        cmbMotive = new javax.swing.JComboBox();
+        cmbMotive = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
-        cmbTech = new javax.swing.JComboBox();
+        cmbTech = new javax.swing.JComboBox<String>();
         lblTech = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblLevel = new javax.swing.JLabel();
-        cmbRulesLevel = new javax.swing.JComboBox();
+        cmbRulesLevel = new javax.swing.JComboBox<String>();
         jPanel15 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
@@ -554,7 +554,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         tlbActions.add(lblForce);
         tlbActions.add(jSeparator5);
 
-        cmbView.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Warfare Standard", "Total Warfare Compact", "BattleForce Information", "Chat Information" }));
+        cmbView.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Total Warfare Standard", "Total Warfare Compact", "BattleForce Information", "Chat Information" }));
         cmbView.setFocusable(false);
         cmbView.setMaximumSize(new java.awt.Dimension(139, 20));
         cmbView.addActionListener(new java.awt.event.ActionListener() {
@@ -628,7 +628,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblMinMP.setText("Min MP");
 
-        cmbMinMP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
+        cmbMinMP.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "All", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
         cmbMinMP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbMinMPFilter(evt);
@@ -650,7 +650,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 .addComponent(cmbMinMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
+        cmbEra.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
         cmbEra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Filter(evt);
@@ -676,7 +676,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblMotive.setText("Motive Type");
 
-        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Motive", "Hover", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "Wheeled", "WiGE" }));
+        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Any Motive", "Hover", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "Wheeled", "WiGE" }));
         cmbMotive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbMotiveFilter(evt);
@@ -698,7 +698,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 .addComponent(cmbMotive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
+        cmbTech.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
         cmbTech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Filter(evt);
@@ -725,7 +725,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblLevel.setText("Rules Level");
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Level", "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Any Level", "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
         cmbRulesLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbRulesLevelFilter(evt);
@@ -1476,12 +1476,12 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnViewForce;
     private javax.swing.JCheckBox chkOmni;
-    private javax.swing.JComboBox cmbEra;
-    private javax.swing.JComboBox cmbMinMP;
-    private javax.swing.JComboBox cmbMotive;
-    private javax.swing.JComboBox cmbRulesLevel;
-    private javax.swing.JComboBox cmbTech;
-    private javax.swing.JComboBox cmbView;
+    private javax.swing.JComboBox<String> cmbEra;
+    private javax.swing.JComboBox<String> cmbMinMP;
+    private javax.swing.JComboBox<String> cmbMotive;
+    private javax.swing.JComboBox<String> cmbRulesLevel;
+    private javax.swing.JComboBox<String> cmbTech;
+    private javax.swing.JComboBox<String> cmbView;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

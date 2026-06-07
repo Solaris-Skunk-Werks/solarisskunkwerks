@@ -72,6 +72,8 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 public class HTMLPane extends JPanel implements ActionListener {
+    private static final long serialVersionUID = 1L;
+
 
     private HTMLDocument Document;
     private JPanel Controls = new JPanel();
@@ -433,6 +435,8 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     private class UndoAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
         public UndoAction() {
             super( "Undo" );
             setEnabled( false );
@@ -461,6 +465,8 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     private class RedoAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
         public RedoAction() {
             super( "Redo" );
             setEnabled( false );
@@ -489,6 +495,8 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     class SubscriptAction extends StyledEditorKit.StyledTextAction {
+        private static final long serialVersionUID = 1L;
+
         public SubscriptAction() {
             super( StyleConstants.Subscript.toString() );
         }
@@ -507,6 +515,8 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     class SuperscriptAction extends StyledEditorKit.StyledTextAction {
+        private static final long serialVersionUID = 1L;
+
         public SuperscriptAction() {
             super( StyleConstants.Superscript.toString() );
         }
@@ -525,6 +535,8 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     class StrikeThroughAction extends StyledEditorKit.StyledTextAction {
+        private static final long serialVersionUID = 1L;
+
         public StrikeThroughAction() {
             super( StyleConstants.StrikeThrough.toString() );
         }
@@ -543,6 +555,8 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     private class SSWHTMLEditorKit extends HTMLEditorKit {
+        private static final long serialVersionUID = 1L;
+
         @Override
         public void write(Writer out, Document doc, int pos, int len) throws IOException, BadLocationException {
             if (doc instanceof HTMLDocument) {
@@ -573,5 +587,4 @@ public class HTMLPane extends JPanel implements ActionListener {
         }
     }
 }
-
 

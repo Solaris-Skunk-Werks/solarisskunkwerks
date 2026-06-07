@@ -48,13 +48,13 @@ public class stGyroISSuperHeavy implements ifGyro, ifState {
     }
 
     public double GetTonnage( int rating ) {
-        return (double) (((int) ( rating * 0.01f + 0.99f )) * 2);
+        return (((int) ( rating * 0.01f + 0.99f )) * 2);
     }
-    
+
     public int GetCrits() {
         return 2;
     }
-    
+
     public String ActualName() {
         return "Super Heavy Gyro";
     }
@@ -86,15 +86,15 @@ public class stGyroISSuperHeavy implements ifGyro, ifState {
     public double GetBVMult() {
         return 1.0f;
     }
-    
+
     public double GetCostMult() {
         return 500000.0f;
     }
-    
+
     public AvailableCode GetAvailability() {
         return AC;
     }
-    
+
     public MechModifier GetMechModifier() {
         return null;
     }

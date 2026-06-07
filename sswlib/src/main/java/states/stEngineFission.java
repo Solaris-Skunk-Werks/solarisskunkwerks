@@ -70,19 +70,19 @@ public class stEngineFission implements ifEngine, ifState {
             return Masses[GetIndex( Rating )];
         }
     }
-    
+
     public int GetCTCrits() {
         return 3;
     }
-    
+
     public int GetSideTorsoCrits() {
         return 0;
     }
-    
+
     public int NumCTBlocks() {
         return 2;
     }
-    
+
     public int NumCVSpaces() {
         return 0;
     }
@@ -124,13 +124,13 @@ public class stEngineFission implements ifEngine, ifState {
     }
 
     public double GetCost( int MechTonnage, int Rating ) {
-        return ( 7500.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
+        return ( 7500.0f * (MechTonnage) * (Rating )) / 75.0f;
     }
-    
+
     public AvailableCode GetAvailability() {
         return AC;
     }
-    
+
     public int FreeHeatSinks() {
         return 5;
     }
@@ -138,7 +138,7 @@ public class stEngineFission implements ifEngine, ifState {
     public double GetBVMult() {
         return 1.0f;
     }
-    
+
     public boolean IsFusion() {
         return false;
     }

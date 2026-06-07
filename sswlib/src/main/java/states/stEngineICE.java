@@ -77,15 +77,15 @@ public class stEngineICE implements ifEngine, ifState {
     public double GetTonnage( int Rating, boolean fractional ) {
         return Masses[GetIndex( Rating )];
     }
-    
+
     public int GetCTCrits() {
         return 3;
     }
-    
+
     public int GetSideTorsoCrits() {
         return 0;
     }
-    
+
     public int NumCTBlocks() {
         return 2;
     }
@@ -141,9 +141,9 @@ public class stEngineICE implements ifEngine, ifState {
     public double GetCost( int MechTonnage, int Rating ) {
         double baseCost = 1250.0f;
         if ( Rating > 400 ) baseCost *= 2;
-        return ( baseCost * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
+        return ( baseCost * (MechTonnage) * (Rating )) / 75.0f;
     }
-    
+
     public AvailableCode GetAvailability() {
         if( Owner.GetRating() > 400 ) { return LARGE_AC; }
         return AC;
@@ -156,7 +156,7 @@ public class stEngineICE implements ifEngine, ifState {
     public double GetBVMult() {
         return 1.0f;
     }
-    
+
     public boolean IsFusion() {
         return false;
     }
@@ -182,7 +182,7 @@ public class stEngineICE implements ifEngine, ifState {
     public int GetBFStructure( int tonnage ) {
         return BFStructure[GetBFIndex(tonnage)];
     }
-    
+
     public int MaxMovementHeat() {
         return 0;
     }

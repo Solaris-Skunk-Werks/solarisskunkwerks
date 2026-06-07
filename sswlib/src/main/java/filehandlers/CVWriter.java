@@ -227,9 +227,9 @@ public class CVWriter {
 
         if( CurUnit.IsOmni() ) {
             String curLoadout = CurUnit.GetLoadout().GetName();
-            ArrayList v = CurUnit.GetLoadouts();
+            ArrayList<ifCVLoadout> v = CurUnit.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
-                CurUnit.SetCurLoadout( ((ifCVLoadout) v.get( i )).GetName() );
+                CurUnit.SetCurLoadout( v.get( i ).GetName() );
                 if( CurUnit.GetBaseRulesLevel() != CurUnit.GetLoadout().GetRulesLevel() ) {
                     FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurUnit.GetLoadout().GetName() ) + "\" ruleslevel=\"" + CurUnit.GetLoadout().GetRulesLevel() + "\" fcsa4=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisIV() ) + "\" fcsa5=\"" + FileCommon.GetBoolean( CurUnit.UsingArtemisV() ) + "\" fcsapollo=\"" + FileCommon.GetBoolean( CurUnit.UsingApollo() ) + "\">" );
                 } else {
@@ -365,13 +365,13 @@ public class CVWriter {
 
     private String GetLocationLines( String Prefix, abPlaceable p ) {
         String retval = "";
-        ArrayList v = CurUnit.GetLoadout().FindIndexes( p );
+        ArrayList<LocationIndex> v = CurUnit.GetLoadout().FindIndexes( p );
         if( v.size() < 1 ) {
             return "";
         }
 
         for( int i = 0; i < v.size(); i++ ) {
-            LocationIndex l = (LocationIndex) v.get( i );
+            LocationIndex l = v.get( i );
             retval += Prefix + "<location index=\"" + l.Index + "\">" + FileCommon.EncodeLocation( l.Location, false ) + "</location>" + NL;
         }
 
@@ -432,14 +432,14 @@ public class CVWriter {
 
     private String GetEquipmentLines( String prefix ) {
         String retval = "";
-        ArrayList v = CurUnit.GetLoadout().GetNonCore();
-        ArrayList vBase = CurUnit.GetBaseLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurUnit.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> vBase = CurUnit.GetBaseLoadout().GetNonCore();
         boolean OmniLoad = false;
         if( ! CurUnit.GetLoadout().GetName().equals( Constants.BASELOADOUT_NAME ) ) {
             OmniLoad = true;
         }
         for( int i = 0; i < v.size(); i++ ) {
-            abPlaceable p = (abPlaceable) v.get( i );
+            abPlaceable p = v.get( i );
             if( vBase.contains( p ) && OmniLoad ) {
                 // the logic escapes me.  do nothing here.
             } else {

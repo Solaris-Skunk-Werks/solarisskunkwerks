@@ -213,6 +213,7 @@ public class CommonTools {
         return result;
     }
 
+    @SuppressWarnings("fallthrough")
     public static boolean IsAllowed( AvailableCode AC, ifUnit u ) {
         // check an available code to see if it can be used legally
 

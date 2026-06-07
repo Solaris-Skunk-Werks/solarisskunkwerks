@@ -228,13 +228,13 @@ public class MTFWriter {
         // will make things much easier
         ifMechLoadout l = CurMech.GetLoadout();
         FR.newLine();
-        ArrayList v = l.GetNonCore();
+        ArrayList<abPlaceable> v = l.GetNonCore();
         // now we have to split up the ArrayList into equipment and ammo
-        ArrayList eq = new ArrayList();
-        ArrayList ammo = new ArrayList();
+        ArrayList<abPlaceable> eq = new ArrayList<>();
+        ArrayList<Ammunition> ammo = new ArrayList<>();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                ammo.add( v.get( i ) );
+                ammo.add( (Ammunition) v.get( i ) );
             } else {
                 eq.add( v.get( i ) );
             }
@@ -244,7 +244,7 @@ public class MTFWriter {
         for( int i = 0; i < eq.size(); i++ ) {
             // each piece of equipment has it's own line.  If it's a weapon,
             // we'll have to find out how much ammo it has as well
-            abPlaceable p = (abPlaceable) eq.get( i );
+            abPlaceable p = eq.get( i );
             if( p instanceof ifWeapon ) {
                 if( ((ifWeapon) p).HasAmmo() ) {
                     // since we're removing ammo as we add it, ignore the ammo
@@ -253,7 +253,7 @@ public class MTFWriter {
                     int ammoamount = 0;
                     for( int j = ammo.size() - 1; j >= 0; j-- ) {
                         // we're using the literal ammo lot size, not what the ammo says.
-                        if( ((Ammunition) ammo.get( j )).GetAmmoIndex() == ammoindex ) {
+                        if( ammo.get( j ).GetAmmoIndex() == ammoindex ) {
                             ammoamount += ((ifWeapon) p).GetAmmoLotSize();
                             ammo.remove( j );
                         }
@@ -515,13 +515,13 @@ public class MTFWriter {
         // will make things much easier
         ifCVLoadout l = CurVee.GetLoadout();
         FR.newLine();
-        ArrayList v = l.GetNonCore();
+        ArrayList<abPlaceable> v = l.GetNonCore();
         // now we have to split up the ArrayList into equipment and ammo
-        ArrayList eq = new ArrayList();
-        ArrayList ammo = new ArrayList();
+        ArrayList<abPlaceable> eq = new ArrayList<>();
+        ArrayList<Ammunition> ammo = new ArrayList<>();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
-                ammo.add( v.get( i ) );
+                ammo.add( (Ammunition) v.get( i ) );
             } else {
                 eq.add( v.get( i ) );
             }
@@ -531,7 +531,7 @@ public class MTFWriter {
         for( int i = 0; i < eq.size(); i++ ) {
             // each piece of equipment has it's own line.  If it's a weapon,
             // we'll have to find out how much ammo it has as well
-            abPlaceable p = (abPlaceable) eq.get( i );
+            abPlaceable p = eq.get( i );
             if( p instanceof ifWeapon ) {
                 if( ((ifWeapon) p).HasAmmo() ) {
                     // since we're removing ammo as we add it, ignore the ammo
@@ -540,7 +540,7 @@ public class MTFWriter {
                     int ammoamount = 0;
                     for( int j = ammo.size() - 1; j >= 0; j-- ) {
                         // we're using the literal ammo lot size, not what the ammo says.
-                        if( ((Ammunition) ammo.get( j )).GetAmmoIndex() == ammoindex ) {
+                        if( ammo.get( j ).GetAmmoIndex() == ammoindex ) {
                             ammoamount += ((ifWeapon) p).GetAmmoLotSize();
                             ammo.remove( j );
                         }

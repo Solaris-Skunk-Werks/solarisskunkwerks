@@ -141,7 +141,7 @@ public class BattleforceCardPrinter implements Printable {
 
         //Output individual units
         for ( int i=0; i < getBattleforce().BattleForceStats.size(); i++ ) {
-            BattleForceStats stats = (BattleForceStats) getBattleforce().BattleForceStats.get(i);
+            BattleForceStats stats = getBattleforce().BattleForceStats.get(i);
 
             if ( elementCount == ElementLimit ) {
                 elementCount = 0;

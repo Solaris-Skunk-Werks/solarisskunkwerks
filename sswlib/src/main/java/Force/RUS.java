@@ -35,9 +35,9 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class RUS {
-    private DefaultListModel DisplayList = new DefaultListModel();
-    private ArrayList Choices = new ArrayList();
-    private DefaultListModel Selection = new DefaultListModel();
+    private DefaultListModel<String> DisplayList = new DefaultListModel<>();
+    private ArrayList<String> Choices = new ArrayList<>();
+    private DefaultListModel<String> Selection = new DefaultListModel<>();
 
     public final static String ParseDesignName( String selection ) {
         String Name = "", Model = "";
@@ -87,7 +87,7 @@ public class RUS {
         }
     }
 
-    public DefaultListModel getDisplay() {
+    public DefaultListModel<String> getDisplay() {
         return DisplayList;
     }
 
@@ -105,23 +105,23 @@ public class RUS {
         }
     }
 
-    public DefaultListModel Add( String Item ) {
+    public DefaultListModel<String> Add( String Item ) {
         getSelection().addElement(Item);
         return getSelection();
     }
 
     public void ClearItems() {
-        DisplayList = new DefaultListModel();
+        DisplayList = new DefaultListModel<>();
         Choices.clear();
     }
 
-    public DefaultListModel Generate( int Selections, int AddOn ) {
+    public DefaultListModel<String> Generate( int Selections, int AddOn ) {
         java.util.Random random = new Random();
 
         for (int i=0; i < Selections; i++ ) {
             int Row = random.nextInt(Choices.size());
             if ( (Row + AddOn) <= Choices.size() ) { Row += AddOn; }
-            getSelection().addElement(Choices.get(Row).toString());
+            getSelection().addElement(Choices.get(Row));
         }
 
         return getSelection();
@@ -130,18 +130,18 @@ public class RUS {
     public String Generate() {
         java.util.Random random = new Random();
         int Row = random.nextInt(Choices.size());
-        return Choices.get(Row).toString();
+        return Choices.get(Row);
     }
 
-    public DefaultListModel ClearSelection() {
-        Selection = new DefaultListModel();
+    public DefaultListModel<String> ClearSelection() {
+        Selection = new DefaultListModel<>();
         return Selection;
     }
 
     /**
      * @return the Selection
      */
-    public DefaultListModel getSelection() {
+    public DefaultListModel<String> getSelection() {
         return Selection;
     }
 }

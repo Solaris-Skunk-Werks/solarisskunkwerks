@@ -34,10 +34,12 @@ import components.Mech;
 import javax.print.*;
 
 public class dlgPrintOptions extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     private Mech CurMech;
     private ifMechForm Parent;
     private boolean Result = false;
-    private Vector printers;
+    private Vector<PrintService> printers = new Vector<>();
 
     /** Creates new form dlgPrintOptions */
     public dlgPrintOptions( java.awt.Frame parent, boolean modal, Mech m ) {
@@ -163,23 +165,23 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         btnPrint = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        cmbGunnery = new javax.swing.JComboBox();
+        cmbGunnery = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cmbPiloting = new javax.swing.JComboBox();
+        cmbPiloting = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         lblAdjustBV = new javax.swing.JLabel();
         chkMWStats = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        cmbPaperSize = new javax.swing.JComboBox();
+        cmbPaperSize = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        cmbPrinters = new javax.swing.JComboBox();
+        cmbPrinters = new javax.swing.JComboBox<>();
         chkUseHexConversion = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
         lblOneHex = new javax.swing.JLabel();
-        cmbHexConvFactor = new javax.swing.JComboBox();
+        cmbHexConvFactor = new javax.swing.JComboBox<>();
         lblInches = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -248,7 +250,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
         cmbGunnery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGunneryActionPerformed(evt);
@@ -267,7 +269,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         jPanel2.add(jLabel2, gridBagConstraints);
 
-        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
         cmbPiloting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPilotingActionPerformed(evt);
@@ -316,7 +318,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         jLabel5.setText("Paper Size:");
         jPanel3.add(jLabel5);
 
-        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "A4" }));
+        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Letter", "A4" }));
         jPanel3.add(cmbPaperSize);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -361,7 +363,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         jPanel5.add(lblOneHex, gridBagConstraints);
 
-        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1/2", "1", "1 1/2", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1/2", "1", "1 1/2", "2", "3", "4", "5" }));
         cmbHexConvFactor.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -458,11 +460,11 @@ private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JCheckBox chkMWStats;
     private javax.swing.JCheckBox chkPrintCharts;
     private javax.swing.JCheckBox chkUseHexConversion;
-    private javax.swing.JComboBox cmbGunnery;
-    private javax.swing.JComboBox cmbHexConvFactor;
-    private javax.swing.JComboBox cmbPaperSize;
-    private javax.swing.JComboBox cmbPiloting;
-    private javax.swing.JComboBox cmbPrinters;
+    private javax.swing.JComboBox<String> cmbGunnery;
+    private javax.swing.JComboBox<String> cmbHexConvFactor;
+    private javax.swing.JComboBox<String> cmbPaperSize;
+    private javax.swing.JComboBox<String> cmbPiloting;
+    private javax.swing.JComboBox<PrintService> cmbPrinters;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

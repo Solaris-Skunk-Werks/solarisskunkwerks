@@ -33,7 +33,7 @@ import java.util.Vector;
 public class EquipmentCollection {
     // provides a class for consolidating multiple pieces of equipment in a JList
 
-    private Vector equips = new Vector( 10, 5 );
+    private Vector<abPlaceable> equips = new Vector<>( 10, 5 );
     private ifMechLoadout Owner;
 
     public EquipmentCollection( ifMechLoadout l ) {
@@ -41,11 +41,11 @@ public class EquipmentCollection {
     }
 
     public abPlaceable GetType() {
-        return (abPlaceable) equips.get( 0 );
+        return equips.get( 0 );
     }
 
     public boolean SameType( abPlaceable p ) {
-        if( ((abPlaceable) equips.get( 0 )).LookupName().equals( p.LookupName() ) ) {
+        if( equips.get( 0 ).LookupName().equals( p.LookupName() ) ) {
             return true;
         } else {
             return false;
@@ -97,15 +97,15 @@ public class EquipmentCollection {
             if( Owner.GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( equips.get( 0 ) instanceof Equipment ) {
                     if( ((Equipment) equips.get( 0 )).IsVariableSize() ) {
-                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).CritName();
+                        return "(" + equips.size() + ") " + equips.get( 0 ).CritName();
                     } else {
-                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).LookupName();
+                        return "(" + equips.size() + ") " + equips.get( 0 ).LookupName();
                     }
                 } else {
-                    return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).LookupName();
+                    return "(" + equips.size() + ") " + equips.get( 0 ).LookupName();
                 }
             } else {
-                return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).CritName();
+                return "(" + equips.size() + ") " + equips.get( 0 ).CritName();
             }
         }
     }

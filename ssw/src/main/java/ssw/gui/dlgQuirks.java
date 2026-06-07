@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import list.view.tbQuirks;
 
 public class dlgQuirks extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
     private DataFactory list;
     private ArrayList<Quirk> existingQuirks;
     private tbQuirks tblQ;
@@ -200,13 +201,13 @@ public class dlgQuirks extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
-        Quirk q = (Quirk)((tbQuirks) tblList.getModel()).get( tblList.convertRowIndexToModel( tblList.getSelectedRow() ));
+        Quirk q = ((tbQuirks) tblList.getModel()).get( tblList.convertRowIndexToModel( tblList.getSelectedRow() ));
         tblQ.quirklist.add(q);
         Refresh();
     }
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {
-        Quirk q = (Quirk)((tbQuirks) tblSelected.getModel()).get( tblSelected.convertRowIndexToModel( tblSelected.getSelectedRow() ));
+        Quirk q = ((tbQuirks) tblSelected.getModel()).get( tblSelected.convertRowIndexToModel( tblSelected.getSelectedRow() ));
         tblQ.quirklist.remove(q);
         Refresh();
     }

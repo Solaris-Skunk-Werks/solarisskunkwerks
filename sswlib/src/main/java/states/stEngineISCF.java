@@ -118,7 +118,7 @@ public class stEngineISCF implements ifEngine, ifState {
     }
 
     public double GetCost( int MechTonnage, int Rating ) {
-        return ( 10000.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
+        return ( 10000.0f * (MechTonnage) * (Rating )) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {

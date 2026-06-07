@@ -31,6 +31,7 @@ package ssw.gui;
 import ssw.constants.SSWConstants;
 
 public class dlgLicense extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     /** Creates new form dlgLicense */
     public dlgLicense(java.awt.Frame parent, boolean modal) {

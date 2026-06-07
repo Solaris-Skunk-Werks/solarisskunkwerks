@@ -42,6 +42,8 @@ import ssw.print.Printer;
  * @author Michael Mills
  */
 public class dlgPrintBatchMechs extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
+
     private class mechData{
         public String name;
         public Mech m;
@@ -89,7 +91,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
 
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstChoosenMechs = new javax.swing.JList();
+        lstChoosenMechs = new javax.swing.JList<>();
         btnRemoveMech = new javax.swing.JButton();
         btnPrintAll = new javax.swing.JButton();
         btnAddMech = new javax.swing.JButton();
@@ -221,7 +223,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPrintAllActionPerformed
 
     private void btnMechDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMechDetailsActionPerformed
-        mechData selected = (mechData) lstChoosenMechs.getSelectedValue();
+        mechData selected = lstChoosenMechs.getSelectedValue();
         if (selected == null){
             return;
         }
@@ -233,7 +235,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMechDetailsActionPerformed
 
     private void btnRemoveMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveMechActionPerformed
-        mechData selected = (mechData) lstChoosenMechs.getSelectedValue();
+        mechData selected = lstChoosenMechs.getSelectedValue();
         if (selected == null){
             return;
         }
@@ -247,7 +249,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
 
     private void lstChoosenMechsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstChoosenMechsMouseClicked
         if (evt.getClickCount() >= 2) {
-            parent.setMech( ((mechData) lstChoosenMechs.getSelectedValue()).m );
+            parent.setMech( lstChoosenMechs.getSelectedValue().m );
            this.setVisible(false);
         }
     }//GEN-LAST:event_lstChoosenMechsMouseClicked
@@ -340,7 +342,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
     private javax.swing.JButton btnRemoveMech;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList lstChoosenMechs;
+    private javax.swing.JList<mechData> lstChoosenMechs;
     // End of variables declaration//GEN-END:variables
 
 }

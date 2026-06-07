@@ -33,6 +33,8 @@ import javax.swing.SortOrder;
 import list.view.Column;
 
 public class tbChatInfo extends abTable {
+    private static final long serialVersionUID = 1L;
+
     public tbChatInfo() {
         Columns.add(new Column( 0, "Unit", "TypeModel", 100 ));
         Columns.add(new Column( 1, "Info", "ChatInfo", 400, false));
@@ -58,7 +60,7 @@ public class tbChatInfo extends abTable {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Unit u = (Unit) force.getUnits().get( rowIndex );
+        Unit u = force.getUnits().get( rowIndex );
         switch( columnIndex ) {
             case 0:
                 return u.TypeModel;

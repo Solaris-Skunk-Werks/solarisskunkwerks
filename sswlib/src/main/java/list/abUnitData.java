@@ -58,7 +58,7 @@ public abstract class abUnitData implements ifUnitData {
     boolean Omni = false;
     String basePath = "",
            filename = "";
-    public ArrayList Configurations = new ArrayList();
+    public ArrayList<UnitListData> Configurations = new ArrayList<>();
     public BattleForceStats bfstat = new BattleForceStats();
     private String[] indexFields = new String[]{"Name", "Model", "Level", "Era",
     "Tech", "Source", "Tonnage", "Year", "BV", "Cost", "Filename", "Type",

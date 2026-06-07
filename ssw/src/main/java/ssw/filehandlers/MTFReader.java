@@ -29,11 +29,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import components.Mech;
-import java.util.Hashtable;
 import visitors.VMechFullRecalc;
 
 public class MTFReader {
-    private Hashtable MMLookup = new Hashtable();
     public MTFReader() {
         BuildHash();
     }

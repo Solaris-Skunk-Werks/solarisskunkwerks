@@ -39,12 +39,11 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import common.CommonTools;
 import filehandlers.FileCommon;
-import filehandlers.FileCommon;
 
 public class HTMLWriter {
 
     private Mech CurMech;
-    private Hashtable lookup = new Hashtable<String, String>( 90 );
+    private Hashtable<String, String> lookup = new Hashtable<String, String>( 90 );
     private String NL = "<br />",
                    tformat = "";
 
@@ -69,9 +68,9 @@ public class HTMLWriter {
         boolean EOF = false;
         String read = "";
         String write = "";
-        ArrayList equip = new ArrayList();
-        ArrayList omni = new ArrayList();
-        ArrayList armor = new ArrayList();
+        ArrayList<String> equip = new ArrayList<String>();
+        ArrayList<String> omni = new ArrayList<String>();
+        ArrayList<String> armor = new ArrayList<String>();
 
         // we'll basically go through line by line and do our replacement,
         // writing as we go along.
@@ -167,7 +166,7 @@ public class HTMLWriter {
                         // yes, go ahead with the export
                         try {
                             for( int i = 0; i < armor.size(); i++ ) {
-                                FW.write( ProcessLine( (String) armor.get( i ) ) );
+                                FW.write( ProcessLine( armor.get( i ) ) );
                                 FW.newLine();
                             }
                         } catch( IOException e ) {
@@ -195,7 +194,7 @@ public class HTMLWriter {
                         // yes, go ahead with the export
                         try {
                             for( int i = 0; i < armor.size(); i++ ) {
-                                FW.write( ProcessLine( (String) armor.get( i ) ) );
+                                FW.write( ProcessLine( armor.get( i ) ) );
                                 FW.newLine();
                             }
                         } catch( IOException e ) {
@@ -259,7 +258,7 @@ public class HTMLWriter {
                     if( ! test.equals( "<+-SSW_REMOVE_IF_BLANK-+>" ) ) {
                         // add it to the line
                         if( RemoveIfBlank ) {
-                            getval = (String) lookup.get( test );
+                            getval = lookup.get( test );
                             if( getval != null ) {
                                 if( getval.equals( "" ) ) {
                                     // remove the whole line
@@ -299,7 +298,7 @@ public class HTMLWriter {
         }
     }
 
-    private String BuildEquipLines( ArrayList lines, abPlaceable[] equips, boolean fluff ) {
+    private String BuildEquipLines( ArrayList<String> lines, abPlaceable[] equips, boolean fluff ) {
         // this routine reads the mech's equipment and provides a completed
         // equipment block.  lines should contain the equipment line.
         String retval = "";
@@ -430,20 +429,20 @@ public class HTMLWriter {
         return retval;
     }
 
-    private String BuildOmniLines( ArrayList lines ) throws IOException {
+    private String BuildOmniLines( ArrayList<String> lines ) throws IOException {
         // this routine will build each omnimech loadout and add it to retval.
         String retval = "";
-        ArrayList loadouts = CurMech.GetLoadouts();
-        ArrayList EQLines = new ArrayList();
+        ArrayList<ifMechLoadout> loadouts = CurMech.GetLoadouts();
+        ArrayList<String> EQLines = new ArrayList<String>();
 
         for( int i = 0; i < loadouts.size(); i++ ) {
             // set the mech to the current loadout
-            CurMech.SetCurLoadout( ((ifMechLoadout) loadouts.get(i)).GetName() );
+            CurMech.SetCurLoadout( loadouts.get(i).GetName() );
             EQLines.clear();
 
             // now read each line in turn and fill in the blanks.
             for( int j = 0; j < lines.size(); j++ ) {
-                String test = (String) lines.get( j );
+                String test = lines.get( j );
                 // first, check and see if we have an equipment block
                 if( test.contains( "<+-SSW_START_EQUIPMENT_STAT_BLOCK-+>" ) ) {
                     // read until we get to the end of the equipment block
@@ -451,7 +450,7 @@ public class HTMLWriter {
                     int add = j + 1;
                     String read = "";
                     while( end == false ) {
-                        read = (String) lines.get( add );
+                        read = lines.get( add );
                         // see if someone forgot to end the fluff line
                         if( read == null ) { throw new IOException( "Unexpected EOF: No End Equipment tag in Omnimech block."); }
                         // check for the end, then add the line
@@ -503,7 +502,7 @@ public class HTMLWriter {
                     if( ! test.equals( "<+-SSW_REMOVE_IF_BLANK-+>" ) ) {
                         // add it to the line
                         if( RemoveIfBlank ) {
-                            getval = (String) GetOmniValue( test );
+                            getval = GetOmniValue( test );
                             if( getval != null ) {
                                 if( getval.equals( "" ) ) {
                                     // remove the whole line
@@ -673,7 +672,7 @@ public class HTMLWriter {
         }
     }
 
-    private String ProcessEquipFluffLines( abPlaceable a, int num, ArrayList lines ) {
+    private String ProcessEquipFluffLines( abPlaceable a, int num, ArrayList<String> lines ) {
         String retval = "";
         String test = "";
         String plural = "";
@@ -682,7 +681,7 @@ public class HTMLWriter {
         }
 
         for( int i = 0; i < lines.size(); i++ ) {
-            test = (String) lines.get(i);
+            test = lines.get(i);
             if( test.contains( "<+-SSW_" ) ) {
                 // we have a tag, or maybe more.  replace it with the correct information
                 String[] s = test.split( "<\\+-SSW_" );
@@ -821,12 +820,12 @@ public class HTMLWriter {
         return retval;
     }
 
-    private String ProcessEquipStatLines( abPlaceable a, ArrayList lines, int numthisloc ) {
+    private String ProcessEquipStatLines( abPlaceable a, ArrayList<String> lines, int numthisloc ) {
         String retval = "";
         String test = "";
 
         for( int i = 0; i < lines.size(); i++ ) {
-            test = (String) lines.get(i);
+            test = lines.get(i);
             if( test.contains( "<+-SSW_" ) ) {
                 // we have a tag, or maybe more.  replace it with the correct information
                 String[] s = test.split( "<\\+-SSW_" );
@@ -1149,10 +1148,10 @@ public class HTMLWriter {
 
     private abPlaceable[] GetEquips( boolean fluff ) {
         // returns an array of placeables that can be used to build equipment blocks
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
-        ArrayList ret = new ArrayList();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> ret = new ArrayList<abPlaceable>();
         if( fluff ) {
-            ArrayList EQ = new ArrayList();
+            ArrayList<abPlaceable> EQ = new ArrayList<abPlaceable>();
 
             // get the weapons for sort first.
             for( int i = 0; i < v.size(); i++ ) {
@@ -1167,7 +1166,7 @@ public class HTMLWriter {
             Object[] o = CurMech.SortWeapons( ret, false );
             ret.clear();
             for( int i = 0; i < o.length; i++ ) {
-                ret.add( o[i] );
+                ret.add( (abPlaceable) o[i] );
             }
 
             // now add any extra equipment to the end of the list.
@@ -1178,7 +1177,7 @@ public class HTMLWriter {
             }
         } else {
             // return all equipment in the loadout
-            ret = (ArrayList) v.clone();
+            ret = ToPlaceableList( v );
 
             // add in certain items, such as the targeting computer and MASC
             if( CurMech.GetPhysEnhance().IsMASC() ) {
@@ -1229,13 +1228,13 @@ public class HTMLWriter {
             }
 
             // sort the weapons by location
-            ret = FileCommon.SortEquipmentForStats( CurMech, ret );
+            ret = ToPlaceableList( FileCommon.SortEquipmentForStats( CurMech, ret ) );
 
             // check for artemis and MG arrays
             for( int i = 0; i < ret.size(); i++ ) {
                 if( ret.get( i ) instanceof RangedWeapon ) {
                     if( ((RangedWeapon) ret.get( i )).IsUsingFCS() ) {
-                        ret.add( i + 1, ((RangedWeapon) ret.get( i )).GetFCS() );
+                        ret.add( i + 1, (abPlaceable) ((RangedWeapon) ret.get( i )).GetFCS() );
                     }
                     if( ((RangedWeapon) ret.get( i )).IsUsingCapacitor() ) {
                         ret.add( i + 1, ((RangedWeapon) ret.get( i )).GetCapacitor() );
@@ -1282,7 +1281,15 @@ public class HTMLWriter {
         // turn the return ArrayList into an array
         abPlaceable[] retval = new abPlaceable[ret.size()];
         for( int i = 0; i < ret.size(); i++ ) {
-            retval[i] = (abPlaceable) ret.get( i );
+            retval[i] = ret.get( i );
+        }
+        return retval;
+    }
+
+    private ArrayList<abPlaceable> ToPlaceableList( ArrayList<abPlaceable> source ) {
+        ArrayList<abPlaceable> retval = new ArrayList<abPlaceable>();
+        for( int i = 0; i < source.size(); i++ ) {
+            retval.add( source.get( i ) );
         }
         return retval;
     }
@@ -1615,7 +1622,7 @@ public class HTMLWriter {
                  
         int extraDHS = 0;
         boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
-        ArrayList equipment = CurMech.GetLoadout().GetEquipment();
+        ArrayList<abPlaceable> equipment = CurMech.GetLoadout().GetEquipment();
         
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){

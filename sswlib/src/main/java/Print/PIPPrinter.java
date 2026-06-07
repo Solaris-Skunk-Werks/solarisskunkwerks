@@ -217,7 +217,7 @@ public class PIPPrinter {
 
         graphics.setStroke(new BasicStroke(.75f));
         for ( int key : Armor.keySet() ) {
-            PIPSettings settings = (PIPSettings) Armor.get(key);
+            PIPSettings settings = Armor.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
                 renderImage(settings);
             } else {
@@ -228,7 +228,7 @@ public class PIPPrinter {
             }
         }
         for ( int key : Internal.keySet() ) {
-            PIPSettings settings = (PIPSettings) Internal.get(key);
+            PIPSettings settings = Internal.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
                 renderImage(settings);
             } else {
@@ -252,7 +252,7 @@ public class PIPPrinter {
         if ( graphics == null ) { return; }
 
         for ( int key : Armor.keySet() ) {
-            PIPSettings settings = (PIPSettings) Armor.get(key);
+            PIPSettings settings = Armor.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
                 renderImage(settings);
             } else {
@@ -274,7 +274,7 @@ public class PIPPrinter {
             }
         }
         for ( int key : Internal.keySet() ) {
-            PIPSettings settings = (PIPSettings) Internal.get(key);
+            PIPSettings settings = Internal.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
                 renderImage(settings);
             } else {
